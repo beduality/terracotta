@@ -13,6 +13,7 @@ The codebase is organized as a multi-project Gradle build under the `modules/` d
 - **[terracotta-core](file:///home/luis/GitHub/beduality/terracotta/modules/terracotta-core)**: Pure domain library containing the canonical models, provider interfaces, and semantic diff engine. Published to Maven Central (`io.github.beduality:terracotta-core`).
 - **[terracotta-provider-modrinth](file:///home/luis/GitHub/beduality/terracotta/modules/terracotta-provider-modrinth)**: Modrinth state and registry providers implementation using OkHttp and Jackson.
 - **[terracotta-cli](file:///home/luis/GitHub/beduality/terracotta/modules/terracotta-cli)**: Command line frontend using Picocli, compiled to native binaries using GraalVM.
+- **[terracotta-github](file:///home/luis/GitHub/beduality/terracotta/modules/terracotta-github)**: Pulumi infrastructure project in Kotlin using Java SDK to manage GitHub repository settings and Action secrets.
 
 ---
 

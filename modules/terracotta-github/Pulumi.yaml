@@ -1,0 +1,3 @@
+name: terracotta-github
+runtime: java
+description: A Pulumi program in Kotlin to manage the Terracotta GitHub Repository.

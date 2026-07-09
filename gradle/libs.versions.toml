@@ -10,6 +10,9 @@ logback = "1.5.6"
 slf4j = "2.0.13"
 junit = "5.10.2"
 graalvm = "0.10.2"
+pulumi = "1.30.0"
+pulumi-github = "6.14.0"
+
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -39,3 +42,6 @@ logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2" }
+pulumi = { group = "com.pulumi", name = "pulumi", version.ref = "pulumi" }
+pulumi-github = { group = "com.pulumi", name = "github", version.ref = "pulumi-github" }
+

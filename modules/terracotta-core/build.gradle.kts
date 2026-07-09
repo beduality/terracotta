@@ -91,4 +91,3 @@ signing {
         sign(publishing.publications["mavenJava"])
     }
 }
-

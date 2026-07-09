@@ -14,6 +14,8 @@ This project is structured as a **Multi-Module Gradle project** under the `modul
    - Depends on Jackson (JSON/YAML) and OkHttp.
 3. **CLI Wrapper (`terracotta-cli`)**:
    - Handles the Picocli configuration and standard log outputs.
+4. **Infrastructure Management (`terracotta-github`)**:
+   - Manages the GitHub repository configuration, metadata, and repository secrets using Pulumi Java/Kotlin.
 
 ---
 
