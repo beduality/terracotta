@@ -15,7 +15,7 @@ tags:
 
 versions:
   - version: "1.0.0"
-    artifact: "tests/smoke/build/my-plugin-1.0.0.jar"
+    artifact: "../build/my-plugin-1.0.0.jar"
 
     gameVersions:
       - "1.20"
