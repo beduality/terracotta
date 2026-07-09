@@ -1,5 +1,6 @@
 # TODO
 
+- Save state
 - Add overrides config option, so we can change config based on provider (very useful for different ids)
 - [cli] Add `destroy` command
 - Add YAML schema for IDEs
