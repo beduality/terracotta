@@ -17,3 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Why**: Provides developers with an ergonomic command-line interface to safely preview, get help on, and apply declarative updates.
 - **[Modrinth]**: Modrinth state and registry integration using Ktor Client and Kotlinx Serialization.
   - **Why**: Bootstraps the first concrete provider to sync project settings, metadata, and artifacts directly with Modrinth.
+- **[CLI]**: Native binaries for Linux, macOS, and Windows available via GitHub Releases.
+  - **Why**: Provides pre-built executables for easy installation across platforms.
+- **[SDK]**: Core SDK and Modrinth provider available via Maven Central.
+  - **Why**: Enables developers to use Terracotta as a library in their projects.

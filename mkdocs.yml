@@ -81,6 +81,8 @@ extra:
 nav:
   - Quick Start:
     - Introduction: index.md
+    - CLI Installation: content/tutorials/sdk_installation.md
+    - SDK Installation: content/tutorials/sdk_installation.md
     - Getting Started: content/tutorials/getting-started.md
   - How-To Guides:
     - CI/CD Deployment: content/how-to-guides/ci-cd-setup.md

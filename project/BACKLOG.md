@@ -5,3 +5,5 @@
 - Refactor `guidelines` to Agent Skills
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
+
+- Publish on SDKMAN! and other package managers

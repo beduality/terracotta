@@ -3,6 +3,7 @@
 - Improve project/, move to its own branch and worktree it; update CONTRIBUING.md; inform contributors should first open PR to this branch to get a task to work and avoid rework; contribuing starts here (you can help manage project by writing PRs!)
 - Dry-run release
 - Update README with installation; improve it in general
+- Publish to SDKMAN! and update docs and README
 
 - [cli] Add `destroy` command
 - Add YAML schema for IDEs

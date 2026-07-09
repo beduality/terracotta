@@ -91,7 +91,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Publish to Maven Central
-        run: ./gradlew :terracotta-core:publishAllPublicationsToOSSRHRepository --no-daemon
+        run: ./gradlew publishAllPublicationsToSonatypeRepository closeAndReleaseSonatypeStagingRepository --no-daemon
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

@@ -57,8 +57,6 @@ To propose a change:
 2. Open a Pull Request with just the proposal file — no implementation yet.
 3. Iterate on the proposal based on review feedback until it is accepted or rejected.
 
----
-
 ## Architectural Guidelines
 
 This project is structured as a **Multi-Module Gradle project** under the `modules/` directory to separate platform-agnostic business logic from specific registry providers and CLI frontends:
@@ -73,8 +71,6 @@ This project is structured as a **Multi-Module Gradle project** under the `modul
    - Handles the Picocli configuration and standard log outputs.
 4. **Infrastructure Management (`terracotta-github`)**:
    - Manages the GitHub repository configuration, metadata, and repository secrets using Pulumi Java/Kotlin.
-
----
 
 ## Development Workflow
 
@@ -169,8 +165,6 @@ MODRINTH_TOKEN=<your-token> JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew :te
 The suite will be skipped automatically (not failed) if the CLI binary is not found, so a missing `installDist` step produces a skip rather than a misleading failure.
 
 > Run smoke tests before submitting a PR that touches provider logic, CLI commands, or anything that affects the Modrinth API integration.
-
----
 
 ## Documentation
 
@@ -282,3 +276,34 @@ To see all available options and commands (including rollback):
 ```bash
 uv run scripts/release.py --help
 ```
+
+### Distribution & Publishing
+
+Once the release script creates and pushes the version tag, the `.github/workflows/release.yml` workflow automatically triggers and handles distribution:
+
+#### CLI Binaries (GitHub Releases)
+
+- Native binaries are built using GraalVM for:
+  - Linux (x86_64): `terracotta-linux-amd64`
+  - macOS (universal): `terracotta-macos-universal`
+  - Windows (x86_64): `terracotta-windows-amd64.exe`
+- Binaries are uploaded as artifacts to the GitHub Release page
+- Users download these directly from the [Releases](https://github.com/beduality/terracotta/releases) page
+
+#### Maven Central Publishing
+
+The following modules are published to Maven Central with GPG signing:
+
+- **terracotta-core**: `io.github.beduality:terracotta-core`
+- **terracotta-provider-modrinth**: `io.github.beduality:terracotta-provider-modrinth`
+
+The workflow uses the [Nexus Publish Plugin](https://github.com/gradle-nexus/publish-plugin) to automatically close and release the staging repository to Maven Central.
+
+The workflow uses the following secrets (configured in GitHub repository settings):
+
+- `OSSRH_USERNAME`: Sonatype OSSRH username
+- `OSSRH_PASSWORD`: Sonatype OSSRH password/token
+- `SIGNING_KEY`: GPG private key (ASCII-armored)
+- `SIGNING_PASSWORD`: GPG key passphrase
+
+The entire Maven Central publishing process is automated — no manual intervention is required.

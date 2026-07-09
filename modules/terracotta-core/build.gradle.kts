@@ -41,9 +41,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            groupId = "io.github.beduality"
             artifactId = "terracotta-core"
-            version = project.version.toString()
 
             pom {
                 name.set("Terracotta Core")
@@ -66,18 +64,6 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/beduality/terracotta.git")
                     url.set("https://github.com/beduality/terracotta")
                 }
-            }
-        }
-    }
-    repositories {
-        maven {
-            name = "OSSRH"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-            credentials {
-                username = project.findProperty("ossrhUsername")?.toString() ?: System.getenv("OSSRH_USERNAME")
-                password = project.findProperty("ossrhPassword")?.toString() ?: System.getenv("OSSRH_PASSWORD")
             }
         }
     }
