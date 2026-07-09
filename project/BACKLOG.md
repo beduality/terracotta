@@ -12,4 +12,4 @@
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
 
-- Publish on SDKMAN! and other package managers; update docs and README
+- Publish relevant package managers to our target users (Minecraft modders); update docs and README

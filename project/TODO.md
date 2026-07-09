@@ -11,6 +11,7 @@
 - Abstract state source
 - Save state
 - Add `overrides` config option, so we can change config based on provider (very useful for different ids)
+- Add gradle plugin
 - [gha] Add GHA integration
 
 - Add support for:
