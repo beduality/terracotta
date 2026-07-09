@@ -1,6 +1,6 @@
 # Terracotta
 
-Terracotta is a declarative project registry management tool for Minecraft developers. It manages Modrinth (and in the future Hangar/CurseForge) project metadata, description, tags, and versions using a simple YAML configuration file as the single source of truth.
+Terracotta is a declarative project registry management tool for Minecraft developers. It manages registry providers like Modrinth project metadata, description, tags, and versions using a simple YAML configuration file as the single source of truth.
 
 ---
 

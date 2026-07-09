@@ -81,17 +81,28 @@ extra:
 nav:
   - Quick Start:
     - Introduction: index.md
-    - CLI Installation: content/tutorials/sdk_installation.md
-    - SDK Installation: content/tutorials/sdk_installation.md
-    - Getting Started: content/tutorials/getting-started.md
-  - How-To Guides:
-    - CI/CD Deployment: content/how-to-guides/ci-cd-setup.md
-    - Custom Providers: content/how-to-guides/custom-provider.md
-  - Tutorials:
-    - Getting Started: content/tutorials/getting-started.md
-  - Reference:
-    - Configuration Specification: content/reference/config-spec.md
-    - CLI Reference: content/reference/cli.md
-    - API Reference: content/reference/api.md
-  - Explanation:
-    - Architecture Overview: content/explanation/architecture.md
+    - Getting Started: content/cli/tutorials/getting-started.md
+  - CLI:
+    - Tutorials:
+      - Installation: content/cli/tutorials/installation.md
+      - Getting Started: content/cli/tutorials/getting-started.md
+    - How-To Guides:
+      - CI/CD Deployment: content/cli/how-to-guides/ci-cd-setup.md
+    - Reference:
+      - CLI Reference: content/cli/reference/cli.md
+  - SDK:
+    - Tutorials:
+      - Installation: content/sdk/tutorials/installation.md
+    - How-To Guides:
+      - Custom Providers: content/sdk/how-to-guides/custom-provider.md
+      - Modrinth Provider: content/sdk/how-to-guides/modrinth-provider.md
+    - Reference:
+      - API Reference: content/sdk/reference/api.md
+    - Explanation:
+      - Architecture Overview: content/sdk/explanation/architecture.md
+  - Config:
+    - Reference:
+      - Config Reference: content/config/reference/config.md
+  - Repo:
+    - Reference:
+      - File Structure Reference: content/repo/reference/file-structure.md
