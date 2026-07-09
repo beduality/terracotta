@@ -18,7 +18,8 @@ fun main(args: Array<String>) {
                 "terracotta",
                 RepositoryArgs.builder()
                     .name("terracotta")
-                    .description("Declarative Minecraft project registry management tool written in Kotlin.")
+                    .description("Declarative Minecraft project registry management tool written.")
+                    .homepageUrl("https://beduality.github.io/terracotta/")
                     .topics(
                         "minecraft",
                         "modrinth",
