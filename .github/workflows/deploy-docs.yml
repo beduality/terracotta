@@ -74,6 +74,7 @@ jobs:
             uv run mike set-default --push latest
           else
             uv run mike deploy --push -t "Unreleased" unreleased
+            uv run mike set-default --push unreleased
           fi
 
       - name: Checkout gh-pages for upload
