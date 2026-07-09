@@ -5,6 +5,8 @@ import com.pulumi.github.ActionsSecret
 import com.pulumi.github.ActionsSecretArgs
 import com.pulumi.github.Repository
 import com.pulumi.github.RepositoryArgs
+import com.pulumi.github.RepositoryPages
+import com.pulumi.github.RepositoryPagesArgs
 
 fun main(args: Array<String>) {
     Pulumi.run { ctx ->
@@ -34,6 +36,15 @@ fun main(args: Array<String>) {
                     .build(),
                 null,
             )
+
+        RepositoryPages(
+            "terracotta-pages",
+            RepositoryPagesArgs.builder()
+                .repository(repository.name())
+                .buildType("workflow")
+                .build(),
+            null,
+        )
 
         // Define GitHub Actions secrets if they are set in the configuration
         val secrets =
