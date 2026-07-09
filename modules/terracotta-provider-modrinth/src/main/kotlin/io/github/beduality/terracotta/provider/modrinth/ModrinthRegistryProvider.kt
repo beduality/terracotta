@@ -5,30 +5,33 @@ import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
 class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryProvider {
-    override fun apply(
+    override suspend fun apply(
         projectId: String,
         operations: List<Operation>,
     ) {
+        // May be updated to the real base62 ID after project creation
+        var resolvedProjectId = projectId
+
         operations.forEach { op ->
             when (op) {
                 is Operation.UpdateMetadata -> {
                     val patches = mutableMapOf<String, Any>()
                     if (op.nameChanged) patches["title"] = op.newName
-                    if (op.summaryChanged) patches["summary"] = op.newSummary
+                    if (op.summaryChanged) patches["description"] = op.newSummary
                     if (op.licenseChanged) patches["license_id"] = op.newLicense
-                    client.patchProject(projectId, patches)
+                    client.patchProject(resolvedProjectId, patches)
                 }
                 is Operation.UpdateDescription -> {
-                    client.patchProject(projectId, mapOf("body" to op.newDescription))
+                    client.patchProject(resolvedProjectId, mapOf("body" to op.newDescription))
                 }
                 is Operation.UpdateTags -> {
-                    client.patchProject(projectId, mapOf("categories" to op.newTags))
+                    client.patchProject(resolvedProjectId, mapOf("categories" to op.newTags))
                 }
                 is Operation.UploadVersion -> {
-                    client.createVersion(projectId, op.version)
+                    client.createVersion(resolvedProjectId, op.version)
                 }
                 is Operation.CreateProject -> {
-                    client.createProject(op.project)
+                    resolvedProjectId = client.createProject(op.project)
                 }
             }
         }

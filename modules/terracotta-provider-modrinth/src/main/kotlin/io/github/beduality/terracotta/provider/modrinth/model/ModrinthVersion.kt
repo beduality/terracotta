@@ -1,12 +1,12 @@
 package io.github.beduality.terracotta.provider.modrinth.model
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Serializable
 data class ModrinthVersion(
-    @JsonProperty("version_number") val versionNumber: String,
-    @JsonProperty("game_versions") val gameVersions: List<String>,
+    @SerialName("version_number") val versionNumber: String,
+    @SerialName("game_versions") val gameVersions: List<String>,
     val loaders: List<String> = emptyList(),
     val files: List<ModrinthVersionFile>,
 )

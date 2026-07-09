@@ -1,0 +1,26 @@
+# Configuration used by the Terracotta CLI smoke tests.
+#
+# The referenced artifact is generated automatically by pytest.
+
+project:
+  id: "terracotta-smoke-test-draft-xyz"
+  name: "Terracotta Smoke Test Project"
+  summary: "A project used for Terracotta CLI smoke testing."
+
+description: "README.md"
+license: "MIT"
+
+tags:
+  - "utility"
+
+versions:
+  - version: "1.0.0"
+    artifact: "tests/smoke/build/my-plugin-1.0.0.jar"
+
+    gameVersions:
+      - "1.20"
+
+    loaders:
+      - "paper"
+
+    environment: "server_only"

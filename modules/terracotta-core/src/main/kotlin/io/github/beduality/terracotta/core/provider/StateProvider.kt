@@ -7,5 +7,5 @@ interface StateProvider {
      * Fetches the current remote state of a project.
      * Returns null if the project does not exist yet.
      */
-    fun fetchProject(projectId: String): TerracottaProject?
+    suspend fun fetchProject(projectId: String): TerracottaProject?
 }

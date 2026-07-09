@@ -6,7 +6,7 @@ import io.github.beduality.terracotta.core.provider.StateProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
 class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider {
-    override fun fetchProject(projectId: String): TerracottaProject? {
+    override suspend fun fetchProject(projectId: String): TerracottaProject? {
         val project = client.getProject(projectId) ?: return null
         val versions =
             client.getVersions(projectId).map {

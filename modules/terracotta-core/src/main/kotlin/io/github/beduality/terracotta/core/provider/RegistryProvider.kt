@@ -6,7 +6,7 @@ interface RegistryProvider {
     /**
      * Applies the given operations to the remote registry.
      */
-    fun apply(
+    suspend fun apply(
         projectId: String,
         operations: List<Operation>,
     )

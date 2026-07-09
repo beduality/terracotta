@@ -19,6 +19,7 @@ data class YamlVersion(
     val artifact: String = "",
     val gameVersions: List<String> = emptyList(),
     val loaders: List<String> = emptyList(),
+    val environment: String = "server_only",
 )
 
 data class TerracottaConfig(
@@ -59,6 +60,7 @@ fun parseConfig(file: File): TerracottaProject {
                     artifactPath = absoluteArtifactPath,
                     gameVersions = it.gameVersions,
                     loaders = it.loaders,
+                    environment = it.environment,
                 )
             },
         tags = config.tags,

@@ -1,13 +1,13 @@
 package io.github.beduality.terracotta.provider.modrinth.model
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import kotlinx.serialization.Serializable
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Serializable
 data class ModrinthProject(
     val id: String,
     val slug: String,
     val title: String,
-    val summary: String,
+    @kotlinx.serialization.SerialName("description") val summary: String,
     val body: String,
     val categories: List<String>,
     val license: ModrinthLicense,

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 class DiffEngineTest {
     @Test
-    fun `test diff with no remote state should create everything`() {
+    fun `test diff with no remote state should create project then upload all versions`() {
         val local =
             TerracottaProject(
                 id = "my-plugin",
@@ -18,6 +18,7 @@ class DiffEngineTest {
                 versions =
                     listOf(
                         TerracottaVersion("1.0.0", "path/to/jar", listOf("1.20")),
+                        TerracottaVersion("1.1.0", "path/to/jar-2", listOf("1.20.1")),
                     ),
                 tags = listOf("utility"),
                 license = "MIT",
@@ -25,9 +26,31 @@ class DiffEngineTest {
 
         val ops = DiffEngine.diff(local, null)
 
-        assertEquals(2, ops.size)
+        assertEquals(3, ops.size)
         assertTrue(ops[0] is Operation.CreateProject)
         assertTrue(ops[1] is Operation.UploadVersion)
+        assertEquals("1.0.0", (ops[1] as Operation.UploadVersion).version.version)
+        assertTrue(ops[2] is Operation.UploadVersion)
+        assertEquals("1.1.0", (ops[2] as Operation.UploadVersion).version.version)
+    }
+
+    @Test
+    fun `test diff with no remote state and no versions should only create project`() {
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "My Plugin",
+                summary = "A summary",
+                description = "Some description",
+                versions = emptyList(),
+                tags = listOf("utility"),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, null)
+
+        assertEquals(1, ops.size)
+        assertTrue(ops[0] is Operation.CreateProject)
     }
 
     @Test

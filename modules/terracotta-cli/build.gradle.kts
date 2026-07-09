@@ -9,6 +9,7 @@ dependencies {
     implementation(project(":terracotta-core"))
     implementation(project(":terracotta-provider-modrinth"))
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.picocli)
     annotationProcessor(libs.picocli.codegen)
     implementation(libs.logback.classic)
@@ -34,7 +35,7 @@ graalvmNative {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -47,7 +48,7 @@ spotless {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         freeCompilerArgs.add("-Xjsr305=strict")
     }
 }

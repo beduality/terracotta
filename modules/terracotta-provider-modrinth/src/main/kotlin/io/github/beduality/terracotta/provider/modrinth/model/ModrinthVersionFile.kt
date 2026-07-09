@@ -1,8 +1,8 @@
 package io.github.beduality.terracotta.provider.modrinth.model
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import kotlinx.serialization.Serializable
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Serializable
 data class ModrinthVersionFile(
     val url: String,
     val filename: String,

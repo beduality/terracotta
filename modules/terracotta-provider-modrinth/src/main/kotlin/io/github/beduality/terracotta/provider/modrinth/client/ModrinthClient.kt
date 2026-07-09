@@ -1,17 +1,32 @@
 package io.github.beduality.terracotta.provider.modrinth.client
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthVersion
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.java.Java
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.patch
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
@@ -20,74 +35,68 @@ class ModrinthClient(
     private val token: String?,
     private val baseUrl: String = "https://api.modrinth.com/v2",
 ) {
-    private val client = OkHttpClient()
-    private val mapper: ObjectMapper = jacksonObjectMapper()
+    private val json =
+        Json {
+            ignoreUnknownKeys = true
+            encodeDefaults = false
+        }
+
+    private val client =
+        HttpClient(Java) {
+            install(ContentNegotiation) {
+                json(json)
+            }
+        }
+
     private val logger = LoggerFactory.getLogger(ModrinthClient::class.java)
 
-    private fun Request.Builder.auth(): Request.Builder {
-        if (!token.isNullOrBlank()) {
-            return this.header("Authorization", token)
-        }
-        return this
-    }
-
-    fun getProject(projectIdOrSlug: String): ModrinthProject? {
-        val request =
-            Request.Builder()
-                .url("$baseUrl/project/$projectIdOrSlug")
-                .auth()
-                .get()
-                .build()
-
-        client.newCall(request).execute().use { response ->
-            if (response.code == 404) return null
-            if (!response.isSuccessful) {
-                throw IOException("Failed to fetch project: ${response.code} ${response.message}")
+    suspend fun getProject(projectIdOrSlug: String): ModrinthProject? {
+        val response =
+            client.get("$baseUrl/project/$projectIdOrSlug") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
             }
-            val body = response.body?.string() ?: throw IOException("Empty response body")
-            return mapper.readValue(body)
+        return when (response.status.value) {
+            404 -> null
+            !in 200..299 -> throw IOException("Failed to fetch project: ${response.status.value} ${response.bodyAsText()}")
+            else -> response.body()
         }
     }
 
-    fun getVersions(projectIdOrSlug: String): List<ModrinthVersion> {
-        val request =
-            Request.Builder()
-                .url("$baseUrl/project/$projectIdOrSlug/version")
-                .auth()
-                .get()
-                .build()
-
-        client.newCall(request).execute().use { response ->
-            if (response.code == 404) return emptyList()
-            if (!response.isSuccessful) {
-                throw IOException("Failed to fetch versions: ${response.code} ${response.message}")
+    suspend fun getVersions(projectIdOrSlug: String): List<ModrinthVersion> {
+        val response =
+            client.get("$baseUrl/project/$projectIdOrSlug/version") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
             }
-            val body = response.body?.string() ?: throw IOException("Empty response body")
-            return mapper.readValue(body)
+        return when (response.status.value) {
+            404 -> emptyList()
+            !in 200..299 -> throw IOException("Failed to fetch versions: ${response.status.value} ${response.bodyAsText()}")
+            else -> response.body()
         }
     }
 
-    fun patchProject(
+    suspend fun patchProject(
         projectIdOrSlug: String,
         patchData: Map<String, Any>,
     ) {
-        val json = mapper.writeValueAsString(patchData)
-        val request =
-            Request.Builder()
-                .url("$baseUrl/project/$projectIdOrSlug")
-                .auth()
-                .patch(json.toRequestBody("application/json".toMediaType()))
-                .build()
-
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                throw IOException("Failed to patch project: ${response.code} ${response.body?.string()}")
+        val response =
+            client.patch("$baseUrl/project/$projectIdOrSlug") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                contentType(ContentType.Application.Json)
+                setBody(patchData)
             }
-            logger.info("Successfully updated project metadata on Modrinth.")
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to patch project: ${response.status.value} ${response.bodyAsText()}")
         }
+        logger.info("Successfully updated project metadata on Modrinth.")
     }
 
-    fun createVersion(
+    suspend fun createVersion(
         projectId: String,
         version: TerracottaVersion,
     ) {
@@ -96,78 +105,82 @@ class ModrinthClient(
             throw IOException("Artifact file not found: ${version.artifactPath}")
         }
 
-        // Prepare "data" body part
-        val dataPart =
-            mapOf(
-                "name" to "Version ${version.version}",
-                "version_number" to version.version,
-                "game_versions" to version.gameVersions,
-                "loaders" to version.loaders,
-                "project_id" to projectId,
-                "file_parts" to listOf("file_0"),
-                "changelog" to "Uploaded via Terracotta declarative deployment.",
-            )
-        val dataJson = mapper.writeValueAsString(dataPart)
-
-        val requestBody =
-            MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("data", dataJson)
-                .addFormDataPart(
-                    "file_0",
-                    artifactFile.name,
-                    artifactFile.asRequestBody("application/java-archive".toMediaType()),
-                )
-                .build()
-
-        val request =
-            Request.Builder()
-                .url("$baseUrl/version")
-                .auth()
-                .post(requestBody)
-                .build()
-
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                throw IOException("Failed to upload version: ${response.code} ${response.body?.string()}")
+        val dataPart: JsonObject =
+            buildJsonObject {
+                put("name", "Version ${version.version}")
+                put("version_number", version.version)
+                put("game_versions", buildJsonArray { version.gameVersions.forEach { add(it) } })
+                put("loaders", buildJsonArray { version.loaders.forEach { add(it) } })
+                put("project_id", projectId)
+                put("file_parts", buildJsonArray { add("file_0") })
+                put("changelog", "Uploaded via Terracotta declarative deployment.")
+                put("dependencies", JsonArray(emptyList()))
+                put("version_type", "release")
+                put("featured", false)
             }
-            logger.info("Successfully uploaded version ${version.version} to Modrinth.")
+
+        val response =
+            client.post("$baseUrl/version") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                setBody(
+                    MultiPartFormDataContent(
+                        formData {
+                            append("data", json.encodeToString(JsonObject.serializer(), dataPart))
+                            append(
+                                "file_0",
+                                artifactFile.readBytes(),
+                                Headers.build {
+                                    append(HttpHeaders.ContentDisposition, "filename=\"${artifactFile.name}\"")
+                                    append(HttpHeaders.ContentType, "application/java-archive")
+                                },
+                            )
+                        },
+                    ),
+                )
+            }
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to upload version: ${response.status.value} ${response.bodyAsText()}")
         }
+        logger.info("Successfully uploaded version ${version.version} to Modrinth.")
     }
 
-    fun createProject(project: io.github.beduality.terracotta.core.model.TerracottaProject) {
-        val dataPart =
-            mapOf(
-                "slug" to project.id,
-                "title" to project.name,
-                "description" to project.summary,
-                "body" to project.description,
-                "categories" to project.tags,
-                "client_side" to "optional",
-                "server_side" to "required",
-                "project_type" to "mod",
-                "license_id" to project.license.lowercase(),
-            )
-        val dataJson = mapper.writeValueAsString(dataPart)
-
-        val requestBody =
-            MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("data", dataJson)
-                .build()
-
-        val request =
-            Request.Builder()
-                .url("$baseUrl/project")
-                .auth()
-                .post(requestBody)
-                .build()
-
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                throw IOException("Failed to create project: ${response.code} ${response.body?.string()}")
+    suspend fun createProject(project: io.github.beduality.terracotta.core.model.TerracottaProject): String {
+        val dataPart: JsonObject =
+            buildJsonObject {
+                put("slug", project.id)
+                put("title", project.name)
+                put("description", project.summary)
+                put("body", project.description)
+                put("categories", buildJsonArray { project.tags.forEach { add(it) } })
+                put("client_side", "optional")
+                put("server_side", "required")
+                put("project_type", "mod")
+                put("license_id", project.license)
+                put("is_draft", true)
+                // initial_versions is deprecated but the API still requires the field to be present
+                put("initial_versions", JsonArray(emptyList()))
             }
-            logger.info("Successfully created project ${project.name} on Modrinth.")
+
+        val response =
+            client.post("$baseUrl/project") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                setBody(
+                    MultiPartFormDataContent(
+                        formData {
+                            append("data", json.encodeToString(JsonObject.serializer(), dataPart))
+                        },
+                    ),
+                )
+            }
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to create project: ${response.status.value} ${response.bodyAsText()}")
         }
+        val createdProject: ModrinthProject = response.body()
+        logger.info("Successfully created project ${project.name} on Modrinth with ID ${createdProject.id}.")
+        return createdProject.id
     }
 }

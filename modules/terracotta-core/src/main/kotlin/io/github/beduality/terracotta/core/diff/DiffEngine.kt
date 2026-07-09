@@ -14,7 +14,8 @@ object DiffEngine {
         val operations = mutableListOf<Operation>()
 
         if (remote == null) {
-            // If the project doesn't exist remotely, we create it first
+            // If the project doesn't exist remotely, create it as a draft first,
+            // then upload all versions separately (initial_versions is deprecated on the Modrinth API).
             operations.add(Operation.CreateProject(local))
             local.versions.forEach { version ->
                 operations.add(Operation.UploadVersion(version))

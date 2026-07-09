@@ -5,4 +5,5 @@ data class TerracottaVersion(
     val artifactPath: String,
     val gameVersions: List<String>,
     val loaders: List<String> = emptyList(),
+    val environment: String = "server_only",
 )
