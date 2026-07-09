@@ -9,72 +9,6 @@ permissions:
   contents: write
 
 jobs:
-  build-native:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            artifact-name: terracotta-linux-amd64
-            binary-path: terracotta-cli/build/native/nativeCompile/terracotta
-          - os: macos-latest
-            artifact-name: terracotta-macos-universal
-            binary-path: terracotta-cli/build/native/nativeCompile/terracotta
-          - os: windows-latest
-            artifact-name: terracotta-windows-amd64.exe
-            binary-path: terracotta-cli/build/native/nativeCompile/terracotta.exe
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up GraalVM
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'graalvm'
-          java-version: '21'
-          cache: 'gradle'
-
-      - name: Make Gradle Wrapper executable
-        if: matrix.os != 'windows-latest'
-        run: chmod +x gradlew
-
-      - name: Build Native Binary
-        run: ./gradlew :terracotta-cli:nativeCompile --no-daemon
-
-      - name: Rename Binary
-        shell: bash
-        run: |
-          mkdir -p dist
-          cp ${{ matrix.binary-path }} dist/${{ matrix.artifact-name }}
-
-      - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact-name }}
-          path: dist/${{ matrix.artifact-name }}
-
-  create-release:
-    needs: build-native
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: dist
-          merge-multiple: true
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ github.ref_name }}
-          files: dist/*
-          draft: false
-          prerelease: false
-
   publish-maven:
     runs-on: ubuntu-latest
     steps:
@@ -83,7 +17,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'graalvm'
+          distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
 
