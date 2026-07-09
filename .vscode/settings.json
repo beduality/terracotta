@@ -13,6 +13,8 @@
         "**/.gradle": true,
         "**/site": true,
         "**/gradle": true,
-        "**/__pycache__": true
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.kotlin": true
     }
 }
