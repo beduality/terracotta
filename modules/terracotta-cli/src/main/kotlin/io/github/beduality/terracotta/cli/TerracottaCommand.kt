@@ -11,7 +11,7 @@ import kotlin.system.exitProcess
     name = "terracotta",
     mixinStandardHelpOptions = true,
     version = ["1.0.0"],
-    description = ["Declarative plugin registry management tool."],
+    description = ["Declarative Minecraft project registry management tool."],
     subcommands = [PlanCommand::class, ApplyCommand::class],
 )
 class TerracottaCommand : Callable<Int> {
