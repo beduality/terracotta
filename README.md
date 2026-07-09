@@ -1,8 +1,8 @@
 # Terracotta
 
-[Docs](https://beduality.github.io/terracotta/) | [MIT License](./LICENSE)
+[Docs](https://beduality.github.io/terracotta/) | [MIT License](./LICENSE) | [Contributing](./CONTRIBUTING.md)
 
-Terracotta is a declarative Minecraft project registry management tool written in Kotlin. It manages your Modrinth project metadata, description, tags, and version artifacts using a single configuration file (`terracotta.yaml`) as the single source of truth.
+Declarative Minecraft project registry management tool. Define your project metadata, description, tags, and version artifacts in a single `terracotta.yaml` and sync them to registries like Modrinth.
 
 ---
 

@@ -24,6 +24,51 @@ def get_current_version() -> str:
         raise ValueError("Could not find version in gradle.properties")
     return match.group(1).strip()
 
+def get_next_version(current: str) -> tuple[str, str]:
+    """Determine the next version by inspecting conventional commits since the last tag.
+
+    Returns a tuple of (bump_type, next_version) where bump_type is one of
+    'major', 'minor', or 'patch'. Falls back to 'patch' if no commits are found
+    or none match a known type.
+    """
+    try:
+        # Find the most recent tag so we only look at commits since then
+        tag_result = subprocess.run(
+            ["git", "describe", "--tags", "--abbrev=0"],
+            capture_output=True, text=True
+        )
+        if tag_result.returncode == 0:
+            last_tag = tag_result.stdout.strip()
+            log_range = f"{last_tag}..HEAD"
+        else:
+            # No tags yet — inspect the entire history
+            log_range = "HEAD"
+
+        log_result = subprocess.run(
+            ["git", "log", log_range, "--pretty=%s"],
+            capture_output=True, text=True, check=True
+        )
+        subjects = log_result.stdout.strip().splitlines()
+    except Exception:
+        subjects = []
+
+    bump_type = "patch"
+    for subject in subjects:
+        subject = subject.strip()
+        # Breaking change via '!' suffix or BREAKING CHANGE in body/footer
+        if re.match(r"^[a-z]+(\([^)]+\))?!:", subject):
+            bump_type = "major"
+            break
+        if subject.lower().startswith("breaking change"):
+            bump_type = "major"
+            break
+        # New feature
+        if re.match(r"^feat(\([^)]+\))?:", subject) and bump_type != "major":
+            bump_type = "minor"
+
+    return bump_type, bump_version(current, bump_type)
+
+
 def bump_version(current: str, bump_type: str) -> str:
     bump_type_clean = bump_type.strip().lower()
     
@@ -160,18 +205,33 @@ def main(
     # Wizard Mode
     if bump is None:
         console.print("\n[bold yellow]--- Wizard Mode ---[/bold yellow]")
+
+        auto_bump, auto_version = get_next_version(current_version)
+        console.print(
+            f"Detected bump from commits: [bold magenta]{auto_bump}[/bold magenta] "
+            f"→ [bold green]{auto_version}[/bold green]"
+        )
+
         choice = questionary.select(
             "Select bump type",
-            choices=["patch", "minor", "major", "custom"],
-            default="patch",
+            choices=[
+                questionary.Choice(f"auto ({auto_bump} → {auto_version})", value="auto"),
+                "patch",
+                "minor",
+                "major",
+                "custom",
+            ],
+            default="auto",
         ).ask()
         
         # Handle ctrl+c
         if choice is None:
             console.print("[yellow]Release aborted.[/yellow]")
             sys.exit(0)
-            
-        if choice == "custom":
+
+        if choice == "auto":
+            bump = auto_bump
+        elif choice == "custom":
             bump = questionary.text("Enter custom version (e.g., 0.5.0)").ask()
             if bump is None:
                 console.print("[yellow]Release aborted.[/yellow]")
