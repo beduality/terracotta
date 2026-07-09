@@ -8,7 +8,11 @@ import io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider
 import picocli.CommandLine.Command
 import java.io.File
 
-@Command(name = "apply", description = ["Apply changes to match the configuration."])
+@Command(
+    name = "apply",
+    mixinStandardHelpOptions = true,
+    description = ["Apply changes to match the configuration."],
+)
 class ApplyCommand : BaseCommand() {
     override fun call(): Int {
         val configPath = File(configFile)

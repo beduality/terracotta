@@ -20,14 +20,14 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.github.beduality.terracotta.cli.AppKt")
+    mainClass.set("io.github.beduality.terracotta.cli.TerracottaCommandKt")
 }
 
 graalvmNative {
     binaries {
         named("main") {
             imageName.set("terracotta")
-            mainClass.set("io.github.beduality.terracotta.cli.AppKt")
+            mainClass.set("io.github.beduality.terracotta.cli.TerracottaCommandKt")
         }
     }
 }

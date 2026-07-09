@@ -7,7 +7,11 @@ import io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider
 import picocli.CommandLine.Command
 import java.io.File
 
-@Command(name = "plan", description = ["Generate and show an execution plan."])
+@Command(
+    name = "plan",
+    mixinStandardHelpOptions = true,
+    description = ["Generate and show an execution plan."],
+)
 class PlanCommand : BaseCommand() {
     override fun call(): Int {
         val configPath = File(configFile)
