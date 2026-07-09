@@ -1,0 +1,90 @@
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - docs/**
+      - modules/**
+      - build.gradle.kts
+      - gradle/libs.versions.toml
+      - mkdocs.yml
+      - pyproject.toml
+      - uv.lock
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/configure-pages@v5
+
+      - name: Configure Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch gh-pages branch
+        run: |
+          git fetch origin gh-pages:gh-pages || true
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Make Gradle Wrapper executable
+        run: chmod +x gradlew
+
+      - name: Verify Spotless Check
+        run: ./gradlew spotlessCheck --no-daemon
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - run: uv sync --locked
+
+      - name: Deploy documentation with mike
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VERSION=${GITHUB_REF_NAME#v}
+            uv run mike deploy --push --update-alias "$VERSION" latest
+            uv run mike set-default --push latest
+          else
+            uv run mike deploy --push -t "Unreleased" unreleased
+          fi
+
+      - name: Checkout gh-pages for upload
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site-deploy
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site-deploy
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,18 @@
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        ".gitignore": ".gitattributes",
+        "gradle.properties": "gradlew, gradlew.bat",
+        "build.gradle.kts": "settings.gradle, jitpack.yml",
+        "README.md": "CONTRIBUTING.md, CHANGELOG.md, LICENSE",
+        "pyproject.toml": ".python-version, uv.lock",
+        "release-please-config.json": ".release-please-manifest.json"
+    },
+    "files.exclude": {
+        "**/.venv": true,
+        "**/.gradle": true,
+        "**/site": true,
+        "**/gradle": true,
+        "**/__pycache__": true
+    }
+}

@@ -1,0 +1,95 @@
+site_name: Terracotta
+site_description: Declarative Minecraft project registry management tool
+site_url: https://beduality.github.io/terracotta/
+repo_url: https://github.com/beduality/terracotta
+repo_name: beduality/terracotta
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/images/logo.png
+  favicon: assets/images/logo.png
+  palette:
+    - scheme: slate
+      primary: deep-purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - scheme: default
+      primary: deep-purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - tables
+  - toc:
+      permalink: true
+
+hooks:
+  - docs/hooks/copy_kdoc.py
+  - docs/hooks/copy_changes.py
+
+plugins:
+  - search
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/beduality/terracotta
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/D5meCv2Wnd
+
+nav:
+  - Quick Start:
+    - Introduction: index.md
+    - Getting Started: content/tutorials/getting-started.md
+  - How-To Guides:
+    - CI/CD Deployment: content/how-to-guides/ci-cd-setup.md
+    - Custom Providers: content/how-to-guides/custom-provider.md
+  - Tutorials:
+    - Getting Started: content/tutorials/getting-started.md
+  - Reference:
+    - Configuration Specification: content/reference/config-spec.md
+    - CLI Reference: content/reference/cli.md
+    - API Reference: content/reference/api.md
+  - Explanation:
+    - Architecture Overview: content/explanation/architecture.md
