@@ -39,3 +39,25 @@ This project is structured as a **Multi-Module Gradle project** under the `modul
      ```bash
      JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew spotlessCheck
      ```
+
+---
+
+## Smoke Tests
+
+Smoke tests exercise the full CLI binary against the **live Modrinth API** and are intentionally excluded from the default `./gradlew test` run. They must be triggered explicitly.
+
+### Prerequisites
+
+- Set the `MODRINTH_TOKEN` environment variable to a valid Modrinth API token.
+- Build the CLI distribution first:
+  ```bash
+  JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew :terracotta-cli:installDist
+  ```
+
+### Running
+
+```bash
+MODRINTH_TOKEN=<your-token> JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew :terracotta-cli:smokeTest
+```
+
+The suite will be skipped automatically (not failed) if the CLI binary is not found.

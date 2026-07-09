@@ -56,3 +56,23 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+// Exclude smoke tests (live API, requires a built CLI binary) from the default test run.
+tasks.named<Test>("test") {
+    useJUnitPlatform {
+        excludeTags("smoke")
+    }
+}
+
+// Run smoke tests explicitly: ./gradlew :terracotta-cli:smokeTest
+tasks.register<Test>("smokeTest") {
+    description = "Runs smoke tests against the live Modrinth API. Requires MODRINTH_TOKEN and a built CLI binary."
+    group = "verification"
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    useJUnitPlatform {
+        includeTags("smoke")
+    }
+    // Smoke tests must not be cached — they hit a live external service.
+    outputs.upToDateWhen { false }
+}

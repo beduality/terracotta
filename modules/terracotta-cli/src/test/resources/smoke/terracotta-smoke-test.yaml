@@ -1,6 +1,6 @@
 # Configuration used by the Terracotta CLI smoke tests.
 #
-# The referenced artifact is generated automatically by pytest.
+# The referenced artifact is generated automatically by the test fixture.
 
 project:
   id: "terracotta-smoke-test-draft-xyz"
@@ -15,7 +15,7 @@ tags:
 
 versions:
   - version: "1.0.0"
-    artifact: "../build/my-plugin-1.0.0.jar"
+    artifact: "my-plugin-1.0.0.jar"
 
     gameVersions:
       - "1.20"
