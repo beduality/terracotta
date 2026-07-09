@@ -236,6 +236,10 @@ def main(
             if bump is None:
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
+            # Validate custom version format
+            if not re.match(r"^\d+\.\d+\.\d+.*$", bump):
+                console.print(f"[bold red]Invalid version format: '{bump}'. Expected format: X.Y.Z[/bold red]")
+                sys.exit(1)
         else:
             bump = choice
             
@@ -256,10 +260,10 @@ def main(
     try:
         # 1. Update Version Numbers and Changelog
         console.print("\n[bold]1. Updating version numbers & changelog...[/bold]")
+        actions_taken.append("files_modified")
         update_gradle_properties(new_version)
         update_pyproject_toml(new_version)
         update_changelog(new_version)
-        actions_taken.append("files_modified")
             
         # 2. Run uv lock to update lock file
         console.print("\n[bold]2. Updating uv.lock...[/bold]")
@@ -268,10 +272,14 @@ def main(
         # 3. Dry-Run Verification
         if dry_run:
             console.print("\n[bold]3. Dry-Run Verification...[/bold]")
-            if questionary.confirm("Do you want to run dry-run publication verification?", default=True).ask():
+            # Skip prompt in automated mode (when bump is provided)
+            should_verify = bump is not None or questionary.confirm("Do you want to run dry-run publication verification?", default=True).ask()
+            if should_verify:
                 env = os.environ.copy()
                 env["DRY_RUN"] = "true"
-                env["JAVA_HOME"] = "/usr/lib/jvm/java-21-openjdk"
+                # Use JAVA_HOME from environment or default
+                java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
+                env["JAVA_HOME"] = java_home
                 run_command(
                     [
                         "./gradlew",
@@ -285,6 +293,16 @@ def main(
         # 4. Commit and Push Tag
         if push:
             console.print("\n[bold]4. Git Tag & Push...[/bold]")
+            # Detect current branch
+            try:
+                branch_result = subprocess.run(
+                    ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                    capture_output=True, text=True, check=True
+                )
+                current_branch = branch_result.stdout.strip()
+            except Exception:
+                current_branch = "main"  # fallback to main
+            
             if questionary.confirm(f"Commit, tag as v{new_version}, and push to remote?", default=True).ask():
                 run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock"])
                 
@@ -294,24 +312,25 @@ def main(
                 run_command(["git", "tag", f"v{new_version}"])
                 actions_taken.append("tagged")
                 
-                run_command(["git", "push", "origin", "main", "--tags"])
+                run_command(["git", "push", "origin", current_branch, "--tags"])
                 actions_taken.append("pushed")
                 
                 console.print(f"\n[bold green]Successfully released v{new_version}![/bold green]")
                 
-    except Exception as e:
+    except (FileNotFoundError, ValueError, subprocess.CalledProcessError, OSError) as e:
         console.print(f"\n[bold red]Error occurred during release process: {e}[/bold red]")
         console.print("[bold yellow]Initiating automatic rollback...[/bold yellow]")
         
         rollback_failed = False
         
-        if "pushed" in actions_taken:
+        # Rollback in reverse order: commit -> local tag -> remote tag -> files
+        if "committed" in actions_taken:
             try:
-                subprocess.run(["git", "push", "origin", "--delete", f"v{new_version}"], check=True)
-                console.print("[green]✔[/green] Rolled back remote tag")
+                subprocess.run(["git", "reset", "HEAD~1"], check=True)
+                console.print("[green]✔[/green] Reset commit")
             except Exception as re_err:
-                console.print(f"[red]Failed to delete remote tag: {re_err}[/red]")
-                console.print(f"[yellow]Manual Step Needed: Run 'git push origin --delete v{new_version}'[/yellow]")
+                console.print(f"[red]Failed to reset commit: {re_err}[/red]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git reset HEAD~1'[/yellow]")
                 rollback_failed = True
                 
         if "tagged" in actions_taken:
@@ -323,25 +342,31 @@ def main(
                 console.print(f"[yellow]Manual Step Needed: Run 'git tag -d v{new_version}'[/yellow]")
                 rollback_failed = True
                 
-        if "committed" in actions_taken:
+        if "pushed" in actions_taken:
             try:
-                subprocess.run(["git", "reset", "HEAD~1"], check=True)
-                console.print("[green]✔[/green] Reset commit")
+                subprocess.run(["git", "push", "origin", "--delete", f"v{new_version}"], check=True)
+                console.print("[green]✔[/green] Rolled back remote tag")
             except Exception as re_err:
-                console.print(f"[red]Failed to reset commit: {re_err}[/red]")
-                console.print("[yellow]Manual Step Needed: Run 'git reset HEAD~1'[/yellow]")
+                console.print(f"[red]Failed to delete remote tag: {re_err}[/red]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git push origin --delete v{new_version}'[/yellow]")
                 rollback_failed = True
                 
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
-                    ["git", "checkout", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock"],
+                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md"],
                     check=True
                 )
+                # Try to restore uv.lock if it exists in git
+                try:
+                    subprocess.run(["git", "restore", "uv.lock"], check=True)
+                except Exception:
+                    # uv.lock might not be tracked, that's okay
+                    pass
                 console.print("[green]✔[/green] Restored modified files")
             except Exception as re_err:
                 console.print(f"[red]Failed to restore modified files: {re_err}[/red]")
-                console.print("[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md uv.lock'[/yellow]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md'[/yellow]")
                 rollback_failed = True
                 
         if rollback_failed:
