@@ -34,4 +34,8 @@ sealed interface Operation {
     data class UploadVersion(val version: TerracottaVersion) : Operation {
         override val description: String = "+ Upload version ${version.version}"
     }
+
+    data class CreateProject(val project: io.github.beduality.terracotta.core.model.TerracottaProject) : Operation {
+        override val description: String = "+ Create project ${project.name}"
+    }
 }

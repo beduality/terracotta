@@ -14,19 +14,8 @@ object DiffEngine {
         val operations = mutableListOf<Operation>()
 
         if (remote == null) {
-            // If the project doesn't exist remotely, we configure it entirely
-            operations.add(
-                Operation.UpdateMetadata(
-                    nameChanged = true,
-                    summaryChanged = true,
-                    licenseChanged = true,
-                    newName = local.name,
-                    newSummary = local.summary,
-                    newLicense = local.license,
-                ),
-            )
-            operations.add(Operation.UpdateDescription("", local.description))
-            operations.add(Operation.UpdateTags(emptyList(), local.tags))
+            // If the project doesn't exist remotely, we create it first
+            operations.add(Operation.CreateProject(local))
             local.versions.forEach { version ->
                 operations.add(Operation.UploadVersion(version))
             }

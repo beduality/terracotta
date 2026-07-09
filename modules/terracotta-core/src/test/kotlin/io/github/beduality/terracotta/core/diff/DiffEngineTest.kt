@@ -25,11 +25,9 @@ class DiffEngineTest {
 
         val ops = DiffEngine.diff(local, null)
 
-        assertEquals(4, ops.size)
-        assertTrue(ops[0] is Operation.UpdateMetadata)
-        assertTrue(ops[1] is Operation.UpdateDescription)
-        assertTrue(ops[2] is Operation.UpdateTags)
-        assertTrue(ops[3] is Operation.UploadVersion)
+        assertEquals(2, ops.size)
+        assertTrue(ops[0] is Operation.CreateProject)
+        assertTrue(ops[1] is Operation.UploadVersion)
     }
 
     @Test

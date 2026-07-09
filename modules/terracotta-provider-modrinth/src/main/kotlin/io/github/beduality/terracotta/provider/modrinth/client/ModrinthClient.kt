@@ -134,4 +134,40 @@ class ModrinthClient(
             logger.info("Successfully uploaded version ${version.version} to Modrinth.")
         }
     }
+
+    fun createProject(project: io.github.beduality.terracotta.core.model.TerracottaProject) {
+        val dataPart =
+            mapOf(
+                "slug" to project.id,
+                "title" to project.name,
+                "description" to project.summary,
+                "body" to project.description,
+                "categories" to project.tags,
+                "client_side" to "optional",
+                "server_side" to "required",
+                "project_type" to "mod",
+                "license_id" to project.license.lowercase(),
+            )
+        val dataJson = mapper.writeValueAsString(dataPart)
+
+        val requestBody =
+            MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("data", dataJson)
+                .build()
+
+        val request =
+            Request.Builder()
+                .url("$baseUrl/project")
+                .auth()
+                .post(requestBody)
+                .build()
+
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) {
+                throw IOException("Failed to create project: ${response.code} ${response.body?.string()}")
+            }
+            logger.info("Successfully created project ${project.name} on Modrinth.")
+        }
+    }
 }

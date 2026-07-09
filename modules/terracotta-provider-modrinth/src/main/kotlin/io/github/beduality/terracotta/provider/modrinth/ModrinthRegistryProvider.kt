@@ -27,6 +27,9 @@ class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryPro
                 is Operation.UploadVersion -> {
                     client.createVersion(projectId, op.version)
                 }
+                is Operation.CreateProject -> {
+                    client.createProject(op.project)
+                }
             }
         }
     }
