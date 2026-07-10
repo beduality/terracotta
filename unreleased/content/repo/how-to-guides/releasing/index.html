@@ -2085,11 +2085,13 @@
 <h1 id="releasing">Releasing<a class="headerlink" href="#releasing" title="Permanent link">&para;</a></h1>
 <p>This guide covers the automated release process for Terracotta.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Releases are handled by an automated release script that:
-- Bumps versions based on conventional commits
-- Updates the changelog
-- Creates and pushes a git tag
-- Triggers the release workflow for distribution</p>
+<p>Releases are handled by an automated release script that:</p>
+<ul>
+<li>Bumps versions based on conventional commits</li>
+<li>Updates the changelog</li>
+<li>Creates and pushes a git tag</li>
+<li>Triggers the release workflow for distribution</li>
+</ul>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p>Releases follow <a href="https://semver.org/">Semantic Versioning</a>. The release script automatically determines the version bump:</p>
 <table>
@@ -2132,10 +2134,12 @@
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="gu">#### CLI</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">-</span><span class="w"> </span>Fixed issue with command ABC
 </code></pre></div>
-<p>Follow the guidelines in <code>guidelines/changelog.md</code>:
-- Focus on user/developer/operator impact
-- Group by category (Added, Changed, Fixed, etc.)
-- Include sections for Players, Server Admins, Developers, Maintainers if applicable</p>
+<p>Follow the guidelines in <code>guidelines/changelog.md</code>:</p>
+<ul>
+<li>Focus on user/developer/operator impact</li>
+<li>Group by category (Added, Changed, Fixed, etc.)</li>
+<li>Include sections for Players, Server Admins, Developers, Maintainers if applicable</li>
+</ul>
 <h3 id="2-run-the-release-script">2. Run the Release Script<a class="headerlink" href="#2-run-the-release-script" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py
 </code></pre></div>
@@ -2169,10 +2173,12 @@
 </tr>
 </tbody>
 </table>
-<p>The workflow uses the <a href="https://github.com/gradle-nexus/publish-plugin">Nexus Publish Plugin</a> to:
-- Build and sign artifacts with GPG
-- Upload to Sonatype OSSRH staging
-- Automatically close and release the staging repository</p>
+<p>The workflow uses the <a href="https://github.com/gradle-nexus/publish-plugin">Nexus Publish Plugin</a> to:</p>
+<ul>
+<li>Build and sign artifacts with GPG</li>
+<li>Upload to Sonatype OSSRH staging</li>
+<li>Automatically close and release the staging repository</li>
+</ul>
 <h3 id="release-secrets">Release Secrets<a class="headerlink" href="#release-secrets" title="Permanent link">&para;</a></h3>
 <p>The release workflow uses these GitHub repository secrets:</p>
 <table>

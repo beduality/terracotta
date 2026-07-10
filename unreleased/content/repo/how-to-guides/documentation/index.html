@@ -2186,7 +2186,6 @@
 <li><strong>Reference</strong>: Exhaustive information lookup</li>
 <li><strong>Explanation</strong>: Understanding concepts and "why"</li>
 </ul>
-<p>See <code>guidelines/diataxis.md</code> for detailed guidance.</p>
 <h2 id="adding-a-page">Adding a Page<a class="headerlink" href="#adding-a-page" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Create a <code>.md</code> file under <code>docs/content/</code> in the appropriate category</li>
@@ -2197,12 +2196,14 @@
 <p>If you change templates, overrides, hooks, or <code>mkdocs.yml</code> and want to apply them across all historical versions:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/redeploy_all_docs.py
 </code></pre></div>
-<p>This script:
-- Checks out each release tag
-- Applies the latest config and overrides from <code>main</code>
-- Re-deploys all versions to the local <code>gh-pages</code> branch using <code>mike</code></p>
+<p>This script:</p>
+<ul>
+<li>Checks out each release tag</li>
+<li>Applies the latest config and overrides from <code>main</code></li>
+<li>Re-deploys all versions to the local <code>gh-pages</code> branch using <code>mike</code></li>
+</ul>
 <h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
-<p>Documentation is automatically deployed to GitHub Pages on every push to <code>main</code> via <code>.github/workflows/deploy-docs.yml</code>. No manual deployment is needed.</p>
+<p>Documentation is automatically deployed to GitHub Pages on every push to <code>main</code> via <code>.github/workflows/deploy-docs.yml</code>. Normally, no manual deployment is needed.</p>
 <h3 id="manual-deployment-if-needed">Manual Deployment (if needed)<a class="headerlink" href="#manual-deployment-if-needed" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Deploy current docs</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>uv<span class="w"> </span>run<span class="w"> </span>mike<span class="w"> </span>deploy<span class="w"> </span>&lt;version-alias&gt;
