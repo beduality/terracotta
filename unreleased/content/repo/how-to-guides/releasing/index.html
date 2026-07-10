@@ -1702,17 +1702,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gradle-plugin-publishing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gradle Plugin Publishing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#maven-central-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1737,6 +1726,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Release Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-secrets-via-pulumi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Secrets via Pulumi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1749,6 +1755,17 @@
     <span class="md-ellipsis">
       
         Manual Override
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skip-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skip Dry-Run
       
     </span>
   </a>
@@ -2318,17 +2335,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gradle-plugin-publishing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gradle Plugin Publishing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#maven-central-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2353,6 +2359,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Release Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-secrets-via-pulumi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Secrets via Pulumi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2365,6 +2388,17 @@
     <span class="md-ellipsis">
       
         Manual Override
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skip-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skip Dry-Run
       
     </span>
   </a>
@@ -2425,6 +2459,7 @@
 <ul>
 <li>Bumps versions based on conventional commits</li>
 <li>Updates the changelog</li>
+<li>Validates the publishing configuration</li>
 <li>Creates and pushes a git tag</li>
 <li>Triggers the release workflow for distribution</li>
 </ul>
@@ -2481,15 +2516,14 @@
 <li>Show the detected version bump and suggested version</li>
 <li>Let you accept or override the version</li>
 <li>Update <code>CHANGELOG.md</code> with the new version</li>
+<li>Run <code>./gradlew build</code> to verify compilation and tests pass</li>
 <li>Create a git commit and tag</li>
 <li>Push changes to the remote repository</li>
 </ol>
 <h3 id="3-distribution-publishing">3. Distribution &amp; Publishing<a class="headerlink" href="#3-distribution-publishing" title="Permanent link">&para;</a></h3>
 <p>Once the version tag is pushed, <code>.github/workflows/release.yml</code> automatically triggers:</p>
-<h4 id="gradle-plugin-publishing">Gradle Plugin Publishing<a class="headerlink" href="#gradle-plugin-publishing" title="Permanent link">&para;</a></h4>
-<p>The Gradle plugin is automatically published to the <a href="https://plugins.gradle.org/">Gradle Plugin Portal</a>.</p>
 <h4 id="maven-central-publishing">Maven Central Publishing<a class="headerlink" href="#maven-central-publishing" title="Permanent link">&para;</a></h4>
-<p>The following modules are published automatically:</p>
+<p>The following modules are published automatically via the <a href="https://central.sonatype.com/">Sonatype Central Portal</a>:</p>
 <table>
 <thead>
 <tr>
@@ -2503,16 +2537,21 @@
 <td><code>io.github.beduality:terracotta-core</code></td>
 </tr>
 <tr>
+<td>Gradle Plugin</td>
+<td><code>io.github.beduality:terracotta-gradle-plugin</code></td>
+</tr>
+<tr>
 <td>Modrinth Provider</td>
 <td><code>io.github.beduality:terracotta-provider-modrinth</code></td>
 </tr>
 </tbody>
 </table>
-<p>The workflow uses the <a href="https://github.com/gradle-nexus/publish-plugin">Nexus Publish Plugin</a> to:</p>
+<p>The workflow uses the <a href="https://github.com/tddworks/central-portal-publisher">central-portal-publisher</a> Gradle plugin to:</p>
 <ul>
-<li>Build and sign artifacts with GPG</li>
-<li>Upload to Sonatype OSSRH staging</li>
-<li>Automatically close and release the staging repository</li>
+<li>Bundle all module artifacts with proper Maven repository layout</li>
+<li>Sign artifacts with GPG</li>
+<li>Upload the bundle to the Sonatype Central Portal</li>
+<li>Automatically publish to Maven Central</li>
 </ul>
 <h3 id="release-secrets">Release Secrets<a class="headerlink" href="#release-secrets" title="Permanent link">&para;</a></h3>
 <p>The release workflow uses these GitHub repository secrets:</p>
@@ -2525,12 +2564,12 @@
 </thead>
 <tbody>
 <tr>
-<td><code>OSSRH_USERNAME</code></td>
-<td>Sonatype OSSRH username</td>
+<td><code>SONATYPE_USERNAME</code></td>
+<td>Sonatype Central Portal username</td>
 </tr>
 <tr>
-<td><code>OSSRH_PASSWORD</code></td>
-<td>Sonatype OSSRH password/token</td>
+<td><code>SONATYPE_PASSWORD</code></td>
+<td>Sonatype Central Portal password/token</td>
 </tr>
 <tr>
 <td><code>SIGNING_KEY</code></td>
@@ -2543,26 +2582,37 @@
 </tbody>
 </table>
 <p>Configure these in your repository settings under <strong>Secrets and variables</strong> → <strong>Actions</strong>.</p>
+<h4 id="loading-secrets-via-pulumi">Loading Secrets via Pulumi<a class="headerlink" href="#loading-secrets-via-pulumi" title="Permanent link">&para;</a></h4>
+<p>The <code>terracotta-github</code> module manages GitHub Actions secrets as infrastructure. To sync secrets from your <code>.env</code> file into Pulumi config (which then provisions them as GitHub Actions secrets):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;your-passphrase&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">cd</span><span class="w"> </span>modules/terracotta-github<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pulumi<span class="w"> </span>up
+</code></pre></div>
+<p>The <code>PULUMI_CONFIG_PASSPHRASE</code> env var is required for non-interactive secret encryption. Alternatively, use <code>PULUMI_CONFIG_PASSPHRASE_FILE</code> to point to a file containing the passphrase.</p>
+<p>The script auto-detects which secrets are needed by parsing <code>App.kt</code> — no manual list to maintain.</p>
 <h2 id="manual-override">Manual Override<a class="headerlink" href="#manual-override" title="Permanent link">&para;</a></h2>
 <p>To manually specify the version:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>patch<span class="w">     </span><span class="c1"># 0.1.x</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>minor<span class="w">     </span><span class="c1"># 0.x.0</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>major<span class="w">     </span><span class="c1"># x.0.0</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span><span class="m">0</span>.2.0<span class="w">     </span><span class="c1"># custom version</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>patch<span class="w">     </span><span class="c1"># 0.1.x</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>minor<span class="w">     </span><span class="c1"># 0.x.0</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>major<span class="w">     </span><span class="c1"># x.0.0</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span><span class="m">0</span>.2.0<span class="w">     </span><span class="c1"># custom version</span>
+</code></pre></div>
+<h2 id="skip-dry-run">Skip Dry-Run<a class="headerlink" href="#skip-dry-run" title="Permanent link">&para;</a></h2>
+<p>To skip the build verification dry-run step:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span><span class="m">0</span>.2.0<span class="w"> </span>--no-dry-run
 </code></pre></div>
 <h2 id="rollback">Rollback<a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h2>
 <p>If a release needs to be rolled back:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
 </code></pre></div>
 <p>This reverts the version bump, changelog changes, and tag.</p>
 <h2 id="what-happens-on-release">What Happens on Release<a class="headerlink" href="#what-happens-on-release" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Changelog</strong>: <code>## [Unreleased]</code> → <code>## [0.x.y] - YYYY-MM-DD</code></li>
-<li><strong>Version</strong>: Updated in <code>build.gradle.kts</code></li>
+<li><strong>Version</strong>: Updated in <code>gradle.properties</code></li>
 <li><strong>Tag</strong>: Created and pushed to GitHub</li>
 <li><strong>CI/CD</strong>: Release workflow triggers</li>
-<li><strong>Gradle Plugin</strong>: Published to Gradle Plugin Portal</li>
-<li><strong>Maven Central</strong>: Artifacts published and released</li>
+<li><strong>Maven Central</strong>: Artifacts bundled, signed, and published via Central Portal</li>
 </ol>
 
 

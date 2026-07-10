@@ -2453,7 +2453,7 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">kotlin</span><span class="p">.</span><span class="na">serialization</span><span class="p">)</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="kc">false</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">spotless</span><span class="p">)</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">dokka</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">nexus</span><span class="p">.</span><span class="na">publish</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">central</span><span class="p">.</span><span class="na">portal</span><span class="p">.</span><span class="na">publisher</span><span class="p">)</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">jacoco</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
 </code></pre></div>
@@ -2463,7 +2463,7 @@
 <li>Gradle plugins use version catalog from <code>gradle/libs.versions.toml</code></li>
 <li>Spotless for code formatting</li>
 <li>Dokka for API documentation</li>
-<li>Nexus Publish Plugin for Maven Central publishing</li>
+<li>Central Portal Publisher for Maven Central publishing</li>
 <li>JaCoCo for test coverage</li>
 </ul>
 <h3 id="version-catalog-gradlelibsversionstoml">Version Catalog (<code>gradle/libs.versions.toml</code>)<a class="headerlink" href="#version-catalog-gradlelibsversionstoml" title="Permanent link">&para;</a></h3>
@@ -2551,14 +2551,9 @@
 <td>API documentation</td>
 </tr>
 <tr>
-<td>nexus-publish</td>
-<td>2.0.0</td>
-<td>Maven Central publishing</td>
-</tr>
-<tr>
-<td>gradle-plugin-publish</td>
-<td>8.1.1</td>
-<td>Gradle plugin publishing</td>
+<td>central-portal-publisher</td>
+<td>0.2.0-alpha.1</td>
+<td>Maven Central publishing via Sonatype Central Portal</td>
 </tr>
 </tbody>
 </table>
@@ -2645,13 +2640,13 @@
 </thead>
 <tbody>
 <tr>
-<td><code>OSSRH_USERNAME</code></td>
-<td>Sonatype OSSRH username</td>
+<td><code>SONATYPE_USERNAME</code></td>
+<td>Sonatype Central Portal username</td>
 <td>Yes (for releases)</td>
 </tr>
 <tr>
-<td><code>OSSRH_PASSWORD</code></td>
-<td>Sonatype OSSRH password/token</td>
+<td><code>SONATYPE_PASSWORD</code></td>
+<td>Sonatype Central Portal password/token</td>
 <td>Yes (for releases)</td>
 </tr>
 <tr>
