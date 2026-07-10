@@ -85,3 +85,10 @@ signing {
         sign(publishing.publications)
     }
 }
+
+// Workaround for Gradle signing/publishing implicit-dependency issue:
+// ensure publish tasks run after the matching signature tasks so .asc files exist.
+// https://github.com/gradle/gradle/issues/26091
+tasks.withType<PublishToMavenRepository>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
