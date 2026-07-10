@@ -8,6 +8,7 @@ Releases are handled by an automated release script that:
 
 - Bumps versions based on conventional commits
 - Updates the changelog
+- Validates the publishing configuration
 - Creates and pushes a git tag
 - Triggers the release workflow for distribution
 
@@ -60,31 +61,30 @@ The script will:
 1. Show the detected version bump and suggested version
 2. Let you accept or override the version
 3. Update `CHANGELOG.md` with the new version
-4. Create a git commit and tag
-5. Push changes to the remote repository
+4. Run `./gradlew validatePublishing` as a dry-run check
+5. Create a git commit and tag
+6. Push changes to the remote repository
 
 ### 3. Distribution & Publishing
 
 Once the version tag is pushed, `.github/workflows/release.yml` automatically triggers:
 
-#### Gradle Plugin Publishing
-
-The Gradle plugin is automatically published to the [Gradle Plugin Portal](https://plugins.gradle.org/).
-
 #### Maven Central Publishing
 
-The following modules are published automatically:
+The following modules are published automatically via the [Sonatype Central Portal](https://central.sonatype.com/):
 
 | Module | Maven Coordinates |
 |--------|-------------------|
 | Core | `io.github.beduality:terracotta-core` |
+| Gradle Plugin | `io.github.beduality:terracotta-gradle-plugin` |
 | Modrinth Provider | `io.github.beduality:terracotta-provider-modrinth` |
 
-The workflow uses the [Nexus Publish Plugin](https://github.com/gradle-nexus/publish-plugin) to:
+The workflow uses the [central-portal-publisher](https://github.com/tddworks/central-portal-publisher) Gradle plugin to:
 
-- Build and sign artifacts with GPG
-- Upload to Sonatype OSSRH staging
-- Automatically close and release the staging repository
+- Bundle all module artifacts with proper Maven repository layout
+- Sign artifacts with GPG
+- Upload the bundle to the Sonatype Central Portal
+- Automatically publish to Maven Central
 
 ### Release Secrets
 
@@ -92,8 +92,8 @@ The release workflow uses these GitHub repository secrets:
 
 | Secret | Purpose |
 |--------|---------|
-| `OSSRH_USERNAME` | Sonatype OSSRH username |
-| `OSSRH_PASSWORD` | Sonatype OSSRH password/token |
+| `SONATYPE_USERNAME` | Sonatype Central Portal username |
+| `SONATYPE_PASSWORD` | Sonatype Central Portal password/token |
 | `SIGNING_KEY` | GPG private key (ASCII-armored) |
 | `SIGNING_PASSWORD` | GPG key passphrase |
 
@@ -110,6 +110,14 @@ uv run scripts/release.py major     # x.0.0
 uv run scripts/release.py 0.2.0     # custom version
 ```
 
+## Skip Dry-Run
+
+To skip the `validatePublishing` dry-run step:
+
+```bash
+uv run scripts/release.py 0.2.0 --no-dry-run
+```
+
 ## Rollback
 
 If a release needs to be rolled back:
@@ -123,8 +131,7 @@ This reverts the version bump, changelog changes, and tag.
 ## What Happens on Release
 
 1. **Changelog**: `## [Unreleased]` → `## [0.x.y] - YYYY-MM-DD`
-2. **Version**: Updated in `build.gradle.kts`
+2. **Version**: Updated in `gradle.properties`
 3. **Tag**: Created and pushed to GitHub
 4. **CI/CD**: Release workflow triggers
-5. **Gradle Plugin**: Published to Gradle Plugin Portal
-6. **Maven Central**: Artifacts published and released
+5. **Maven Central**: Artifacts bundled, signed, and published via Central Portal

@@ -6,7 +6,7 @@ kotlinx-serialization = "1.7.1"
 slf4j = "2.0.13"
 logback = "1.5.6"
 junit = "5.10.2"
-nexus-publish = "2.0.0"
+central-portal-publisher = "0.2.0-alpha.1"
 pulumi = "1.30.0"
 pulumi-github = "6.14.0"
 gradle-plugin = "8.1.1"
@@ -18,7 +18,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 dokka = { id = "org.jetbrains.dokka", version = "1.9.20" }
-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
+central-portal-publisher = { id = "com.tddworks.central-publisher", version.ref = "central-portal-publisher" }
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin" }
 
 [libraries]

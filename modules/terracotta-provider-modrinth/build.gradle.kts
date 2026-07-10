@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.spotless)
     `maven-publish`
-    signing
 }
 
 dependencies {
@@ -52,38 +51,6 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             artifactId = "terracotta-provider-modrinth"
-
-            pom {
-                name.set("Terracotta Modrinth Provider")
-                description.set("Modrinth provider implementation for Terracotta.")
-                url.set("https://github.com/beduality/terracotta")
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("beduality")
-                        name.set("Block-Entity Duality")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/beduality/terracotta.git")
-                    developerConnection.set("scm:git:ssh://github.com/beduality/terracotta.git")
-                    url.set("https://github.com/beduality/terracotta")
-                }
-            }
         }
-    }
-}
-
-signing {
-    val signingKey = project.findProperty("signingKey")?.toString() ?: System.getenv("SIGNING_KEY")
-    val signingPassword = project.findProperty("signingPassword")?.toString() ?: System.getenv("SIGNING_PASSWORD")
-    if (!signingKey.isNullOrBlank()) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications["mavenJava"])
     }
 }

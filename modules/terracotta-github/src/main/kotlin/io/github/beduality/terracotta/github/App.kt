@@ -50,8 +50,8 @@ fun main(args: Array<String>) {
         // Define GitHub Actions secrets if they are set in the configuration
         val secrets =
             listOf(
-                "OSSRH_USERNAME",
-                "OSSRH_PASSWORD",
+                "SONATYPE_USERNAME",
+                "SONATYPE_PASSWORD",
                 "SIGNING_KEY",
                 "SIGNING_PASSWORD",
             )

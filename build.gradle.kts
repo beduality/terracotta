@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.spotless)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.nexus.publish)
+    alias(libs.plugins.central.portal.publisher)
     jacoco
 }
 
@@ -38,14 +38,43 @@ subprojects {
     }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("OSSRH_USERNAME") ?: findProperty("ossrhUsername")?.toString())
-            password.set(System.getenv("OSSRH_PASSWORD") ?: findProperty("ossrhPassword")?.toString())
+centralPublisher {
+    credentials {
+        username = System.getenv("SONATYPE_USERNAME") ?: findProperty("sonatypeUsername")?.toString() ?: ""
+        password = System.getenv("SONATYPE_PASSWORD") ?: findProperty("sonatypePassword")?.toString() ?: ""
+    }
+
+    projectInfo {
+        name = "Terracotta"
+        description = "Configuration sync and deployment tool for Minecraft servers."
+        url = "https://github.com/beduality/terracotta"
+
+        license {
+            name = "MIT License"
+            url = "https://opensource.org/licenses/MIT"
         }
+
+        developer {
+            id = "beduality"
+            name = "Block-Entity Duality"
+        }
+
+        scm {
+            url = "https://github.com/beduality/terracotta"
+            connection = "scm:git:git://github.com/beduality/terracotta.git"
+            developerConnection = "scm:git:ssh://github.com/beduality/terracotta.git"
+        }
+    }
+
+    signing {
+        keyId = System.getenv("SIGNING_KEY_ID") ?: findProperty("signingKeyId")?.toString() ?: ""
+        password = System.getenv("SIGNING_PASSWORD") ?: findProperty("signingPassword")?.toString() ?: ""
+        secretKeyRingFile = System.getenv("SIGNING_SECRET_KEY_RING_FILE") ?: findProperty("signingSecretKeyRingFile")?.toString() ?: ""
+    }
+
+    publishing {
+        autoPublish = true
+        aggregation = true
     }
 }
 
