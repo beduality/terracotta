@@ -23,9 +23,10 @@ class TerracottaLoaderTest {
 
     @Test
     fun `fromId throws on invalid input`() {
-        val ex = assertThrows<IllegalArgumentException> {
-            TerracottaLoader.fromId("invalid_loader")
-        }
+        val ex =
+            assertThrows<IllegalArgumentException> {
+                TerracottaLoader.fromId("invalid_loader")
+            }
         assertTrue(ex.message!!.contains("invalid_loader"))
         assertTrue(ex.message!!.contains("paper"))
         assertTrue(ex.message!!.contains("fabric"))

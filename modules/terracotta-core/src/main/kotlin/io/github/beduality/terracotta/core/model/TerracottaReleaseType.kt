@@ -16,8 +16,10 @@ import kotlinx.serialization.Serializable
 enum class TerracottaReleaseType(val id: String) {
     @SerialName("release")
     RELEASE("release"),
+
     @SerialName("beta")
     BETA("beta"),
+
     @SerialName("alpha")
     ALPHA("alpha"),
     ;

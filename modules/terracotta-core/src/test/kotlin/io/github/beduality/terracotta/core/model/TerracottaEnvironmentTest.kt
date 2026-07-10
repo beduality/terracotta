@@ -23,9 +23,10 @@ class TerracottaEnvironmentTest {
 
     @Test
     fun `fromId throws on invalid input`() {
-        val ex = assertThrows<IllegalArgumentException> {
-            TerracottaEnvironment.fromId("invalid_value")
-        }
+        val ex =
+            assertThrows<IllegalArgumentException> {
+                TerracottaEnvironment.fromId("invalid_value")
+            }
         assertTrue(ex.message!!.contains("invalid_value"))
         assertTrue(ex.message!!.contains("client_only"))
         assertTrue(ex.message!!.contains("server_only"))

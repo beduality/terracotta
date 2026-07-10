@@ -9,15 +9,16 @@ import org.junit.jupiter.api.Test
 class OperationTest {
     @Test
     fun `CreateProject description contains plus prefix and project name`() {
-        val project = TerracottaProject(
-            id = "test-id",
-            name = "My Plugin",
-            summary = "A summary",
-            description = "Description",
-            versions = emptyList(),
-            tags = emptyList(),
-            license = "MIT",
-        )
+        val project =
+            TerracottaProject(
+                id = "test-id",
+                name = "My Plugin",
+                summary = "A summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
         val op = Operation.CreateProject(project)
 
         assertTrue(op.description.contains("+"))
@@ -43,10 +44,11 @@ class OperationTest {
 
     @Test
     fun `UpdateTags description contains tilde prefix and both old and new tag values`() {
-        val op = Operation.UpdateTags(
-            oldTags = listOf("utility", "paper"),
-            newTags = listOf("utility", "fabric"),
-        )
+        val op =
+            Operation.UpdateTags(
+                oldTags = listOf("utility", "paper"),
+                newTags = listOf("utility", "fabric"),
+            )
 
         assertTrue(op.description.contains("~"))
         assertTrue(op.description.contains("utility"))
@@ -56,14 +58,15 @@ class OperationTest {
 
     @Test
     fun `UpdateMetadata description with only nameChanged contains name but not summary or license`() {
-        val op = Operation.UpdateMetadata(
-            nameChanged = true,
-            summaryChanged = false,
-            licenseChanged = false,
-            newName = "New Name",
-            newSummary = "",
-            newLicense = "",
-        )
+        val op =
+            Operation.UpdateMetadata(
+                nameChanged = true,
+                summaryChanged = false,
+                licenseChanged = false,
+                newName = "New Name",
+                newSummary = "",
+                newLicense = "",
+            )
 
         assertTrue(op.description.contains("name"))
         assertFalse(op.description.contains("summary"))
@@ -72,14 +75,15 @@ class OperationTest {
 
     @Test
     fun `UpdateMetadata description with all three changed contains name, summary, and license`() {
-        val op = Operation.UpdateMetadata(
-            nameChanged = true,
-            summaryChanged = true,
-            licenseChanged = true,
-            newName = "New Name",
-            newSummary = "New Summary",
-            newLicense = "Apache-2.0",
-        )
+        val op =
+            Operation.UpdateMetadata(
+                nameChanged = true,
+                summaryChanged = true,
+                licenseChanged = true,
+                newName = "New Name",
+                newSummary = "New Summary",
+                newLicense = "Apache-2.0",
+            )
 
         assertTrue(op.description.contains("name"))
         assertTrue(op.description.contains("summary"))
@@ -88,14 +92,15 @@ class OperationTest {
 
     @Test
     fun `UpdateMetadata description with only summaryChanged contains summary but not name or license`() {
-        val op = Operation.UpdateMetadata(
-            nameChanged = false,
-            summaryChanged = true,
-            licenseChanged = false,
-            newName = "",
-            newSummary = "New Summary",
-            newLicense = "",
-        )
+        val op =
+            Operation.UpdateMetadata(
+                nameChanged = false,
+                summaryChanged = true,
+                licenseChanged = false,
+                newName = "",
+                newSummary = "New Summary",
+                newLicense = "",
+            )
 
         assertTrue(op.description.contains("summary"))
         assertFalse(op.description.contains("name"))

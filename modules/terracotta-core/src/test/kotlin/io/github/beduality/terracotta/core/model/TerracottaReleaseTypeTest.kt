@@ -23,9 +23,10 @@ class TerracottaReleaseTypeTest {
 
     @Test
     fun `fromId throws on invalid input`() {
-        val ex = assertThrows<IllegalArgumentException> {
-            TerracottaReleaseType.fromId("invalid_type")
-        }
+        val ex =
+            assertThrows<IllegalArgumentException> {
+                TerracottaReleaseType.fromId("invalid_type")
+            }
         assertTrue(ex.message!!.contains("invalid_type"))
         assertTrue(ex.message!!.contains("release"))
         assertTrue(ex.message!!.contains("beta"))
