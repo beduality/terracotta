@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/sdk/tutorials/installation/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/sdk/reference/installation/">
       
       
-        <link rel="prev" href="../../../gradle-plugin/reference/tasks/">
+        <link rel="prev" href="../provider-api/">
       
       
-        <link rel="next" href="../../how-to-guides/custom-provider/">
+        <link rel="next" href="../../explanation/architecture/">
       
       
         
@@ -784,8 +784,6 @@
                 
   
   
-    
-  
   
   
     
@@ -795,11 +793,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
           <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
@@ -820,7 +818,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -835,44 +833,17 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Installation
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Quick Start
   
 
     
@@ -881,65 +852,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#provider-modules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider Modules
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Provider Modules">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modrinth-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modrinth Provider
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1070,6 +982,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1079,11 +993,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -1104,7 +1018,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1122,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../api/" class="md-nav__link">
         
   
   
@@ -1138,6 +1052,148 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../provider-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#provider-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider Modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modrinth-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2004,7 +2060,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/sdk/tutorials/installation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/sdk/reference/installation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2118,7 +2174,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../../gradle-plugin/reference/tasks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tasks Reference">
+          <a href="../provider-api/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Provider API">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2128,20 +2184,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Tasks Reference
+                Provider API
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../how-to-guides/custom-provider/" class="md-footer__link md-footer__link--next" aria-label="Next: Custom Providers">
+          <a href="../../explanation/architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture Overview">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Custom Providers
+                Architecture Overview
               </div>
             </div>
             <div class="md-footer__button md-icon">

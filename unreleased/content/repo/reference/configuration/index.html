@@ -834,14 +834,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../sdk/tutorials/installation/" class="md-nav__link">
+      <a href="../../../sdk/tutorials/quick-start/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Quick Start
   
 
     
@@ -1040,6 +1040,62 @@
     
   
     API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sdk/reference/provider-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sdk/reference/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
   
 
     
@@ -2261,13 +2317,15 @@
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">jacoco</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Settings</strong>:
-- All projects share version <code>io.github.beduality:0.1.0</code>
-- Gradle plugins use version catalog from <code>gradle/libs.versions.toml</code>
-- Spotless for code formatting
-- Dokka for API documentation
-- Nexus Publish Plugin for Maven Central publishing
-- JaCoCo for test coverage</p>
+<p><strong>Settings</strong>:</p>
+<ul>
+<li>All projects share version <code>io.github.beduality:0.1.0</code></li>
+<li>Gradle plugins use version catalog from <code>gradle/libs.versions.toml</code></li>
+<li>Spotless for code formatting</li>
+<li>Dokka for API documentation</li>
+<li>Nexus Publish Plugin for Maven Central publishing</li>
+<li>JaCoCo for test coverage</li>
+</ul>
 <h3 id="version-catalog-gradlelibsversionstoml">Version Catalog (<code>gradle/libs.versions.toml</code>)<a class="headerlink" href="#version-catalog-gradlelibsversionstoml" title="Permanent link">&para;</a></h3>
 <p>The version catalog defines all library versions in a single file.</p>
 <p><strong>Available Versions</strong>:</p>
@@ -2373,35 +2431,45 @@
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://beduality.github.io/terracotta/</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">repo_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/beduality/terracotta</span>
 </code></pre></div>
-<p><strong>Theme Configuration</strong>:
-- Material theme with custom directory
-- Logo and favicon paths
-- Dark/light palette with deep-purple primary color
-- Features: instant navigation, search, tabs, code copying</p>
-<p><strong>Markdown Extensions</strong>:
-- <code>pymdownx.highlight</code>: Syntax highlighting with line numbers
-- <code>pymdownx.superfences</code>: Custom code fences (Mermaid diagrams)
-- <code>pymdownx.tabbed</code>: Tabbed content
-- <code>pymdownx.details</code>: Collapsible content blocks
-- <code>admonition</code>: Alert boxes (note, warning, tip)
-- <code>tables</code>: Markdown tables</p>
-<p><strong>Plugins</strong>:
-- <code>search</code>: Full-text search
-- <code>hooks</code>: Build-time hooks for copying generated docs</p>
-<p><strong>Navigation Structure</strong>:
-- Quick Start
-- Gradle Plugin
-- SDK
-- Repo</p>
+<p><strong>Theme Configuration</strong>:</p>
+<ul>
+<li>Material theme with custom directory</li>
+<li>Logo and favicon paths</li>
+<li>Dark/light palette with deep-purple primary color</li>
+<li>Features: instant navigation, search, tabs, code copying</li>
+</ul>
+<p><strong>Markdown Extensions</strong>:</p>
+<ul>
+<li><code>pymdownx.highlight</code>: Syntax highlighting with line numbers</li>
+<li><code>pymdownx.superfences</code>: Custom code fences (Mermaid diagrams)</li>
+<li><code>pymdownx.tabbed</code>: Tabbed content</li>
+<li><code>pymdownx.details</code>: Collapsible content blocks</li>
+<li><code>admonition</code>: Alert boxes (note, warning, tip)</li>
+<li><code>tables</code>: Markdown tables</li>
+</ul>
+<p><strong>Plugins</strong>:</p>
+<ul>
+<li><code>search</code>: Full-text search</li>
+<li><code>hooks</code>: Build-time hooks for copying generated docs</li>
+</ul>
+<p><strong>Navigation Structure</strong>:</p>
+<ul>
+<li>Quick Start</li>
+<li>Gradle Plugin</li>
+<li>SDK</li>
+<li>Repo</li>
+</ul>
 <h2 id="module-specific-configuration">Module-Specific Configuration<a class="headerlink" href="#module-specific-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="gradle-plugin-module">Gradle Plugin Module<a class="headerlink" href="#gradle-plugin-module" title="Permanent link">&para;</a></h3>
 <p>The Gradle plugin module (<code>modules/terracotta-gradle-plugin</code>) has additional configuration:</p>
-<p><strong>Plugin Metadata</strong>:
-- ID: <code>io.github.beduality.terracotta</code>
-- Name: Terracotta
-- Description: Declarative Minecraft project registry management
-- Website: Project GitHub repository
-- Version: From <code>gradle/libs.versions.toml</code></p>
+<p><strong>Plugin Metadata</strong>:</p>
+<ul>
+<li>ID: <code>io.github.beduality.terracotta</code></li>
+<li>Name: Terracotta</li>
+<li>Description: Declarative Minecraft project registry management</li>
+<li>Website: Project GitHub repository</li>
+<li>Version: From <code>gradle/libs.versions.toml</code></li>
+</ul>
 <h3 id="provider-modules">Provider Modules<a class="headerlink" href="#provider-modules" title="Permanent link">&para;</a></h3>
 <p>Provider modules (<code>terracotta-provider-modrinth</code>) register their <code>ProviderFactory</code> via ServiceLoader:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>META-INF/services/

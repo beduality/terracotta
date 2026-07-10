@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/custom-provider/">
       
       
-        <link rel="prev" href="../../tutorials/installation/">
+        <link rel="prev" href="../../tutorials/quick-start/">
       
       
         <link rel="next" href="../modrinth-provider/">
@@ -836,14 +836,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/installation/" class="md-nav__link">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Quick Start
   
 
     
@@ -983,10 +983,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-implement-providerfactory" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Implement ProviderFactory
+        Overview
       
     </span>
   </a>
@@ -994,10 +994,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-implement-stateprovider" class="md-nav__link">
+  <a href="#what-youll-build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Implement StateProvider
+        What you'll build
       
     </span>
   </a>
@@ -1005,10 +1005,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-implement-registryprovider" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Implement RegistryProvider
+        Prerequisites
       
     </span>
   </a>
@@ -1016,10 +1016,76 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-run-the-diff-engine" class="md-nav__link">
+  <a href="#step-1-implement-providerfactory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Run the Diff Engine
+        Step 1: Implement ProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-implement-stateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Implement StateProvider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-implement-registryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Implement RegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-register-via-serviceloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Register via ServiceLoader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-use-your-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Use Your Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
       
     </span>
   </a>
@@ -1135,6 +1201,62 @@
     
   
     API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/provider-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
   
 
     
@@ -1954,10 +2076,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-implement-providerfactory" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Implement ProviderFactory
+        Overview
       
     </span>
   </a>
@@ -1965,10 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-implement-stateprovider" class="md-nav__link">
+  <a href="#what-youll-build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Implement StateProvider
+        What you'll build
       
     </span>
   </a>
@@ -1976,10 +2098,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-implement-registryprovider" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Implement RegistryProvider
+        Prerequisites
       
     </span>
   </a>
@@ -1987,10 +2109,76 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-run-the-diff-engine" class="md-nav__link">
+  <a href="#step-1-implement-providerfactory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Run the Diff Engine
+        Step 1: Implement ProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-implement-stateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Implement StateProvider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-implement-registryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Implement RegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-register-via-serviceloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Register via ServiceLoader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-use-your-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Use Your Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
       
     </span>
   </a>
@@ -2023,56 +2211,142 @@
 
 
 <h1 id="implementing-a-custom-provider">Implementing a Custom Provider<a class="headerlink" href="#implementing-a-custom-provider" title="Permanent link">&para;</a></h1>
-<p>Terracotta core is modular and does not depend on Modrinth. You can add support for other registries (e.g. CurseForge or Hangar) by implementing core interfaces in the SDK.</p>
-<h2 id="1-implement-providerfactory">1. Implement <code>ProviderFactory</code><a class="headerlink" href="#1-implement-providerfactory" title="Permanent link">&para;</a></h2>
-<p>The <code>ProviderFactory</code> interface acts as a factory for creating state and registry providers for your custom registry:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider</span>
+<p>This guide shows how to add support for additional registries to Terracotta.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Terracotta's modular design lets you implement support for any registry by implementing three core interfaces.</p>
+<h2 id="what-youll-build">What you'll build<a class="headerlink" href="#what-youll-build" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>MyRegistryProviderFactory</code>: Factory for creating providers</li>
+<li><code>MyRegistryStateProvider</code>: Fetches project state from your registry</li>
+<li><code>MyRegistryRegistryProvider</code>: Applies changes to your registry</li>
+<li>ServiceLoader registration for automatic discovery</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Terracotta Core SDK dependency</li>
+<li>Access to your registry's API documentation</li>
+</ul>
+<h2 id="step-1-implement-providerfactory">Step 1: Implement ProviderFactory<a class="headerlink" href="#step-1-implement-providerfactory" title="Permanent link">&para;</a></h2>
+<p>Create the factory that Terracotta uses to discover your providers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">com.example.provider</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="cm">/** The unique identifier for this registry (e.g. &quot;modrinth&quot;, &quot;hangar&quot;) */</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="cm">/** Creates a state provider for this registry using the given auth token (may be null) */</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="cm">/** Creates a registry provider for this registry using the given auth token (may be null) */</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.*</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyRegistryProviderFactory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-registry&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyRegistryStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyRegistryRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">}</span>
 </code></pre></div>
-<p>Then, register your <code>ProviderFactory</code> implementation as a Java service by creating a file at <code>src/main/resources/META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory</code> with the fully qualified name of your implementation class.</p>
-<h2 id="2-implement-stateprovider">2. Implement <code>StateProvider</code><a class="headerlink" href="#2-implement-stateprovider" title="Permanent link">&para;</a></h2>
-<p>The <code>StateProvider</code> interface is responsible for fetching the current project state from the remote registry:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaProject</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">StateProvider</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">TerracottaProject?</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+<h2 id="step-2-implement-stateprovider">Step 2: Implement StateProvider<a class="headerlink" href="#step-2-implement-stateprovider" title="Permanent link">&para;</a></h2>
+<p>Fetch project data from your registry and translate it to <code>TerracottaProject</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyRegistryStateProvider</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">StateProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">TerracottaProject? </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="c1">// Fetch from your registry API</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="n">TerracottaProject</span><span class="p">(</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">                </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">summary</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">                </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">description</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">                </span><span class="n">versions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">versions</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">                    </span><span class="n">TerracottaVersion</span><span class="p">(</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">                        </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">versionId</span><span class="p">,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">                        </span><span class="n">artifactPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">artifactPath</span><span class="p">,</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">                        </span><span class="n">gameVersions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">gameVersions</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">                        </span><span class="n">loaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">loaders</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                        </span><span class="n">environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">environment</span><span class="p">,</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">                        </span><span class="n">releaseType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="na">releaseType</span><span class="p">,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">                    </span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">                </span><span class="p">},</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">                </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">tags</span><span class="p">,</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">                </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">license</span><span class="p">,</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">            </span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="3-implement-registryprovider">3. Implement <code>RegistryProvider</code><a class="headerlink" href="#3-implement-registryprovider" title="Permanent link">&para;</a></h2>
-<p>The <code>RegistryProvider</code> interface executes the operations emitted by the Diff Engine:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.Operation</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+<h2 id="step-3-implement-registryprovider">Step 3: Implement RegistryProvider<a class="headerlink" href="#step-3-implement-registryprovider" title="Permanent link">&para;</a></h2>
+<p>Apply operations to your registry.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyRegistryRegistryProvider</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">operations</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">            </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">Operation</span><span class="p">.</span><span class="na">CreateProject</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                    </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">createProject</span><span class="p">(</span><span class="n">operation</span><span class="p">.</span><span class="na">project</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">Operation</span><span class="p">.</span><span class="na">UploadVersion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">                    </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">uploadVersion</span><span class="p">(</span><span class="n">operation</span><span class="p">.</span><span class="na">version</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">Operation</span><span class="p">.</span><span class="na">UpdateMetadata</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">                    </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">updateMetadata</span><span class="p">(</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">                        </span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projectId</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">                        </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">.</span><span class="na">newName</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">                        </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">.</span><span class="na">newSummary</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">                        </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">.</span><span class="na">newLicense</span><span class="p">,</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">                        </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span><span class="p">,</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">                    </span><span class="p">)</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">Operation</span><span class="p">.</span><span class="na">UpdateDescription</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">                    </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">updateDescription</span><span class="p">(</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">                        </span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projectId</span><span class="p">,</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">                        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">.</span><span class="na">newDescription</span><span class="p">,</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">                        </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span><span class="p">,</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">                    </span><span class="p">)</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">                </span><span class="k">is</span><span class="w"> </span><span class="n">Operation</span><span class="p">.</span><span class="na">UpdateTags</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">                    </span><span class="n">myRegistryClient</span><span class="p">.</span><span class="na">updateTags</span><span class="p">(</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">                        </span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projectId</span><span class="p">,</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">                        </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">.</span><span class="na">newTags</span><span class="p">,</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">                        </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span><span class="p">,</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">                    </span><span class="p">)</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="4-run-the-diff-engine">4. Run the Diff Engine<a class="headerlink" href="#4-run-the-diff-engine" title="Permanent link">&para;</a></h2>
-<p>Use <code>DiffEngine</code> to compute differences between local configuration and the retrieved remote project state:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.runBlocking</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">localProject</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaProject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">remoteProject</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaProject? </span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">customStateProvider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">localProject</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Compute differences</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DiffEngine</span><span class="p">.</span><span class="na">diff</span><span class="p">(</span><span class="n">localProject</span><span class="p">,</span><span class="w"> </span><span class="n">remoteProject</span><span class="p">)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">// Apply changes</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">runBlocking</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">customRegistryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">localProject</span><span class="p">.</span><span class="na">id</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<h2 id="step-4-register-via-serviceloader">Step 4: Register via ServiceLoader<a class="headerlink" href="#step-4-register-via-serviceloader" title="Permanent link">&para;</a></h2>
+<p>Create <code>src/main/resources/META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>com.example.provider.MyRegistryProviderFactory
 </code></pre></div>
+<h2 id="step-5-use-your-provider">Step 5: Use Your Provider<a class="headerlink" href="#step-5-use-your-provider" title="Permanent link">&para;</a></h2>
+<p>Add your provider module as a dependency and use it like any other:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyRegistryProviderFactory</span><span class="p">()</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">stateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">remoteProject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stateProvider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kd">val</span><span class="w"> </span><span class="nv">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DiffEngine</span><span class="p">.</span><span class="na">diff</span><span class="p">(</span><span class="n">localProject</span><span class="p">,</span><span class="w"> </span><span class="n">remoteProject</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Test your provider by mocking the API client:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@Test</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">`fetches project correctly`</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runTest</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mockClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MockMyRegistryClient</span><span class="p">()</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyRegistryStateProvider</span><span class="p">(</span><span class="n">mockClient</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">provider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="s">&quot;test-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;Test Project&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">project</span><span class="o">?.</span><span class="na">name</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Check your registry API documentation for correct endpoint paths</li>
+<li>Verify authentication token format and headers</li>
+<li>Log HTTP requests/responses for troubleshooting</li>
+<li>Test with a real registry account before integrating with Terracotta</li>
+</ul>
 
 
 
@@ -2110,7 +2384,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../tutorials/installation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installation">
+          <a href="../../tutorials/quick-start/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Quick Start">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2120,7 +2394,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Installation
+                Quick Start
               </div>
             </div>
           </a>

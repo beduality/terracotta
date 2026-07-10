@@ -834,14 +834,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../sdk/tutorials/installation/" class="md-nav__link">
+      <a href="../../../sdk/tutorials/quick-start/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Quick Start
   
 
     
@@ -1040,6 +1040,62 @@
     
   
     API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sdk/reference/provider-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sdk/reference/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
   
 
     
@@ -2229,45 +2285,59 @@
 <h3 id="1-domain-isolation-terracotta-core">1. Domain Isolation (<code>terracotta-core</code>)<a class="headerlink" href="#1-domain-isolation-terracotta-core" title="Permanent link">&para;</a></h3>
 <p><strong>Location</strong>: <code>modules/terracotta-core</code></p>
 <p>Contains all canonical models, provider interfaces, and diff engine logic.</p>
-<p><strong>Rules</strong>:
-- Depends only on standard Kotlin/Java APIs
-- Absolutely no network or framework dependencies
-- Pure platform-agnostic business logic
-- Published to Maven Central as <code>io.github.beduality:terracotta-core</code></p>
-<p><strong>Key Components</strong>:
-- <code>core.model.TerracottaProject</code> / <code>TerracottaVersion</code>
-- <code>core.provider.ProviderFactory</code>, <code>StateProvider</code>, <code>RegistryProvider</code>
-- <code>core.diff.DiffEngine</code>, <code>Operation</code> sealed interface</p>
+<p><strong>Rules</strong>:</p>
+<ul>
+<li>Depends only on standard Kotlin/Java APIs</li>
+<li>Absolutely no network or framework dependencies</li>
+<li>Pure platform-agnostic business logic</li>
+<li>Published to Maven Central as <code>io.github.beduality:terracotta-core</code></li>
+</ul>
+<p><strong>Key Components</strong>:</p>
+<ul>
+<li><code>core.model.TerracottaProject</code> / <code>TerracottaVersion</code></li>
+<li><code>core.provider.ProviderFactory</code>, <code>StateProvider</code>, <code>RegistryProvider</code></li>
+<li><code>core.diff.DiffEngine</code>, <code>Operation</code> sealed interface</li>
+</ul>
 <h3 id="2-registry-providers-terracotta-provider-modrinth">2. Registry Providers (<code>terracotta-provider-modrinth</code>)<a class="headerlink" href="#2-registry-providers-terracotta-provider-modrinth" title="Permanent link">&para;</a></h3>
 <p><strong>Location</strong>: <code>modules/terracotta-provider-modrinth</code></p>
 <p>Implements registry-specific behaviors.</p>
-<p><strong>Rules</strong>:
-- Implements the provider interfaces from <code>terracotta-core</code>
-- Depends on Ktor Client and Kotlinx Serialization
-- Published to Maven Central as <code>io.github.beduality:terracotta-provider-modrinth</code></p>
-<p><strong>Key Components</strong>:
-- <code>ModrinthProviderFactory</code>
-- <code>ModrinthClient</code>
-- <code>ModrinthStateProvider</code>
-- <code>ModrinthRegistryProvider</code></p>
+<p><strong>Rules</strong>:</p>
+<ul>
+<li>Implements the provider interfaces from <code>terracotta-core</code></li>
+<li>Depends on Ktor Client and Kotlinx Serialization</li>
+<li>Published to Maven Central as <code>io.github.beduality:terracotta-provider-modrinth</code></li>
+</ul>
+<p><strong>Key Components</strong>:</p>
+<ul>
+<li><code>ModrinthProviderFactory</code></li>
+<li><code>ModrinthClient</code></li>
+<li><code>ModrinthStateProvider</code></li>
+<li><code>ModrinthRegistryProvider</code></li>
+</ul>
 <h3 id="3-gradle-plugin-terracotta-gradle-plugin">3. Gradle Plugin (<code>terracotta-gradle-plugin</code>)<a class="headerlink" href="#3-gradle-plugin-terracotta-gradle-plugin" title="Permanent link">&para;</a></h3>
 <p><strong>Location</strong>: <code>modules/terracotta-gradle-plugin</code></p>
 <p>Build-tool integration providing tasks with Gradle DSL.</p>
-<p><strong>Rules</strong>:
-- Uses ServiceLoader for provider discovery
-- Depends on Gradle API and core modules
-- Published to Gradle Plugin Portal</p>
-<p><strong>Key Components</strong>:
-- <code>TerracottaPlugin</code>
-- <code>TerracottaExtension</code>
-- <code>TerracottaPlanTask</code>, <code>TerracottaApplyTask</code></p>
+<p><strong>Rules</strong>:</p>
+<ul>
+<li>Uses ServiceLoader for provider discovery</li>
+<li>Depends on Gradle API and core modules</li>
+<li>Published to Gradle Plugin Portal</li>
+</ul>
+<p><strong>Key Components</strong>:</p>
+<ul>
+<li><code>TerracottaPlugin</code></li>
+<li><code>TerracottaExtension</code></li>
+<li><code>TerracottaPlanTask</code>, <code>TerracottaApplyTask</code></li>
+</ul>
 <h3 id="4-infrastructure-management-terracotta-github">4. Infrastructure Management (<code>terracotta-github</code>)<a class="headerlink" href="#4-infrastructure-management-terracotta-github" title="Permanent link">&para;</a></h3>
 <p><strong>Location</strong>: <code>modules/terracotta-github</code></p>
 <p>Manages GitHub repository configuration using Pulumi.</p>
-<p><strong>Rules</strong>:
-- Uses Pulumi Java/Kotlin SDK
-- Manages repository settings and Action secrets
-- Not published to Maven Central</p>
+<p><strong>Rules</strong>:</p>
+<ul>
+<li>Uses Pulumi Java/Kotlin SDK</li>
+<li>Manages repository settings and Action secrets</li>
+<li>Not published to Maven Central</li>
+</ul>
 <h2 id="code-style">Code Style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h2>
 <h3 id="kotlin">Kotlin<a class="headerlink" href="#kotlin" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2277,17 +2347,21 @@
 </ul>
 <h3 id="commits">Commits<a class="headerlink" href="#commits" title="Permanent link">&para;</a></h3>
 <p>This project follows <a href="https://www.conventionalcommits.org/">Conventional Commits</a> and <a href="https://semver.org/">Semantic Versioning</a>.</p>
-<p><strong>Scope mapping</strong>:
-- <code>core</code> - terracotta-core module
-- <code>modrinth</code> - terracotta-provider-modrinth module
-- <code>gradle-plugin</code> - terracotta-gradle-plugin module
-- <code>github</code> - terracotta-github module
-- <code>docs</code> - documentation
-- <code>ci</code> - CI/CD workflows</p>
-<p><strong>Commit types</strong>:
-- <code>feat</code> → minor version bump
-- <code>fix</code> → patch version bump
-- <code>BREAKING CHANGE</code> or <code>!</code> suffix → major version bump</p>
+<p><strong>Scope mapping</strong>:</p>
+<ul>
+<li><code>core</code> - terracotta-core module</li>
+<li><code>modrinth</code> - terracotta-provider-modrinth module</li>
+<li><code>gradle-plugin</code> - terracotta-gradle-plugin module</li>
+<li><code>github</code> - terracotta-github module</li>
+<li><code>docs</code> - documentation</li>
+<li><code>ci</code> - CI/CD workflows</li>
+</ul>
+<p><strong>Commit types</strong>:</p>
+<ul>
+<li><code>feat</code> → minor version bump</li>
+<li><code>fix</code> → patch version bump</li>
+<li><code>BREAKING CHANGE</code> or <code>!</code> suffix → major version bump</li>
+</ul>
 <h3 id="pull-request-requirements">Pull Request Requirements<a class="headerlink" href="#pull-request-requirements" title="Permanent link">&para;</a></h3>
 <p>Before a PR can be merged:</p>
 <ul>
@@ -2298,10 +2372,12 @@
 <li>[ ] Documentation updated (if applicable)</li>
 </ul>
 <h2 id="project-management">Project Management<a class="headerlink" href="#project-management" title="Permanent link">&para;</a></h2>
-<p>See the <a href="../../tutorials/navigating-the-codebase/">Navigating the Codebase</a> tutorial for:
-- Git workflow (cloning, upstream setup)
-- Branch strategy (<code>main</code> vs <code>project</code>)
-- TODO/BACKLOG/Proposals workflow</p>
+<p>See the <a href="../../tutorials/navigating-the-codebase/">Navigating the Codebase</a> tutorial for:</p>
+<ul>
+<li>Git workflow (cloning, upstream setup)</li>
+<li>Branch strategy (<code>main</code> vs <code>project</code>)</li>
+<li>TODO/BACKLOG/Proposals workflow</li>
+</ul>
 <h2 id="testing-requirements">Testing Requirements<a class="headerlink" href="#testing-requirements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>All behavior changes require tests</li>

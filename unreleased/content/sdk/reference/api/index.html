@@ -16,7 +16,7 @@
         <link rel="prev" href="../../how-to-guides/modrinth-provider/">
       
       
-        <link rel="next" href="../../explanation/architecture/">
+        <link rel="next" href="../provider-api/">
       
       
         
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#core-api-reference" class="md-skip">
+        <a href="#api-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -836,14 +836,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/installation/" class="md-nav__link">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Quick Start
   
 
     
@@ -1096,10 +1096,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#maven-dependency" class="md-nav__link">
+  <a href="#package-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Maven Dependency
+        Package Structure
       
     </span>
   </a>
@@ -1107,13 +1107,263 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api-documentation" class="md-nav__link">
+  <a href="#core-models" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Documentation
+        Core Models
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Core Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terracottaproject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaProject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaVersion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaenvironment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaLoader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottareleasetype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaReleaseType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#providerfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StateProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diff Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diffengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DiffEngine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modrinth-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth Provider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modrinth Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modrinthproviderfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthstateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthStateProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthregistryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthRegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthclient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthClient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinth-provider_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1121,6 +1371,62 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../provider-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1932,10 +2238,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#maven-dependency" class="md-nav__link">
+  <a href="#package-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Maven Dependency
+        Package Structure
       
     </span>
   </a>
@@ -1943,13 +2249,263 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api-documentation" class="md-nav__link">
+  <a href="#core-models" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Documentation
+        Core Models
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Core Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terracottaproject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaProject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaVersion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaenvironment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottaloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaLoader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terracottareleasetype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaReleaseType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#providerfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StateProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diff Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diffengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DiffEngine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modrinth-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth Provider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modrinth Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modrinthproviderfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthProviderFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthstateprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthStateProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthregistryprovider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthRegistryProvider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinthclient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModrinthClient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinth-provider_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1978,13 +2534,462 @@
   
 
 
-<h1 id="core-api-reference">Core API Reference<a class="headerlink" href="#core-api-reference" title="Permanent link">&para;</a></h1>
-<p>The <code>terracotta-core</code> module is published to Maven Central, allowing developers to build IDE plugins, build-tool plugins (Gradle/Maven), or custom integration workflows.</p>
-<h2 id="maven-dependency">Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-core:0.1.0&quot;</span><span class="p">)</span>
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>The Terracotta SDK provides a modular, platform-agnostic API for Minecraft project registry management.</p>
+<h2 id="package-structure">Package Structure<a class="headerlink" href="#package-structure" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>io.github.beduality.terracotta.core.model</code></td>
+<td>Canonical data models</td>
+</tr>
+<tr>
+<td><code>io.github.beduality.terracotta.core.provider</code></td>
+<td>Provider interfaces</td>
+</tr>
+<tr>
+<td><code>io.github.beduality.terracotta.core.diff</code></td>
+<td>Diff engine and operations</td>
+</tr>
+<tr>
+<td><code>io.github.beduality.terracotta.provider.modrinth</code></td>
+<td>Modrinth provider implementation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="core-models">Core Models<a class="headerlink" href="#core-models" title="Permanent link">&para;</a></h2>
+<h3 id="terracottaproject">TerracottaProject<a class="headerlink" href="#terracottaproject" title="Permanent link">&para;</a></h3>
+<p>The canonical representation of a Minecraft project.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TerracottaProject</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">schemaVersion</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">summary</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">description</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">versions</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">TerracottaVersion</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">tags</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
 </code></pre></div>
-<h2 id="api-documentation">API Documentation<a class="headerlink" href="#api-documentation" title="Permanent link">&para;</a></h2>
-<p>For complete API documentation, see the <a href="https://beduality.github.io/terracotta/dokka/">Dokka-generated API reference</a>.</p>
+<p><strong>Fields</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schemaVersion</code></td>
+<td><code>Int</code></td>
+<td>No</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>versions</code></td>
+<td><code>List&lt;TerracottaVersion&gt;</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td><code>List&lt;String&gt;</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>license</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terracottaversion">TerracottaVersion<a class="headerlink" href="#terracottaversion" title="Permanent link">&para;</a></h3>
+<p>Represents a single version of a project.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TerracottaVersion</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">version</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">artifactPath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">gameVersions</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">loaders</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">TerracottaLoader</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emptyList</span><span class="p">(),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">environment</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaEnvironment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TerracottaEnvironment</span><span class="p">.</span><span class="na">SERVER_ONLY</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">releaseType</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaReleaseType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TerracottaReleaseType</span><span class="p">.</span><span class="na">RELEASE</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">changelog</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">displayName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="terracottaenvironment">TerracottaEnvironment<a class="headerlink" href="#terracottaenvironment" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLIENT_ONLY</code></td>
+<td><code>"client_only"</code></td>
+<td>Client-side only content</td>
+</tr>
+<tr>
+<td><code>SERVER_ONLY</code></td>
+<td><code>"server_only"</code></td>
+<td>Server-side only content</td>
+</tr>
+<tr>
+<td><code>UNIVERSAL</code></td>
+<td><code>"universal"</code></td>
+<td>Works on both client and server</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terracottaloader">TerracottaLoader<a class="headerlink" href="#terracottaloader" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BUKKIT</code></td>
+<td><code>"bukkit"</code></td>
+<td>Bukkit/Spigot/Paper</td>
+</tr>
+<tr>
+<td><code>FABRIC</code></td>
+<td><code>"fabric"</code></td>
+<td>Fabric loader</td>
+</tr>
+<tr>
+<td><code>FORGE</code></td>
+<td><code>"forge"</code></td>
+<td>Forge loader</td>
+</tr>
+<tr>
+<td><code>NEOFORGE</code></td>
+<td><code>"neoforge"</code></td>
+<td>NeoForge loader</td>
+</tr>
+<tr>
+<td><code>PAPER</code></td>
+<td><code>"paper"</code></td>
+<td>Paper server</td>
+</tr>
+<tr>
+<td><code>QUILT</code></td>
+<td><code>"quilt"</code></td>
+<td>QUILT loader</td>
+</tr>
+<tr>
+<td><em>(and more)</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="terracottareleasetype">TerracottaReleaseType<a class="headerlink" href="#terracottareleasetype" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RELEASE</code></td>
+<td><code>"release"</code></td>
+<td>Stable release</td>
+</tr>
+<tr>
+<td><code>BETA</code></td>
+<td><code>"beta"</code></td>
+<td>Beta/testing release</td>
+</tr>
+<tr>
+<td><code>ALPHA</code></td>
+<td><code>"alpha"</code></td>
+<td>Alpha/experimental release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="provider-interfaces">Provider Interfaces<a class="headerlink" href="#provider-interfaces" title="Permanent link">&para;</a></h2>
+<h3 id="providerfactory">ProviderFactory<a class="headerlink" href="#providerfactory" title="Permanent link">&para;</a></h3>
+<p>Factory interface for creating registry-specific providers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Methods</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Unique registry identifier (e.g., "modrinth")</td>
+</tr>
+<tr>
+<td><code>createStateProvider(token)</code></td>
+<td>Create a state provider with optional auth token</td>
+</tr>
+<tr>
+<td><code>createRegistryProvider(token)</code></td>
+<td>Create a registry provider with optional auth token</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Provider Discovery</strong>: Providers are discovered via Java's <code>ServiceLoader</code> mechanism.</p>
+<h3 id="stateprovider">StateProvider<a class="headerlink" href="#stateprovider" title="Permanent link">&para;</a></h3>
+<p>Fetches remote project state from a registry.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">StateProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">TerracottaProject?</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Methods</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fetchProject(projectId)</code></td>
+<td>Fetch the remote project, or <code>null</code> if not found</td>
+</tr>
+</tbody>
+</table>
+<h3 id="registryprovider">RegistryProvider<a class="headerlink" href="#registryprovider" title="Permanent link">&para;</a></h3>
+<p>Applies changes to a registry.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nc">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Methods</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apply(projectId, operations)</code></td>
+<td>Apply the given operations to the remote project</td>
+</tr>
+</tbody>
+</table>
+<h2 id="diff-engine">Diff Engine<a class="headerlink" href="#diff-engine" title="Permanent link">&para;</a></h2>
+<h3 id="diffengine">DiffEngine<a class="headerlink" href="#diffengine" title="Permanent link">&para;</a></h3>
+<p>Computes the semantic diff between local and remote project states.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">object</span><span class="w"> </span><span class="nc">DiffEngine</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">diff</span><span class="p">(</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="n">local</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaProject</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="n">remote</span><span class="p">:</span><span class="w"> </span><span class="n">TerracottaProject?,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Behavior</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>remote == null</code></td>
+<td><code>CreateProject</code> + <code>UploadVersion</code> for each version</td>
+</tr>
+<tr>
+<td>Metadata changed</td>
+<td><code>UpdateMetadata</code></td>
+</tr>
+<tr>
+<td>Description changed</td>
+<td><code>UpdateDescription</code></td>
+</tr>
+<tr>
+<td>Tags changed</td>
+<td><code>UpdateTags</code></td>
+</tr>
+<tr>
+<td>New version exists</td>
+<td><code>UploadVersion</code> for that version</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operation">Operation<a class="headerlink" href="#operation" title="Permanent link">&para;</a></h3>
+<p>A diff operation describing a change to apply.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Operation</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">description</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Subtypes</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Operation.UpdateDescription(old, new)</code></td>
+<td>Update project description</td>
+</tr>
+<tr>
+<td><code>Operation.UpdateTags(oldTags, newTags)</code></td>
+<td>Update project tags</td>
+</tr>
+<tr>
+<td><code>Operation.UpdateMetadata(...)</code></td>
+<td>Update project metadata</td>
+</tr>
+<tr>
+<td><code>Operation.UploadVersion(version)</code></td>
+<td>Upload a new version</td>
+</tr>
+<tr>
+<td><code>Operation.CreateProject(project)</code></td>
+<td>Create a new project</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modrinth-provider">Modrinth Provider<a class="headerlink" href="#modrinth-provider" title="Permanent link">&para;</a></h2>
+<h3 id="modrinthproviderfactory">ModrinthProviderFactory<a class="headerlink" href="#modrinthproviderfactory" title="Permanent link">&para;</a></h3>
+<p>The factory for creating Modrinth providers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ModrinthProviderFactory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="modrinthstateprovider">ModrinthStateProvider<a class="headerlink" href="#modrinthstateprovider" title="Permanent link">&para;</a></h3>
+<p>Fetches project state from Modrinth.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ModrinthStateProvider</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">ModrinthClient</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">StateProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">TerracottaProject?</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="modrinthregistryprovider">ModrinthRegistryProvider<a class="headerlink" href="#modrinthregistryprovider" title="Permanent link">&para;</a></h3>
+<p>Applies changes to Modrinth.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ModrinthRegistryProvider</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">ModrinthClient</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="modrinthclient">ModrinthClient<a class="headerlink" href="#modrinthclient" title="Permanent link">&para;</a></h3>
+<p>Low-level HTTP client for Modrinth API.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ModrinthClient</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="n">HttpMethod</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="kt">Any?</span><span class="p">):</span><span class="w"> </span><span class="n">HttpResponse</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<h3 id="core-sdk">Core SDK<a class="headerlink" href="#core-sdk" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-core:0.1.0&quot;</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kotlin</td>
+<td>2.3.21</td>
+<td>Language</td>
+</tr>
+<tr>
+<td>Kotlinx Serialization</td>
+<td>1.7.1</td>
+<td>JSON serialization</td>
+</tr>
+<tr>
+<td>Kotlinx Coroutines</td>
+<td>1.8.1</td>
+<td>Async operations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modrinth-provider_1">Modrinth Provider<a class="headerlink" href="#modrinth-provider_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-provider-modrinth:0.1.0&quot;</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ktor Client</td>
+<td>2.3.12</td>
+<td>HTTP client</td>
+</tr>
+<tr>
+<td>Kotlinx Serialization</td>
+<td>1.7.1</td>
+<td>JSON serialization</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -2039,13 +3044,13 @@
         
         
           
-          <a href="../../explanation/architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture Overview">
+          <a href="../provider-api/" class="md-footer__link md-footer__link--next" aria-label="Next: Provider API">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture Overview
+                Provider API
               </div>
             </div>
             <div class="md-footer__button md-icon">
