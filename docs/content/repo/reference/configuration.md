@@ -16,7 +16,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.spotless)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.nexus.publish)
+    alias(libs.plugins.central.portal.publisher)
     jacoco
 }
 ```
@@ -27,7 +27,7 @@ plugins {
 - Gradle plugins use version catalog from `gradle/libs.versions.toml`
 - Spotless for code formatting
 - Dokka for API documentation
-- Nexus Publish Plugin for Maven Central publishing
+- Central Portal Publisher for Maven Central publishing
 - JaCoCo for test coverage
 
 ### Version Catalog (`gradle/libs.versions.toml`)
@@ -55,8 +55,7 @@ The version catalog defines all library versions in a single file.
 | kotlin-serialization | 2.3.21 | Kotlin serialization plugin |
 | spotless | 6.25.0 | Code formatting |
 | dokka | 1.9.20 | API documentation |
-| nexus-publish | 2.0.0 | Maven Central publishing |
-| gradle-plugin-publish | 8.1.1 | Gradle plugin publishing |
+| central-portal-publisher | 0.2.0-alpha.1 | Maven Central publishing via Sonatype Central Portal |
 
 ## Documentation Configuration
 
@@ -138,8 +137,8 @@ The file contains the fully qualified class name of the factory implementation.
 
 | Variable | Purpose | Required |
 |----------|---------|----------|
-| `OSSRH_USERNAME` | Sonatype OSSRH username | Yes (for releases) |
-| `OSSRH_PASSWORD` | Sonatype OSSRH password/token | Yes (for releases) |
+| `SONATYPE_USERNAME` | Sonatype Central Portal username | Yes (for releases) |
+| `SONATYPE_PASSWORD` | Sonatype Central Portal password/token | Yes (for releases) |
 | `SIGNING_KEY` | GPG private key (ASCII-armored) | Yes (for releases) |
 | `SIGNING_PASSWORD` | GPG key passphrase | Yes (for releases) |
 

@@ -99,6 +99,20 @@ The release workflow uses these GitHub repository secrets:
 
 Configure these in your repository settings under **Secrets and variables** → **Actions**.
 
+#### Loading Secrets via Pulumi
+
+The `terracotta-github` module manages GitHub Actions secrets as infrastructure. To sync secrets from your `.env` file into Pulumi config (which then provisions them as GitHub Actions secrets):
+
+```bash
+export PULUMI_CONFIG_PASSPHRASE="your-passphrase"
+uv run scripts/load-pulumi-secrets.py
+cd modules/terracotta-github && pulumi up
+```
+
+The `PULUMI_CONFIG_PASSPHRASE` env var is required for non-interactive secret encryption. Alternatively, use `PULUMI_CONFIG_PASSPHRASE_FILE` to point to a file containing the passphrase.
+
+The script auto-detects which secrets are needed by parsing `App.kt` — no manual list to maintain.
+
 ## Manual Override
 
 To manually specify the version:

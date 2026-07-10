@@ -276,15 +276,13 @@ def main(
             should_verify = bump is not None or questionary.confirm("Do you want to run dry-run publication verification?", default=True).ask()
             if should_verify:
                 env = os.environ.copy()
-                env["DRY_RUN"] = "true"
                 # Use JAVA_HOME from environment or default
                 java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
                 env["JAVA_HOME"] = java_home
                 run_command(
                     [
                         "./gradlew",
-                        "publishPluginPublicationToHangar",
-                        "modrinth",
+                        "validatePublishing",
                         "--no-daemon",
                     ],
                     env=env,
