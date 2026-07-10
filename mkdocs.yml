@@ -103,24 +103,26 @@ nav:
     - Explanation:
       - Architecture Overview: content/sdk/explanation/architecture.md
   - Repo:
-    - Tutorials:
-      - Quick Start: content/repo/tutorials/quick-start.md
-      - Navigating the Codebase: content/repo/tutorials/navigating-the-codebase.md
-      - Writing Changelog: content/repo/tutorials/writing-changelog.md
-      - Writing Documentation: content/repo/tutorials/writing-documentation.md
-    - How-To Guides:
-      - Building: content/repo/how-to-guides/building.md
-      - Testing: content/repo/how-to-guides/testing.md
-      - Documentation: content/repo/how-to-guides/documentation.md
-      - Releasing: content/repo/how-to-guides/releasing.md
-      - Contributing: content/repo/how-to-guides/contributing.md
-    - Reference:
-      - Tech Stack: content/repo/reference/tech-stack.md
-      - File Structure: content/repo/reference/file-structure.md
-      - Configuration: content/repo/reference/configuration.md
-      - Architecture Reference: content/repo/reference/architecture-reference.md
-      - Code Style: content/repo/reference/code-style.md
-      - Contributing Guidelines: content/repo/reference/contributing-guidelines.md
-    - Explanation:
-      - Architecture: content/repo/explanation/architecture.md
-      - Project Management: content/repo/explanation/project-management.md
+      - Introduction: content/repo/README.md
+      - Tutorials:
+        - Quick Start: content/repo/tutorials/quick-start.md
+        - Navigating the Codebase: content/repo/tutorials/navigating-the-codebase.md
+        - Writing Changelog: content/repo/tutorials/writing-changelog.md
+      - How-To Guides:
+        - Building: content/repo/how-to-guides/building.md
+        - Testing: content/repo/how-to-guides/testing.md
+        - Documentation: content/repo/how-to-guides/documentation.md
+        - Releasing: content/repo/how-to-guides/releasing.md
+        - Contributing: content/repo/how-to-guides/contributing.md
+      - Reference:
+        - Tech Stack: content/repo/reference/tech-stack.md
+        - File Structure: content/repo/reference/file-structure.md
+        - Configuration: content/repo/reference/configuration.md
+        - Architecture Reference: content/repo/reference/architecture-reference.md
+        - Code Style: content/repo/reference/code-style.md
+        - Contributing Guidelines: content/repo/reference/contributing-guidelines.md
+      - Explanation:
+        - Architecture: content/repo/explanation/architecture.md
+        - Project Management: content/repo/explanation/project-management.md
+        - Documentation Framework: content/repo/explanation/documentation-framework.md
+        - Changelog Guidelines: content/repo/explanation/changelog-guidelines.md

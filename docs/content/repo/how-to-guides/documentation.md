@@ -56,7 +56,7 @@ mkdocs.yml                          # Site configuration & navigation
 pyproject.toml                      # Python dependencies (uv)
 ```
 
-The content follows the [Diátaxis](https://diataxis.fr/) framework. Each page must belong to exactly one type:
+The content follows the [Documentation Framework](../explanation/documentation-framework.md) structure. Each page must belong to exactly one type:
 
 - **Tutorial**: Learning by doing (beginner-focused)
 - **How-to guide**: Solving specific tasks
@@ -102,12 +102,9 @@ uv run mike list
 
 ## Writing Documentation
 
-### Follow Diátaxis
+### Follow Documentation Framework
 
-- **Tutorials** → "I want to learn" (step-by-step learning)
-- **How-to guides** → "I want to do X" (task-focused)
-- **Reference** → "I need to know" (information lookup)
-- **Explanation** → "I want to understand" (conceptual)
+See the [Documentation Framework](../explanation/documentation-framework.md) for detailed guidance on each type.
 
 ### Page Checklist
 

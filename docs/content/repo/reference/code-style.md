@@ -111,7 +111,7 @@ See [Contributing How-To](../how-to-guides/contributing.md) for detailed PR proc
 
 ## Documentation Style
 
-- Follow [Diátaxis](https://diataxis.fr/) framework
+- Follow the [Documentation Framework](../explanation/documentation-framework.md) for content organization
 - Each page belongs to exactly one type (Tutorial, How-to, Reference, Explanation)
 - Use markdown headers for structure
 - Include code examples where helpful

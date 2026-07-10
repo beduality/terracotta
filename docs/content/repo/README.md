@@ -4,7 +4,7 @@ This section documents the Terracotta repository itself - how it's organized, ho
 
 ## Documentation Structure
 
-This documentation follows the [Diátaxis](https://diataxis.fr/) framework, which organizes content by user intent:
+This documentation follows the [Documentation Framework](explanation/documentation-framework.md), which organizes content by user intent:
 
 ### Tutorials
 
@@ -13,7 +13,6 @@ Learning-oriented guides that help you learn by doing.
 - **[Quick Start](tutorials/quick-start.md)**: Get up and running in under 10 minutes
 - **[Navigating the Codebase](tutorials/navigating-the-codebase.md)**: Understand project structure and Git workflow
 - **[Writing Changelog](tutorials/writing-changelog.md)**: Learn how to document changes properly
-- **[Writing Documentation](tutorials/writing-documentation.md)**: Learn Diátaxis and how to write documentation
 
 ### How-To Guides
 
