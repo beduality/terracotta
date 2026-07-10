@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.spotless)
     `java-gradle-plugin`
     `maven-publish`
+    signing
 }
 
 dependencies {
@@ -45,4 +46,42 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// Ensure all publications (including gradle plugin marker) have required POM metadata
+publishing {
+    publications.withType<MavenPublication> {
+        pom {
+            name.set("Terracotta Gradle Plugin")
+            description.set("Gradle plugin for Terracotta.")
+            url.set("https://github.com/beduality/terracotta")
+            licenses {
+                license {
+                    name.set("MIT License")
+                    url.set("https://opensource.org/licenses/MIT")
+                }
+            }
+            developers {
+                developer {
+                    id.set("beduality")
+                    name.set("Block-Entity Duality")
+                }
+            }
+            scm {
+                url.set("https://github.com/beduality/terracotta")
+                connection.set("scm:git:git://github.com/beduality/terracotta.git")
+                developerConnection.set("scm:git:ssh://github.com/beduality/terracotta.git")
+            }
+        }
+    }
+}
+
+// Sign all publications (including the gradle plugin marker)
+signing {
+    val signingKey = System.getenv("SIGNING_KEY")
+    val signingPassword = System.getenv("SIGNING_PASSWORD")
+    if (!signingKey.isNullOrBlank()) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
+    }
 }

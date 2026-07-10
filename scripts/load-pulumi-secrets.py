@@ -26,13 +26,37 @@ def find_env_file() -> Path:
 def load_env(env_file: Path) -> dict[str, str]:
     """Parse a .env file into a dict, ignoring comments and blank lines."""
     env = {}
-    for line in env_file.read_text().splitlines():
-        line = line.strip()
+    lines = env_file.read_text().splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
         if not line or line.startswith("#"):
+            i += 1
             continue
-        if "=" in line:
-            key, _, value = line.partition("=")
-            env[key.strip()] = value.strip()
+        if "=" not in line:
+            i += 1
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        # Handle multiline quoted values
+        if value.startswith('"') and not value.endswith('"'):
+            # Collect lines until closing quote
+            parts = [value[1:]]  # strip opening quote
+            i += 1
+            while i < len(lines):
+                if lines[i].endswith('"'):
+                    parts.append(lines[i][:-1])  # strip closing quote
+                    break
+                parts.append(lines[i])
+                i += 1
+            value = "\n".join(parts)
+        elif value.startswith('"') and value.endswith('"'):
+            value = value[1:-1]
+        elif value.startswith("'") and value.endswith("'"):
+            value = value[1:-1]
+        env[key] = value
+        i += 1
     return env
 
 

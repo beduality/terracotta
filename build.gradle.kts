@@ -13,7 +13,7 @@ plugins {
 
 allprojects {
     group = "io.github.beduality"
-    version = "0.1.0"
+    version = project.property("version") as String
 }
 
 val jacocoVersion = libs.versions.jacoco.get()
