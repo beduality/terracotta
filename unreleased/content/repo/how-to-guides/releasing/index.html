@@ -2143,12 +2143,14 @@
 <h3 id="2-run-the-release-script">2. Run the Release Script<a class="headerlink" href="#2-run-the-release-script" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py
 </code></pre></div>
-<p>The script will:
-1. Show the detected version bump and suggested version
-2. Let you accept or override the version
-3. Update <code>CHANGELOG.md</code> with the new version
-4. Create a git commit and tag
-5. Push changes to the remote repository</p>
+<p>The script will:</p>
+<ol>
+<li>Show the detected version bump and suggested version</li>
+<li>Let you accept or override the version</li>
+<li>Update <code>CHANGELOG.md</code> with the new version</li>
+<li>Create a git commit and tag</li>
+<li>Push changes to the remote repository</li>
+</ol>
 <h3 id="3-distribution-publishing">3. Distribution &amp; Publishing<a class="headerlink" href="#3-distribution-publishing" title="Permanent link">&para;</a></h3>
 <p>Once the version tag is pushed, <code>.github/workflows/release.yml</code> automatically triggers:</p>
 <h4 id="gradle-plugin-publishing">Gradle Plugin Publishing<a class="headerlink" href="#gradle-plugin-publishing" title="Permanent link">&para;</a></h4>
