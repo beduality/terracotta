@@ -21,8 +21,8 @@ This tutorial will get you up and running with the Terracotta SDK in under 10 mi
 
     ```kotlin
     dependencies {
-        implementation("io.github.beduality:terracotta-core:0.1.0")
-        implementation("io.github.beduality:terracotta-provider-modrinth:0.1.0")
+        implementation("io.github.beduality:terracotta-core:0.1.1")
+        implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
     }
     ```
 
@@ -33,12 +33,12 @@ This tutorial will get you up and running with the Terracotta SDK in under 10 mi
         <dependency>
             <groupId>io.github.beduality</groupId>
             <artifactId>terracotta-core</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </dependency>
         <dependency>
             <groupId>io.github.beduality</groupId>
             <artifactId>terracotta-provider-modrinth</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </dependency>
     </dependencies>
     ```

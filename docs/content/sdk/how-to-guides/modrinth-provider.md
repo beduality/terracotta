@@ -9,7 +9,7 @@ Add the dependency to your project:
 === "Gradle (Kotlin)"
 
     ```kotlin
-    implementation("io.github.beduality:terracotta-provider-modrinth:0.1.0")
+    implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
     ```
 
 === "Maven"
@@ -18,7 +18,7 @@ Add the dependency to your project:
     <dependency>
         <groupId>io.github.beduality</groupId>
         <artifactId>terracotta-provider-modrinth</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </dependency>
     ```
 

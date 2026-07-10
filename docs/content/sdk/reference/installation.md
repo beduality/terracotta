@@ -10,7 +10,7 @@ This page describes how to add the Terracotta SDK to your project as a dependenc
     <dependency>
         <groupId>io.github.beduality</groupId>
         <artifactId>terracotta-core</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </dependency>
     ```
 
@@ -19,7 +19,7 @@ This page describes how to add the Terracotta SDK to your project as a dependenc
     Add the dependency to your `build.gradle.kts`:
 
     ```kotlin
-    implementation("io.github.beduality:terracotta-core:0.1.0")
+    implementation("io.github.beduality:terracotta-core:0.1.1")
     ```
 
 === "Gradle (Groovy)"
@@ -27,7 +27,7 @@ This page describes how to add the Terracotta SDK to your project as a dependenc
     Add the dependency to your `build.gradle`:
 
     ```groovy
-    implementation 'io.github.beduality:terracotta-core:0.1.0'
+    implementation 'io.github.beduality:terracotta-core:0.1.1'
     ```
 
 ## Provider Modules
@@ -39,7 +39,7 @@ If you need specific provider implementations, you can also add them as dependen
 === "Gradle (Kotlin)"
 
     ```kotlin
-    implementation("io.github.beduality:terracotta-provider-modrinth:0.1.0")
+    implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
     ```
 
 === "Maven"
@@ -48,7 +48,7 @@ If you need specific provider implementations, you can also add them as dependen
     <dependency>
         <groupId>io.github.beduality</groupId>
         <artifactId>terracotta-provider-modrinth</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </dependency>
     ```
 

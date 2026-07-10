@@ -10,7 +10,7 @@ Add the Terracotta plugin and the provider you want to use (e.g., Modrinth) to y
 
 ```kotlin
 plugins {
-    id("io.github.beduality.terracotta") version "0.1.0"
+    id("io.github.beduality.terracotta") version "0.1.1"
 }
 ```
 

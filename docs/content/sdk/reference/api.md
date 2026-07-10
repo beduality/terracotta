@@ -242,7 +242,7 @@ class ModrinthClient(token: String) {
 ### Core SDK
 
 ```kotlin
-implementation("io.github.beduality:terracotta-core:0.1.0")
+implementation("io.github.beduality:terracotta-core:0.1.1")
 ```
 
 | Dependency | Version | Purpose |
@@ -254,7 +254,7 @@ implementation("io.github.beduality:terracotta-core:0.1.0")
 ### Modrinth Provider
 
 ```kotlin
-implementation("io.github.beduality:terracotta-provider-modrinth:0.1.0")
+implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
 ```
 
 | Dependency | Version | Purpose |
