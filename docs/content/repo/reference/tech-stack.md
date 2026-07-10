@@ -2,7 +2,7 @@
 
 ## Kotlin / JVM
 
-The main codebase is written in **Kotlin 2.0.0** targeting JVM 17, compiled under **JDK 21**.
+The main codebase is written in **Kotlin 2.3.21** targeting JVM 17, compiled under **JDK 21**.
 
 | Concern | Tool | How to run |
 |---------|------|------------|
