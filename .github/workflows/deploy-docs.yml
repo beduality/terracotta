@@ -3,7 +3,6 @@ name: Deploy docs
 on:
   push:
     branches: [main]
-    tags: ["v*"]
     paths:
       - docs/**
       - modules/**
@@ -68,8 +67,10 @@ jobs:
 
       - name: Deploy documentation with mike
         run: |
-          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            VERSION=${GITHUB_REF_NAME#v}
+          # Check if a version tag points to this commit
+          VERSION_TAG=$(git tag --points-at HEAD | grep '^v' | head -n1 || true)
+          if [[ -n "$VERSION_TAG" ]]; then
+            VERSION=${VERSION_TAG#v}
             uv run mike deploy --push --update-alias "$VERSION" latest
             uv run mike set-default --push latest
           else
