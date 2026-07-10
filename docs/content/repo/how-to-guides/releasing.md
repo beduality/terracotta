@@ -61,7 +61,7 @@ The script will:
 1. Show the detected version bump and suggested version
 2. Let you accept or override the version
 3. Update `CHANGELOG.md` with the new version
-4. Run `./gradlew validatePublishing` as a dry-run check
+4. Run `./gradlew build` to verify compilation and tests pass
 5. Create a git commit and tag
 6. Push changes to the remote repository
 
@@ -126,7 +126,7 @@ uv run scripts/release.py 0.2.0     # custom version
 
 ## Skip Dry-Run
 
-To skip the `validatePublishing` dry-run step:
+To skip the build verification dry-run step:
 
 ```bash
 uv run scripts/release.py 0.2.0 --no-dry-run

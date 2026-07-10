@@ -273,7 +273,7 @@ def main(
         if dry_run:
             console.print("\n[bold]3. Dry-Run Verification...[/bold]")
             # Skip prompt in automated mode (when bump is provided)
-            should_verify = bump is not None or questionary.confirm("Do you want to run dry-run publication verification?", default=True).ask()
+            should_verify = bump is not None or questionary.confirm("Do you want to run dry-run build verification?", default=True).ask()
             if should_verify:
                 env = os.environ.copy()
                 # Use JAVA_HOME from environment or default
@@ -282,7 +282,7 @@ def main(
                 run_command(
                     [
                         "./gradlew",
-                        "validatePublishing",
+                        "build",
                         "--no-daemon",
                     ],
                     env=env,
