@@ -1,6 +1,5 @@
 # TODO
 
-- Add smoke test for gradle plugin
 - Dry-run release
 
 ## v0.2.0
@@ -9,8 +8,6 @@
 - Add `destroy` command
 - Add "create" command
 - Add "import" command
-
-- Move contributing docs into `docs/content/repo/**.md`
 
 - Add YAML schema for IDEs
 - Abstract state source
