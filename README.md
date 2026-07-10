@@ -14,7 +14,7 @@ plugins {
 }
 ```
 
-See the [Gradle Plugin Documentation](https://beduality.github.io/terracotta/) for more details, or the [SDK Documentation](https://beduality.github.io/terracotta/tutorials/installation_sdk/) if you want to use Terracotta as a library!
+See the [Gradle Plugin Documentation](https://beduality.github.io/terracotta/) for more details, or the [SDK Documentation](https://beduality.github.io/terracotta/sdk/reference/installation/) if you want to use Terracotta as a library!
 
 
 ## Usage

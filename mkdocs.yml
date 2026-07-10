@@ -90,6 +90,7 @@ nav:
       - CI/CD Deployment: content/gradle-plugin/how-to-guides/ci-cd-setup.md
     - Reference:
       - Tasks Reference: content/gradle-plugin/reference/tasks.md
+      - Plugin API Docs: apidocs/terracotta-gradle-plugin/index.html
   - SDK:
     - Tutorials:
       - Quick Start: content/sdk/tutorials/quick-start.md
@@ -98,6 +99,8 @@ nav:
       - Modrinth Provider: content/sdk/how-to-guides/modrinth-provider.md
     - Reference:
       - API Reference: content/sdk/reference/api.md
+      - Core API Docs: apidocs/terracotta-core/index.html
+      - Modrinth Provider API Docs: apidocs/terracotta-provider-modrinth/index.html
       - Provider API: content/sdk/reference/provider-api.md
       - Installation: content/sdk/reference/installation.md
     - Explanation:
@@ -120,7 +123,6 @@ nav:
         - Configuration: content/repo/reference/configuration.md
         - Architecture Reference: content/repo/reference/architecture-reference.md
         - Code Style: content/repo/reference/code-style.md
-        - Contributing Guidelines: content/repo/reference/contributing-guidelines.md
       - Explanation:
         - Architecture: content/repo/explanation/architecture.md
         - Project Management: content/repo/explanation/project-management.md

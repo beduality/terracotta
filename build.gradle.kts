@@ -22,6 +22,12 @@ subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "jacoco")
 
+    tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+        dokkaSourceSets.configureEach {
+            jdkVersion.set(17)
+        }
+    }
+
     jacoco {
         toolVersion = jacocoVersion
     }

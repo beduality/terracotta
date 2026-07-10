@@ -96,4 +96,4 @@ Manages GitHub repository configuration and secrets using Pulumi Java/Kotlin.
 
 - [Building and Testing](../how-to-guides/building.md): Learn how to compile and test
 - [Testing Guide](../how-to-guides/testing.md): Understand test types and coverage
-- [Contributing Guidelines](../reference/contributing-guidelines.md): Review architectural guidelines
+- [Contributing](../how-to-guides/contributing.md): Review contribution guidelines

@@ -92,5 +92,5 @@ export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 You now have a working local copy of Terracotta. Ready to make your first contribution?
 
 1. Pick a task from `project/TODO.md`
-2. Follow the [Contributing Guidelines](../reference/contributing-guidelines.md)
+2. Follow the [Contributing](../how-to-guides/contributing.md) guide
 3. Create your PR against the `main` branch

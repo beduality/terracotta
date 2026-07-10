@@ -3,6 +3,8 @@ name: Deploy docs
 on:
   push:
     branches: [main]
+    tags:
+      - "v*"
     paths:
       - docs/**
       - modules/**
@@ -58,6 +60,9 @@ jobs:
 
       - name: Verify Spotless Check
         run: ./gradlew spotlessCheck --no-daemon
+
+      - name: Generate Dokka Documentation
+        run: ./gradlew :dokkaHtmlMultiModule --no-daemon
 
       - uses: astral-sh/setup-uv@v6
         with:

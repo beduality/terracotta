@@ -132,7 +132,7 @@ Add the entry under `## [Unreleased]` in `CHANGELOG.md`, maintaining alphabetica
 
 ## Changelog Guidelines Reference
 
-For more detailed guidelines, see [`guidelines/changelog.md`](../../../guidelines/changelog.md).
+For more detailed guidelines, see the [Changelog Guidelines](../explanation/changelog-guidelines.md).
 
 ## Common Patterns
 

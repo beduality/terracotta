@@ -80,4 +80,4 @@ fun main() = runBlocking {
 }
 ```
 
-See the [reference documentation](../reference/) for detailed API documentation.
+See the [API Reference](api.md) and [Provider API](provider-api.md) for detailed documentation.

@@ -36,3 +36,14 @@ jobs:
 
       - name: Verify & Build
         run: ./gradlew spotlessCheck check build --no-daemon
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Terracotta
+          path: |
+            modules/terracotta-core/build/libs/*.jar
+            modules/terracotta-gradle-plugin/build/libs/*.jar
+            modules/terracotta-provider-modrinth/build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 30

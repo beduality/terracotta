@@ -30,7 +30,7 @@ Information-oriented reference for looking up details.
 - **[Tech Stack](reference/tech-stack.md)**: Tools and versions used
 - **[File Structure](reference/file-structure.md)**: Repository directory structure
 - **[Configuration](reference/configuration.md)**: All configuration files
-- **[Contributing Guidelines](reference/contributing-guidelines.md)**: Contribution process and requirements
+- **[Contributing](how-to-guides/contributing.md)**: Contribution process and requirements
 
 ### Explanation
 
@@ -45,10 +45,8 @@ Understanding-oriented content that explains concepts and "why" decisions were m
 
 **Want to understand the project?** Read the [Architecture](explanation/architecture.md) explanation.
 
-**Want to contribute?** Follow the [Contributing Guidelines](reference/contributing-guidelines.md).
-
 ## Links
 
-- [Main README](../../README.md): Project overview
-- [SDK Documentation](../sdk): For developers using the Terracotta SDK
-- [Gradle Plugin Documentation](../gradle-plugin): For users of the Gradle plugin
+- [Main README](https://github.com/beduality/terracotta/blob/main/README.md): Project overview
+- [SDK Documentation](../sdk/reference/installation.md): For developers using the Terracotta SDK
+- [Gradle Plugin Documentation](../gradle-plugin/tutorials/installation.md): For users of the Gradle plugin
