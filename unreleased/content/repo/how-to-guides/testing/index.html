@@ -2137,7 +2137,6 @@
 <ul>
 <li>Core business logic in <code>terracotta-core</code></li>
 <li>Provider implementations</li>
-<li>CLI wiring</li>
 <li>Gradle plugin tasks</li>
 </ul>
 <p>They do <strong>not</strong> require network access or external credentials.</p>
@@ -2153,36 +2152,32 @@
 <h4 id="writing-tests">Writing Tests<a class="headerlink" href="#writing-tests" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Prefer unit tests for pure logic in <code>terracotta-core</code></li>
-<li>Integration tests that wire multiple components belong in the relevant provider or CLI module</li>
+<li>Integration tests that wire multiple components belong in the relevant provider or Gradle plugin module</li>
 <li>Place tests alongside the module they exercise</li>
 </ul>
 <h3 id="smoke-tests">Smoke Tests<a class="headerlink" href="#smoke-tests" title="Permanent link">&para;</a></h3>
-<p>Smoke tests exercise the <strong>full compiled CLI binary</strong> against the live Modrinth API. They verify:</p>
+<p>Smoke tests exercise the Terracotta Gradle plugin integration against the live Modrinth API. They verify:</p>
 <ul>
 <li>End-to-end behavior</li>
 <li>Real network responses</li>
 <li>Authentication flows</li>
-<li>Actual command output</li>
+<li>Actual command output through the Gradle plugin</li>
 </ul>
-<p>Because they depend on a live API and compiled binary, they are <strong>excluded from the default test run</strong>.</p>
+<p>Because they depend on a live API, they are <strong>excluded from the default test run</strong>.</p>
 <h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Set <code>MODRINTH_TOKEN</code> environment variable to a valid Modrinth API token</li>
-<li>Build the CLI distribution first:
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>:terracotta-cli:installDist
-</code></pre></div></li>
 </ul>
 <h4 id="running_1">Running<a class="headerlink" href="#running_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span>&lt;your-token&gt;<span class="w"> </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>:terracotta-cli:smokeTest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span>&lt;your-token&gt;<span class="w"> </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>terracottaSmokeTest
 </code></pre></div>
-<p>The suite will be skipped automatically if the CLI binary is not found.</p>
 <blockquote>
-<p>Run smoke tests before submitting a PR that touches provider logic, CLI commands, or anything affecting Modrinth API integration.</p>
+<p>Run smoke tests before submitting a PR that touches provider logic or anything affecting Modrinth API integration.</p>
 </blockquote>
 <h2 id="test-coverage">Test Coverage<a class="headerlink" href="#test-coverage" title="Permanent link">&para;</a></h2>
 <p>Terracotta uses JaCoCo for test coverage reporting.</p>
 <h3 id="generate-coverage-report">Generate Coverage Report<a class="headerlink" href="#generate-coverage-report" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>jacocoTestReport
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>jacocoTestReport
 </code></pre></div>
 <h3 id="view-html-reports">View HTML Reports<a class="headerlink" href="#view-html-reports" title="Permanent link">&para;</a></h3>
 <p>Reports are generated at:</p>
