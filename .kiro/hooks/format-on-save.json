@@ -8,7 +8,7 @@
       "matcher": "\\.(kt|kts)$",
       "action": {
         "type": "command",
-        "command": "cd /home/luis/GitHub/beduality/terracotta && ./gradlew spotlessApply -q 2>/dev/null",
+        "command": "./gradlew spotlessApply -q 2>/dev/null",
         "timeout": 120
       }
     }
