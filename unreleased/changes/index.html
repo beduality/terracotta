@@ -2054,10 +2054,38 @@
   <a href="#unreleased" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unreleased
+        [Unreleased]
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gradle-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gradle Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modrinth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modrinth
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2087,8 +2115,23 @@
 
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
-<h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<p>No unreleased changes have been documented yet for the next release.</p>
+<h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h4 id="gradle-plugin">Gradle Plugin<a class="headerlink" href="#gradle-plugin" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Gradle plugin frontend supporting <code>terracottaPlan</code> and <code>terracottaApply</code> tasks, with configuration via the <code>terracotta</code> extension.</li>
+<li><strong>Why</strong>: Provides developers with an ergonomic build-tool integration that aligns with typical Minecraft mod/plugin workflows, with direct access to project artifacts and metadata.</li>
+<li>Supports multiple providers via <code>providers</code> container, with per-provider plan/apply tasks.</li>
+<li><strong>Why</strong>: Allows publishing to multiple registries at once.</li>
+<li>Uses provider-specific tokens (e.g., <code>MODRINTH_TOKEN</code>) environment variables.</li>
+<li><strong>Why</strong>: Improves security and flexibility by using separate tokens per provider.</li>
+</ul>
+<h4 id="modrinth">Modrinth<a class="headerlink" href="#modrinth" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Modrinth state and registry integration using Ktor Client and Kotlinx Serialization.</li>
+<li><strong>Why</strong>: Bootstraps the first concrete provider to sync project settings, metadata, and artifacts directly with Modrinth.</li>
+<li>Modrinth provider available via Maven Central.</li>
+<li><strong>Why</strong>: Enables developers to use Modrinth integration as a library in their projects.</li>
+</ul>
 
 
 
