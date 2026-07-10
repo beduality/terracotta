@@ -69,7 +69,7 @@ centralPublisher {
     signing {
         keyId = System.getenv("SIGNING_KEY_ID") ?: findProperty("signingKeyId")?.toString() ?: ""
         password = System.getenv("SIGNING_PASSWORD") ?: findProperty("signingPassword")?.toString() ?: ""
-        secretKeyRingFile = System.getenv("SIGNING_SECRET_KEY_RING_FILE") ?: findProperty("signingSecretKeyRingFile")?.toString() ?: ""
+        secretKeyRingFile = System.getenv("SIGNING_KEY") ?: findProperty("signingKey")?.toString() ?: ""
     }
 
     publishing {
