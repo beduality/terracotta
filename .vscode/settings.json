@@ -12,7 +12,7 @@
         "**/.venv": true,
         "**/.gradle": true,
         "**/site": true,
-        "**/gradle": true,
+        "gradle/**": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true,
         "**/.kotlin": true
