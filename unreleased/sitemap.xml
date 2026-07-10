@@ -41,6 +41,10 @@
          <lastmod>2026-07-10</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/how-to-guides/contributing/</loc>
+         <lastmod>2026-07-10</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/how-to-guides/documentation/</loc>
          <lastmod>2026-07-10</lastmod>
     </url>
@@ -50,6 +54,14 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/how-to-guides/testing/</loc>
+         <lastmod>2026-07-10</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/architecture-reference/</loc>
+         <lastmod>2026-07-10</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/code-style/</loc>
          <lastmod>2026-07-10</lastmod>
     </url>
     <url>

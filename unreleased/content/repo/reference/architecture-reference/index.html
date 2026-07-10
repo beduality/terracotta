@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/tutorials/writing-changelog/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/reference/architecture-reference/">
       
       
-        <link rel="prev" href="../navigating-the-codebase/">
-      
-      
-        <link rel="next" href="../writing-documentation/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>Writing Changelog - Terracotta</title>
+        <title>Architecture Reference - Terracotta</title>
       
     
     
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#writing-changelog-entries" class="md-skip">
+        <a href="#architecture-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Writing Changelog
+              Architecture Reference
             
           </span>
         </div>
@@ -1213,8 +1209,6 @@
       
   
   
-    
-  
   
   
     
@@ -1227,11 +1221,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -1252,7 +1246,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1267,8 +1261,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1278,11 +1270,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -1303,7 +1295,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1321,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quick-start/" class="md-nav__link">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -1349,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../navigating-the-codebase/" class="md-nav__link">
+      <a href="../../tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
   
@@ -1374,37 +1366,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Writing Changelog
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/writing-changelog/" class="md-nav__link">
         
   
   
@@ -1420,242 +1385,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-a-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is a Changelog?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changelog-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changelog Format
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-good-changelog-entries" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Writing Good Changelog Entries
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-focus-on-impact-not-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Focus on Impact, Not Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-be-specific-and-concrete" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Be Specific and Concrete
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-include-why-when-helpful" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Include "Why" When Helpful
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-group-related-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Group Related Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-by-step-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step-by-Step Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step-by-Step Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-identify-the-change" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Identify the Change
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-determine-the-category" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Determine the Category
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-determine-the-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Determine the Module
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-write-the-entry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Write the Entry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-place-it-in-the-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Place It in the Changelog
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changelog-guidelines-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changelog Guidelines Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Improvements
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1668,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../writing-documentation/" class="md-nav__link">
+      <a href="../../tutorials/writing-documentation/" class="md-nav__link">
         
   
   
@@ -1922,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/tech-stack/" class="md-nav__link">
+      <a href="../tech-stack/" class="md-nav__link">
         
   
   
@@ -1950,7 +1679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/file-structure/" class="md-nav__link">
+      <a href="../file-structure/" class="md-nav__link">
         
   
   
@@ -1978,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../configuration/" class="md-nav__link">
         
   
   
@@ -2006,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/contributing-guidelines/" class="md-nav__link">
+      <a href="../contributing-guidelines/" class="md-nav__link">
         
   
   
@@ -2182,10 +1911,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-a-changelog" class="md-nav__link">
+  <a href="#module-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is a Changelog?
+        Module Architecture
       
     </span>
   </a>
@@ -2193,33 +1922,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changelog-format" class="md-nav__link">
+  <a href="#module-details" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changelog Format
+        Module Details
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#writing-good-changelog-entries" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Writing Good Changelog Entries
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Writing Good Changelog Entries">
+    <nav class="md-nav" aria-label="Module Details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-focus-on-impact-not-implementation" class="md-nav__link">
+  <a href="#terracotta-core" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Focus on Impact, Not Implementation
+        terracotta-core
       
     </span>
   </a>
@@ -2227,10 +1945,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-be-specific-and-concrete" class="md-nav__link">
+  <a href="#terracotta-provider-modrinth" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Be Specific and Concrete
+        terracotta-provider-modrinth
       
     </span>
   </a>
@@ -2238,10 +1956,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-include-why-when-helpful" class="md-nav__link">
+  <a href="#terracotta-gradle-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Include "Why" When Helpful
+        terracotta-gradle-plugin
       
     </span>
   </a>
@@ -2249,10 +1967,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-group-related-changes" class="md-nav__link">
+  <a href="#terracotta-github" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Group Related Changes
+        terracotta-github
       
     </span>
   </a>
@@ -2265,82 +1983,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-by-step-workflow" class="md-nav__link">
+  <a href="#provider-discovery" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step-by-Step Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step-by-Step Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-identify-the-change" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Identify the Change
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-determine-the-category" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Determine the Category
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-determine-the-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Determine the Module
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-write-the-entry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Write the Entry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-place-it-in-the-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Place It in the Changelog
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changelog-guidelines-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changelog Guidelines Reference
+        Provider Discovery
       
     </span>
   </a>
@@ -2348,52 +1994,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-patterns" class="md-nav__link">
+  <a href="#package-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking Changes
+        Package Dependencies
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#api-changes" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Changes
+        Versioning
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Improvements
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2414,7 +2032,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/tutorials/writing-changelog.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/reference/architecture-reference.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2422,158 +2040,177 @@
   
 
 
-<h1 id="writing-changelog-entries">Writing Changelog Entries<a class="headerlink" href="#writing-changelog-entries" title="Permanent link">&para;</a></h1>
-<p>This tutorial teaches how to write changelog entries that are clear, useful, and follow project conventions.</p>
-<h2 id="what-is-a-changelog">What is a Changelog?<a class="headerlink" href="#what-is-a-changelog" title="Permanent link">&para;</a></h2>
-<p>A changelog is a curated, structured record of notable changes made to a project. It helps users, developers, and operators understand what has changed between versions.</p>
-<h2 id="changelog-format">Changelog Format<a class="headerlink" href="#changelog-format" title="Permanent link">&para;</a></h2>
-<p>The changelog follows the <a href="https://keepachangelog.com/">Keep a Changelog</a> format and is organized by:</p>
-<ol>
-<li><strong>Category</strong> - Added, Changed, Fixed, Deprecated, Removed, Security</li>
-<li><strong>Module</strong> - Docs, Core, Gradle Plugin, Modrinth, SDK</li>
-<li><strong>Audience</strong> - Players, Server Admins, Developers, Maintainers (optional)</li>
-</ol>
-<p>Example structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gu">## [Unreleased]</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">### Added</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gu">#### Core</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>New feature for X
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="gu">### Changed</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="gu">#### Gradle Plugin</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">-</span><span class="w"> </span>Updated Y to improve Z
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="gu">### Fixed</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="gu">#### Modrinth</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">-</span><span class="w"> </span>Bug fix for ABC
+<h1 id="architecture-reference">Architecture Reference<a class="headerlink" href="#architecture-reference" title="Permanent link">&para;</a></h1>
+<p>This reference documents the module structure and responsibilities in the Terracotta repository.</p>
+<h2 id="module-architecture">Module Architecture<a class="headerlink" href="#module-architecture" title="Permanent link">&para;</a></h2>
+<p>Terracotta uses a <strong>multi-module Gradle project</strong> to separate platform-agnostic business logic from specific registry providers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>modules/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── terracotta-core/              # Pure domain library
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── terracotta-provider-modrinth/ # Modrinth provider implementation
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── terracotta-gradle-plugin/     # Gradle plugin frontend
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── terracotta-github/            # Pulumi infrastructure
 </code></pre></div>
-<h2 id="writing-good-changelog-entries">Writing Good Changelog Entries<a class="headerlink" href="#writing-good-changelog-entries" title="Permanent link">&para;</a></h2>
-<h3 id="1-focus-on-impact-not-implementation">1. Focus on Impact, Not Implementation<a class="headerlink" href="#1-focus-on-impact-not-implementation" title="Permanent link">&para;</a></h3>
-<p><strong>Good</strong>:</p>
-<ul>
-<li>"Added support for Minecraft 1.21"</li>
-<li>"Fixed issue with version uploads failing"</li>
-</ul>
-<p><strong>Bad</strong>:</p>
-<ul>
-<li>"Refactored <code>VersionService</code> to use <code>VersionHandler</code>"</li>
-<li>"Updated dependency from OkHttp 4.9 to 4.12"</li>
-</ul>
-<h3 id="2-be-specific-and-concrete">2. Be Specific and Concrete<a class="headerlink" href="#2-be-specific-and-concrete" title="Permanent link">&para;</a></h3>
-<p><strong>Good</strong>:</p>
-<ul>
-<li>" terracottaPlan now shows <code>~</code> for metadata updates"</li>
-<li>"Added <code>TerracottaEnvironment.CLIENT_ONLY</code> support"</li>
-</ul>
-<p><strong>Bad</strong>:</p>
-<ul>
-<li>"Improved the plan output"</li>
-<li>"Added new environment option"</li>
-</ul>
-<h3 id="3-include-why-when-helpful">3. Include "Why" When Helpful<a class="headerlink" href="#3-include-why-when-helpful" title="Permanent link">&para;</a></h3>
-<p>Add a <code>- **Why**:</code> line if the motivation isn't obvious:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">### Added</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="gu">#### Core</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`TerracottaVersion.displayName`</span> field
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Why**</span>: Support user-defined version names instead of auto-generated ones
-</code></pre></div>
-<h3 id="4-group-related-changes">4. Group Related Changes<a class="headerlink" href="#4-group-related-changes" title="Permanent link">&para;</a></h3>
-<p>If multiple changes relate to the same feature, group them:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">### Added</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="gu">#### Gradle Plugin</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`terracottaPlanModrinth`</span> and <span class="sb">`terracottaApplyModrinth`</span> tasks
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Why**</span>: Allow publishing to Modrinth without affecting other registries
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">-</span><span class="w"> </span><span class="sb">`terracottaPlanHangar`</span> and <span class="sb">`terracottaApplyHangar`</span> tasks
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Why**</span>: Allow publishing to Hangar without affecting other registries
-</code></pre></div>
-<h2 id="step-by-step-workflow">Step-by-Step Workflow<a class="headerlink" href="#step-by-step-workflow" title="Permanent link">&para;</a></h2>
-<h3 id="step-1-identify-the-change">Step 1: Identify the Change<a class="headerlink" href="#step-1-identify-the-change" title="Permanent link">&para;</a></h3>
-<p>Review your PR and identify what changed from a user's perspective:</p>
-<ul>
-<li>Did you add a new feature?</li>
-<li>Did you fix a bug that users might encounter?</li>
-<li>Did you change behavior or API?</li>
-</ul>
-<h3 id="step-2-determine-the-category">Step 2: Determine the Category<a class="headerlink" href="#step-2-determine-the-category" title="Permanent link">&para;</a></h3>
-<p>Choose the most appropriate category:</p>
+<h2 id="module-details">Module Details<a class="headerlink" href="#module-details" title="Permanent link">&para;</a></h2>
+<h3 id="terracotta-core">terracotta-core<a class="headerlink" href="#terracotta-core" title="Permanent link">&para;</a></h3>
+<p><strong>Package</strong>: <code>io.github.beduality.terracotta.core.*</code></p>
+<p>The core SDK with canonical models, provider interfaces, and the semantic diff engine.</p>
+<p><strong>Characteristics</strong>:
+- Pure Kotlin/JVM - no external dependencies
+- Published to Maven Central as <code>io.github.beduality:terracotta-core</code>
+- No network, framework, or build-tool dependencies</p>
+<p><strong>Responsibilities</strong>:
+- Canonical data models (<code>TerracottaProject</code>, <code>TerracottaVersion</code>)
+- Provider interfaces (<code>ProviderFactory</code>, <code>StateProvider</code>, <code>RegistryProvider</code>)
+- Diff engine (<code>DiffEngine</code>, <code>Operation</code> sealed interface)</p>
+<p><strong>Key Components</strong>:</p>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>When to Use</th>
+<th>Component</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Added</strong></td>
-<td>New functionality</td>
+<td><code>core.model.*</code></td>
+<td>Domain models (Project, Version, Environment, Loader, ReleaseType)</td>
 </tr>
 <tr>
-<td><strong>Changed</strong></td>
-<td>Existing behavior modified</td>
+<td><code>core.provider.*</code></td>
+<td>Provider interfaces for registry integration</td>
 </tr>
 <tr>
-<td><strong>Fixed</strong></td>
-<td>Bug fixes</td>
-</tr>
-<tr>
-<td><strong>Deprecated</strong></td>
-<td>Feature marked for removal</td>
-</tr>
-<tr>
-<td><strong>Removed</strong></td>
-<td>Feature deleted</td>
-</tr>
-<tr>
-<td><strong>Security</strong></td>
-<td>Security-related fixes</td>
+<td><code>core.diff.*</code></td>
+<td>Semantic diff engine and operations</td>
 </tr>
 </tbody>
 </table>
-<h3 id="step-3-determine-the-module">Step 3: Determine the Module<a class="headerlink" href="#step-3-determine-the-module" title="Permanent link">&para;</a></h3>
-<p>Choose the module that contains the changed code:</p>
+<h3 id="terracotta-provider-modrinth">terracotta-provider-modrinth<a class="headerlink" href="#terracotta-provider-modrinth" title="Permanent link">&para;</a></h3>
+<p><strong>Package</strong>: <code>io.github.beduality.terracotta.provider.modrinth.*</code></p>
+<p>Modrinth registry provider implementation.</p>
+<p><strong>Characteristics</strong>:
+- Depends on Ktor Client and Kotlinx Serialization
+- Published to Maven Central as <code>io.github.beduality:terracotta-provider-modrinth</code></p>
+<p><strong>Responsibilities</strong>:
+- Implement <code>ProviderFactory</code> for Modrinth
+- Implement <code>StateProvider</code> to fetch project state from Modrinth API
+- Implement <code>RegistryProvider</code> to apply changes to Modrinth API</p>
+<p><strong>Key Components</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ModrinthProviderFactory</code></td>
+<td>Factory creating Modrinth providers</td>
+</tr>
+<tr>
+<td><code>ModrinthClient</code></td>
+<td>Low-level HTTP client for Modrinth API</td>
+</tr>
+<tr>
+<td><code>ModrinthStateProvider</code></td>
+<td>Fetches project state from Modrinth</td>
+</tr>
+<tr>
+<td><code>ModrinthRegistryProvider</code></td>
+<td>Applies operations to Modrinth</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terracotta-gradle-plugin">terracotta-gradle-plugin<a class="headerlink" href="#terracotta-gradle-plugin" title="Permanent link">&para;</a></h3>
+<p><strong>Package</strong>: <code>io.github.beduality.terracotta.gradle.*</code></p>
+<p>Build-tool integration providing tasks with Gradle DSL.</p>
+<p><strong>Characteristics</strong>:
+- Uses ServiceLoader for provider discovery
+- Depends on Gradle API and core modules
+- Published to Gradle Plugin Portal</p>
+<p><strong>Responsibilities</strong>:
+- Register Gradle plugin and extension
+- Create <code>terracottaPlan</code> and <code>terracottaApply</code> tasks
+- Discover and configure providers dynamically</p>
+<p><strong>Key Components</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TerracottaPlugin</code></td>
+<td>Plugin entry point</td>
+</tr>
+<tr>
+<td><code>TerracottaExtension</code></td>
+<td>DSL configuration entry point</td>
+</tr>
+<tr>
+<td><code>TerracottaPlanTask</code></td>
+<td>Computes and displays diff</td>
+</tr>
+<tr>
+<td><code>TerracottaApplyTask</code></td>
+<td>Computes and applies diff</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terracotta-github">terracotta-github<a class="headerlink" href="#terracotta-github" title="Permanent link">&para;</a></h3>
+<p><strong>Package</strong>: <code>com.pulumi.terracotta.*</code></p>
+<p>Infrastructure management using Pulumi.</p>
+<p><strong>Characteristics</strong>:
+- Uses Pulumi Java/Kotlin SDK
+- Manages GitHub repository configuration
+- Not published to Maven Central</p>
+<p><strong>Responsibilities</strong>:
+- Manage repository settings and permissions
+- Configure GitHub Actions secrets
+- Set up repository rules and webhooks</p>
+<h2 id="provider-discovery">Provider Discovery<a class="headerlink" href="#provider-discovery" title="Permanent link">&para;</a></h2>
+<p>Providers are discovered at runtime via Java's <code>ServiceLoader</code>:</p>
+<ol>
+<li>Provider modules register implementations in <code>META-INF/services/</code></li>
+<li>The Gradle plugin loads all available <code>ProviderFactory</code> instances</li>
+<li>Users configure which providers to use in their Gradle DSL</li>
+</ol>
+<h2 id="package-dependencies">Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>terracotta-core</code></td>
+<td>Standard Kotlin/Java APIs only</td>
+</tr>
+<tr>
+<td><code>terracotta-provider-modrinth</code></td>
+<td><code>terracotta-core</code>, Ktor Client, Kotlinx Serialization</td>
+</tr>
+<tr>
+<td><code>terracotta-gradle-plugin</code></td>
+<td><code>terracotta-core</code>, Gradle API</td>
+</tr>
+<tr>
+<td><code>terracotta-github</code></td>
+<td>Pulumi SDK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Docs</strong> - Documentation changes</li>
-<li><strong>Core</strong> - <code>terracotta-core</code> module</li>
-<li><strong>Gradle Plugin</strong> - <code>terracotta-gradle-plugin</code> module</li>
-<li><strong>Modrinth</strong> - <code>terracotta-provider-modrinth</code> module</li>
-<li><strong>SDK</strong> - SDK-related changes</li>
+<li>Core modules published to Maven Central</li>
+<li>Gradle plugin published to Gradle Plugin Portal</li>
+<li>All versions tracked in <code>gradle/libs.versions.toml</code></li>
 </ul>
-<h3 id="step-4-write-the-entry">Step 4: Write the Entry<a class="headerlink" href="#step-4-write-the-entry" title="Permanent link">&para;</a></h3>
-<p>Follow the format:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gu">### Category</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gu">#### Module</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">-</span><span class="w"> </span>Change description
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Why**</span>: (optional) Reason for the change
-</code></pre></div>
-<h3 id="step-5-place-it-in-the-changelog">Step 5: Place It in the Changelog<a class="headerlink" href="#step-5-place-it-in-the-changelog" title="Permanent link">&para;</a></h3>
-<p>Add the entry under <code>## [Unreleased]</code> in <code>CHANGELOG.md</code>, maintaining alphabetical order within categories and modules.</p>
-<h2 id="changelog-guidelines-reference">Changelog Guidelines Reference<a class="headerlink" href="#changelog-guidelines-reference" title="Permanent link">&para;</a></h2>
-<p>For more detailed guidelines, see <a href="../../../guidelines/changelog.md"><code>guidelines/changelog.md</code></a>.</p>
-<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
-<p>Mark clearly as breaking:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">### Changed</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gu">#### Core</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`TerracottaVersion`</span> fields are now required
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Breaking**</span>: Versions without required fields will fail validation
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Migration**</span>: Add all required fields to your version definitions
-</code></pre></div></p>
-<h3 id="api-changes">API Changes<a class="headerlink" href="#api-changes" title="Permanent link">&para;</a></h3>
-<p>Document API changes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">### Changed</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gu">#### SDK</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`DiffEngine.diff()`</span> now returns <span class="sb">`List&lt;Operation&gt;`</span> instead of <span class="sb">`OperationGroup`</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**API**</span>: The return type changed to simplify operation handling
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Migration**</span>: Update your code to handle <span class="sb">`List&lt;Operation&gt;`</span> directly
-</code></pre></div>
-<h3 id="performance-improvements">Performance Improvements<a class="headerlink" href="#performance-improvements" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gu">### Changed</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="gu">#### Core</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">-</span><span class="w"> </span>Version comparison is now 3x faster
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Why**</span>: Improved diff algorithm using tree-based comparison
-</code></pre></div>
 
 
 
@@ -2606,44 +2243,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../navigating-the-codebase/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Navigating the Codebase">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Navigating the Codebase
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../writing-documentation/" class="md-footer__link md-footer__link--next" aria-label="Next: Writing Documentation">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Writing Documentation
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
