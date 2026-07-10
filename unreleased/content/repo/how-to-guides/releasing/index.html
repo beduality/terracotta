@@ -1771,6 +1771,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. Trigger the Release Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-from-the-local-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trigger from the local CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2359,6 +2376,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. Trigger the Release Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-from-the-local-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trigger from the local CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2535,6 +2569,18 @@
 <li><strong>bump</strong>: <code>auto</code> (recommended), <code>patch</code>, <code>minor</code>, <code>major</code>, or <code>custom</code></li>
 <li><strong>version</strong>: required only when <code>bump</code> is <code>custom</code></li>
 </ul>
+<h4 id="trigger-from-the-local-cli">Trigger from the local CLI<a class="headerlink" href="#trigger-from-the-local-cli" title="Permanent link">&para;</a></h4>
+<p>You can also start the workflow from your machine without opening the GitHub web UI. Make sure the <a href="https://cli.github.com/">GitHub CLI</a> is installed and authenticated (<code>gh auth login</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Wizard mode (prompts for bump type and confirmation)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>trigger
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Non-interactive trigger</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>trigger<span class="w"> </span>--bump<span class="w"> </span>auto<span class="w"> </span>--yes
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Custom version</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>trigger<span class="w"> </span>--bump<span class="w"> </span>custom<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.2.3<span class="w"> </span>--yes
+</code></pre></div>
+<p>The command runs <code>gh workflow run release.yml</code> against your current branch, passing the same <code>bump</code> and <code>version</code> inputs used by the web UI.</p>
 <p>The workflow will:</p>
 <ol>
 <li>Update <code>CHANGELOG.md</code>, <code>gradle.properties</code>, <code>pyproject.toml</code>, and <code>uv.lock</code> with the new version.</li>
@@ -2606,30 +2652,30 @@
 <p>Configure these in your repository settings under <strong>Secrets and variables</strong> → <strong>Actions</strong>.</p>
 <h4 id="loading-secrets-via-pulumi">Loading Secrets via Pulumi<a class="headerlink" href="#loading-secrets-via-pulumi" title="Permanent link">&para;</a></h4>
 <p>The <code>terracotta-github</code> module manages GitHub Actions secrets as infrastructure. To sync secrets from your <code>.env</code> file into Pulumi config (which then provisions them as GitHub Actions secrets):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;your-passphrase&quot;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>modules/terracotta-github<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pulumi<span class="w"> </span>up
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;your-passphrase&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">cd</span><span class="w"> </span>modules/terracotta-github<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pulumi<span class="w"> </span>up
 </code></pre></div>
 <p>The <code>PULUMI_CONFIG_PASSPHRASE</code> env var is required for non-interactive secret encryption. Alternatively, use <code>PULUMI_CONFIG_PASSPHRASE_FILE</code> to point to a file containing the passphrase.</p>
 <p>The script auto-detects which secrets are needed by parsing <code>App.kt</code> — no manual list to maintain.</p>
 <h2 id="manual-override-local">Manual Override / Local<a class="headerlink" href="#manual-override-local" title="Permanent link">&para;</a></h2>
 <p>For local testing or dry runs, you can still run <code>release.py</code> locally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
 </code></pre></div>
 <p>This will run the version bump, changelog update, and build verification without actually publishing or pushing. To see the detected version without prompts, run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
 </code></pre></div>
 <p>To run the full release from a local machine (not recommended):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--publish<span class="w"> </span>--bump<span class="w"> </span>auto
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--publish<span class="w"> </span>--bump<span class="w"> </span>auto
 </code></pre></div>
 <p>This requires the same <code>SONATYPE_USERNAME</code>, <code>SONATYPE_PASSWORD</code>, <code>SIGNING_KEY</code>, and <code>SIGNING_PASSWORD</code> environment variables.</p>
 <h2 id="skip-dry-run">Skip Dry-Run<a class="headerlink" href="#skip-dry-run" title="Permanent link">&para;</a></h2>
 <p>To skip the build verification step:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-dry-run<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-dry-run<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
 </code></pre></div>
 <h2 id="rollback">Rollback<a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h2>
 <p>If the CI workflow fails, <code>release.py</code> will attempt to roll back the local tag and commit automatically. If a manual rollback is needed, run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
 </code></pre></div>
 <p>This reverts the version bump, changelog changes, and tag.</p>
 <h2 id="what-happens-on-release">What Happens on Release<a class="headerlink" href="#what-happens-on-release" title="Permanent link">&para;</a></h2>
