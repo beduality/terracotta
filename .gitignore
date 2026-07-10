@@ -18,3 +18,5 @@ docs/changes.md
 .env
 
 tests/smoke/build/
+
+project/
