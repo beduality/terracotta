@@ -1763,10 +1763,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-run-the-release-script" class="md-nav__link">
+  <a href="#2-trigger-the-release-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run the Release Script
+        2. Trigger the Release Workflow
       
     </span>
   </a>
@@ -1781,23 +1781,6 @@
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. Distribution &amp; Publishing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#maven-central-publishing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maven Central Publishing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1835,10 +1818,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manual-override" class="md-nav__link">
+  <a href="#manual-override-local" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manual Override
+        Manual Override / Local
       
     </span>
   </a>
@@ -2368,10 +2351,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-run-the-release-script" class="md-nav__link">
+  <a href="#2-trigger-the-release-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run the Release Script
+        2. Trigger the Release Workflow
       
     </span>
   </a>
@@ -2386,23 +2369,6 @@
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. Distribution &amp; Publishing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#maven-central-publishing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maven Central Publishing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2440,10 +2406,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manual-override" class="md-nav__link">
+  <a href="#manual-override-local" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manual Override
+        Manual Override / Local
       
     </span>
   </a>
@@ -2509,15 +2475,14 @@
 
 
 <h1 id="releasing">Releasing<a class="headerlink" href="#releasing" title="Permanent link">&para;</a></h1>
-<p>This guide covers the automated release process for Terracotta.</p>
+<p>This guide covers the release process for Terracotta.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Releases are handled by an automated release script that:</p>
+<p>Releases are performed from the <code>Release</code> GitHub Actions workflow. Running the release in CI makes the process safer and easier to roll back:</p>
 <ul>
-<li>Bumps versions based on conventional commits</li>
-<li>Updates the changelog</li>
-<li>Validates the publishing configuration</li>
-<li>Creates and pushes a git tag</li>
-<li>Triggers the release workflow for distribution</li>
+<li>Bumping versions, changelog updates, build verification, Maven Central publishing, and git tagging all happen in one workflow.</li>
+<li>If publishing to Maven Central fails, <code>release.py</code> automatically rolls back the local tag and commit so no tag or changelog is left behind.</li>
+<li>The GitHub release and docs deployment only happen after a successful publish.</li>
+<li>The workflow can be re-run or the release can be re-triggered without force-pushing or manually cleaning up.</li>
 </ul>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p>Releases follow <a href="https://semver.org/">Semantic Versioning</a>. The release script automatically determines the version bump:</p>
@@ -2564,21 +2529,22 @@
 <p>Follow the guidelines in <code>guidelines/changelog.md</code>:
 - Focus on user/developer/operator impact
 - Group by module (Docs, Core, Gradle Plugin, Modrinth, SDK, etc.)</p>
-<h3 id="2-run-the-release-script">2. Run the Release Script<a class="headerlink" href="#2-run-the-release-script" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py
-</code></pre></div>
-<p>The script will:</p>
+<h3 id="2-trigger-the-release-workflow">2. Trigger the Release Workflow<a class="headerlink" href="#2-trigger-the-release-workflow" title="Permanent link">&para;</a></h3>
+<p>Go to <strong>Actions</strong> → <strong>Release</strong> → <strong>Run workflow</strong>. Choose:</p>
+<ul>
+<li><strong>bump</strong>: <code>auto</code> (recommended), <code>patch</code>, <code>minor</code>, <code>major</code>, or <code>custom</code></li>
+<li><strong>version</strong>: required only when <code>bump</code> is <code>custom</code></li>
+</ul>
+<p>The workflow will:</p>
 <ol>
-<li>Show the detected version bump and suggested version</li>
-<li>Let you accept or override the version</li>
-<li>Update <code>CHANGELOG.md</code> with the new version</li>
-<li>Run <code>./gradlew build</code> to verify compilation and tests pass</li>
-<li>Create a git commit and tag</li>
-<li>Push changes to the remote repository</li>
+<li>Update <code>CHANGELOG.md</code>, <code>gradle.properties</code>, <code>pyproject.toml</code>, and <code>uv.lock</code> with the new version.</li>
+<li>Run <code>./gradlew spotlessCheck build</code> to verify compilation and tests.</li>
+<li>Publish to Maven Central using the central-portal-publisher plugin.</li>
+<li>If publishing succeeds, commit the version changes and push the new <code>vX.Y.Z</code> tag.</li>
+<li>Create a GitHub release with the changelog body and JAR artifacts.</li>
+<li>Deploy documentation using <code>deploy-docs.yml</code>.</li>
 </ol>
 <h3 id="3-distribution-publishing">3. Distribution &amp; Publishing<a class="headerlink" href="#3-distribution-publishing" title="Permanent link">&para;</a></h3>
-<p>Once the version tag is pushed, <code>.github/workflows/release.yml</code> automatically triggers:</p>
-<h4 id="maven-central-publishing">Maven Central Publishing<a class="headerlink" href="#maven-central-publishing" title="Permanent link">&para;</a></h4>
 <p>The following modules are published automatically via the <a href="https://central.sonatype.com/">Sonatype Central Portal</a>:</p>
 <table>
 <thead>
@@ -2640,35 +2606,41 @@
 <p>Configure these in your repository settings under <strong>Secrets and variables</strong> → <strong>Actions</strong>.</p>
 <h4 id="loading-secrets-via-pulumi">Loading Secrets via Pulumi<a class="headerlink" href="#loading-secrets-via-pulumi" title="Permanent link">&para;</a></h4>
 <p>The <code>terracotta-github</code> module manages GitHub Actions secrets as infrastructure. To sync secrets from your <code>.env</code> file into Pulumi config (which then provisions them as GitHub Actions secrets):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;your-passphrase&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">cd</span><span class="w"> </span>modules/terracotta-github<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pulumi<span class="w"> </span>up
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;your-passphrase&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>modules/terracotta-github<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pulumi<span class="w"> </span>up
 </code></pre></div>
 <p>The <code>PULUMI_CONFIG_PASSPHRASE</code> env var is required for non-interactive secret encryption. Alternatively, use <code>PULUMI_CONFIG_PASSPHRASE_FILE</code> to point to a file containing the passphrase.</p>
 <p>The script auto-detects which secrets are needed by parsing <code>App.kt</code> — no manual list to maintain.</p>
-<h2 id="manual-override">Manual Override<a class="headerlink" href="#manual-override" title="Permanent link">&para;</a></h2>
-<p>To manually specify the version:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>patch<span class="w">     </span><span class="c1"># 0.1.x</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>minor<span class="w">     </span><span class="c1"># 0.x.0</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>major<span class="w">     </span><span class="c1"># x.0.0</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span><span class="m">0</span>.2.0<span class="w">     </span><span class="c1"># custom version</span>
+<h2 id="manual-override-local">Manual Override / Local<a class="headerlink" href="#manual-override-local" title="Permanent link">&para;</a></h2>
+<p>For local testing or dry runs, you can still run <code>release.py</code> locally:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
 </code></pre></div>
+<p>This will run the version bump, changelog update, and build verification without actually publishing or pushing. To see the detected version without prompts, run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
+</code></pre></div>
+<p>To run the full release from a local machine (not recommended):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--publish<span class="w"> </span>--bump<span class="w"> </span>auto
+</code></pre></div>
+<p>This requires the same <code>SONATYPE_USERNAME</code>, <code>SONATYPE_PASSWORD</code>, <code>SIGNING_KEY</code>, and <code>SIGNING_PASSWORD</code> environment variables.</p>
 <h2 id="skip-dry-run">Skip Dry-Run<a class="headerlink" href="#skip-dry-run" title="Permanent link">&para;</a></h2>
-<p>To skip the build verification dry-run step:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span><span class="m">0</span>.2.0<span class="w"> </span>--no-dry-run
+<p>To skip the build verification step:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--no-dry-run<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
 </code></pre></div>
 <h2 id="rollback">Rollback<a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h2>
-<p>If a release needs to be rolled back:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
+<p>If the CI workflow fails, <code>release.py</code> will attempt to roll back the local tag and commit automatically. If a manual rollback is needed, run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
 </code></pre></div>
 <p>This reverts the version bump, changelog changes, and tag.</p>
 <h2 id="what-happens-on-release">What Happens on Release<a class="headerlink" href="#what-happens-on-release" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Changelog</strong>: <code>## [Unreleased]</code> → <code>## [0.x.y] - YYYY-MM-DD</code></li>
-<li><strong>Version</strong>: Updated in <code>gradle.properties</code></li>
-<li><strong>Tag</strong>: Created and pushed to GitHub</li>
-<li><strong>CI/CD</strong>: Release workflow triggers</li>
-<li><strong>Maven Central</strong>: Artifacts bundled, signed, and published via Central Portal</li>
+<li><strong>Version</strong>: Updated in <code>gradle.properties</code>, <code>pyproject.toml</code>, and <code>uv.lock</code></li>
+<li><strong>Build</strong>: <code>./gradlew spotlessCheck build</code> verifies the project</li>
+<li><strong>Publish</strong>: artifacts are signed and uploaded to Maven Central</li>
+<li><strong>Tag</strong>: the new <code>vX.Y.Z</code> tag is pushed to GitHub</li>
+<li><strong>GitHub Release</strong>: created with the changelog body and JARs</li>
+<li><strong>Docs</strong>: documentation is deployed with <code>mike</code></li>
 </ol>
 
 
