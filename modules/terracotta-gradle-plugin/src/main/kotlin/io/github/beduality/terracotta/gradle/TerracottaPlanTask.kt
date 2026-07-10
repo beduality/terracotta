@@ -25,13 +25,13 @@ abstract class TerracottaPlanTask : DefaultTask() {
     abstract val projectId: Property<String>
 
     @get:Input
-    abstract val name: Property<String>
+    abstract val modName: Property<String>
 
     @get:Input
     abstract val summary: Property<String>
 
     @get:Input
-    abstract val description: Property<String>
+    abstract val modDescription: Property<String>
 
     @get:Input
     abstract val tags: ListProperty<String>
@@ -97,9 +97,9 @@ abstract class TerracottaPlanTask : DefaultTask() {
 
         return TerracottaProject(
             id = projectId.get(),
-            name = name.get(),
+            name = modName.get(),
             summary = summary.get(),
-            description = description.get(),
+            description = modDescription.get(),
             versions = listOf(version),
             tags = tags.get(),
             license = license.get(),

@@ -17,7 +17,11 @@ class TerracottaPlugin : Plugin<Project> {
         extension.changelog.convention("")
 
         project.plugins.withType(JavaPlugin::class.java) {
-            extension.artifactFile.convention(project.tasks.named("jar").flatMap { it.outputs.files.singleFile })
+            extension.artifactFile.convention(
+                project.tasks.named("jar").flatMap { task ->
+                    project.layout.file(project.provider { task.outputs.files.singleFile })
+                }
+            )
         }
 
         val allPlanTasks = mutableListOf<Any>()
@@ -28,47 +32,47 @@ class TerracottaPlugin : Plugin<Project> {
             // Set convention: <PROVIDER_NAME>_TOKEN environment variable (uppercase)
             providerExt.token.convention(System.getenv("${providerId.uppercase()}_TOKEN"))
 
-            val providerPlanTask = project.tasks.register("terracottaPlan${providerId.replaceFirstChar(Char::titlecase)}", TerracottaPlanTask::class.java) {
-                it.description = "Plans changes to apply to $providerId"
-                it.group = "terracotta"
+            val providerPlanTask = project.tasks.register("terracottaPlan${providerId.replaceFirstChar(Char::titlecase)}", TerracottaPlanTask::class.java) { task ->
+                task.setDescription("Plans changes to apply to $providerId")
+                task.group = "terracotta"
 
-                it.projectId.set(providerExt.projectId)
-                it.name.set(extension.name)
-                it.summary.set(extension.summary)
-                it.description.set(extension.description)
-                it.tags.set(extension.tags)
-                it.license.set(extension.license)
-                it.gameVersions.set(extension.gameVersions)
-                it.loaders.set(extension.loaders)
-                it.environment.set(extension.environment)
-                it.releaseType.set(extension.releaseType)
-                it.changelog.set(extension.changelog)
-                it.provider.set(providerId)
-                it.token.set(providerExt.token)
-                it.artifactFile.set(extension.artifactFile)
+                task.projectId.set(providerExt.projectId)
+                task.modName.set(extension.name)
+                task.summary.set(extension.summary)
+                task.modDescription.set(extension.description)
+                task.tags.set(extension.tags)
+                task.license.set(extension.license)
+                task.gameVersions.set(extension.gameVersions)
+                task.loaders.set(extension.loaders)
+                task.environment.set(extension.environment)
+                task.releaseType.set(extension.releaseType)
+                task.changelog.set(extension.changelog)
+                task.provider.set(providerId)
+                task.token.set(providerExt.token)
+                task.artifactFile.set(extension.artifactFile)
             }
             allPlanTasks.add(providerPlanTask)
 
-            val providerApplyTask = project.tasks.register("terracottaApply${providerId.replaceFirstChar(Char::titlecase)}", TerracottaApplyTask::class.java) {
-                it.description = "Applies changes to $providerId"
-                it.group = "terracotta"
+            val providerApplyTask = project.tasks.register("terracottaApply${providerId.replaceFirstChar(Char::titlecase)}", TerracottaApplyTask::class.java) { task ->
+                task.setDescription("Applies changes to $providerId")
+                task.group = "terracotta"
 
-                it.projectId.set(providerExt.projectId)
-                it.name.set(extension.name)
-                it.summary.set(extension.summary)
-                it.description.set(extension.description)
-                it.tags.set(extension.tags)
-                it.license.set(extension.license)
-                it.gameVersions.set(extension.gameVersions)
-                it.loaders.set(extension.loaders)
-                it.environment.set(extension.environment)
-                it.releaseType.set(extension.releaseType)
-                it.changelog.set(extension.changelog)
-                it.provider.set(providerId)
-                it.token.set(providerExt.token)
-                it.artifactFile.set(extension.artifactFile)
+                task.projectId.set(providerExt.projectId)
+                task.modName.set(extension.name)
+                task.summary.set(extension.summary)
+                task.modDescription.set(extension.description)
+                task.tags.set(extension.tags)
+                task.license.set(extension.license)
+                task.gameVersions.set(extension.gameVersions)
+                task.loaders.set(extension.loaders)
+                task.environment.set(extension.environment)
+                task.releaseType.set(extension.releaseType)
+                task.changelog.set(extension.changelog)
+                task.provider.set(providerId)
+                task.token.set(providerExt.token)
+                task.artifactFile.set(extension.artifactFile)
 
-                it.dependsOn(providerPlanTask)
+                task.dependsOn(providerPlanTask)
             }
             allApplyTasks.add(providerApplyTask)
         }
