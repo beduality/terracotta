@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.diff.DiffEngine
+import io.github.beduality.terracotta.core.diff.OperationPreprocessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
@@ -73,12 +74,13 @@ abstract class TerracottaPlanTask : DefaultTask() {
         val remote = stateProvider.fetchProject(projectId.get())
 
         val operations = DiffEngine.diff(local, remote)
+        val preprocessedOperations = OperationPreprocessor.process(operations)
 
         logger.lifecycle("Terracotta Plan:")
-        if (operations.isEmpty()) {
+        if (preprocessedOperations.isEmpty()) {
             logger.lifecycle("  No changes needed!")
         } else {
-            operations.forEach { op ->
+            preprocessedOperations.forEach { op ->
                 logger.lifecycle("  ${op.description}")
             }
         }

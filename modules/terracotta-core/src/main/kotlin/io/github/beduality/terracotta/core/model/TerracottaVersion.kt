@@ -8,4 +8,5 @@ data class TerracottaVersion(
     val environment: TerracottaEnvironment = TerracottaEnvironment.SERVER_ONLY,
     val releaseType: TerracottaReleaseType = TerracottaReleaseType.RELEASE,
     val changelog: String = "",
+    val displayName: String = "",
 )

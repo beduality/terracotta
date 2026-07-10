@@ -116,13 +116,13 @@ class ModrinthClient(
 
         val dataPart: JsonObject =
             buildJsonObject {
-                put("name", "Version ${version.version}")
+                put("name", version.displayName)
                 put("version_number", version.version)
                 put("game_versions", buildJsonArray { version.gameVersions.forEach { add(it) } })
                 put("loaders", buildJsonArray { version.loaders.forEach { add(it.id) } })
                 put("project_id", projectId)
                 put("file_parts", buildJsonArray { add("file_0") })
-                put("changelog", version.changelog.ifEmpty { "Uploaded via Terracotta." })
+                put("changelog", version.changelog)
                 put("dependencies", JsonArray(emptyList()))
                 put("version_type", version.releaseType.id)
                 put("featured", false)
