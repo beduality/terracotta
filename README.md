@@ -2,22 +2,23 @@
 
 [Docs](https://beduality.github.io/terracotta/) | [Contributing](./CONTRIBUTING.md) | [MIT License](./LICENSE)
 
-Declarative Minecraft project registry management tool. Define your project metadata, description, tags, and version artifacts in a single `terracotta.yaml` and sync them to registries like Modrinth.
+Declarative Minecraft project registry management tool. Define your project metadata, description, tags, and version artifacts in your `build.gradle.kts` and sync them to registries like Modrinth.
 
 ## Installation
 
-### CLI Installation
+### Gradle Plugin Installation
 
-Download compiled native binaries from the [Releases](https://github.com/beduality/terracotta/releases) page.
+Add the Terracotta plugin and the provider you want to use (e.g., Modrinth) to your `build.gradle.kts`:
 
-**Linux & macOS:**
-```bash
-chmod +x terracotta
-mv terracotta /usr/local/bin/
+```kotlin
+plugins {
+    id("io.github.beduality.terracotta") version "0.1.0"
+}
+
+dependencies {
+    terracotta("io.github.beduality:terracotta-provider-modrinth:0.1.0")
+}
 ```
-
-**Windows:**
-Download `terracotta-windows-amd64.exe` and add it to your PATH.
 
 ### SDK Installation
 
@@ -46,20 +47,27 @@ See [SDK Installation Documentation](https://beduality.github.io/terracotta/tuto
 
 ## Usage
 
-1. Create a `terracotta.yaml` in your project root:
-   ```yaml
-   project:
-     id: my-plugin
-     name: My Plugin
-     summary: Lightweight Paper plugin
-   description: README.md
-   license: MIT
+1. Configure Terracotta in your `build.gradle.kts`:
+   ```kotlin
+   terracotta {
+       provider = "modrinth" // defaults to "modrinth"
+       projectId = "my-plugin"
+       name = "My Plugin"
+       summary = "Lightweight Paper plugin"
+       description = file("README.md").readText()
+       license = "MIT"
+       tags = listOf("utility", "paper")
+       gameVersions = listOf("1.20.1", "1.20.2")
+       loaders = listOf("paper")
+       environment = "server_only"
+       // token = System.getenv("TERRACOTTA_TOKEN") // optional, defaults to TERRACOTTA_TOKEN env var
+   }
    ```
 2. Run a dry run to generate a plan:
    ```bash
-   terracotta plan
+   ./gradlew terracottaPlan
    ```
 3. Apply the changes:
    ```bash
-   terracotta apply
+   ./gradlew terracottaApply
    ```

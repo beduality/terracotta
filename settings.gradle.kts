@@ -16,8 +16,10 @@ rootProject.name = "terracotta"
 
 include("terracotta-core")
 include("terracotta-provider-modrinth")
+include("terracotta-gradle-plugin")
 include("modules:terracotta-github")
 
 project(":terracotta-core").projectDir = file("modules/terracotta-core")
 project(":terracotta-provider-modrinth").projectDir = file("modules/terracotta-provider-modrinth")
+project(":terracotta-gradle-plugin").projectDir = file("modules/terracotta-gradle-plugin")
 project(":modules:terracotta-github").projectDir = file("modules/terracotta-github")

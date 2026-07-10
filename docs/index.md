@@ -1,6 +1,6 @@
 # Terracotta
 
-Terracotta is a declarative project registry management tool for Minecraft developers. It manages registry providers like Modrinth project metadata, description, tags, and versions using a simple YAML configuration file as the single source of truth.
+Terracotta is a declarative project registry management tool for Minecraft developers. It manages registry providers like Modrinth project metadata, description, tags, and versions using a simple Gradle configuration as the single source of truth.
 
 ---
 
@@ -10,9 +10,9 @@ Terracotta is a declarative project registry management tool for Minecraft devel
 
     ---
 
-    Define your project info, description path, categories, tags, license, and version artifacts in `terracotta.yaml`.
+    Define your project info, description, tags, license, and version artifacts in your `build.gradle.kts`.
 
-    [:octicons-arrow-right-24: Getting started](content/tutorials/getting-started.md)
+    [:octicons-arrow-right-24: Getting started](content/gradle-plugin/tutorials/getting-started.md)
 
 -   :material-eye-outline:{ .lg .middle } __Dry Runs (Plan)__
 
@@ -20,15 +20,15 @@ Terracotta is a declarative project registry management tool for Minecraft devel
 
     Preview all updates, tag changes, and version uploads before executing them, preventing incorrect uploads or metadata state drift.
 
-    [:octicons-arrow-right-24: CLI commands](content/reference/cli.md)
+    [:octicons-arrow-right-24: Gradle tasks](content/gradle-plugin/reference/tasks.md)
 
 -   :material-publish:{ .lg .middle } __Maven SDK__
 
     ---
 
-    Integrate Terracotta's core directly into Gradle/Maven plugins, IDEs, or custom automation pipelines without the CLI.
+    Integrate Terracotta's core directly into custom automation pipelines.
 
-    [:octicons-arrow-right-24: Core API](content/reference/api.md)
+    [:octicons-arrow-right-24: Core API](content/sdk/reference/api.md)
 
 -   :material-sync:{ .lg .middle } __CI/CD Integration__
 
@@ -36,15 +36,15 @@ Terracotta is a declarative project registry management tool for Minecraft devel
 
     Easily integrate with GitHub Actions to apply registry changes automatically when you push tags or release artifacts.
 
-    [:octicons-arrow-right-24: CI/CD Guide](content/how-to-guides/ci-cd-setup.md)
+    [:octicons-arrow-right-24: CI/CD Guide](content/gradle-plugin/how-to-guides/ci-cd-setup.md)
 
 </div>
 
 ## How It Works
 
-1. You edit `terracotta.yaml` in your project root.
-2. Run `terracotta plan` to view a diff of local configuration vs remote Modrinth state.
-3. Run `terracotta apply` to push changes (metadata, upload versions, synchronize tags) to the remote registry.
+1. You configure Terracotta in your `build.gradle.kts`.
+2. Run `./gradlew terracottaPlan` to view a diff of local configuration vs remote Modrinth state.
+3. Run `./gradlew terracottaApply` to push changes (metadata, upload versions, synchronize tags) to the remote registry.
 
 ```text
 ~ Update description
@@ -56,8 +56,7 @@ Terracotta is a declarative project registry management tool for Minecraft devel
 
 | Component | Version |
 |---|---|
-| JVM / JDK | 21+ |
-| Native Image | GraalVM (for native executables) |
+| JVM / JDK | 17+ |
 | Target Registries | Modrinth API (Hangar/CurseForge planned) |
 
 ## Links

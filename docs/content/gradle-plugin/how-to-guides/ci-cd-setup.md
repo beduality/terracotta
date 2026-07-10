@@ -28,25 +28,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21'
-
-      - name: Build Plugin Artifact
-        run: ./gradlew build
-
-      - name: Download & Install Terracotta CLI
-        run: |
-          # Download latest binary from GitHub Releases
-          curl -sSL https://github.com/beduality/terracotta/releases/latest/download/terracotta-linux-amd64 -o /usr/local/bin/terracotta
-          chmod +x /usr/local/bin/terracotta
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Deploy with Terracotta
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-        run: terracotta apply
+        run: ./gradlew terracottaApply
 ```
 
 Whenever you push a tag like `v1.2.0`, this workflow will build your plugin and execute Terracotta to upload your release artifact automatically.
