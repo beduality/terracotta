@@ -92,15 +92,35 @@ nav:
       - Tasks Reference: content/gradle-plugin/reference/tasks.md
   - SDK:
     - Tutorials:
-      - Installation: content/sdk/tutorials/installation.md
+      - Quick Start: content/sdk/tutorials/quick-start.md
     - How-To Guides:
       - Custom Providers: content/sdk/how-to-guides/custom-provider.md
       - Modrinth Provider: content/sdk/how-to-guides/modrinth-provider.md
     - Reference:
       - API Reference: content/sdk/reference/api.md
+      - Provider API: content/sdk/reference/provider-api.md
+      - Installation: content/sdk/reference/installation.md
     - Explanation:
       - Architecture Overview: content/sdk/explanation/architecture.md
   - Repo:
+    - Tutorials:
+      - Quick Start: content/repo/tutorials/quick-start.md
+      - Navigating the Codebase: content/repo/tutorials/navigating-the-codebase.md
+      - Writing Changelog: content/repo/tutorials/writing-changelog.md
+      - Writing Documentation: content/repo/tutorials/writing-documentation.md
+    - How-To Guides:
+      - Building: content/repo/how-to-guides/building.md
+      - Testing: content/repo/how-to-guides/testing.md
+      - Documentation: content/repo/how-to-guides/documentation.md
+      - Releasing: content/repo/how-to-guides/releasing.md
+      - Contributing: content/repo/how-to-guides/contributing.md
     - Reference:
-      - Tech Stack Reference: content/repo/reference/tech-stack.md
-      - File Structure Reference: content/repo/reference/file-structure.md
+      - Tech Stack: content/repo/reference/tech-stack.md
+      - File Structure: content/repo/reference/file-structure.md
+      - Configuration: content/repo/reference/configuration.md
+      - Architecture Reference: content/repo/reference/architecture-reference.md
+      - Code Style: content/repo/reference/code-style.md
+      - Contributing Guidelines: content/repo/reference/contributing-guidelines.md
+    - Explanation:
+      - Architecture: content/repo/explanation/architecture.md
+      - Project Management: content/repo/explanation/project-management.md

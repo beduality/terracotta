@@ -53,6 +53,8 @@ terracotta {
 }
 ```
 
+The `versions` are automatically discovered from your Gradle build (via the `jar` task output). You can also manually specify versions if needed.
+
 Make sure your project contains a `README.md` file with your plugin description.
 
 ## 3. Configure Authentication

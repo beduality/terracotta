@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.model
 
 data class TerracottaProject(
+    val schemaVersion: Int = 1,
     val id: String,
     val name: String,
     val summary: String,

@@ -46,10 +46,12 @@ Terracotta is a declarative project registry management tool for Minecraft devel
 2. Run `./gradlew terracottaPlan` to view a diff of local configuration vs remote Modrinth state.
 3. Run `./gradlew terracottaApply` to push changes (metadata, upload versions, synchronize tags) to the remote registry.
 
+Example output from `terracottaPlan`:
+
 ```text
-~ Update description
-~ Update tags (from: utility to: utility, paper)
-+ Upload version 1.2.0
+~ Update summary (from: "Old summary" to: "Lightweight Paper plugin")
+~ Update tags (from: ["utility"] to: ["utility", "paper"])
++ Upload version 1.2.0 (file: build/libs/my-plugin-1.2.0.jar)
 ```
 
 ## Setup Requirements

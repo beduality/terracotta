@@ -33,14 +33,15 @@ terracotta {
         }
         // Add other future providers here, e.g., create("curseforge"), etc.
     }
-    name = "My Plugin"
-    summary = "Lightweight Paper plugin"
-    description = file("README.md").readText()
-    license = "MIT"
-    tags = listOf("utility", "paper")
-    gameVersions = listOf("1.20.1", "1.20.2")
-    loaders = listOf(TerracottaLoader.PAPER)
-    environment = TerracottaEnvironment.SERVER_ONLY
+    name.set("My Plugin")
+    summary.set("Lightweight Paper plugin")
+    description.set(file("README.md").readText())
+    license.set("MIT")
+    tags.set(listOf("utility", "paper"))
+    gameVersions.set(listOf("1.20.1", "1.20.2"))
+    loaders.set(listOf(TerracottaLoader.PAPER))
+    environment.set(TerracottaEnvironment.SERVER_ONLY)
+    // Versions are automatically discovered from your build
 }
 ```
 
