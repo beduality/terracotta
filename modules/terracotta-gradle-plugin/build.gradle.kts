@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.spotless)
     `java-gradle-plugin`
+    `maven-publish`
 }
 
 dependencies {
