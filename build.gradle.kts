@@ -66,11 +66,6 @@ centralPublisher {
         }
     }
 
-    signing {
-        keyId = System.getenv("SIGNING_KEY_ID") ?: findProperty("signingKeyId")?.toString() ?: ""
-        password = System.getenv("SIGNING_PASSWORD") ?: findProperty("signingPassword")?.toString() ?: ""
-    }
-
     publishing {
         autoPublish = true
         aggregation = true
