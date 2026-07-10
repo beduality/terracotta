@@ -175,7 +175,11 @@ def update_changelog(new_version: str):
         raise ValueError("Could not find '## [Unreleased]' section in CHANGELOG.md")
 
     new_header = f"## [{new_version}] - {today}"
-    new_content = content.replace("## [Unreleased]", new_header, 1)
+    new_content = content.replace(
+        "## [Unreleased]",
+        f"## [Unreleased]\n\n{new_header}",
+        1,
+    )
     path.write_text(new_content)
     console.print("[green]✔[/green] Updated CHANGELOG.md")
 

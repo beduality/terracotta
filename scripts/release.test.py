@@ -162,7 +162,9 @@ class TestUpdateFiles(unittest.TestCase):
         mock_date.today.return_value.isoformat.return_value = "2026-07-07"
         mock_read.return_value = "## [Unreleased]\n\n### Added\n- Feature"
         release.update_changelog("0.4.0")
-        mock_write.assert_called_once_with("## [0.4.0] - 2026-07-07\n\n### Added\n- Feature")
+        mock_write.assert_called_once_with(
+            "## [Unreleased]\n\n## [0.4.0] - 2026-07-07\n\n### Added\n- Feature"
+        )
 
     @patch("scripts.release.Path.read_text")
     @patch("scripts.release.Path.write_text")
