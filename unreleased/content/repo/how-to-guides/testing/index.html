@@ -2133,11 +2133,13 @@
 <h2 id="test-types">Test Types<a class="headerlink" href="#test-types" title="Permanent link">&para;</a></h2>
 <p>Terracotta has two tiers of tests:</p>
 <h3 id="unit-integration-tests">Unit &amp; Integration Tests<a class="headerlink" href="#unit-integration-tests" title="Permanent link">&para;</a></h3>
-<p>These run as part of the standard build and cover:
-- Core business logic in <code>terracotta-core</code>
-- Provider implementations
-- CLI wiring
-- Gradle plugin tasks</p>
+<p>These run as part of the standard build and cover:</p>
+<ul>
+<li>Core business logic in <code>terracotta-core</code></li>
+<li>Provider implementations</li>
+<li>CLI wiring</li>
+<li>Gradle plugin tasks</li>
+</ul>
 <p>They do <strong>not</strong> require network access or external credentials.</p>
 <h4 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span><span class="nb">test</span>
@@ -2155,11 +2157,13 @@
 <li>Place tests alongside the module they exercise</li>
 </ul>
 <h3 id="smoke-tests">Smoke Tests<a class="headerlink" href="#smoke-tests" title="Permanent link">&para;</a></h3>
-<p>Smoke tests exercise the <strong>full compiled CLI binary</strong> against the live Modrinth API. They verify:
-- End-to-end behavior
-- Real network responses
-- Authentication flows
-- Actual command output</p>
+<p>Smoke tests exercise the <strong>full compiled CLI binary</strong> against the live Modrinth API. They verify:</p>
+<ul>
+<li>End-to-end behavior</li>
+<li>Real network responses</li>
+<li>Authentication flows</li>
+<li>Actual command output</li>
+</ul>
 <p>Because they depend on a live API and compiled binary, they are <strong>excluded from the default test run</strong>.</p>
 <h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2181,10 +2185,12 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>jacocoTestReport
 </code></pre></div>
 <h3 id="view-html-reports">View HTML Reports<a class="headerlink" href="#view-html-reports" title="Permanent link">&para;</a></h3>
-<p>Reports are generated at:
-- <code>modules/terracotta-core/build/reports/jacoco/test/html/index.html</code>
-- <code>modules/terracotta-provider-modrinth/build/reports/jacoco/test/html/index.html</code>
-- <code>modules/terracotta-gradle-plugin/build/reports/jacoco/test/html/index.html</code></p>
+<p>Reports are generated at:</p>
+<ul>
+<li><code>modules/terracotta-core/build/reports/jacoco/test/html/index.html</code></li>
+<li><code>modules/terracotta-provider-modrinth/build/reports/jacoco/test/html/index.html</code></li>
+<li><code>modules/terracotta-gradle-plugin/build/reports/jacoco/test/html/index.html</code></li>
+</ul>
 <h3 id="coverage-expectations">Coverage Expectations<a class="headerlink" href="#coverage-expectations" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Aim to maintain or improve coverage for modified code</li>

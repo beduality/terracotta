@@ -2157,9 +2157,11 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>mike<span class="w"> </span>set-default<span class="w"> </span>unreleased
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>uv<span class="w"> </span>run<span class="w"> </span>mike<span class="w"> </span>serve
 </code></pre></div>
-<p>This serves the site at <code>http://localhost:8000</code> with:
-- Version switching working as in production
-- Multi-version support</p>
+<p>This serves the site at <code>http://localhost:8000</code> with:</p>
+<ul>
+<li>Version switching working as in production</li>
+<li>Multi-version support</li>
+</ul>
 <h3 id="option-2-quick-single-version-preview">Option 2: Quick Single-Version Preview<a class="headerlink" href="#option-2-quick-single-version-preview" title="Permanent link">&para;</a></h3>
 <p>For a quick preview without committing to the <code>gh-pages</code> branch:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>serve
@@ -2229,11 +2231,13 @@
 <li>[ ] Links point to correct targets</li>
 </ul>
 <h2 id="building-documentation-for-production">Building Documentation for Production<a class="headerlink" href="#building-documentation-for-production" title="Permanent link">&para;</a></h2>
-<p>The CI/CD workflow handles production builds. The workflow:
-1. Installs Python dependencies
-2. Builds documentation with MkDocs
-3. Deploys to GitHub Pages using <code>mike</code>
-4. Updates the <code>gh-pages</code> branch</p>
+<p>The CI/CD workflow handles production builds. The workflow:</p>
+<ol>
+<li>Installs Python dependencies</li>
+<li>Builds documentation with MkDocs</li>
+<li>Deploys to GitHub Pages using <code>mike</code></li>
+<li>Updates the <code>gh-pages</code> branch</li>
+</ol>
 
 
 

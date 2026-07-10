@@ -1562,10 +1562,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cli-binaries-github-releases" class="md-nav__link">
+  <a href="#gradle-plugin-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI Binaries (GitHub Releases)
+        Gradle Plugin Publishing
       
     </span>
   </a>
@@ -1982,10 +1982,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cli-binaries-github-releases" class="md-nav__link">
+  <a href="#gradle-plugin-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI Binaries (GitHub Releases)
+        Gradle Plugin Publishing
       
     </span>
   </a>
@@ -2146,13 +2146,9 @@
 4. Create a git commit and tag
 5. Push changes to the remote repository</p>
 <h3 id="3-distribution-publishing">3. Distribution &amp; Publishing<a class="headerlink" href="#3-distribution-publishing" title="Permanent link">&para;</a></h3>
-<p>Once the version tag is pushed, <code>.github/workflows/release.yml</code> automatically triggers and:</p>
-<h4 id="cli-binaries-github-releases">CLI Binaries (GitHub Releases)<a class="headerlink" href="#cli-binaries-github-releases" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Builds native binaries for Linux, macOS, and Windows</li>
-<li>Uploads binaries as artifacts to the GitHub Release page</li>
-<li>Binaries are built using GraalVM</li>
-</ul>
+<p>Once the version tag is pushed, <code>.github/workflows/release.yml</code> automatically triggers:</p>
+<h4 id="gradle-plugin-publishing">Gradle Plugin Publishing<a class="headerlink" href="#gradle-plugin-publishing" title="Permanent link">&para;</a></h4>
+<p>The Gradle plugin is automatically published to the <a href="https://plugins.gradle.org/">Gradle Plugin Portal</a>.</p>
 <h4 id="maven-central-publishing">Maven Central Publishing<a class="headerlink" href="#maven-central-publishing" title="Permanent link">&para;</a></h4>
 <p>The following modules are published automatically:</p>
 <table>
@@ -2224,7 +2220,7 @@
 <li><strong>Version</strong>: Updated in <code>build.gradle.kts</code></li>
 <li><strong>Tag</strong>: Created and pushed to GitHub</li>
 <li><strong>CI/CD</strong>: Release workflow triggers</li>
-<li><strong>GitHub Releases</strong>: Native binaries uploaded</li>
+<li><strong>Gradle Plugin</strong>: Published to Gradle Plugin Portal</li>
 <li><strong>Maven Central</strong>: Artifacts published and released</li>
 </ol>
 
