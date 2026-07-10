@@ -56,6 +56,23 @@ Go to **Actions** → **Release** → **Run workflow**. Choose:
 - **bump**: `auto` (recommended), `patch`, `minor`, `major`, or `custom`
 - **version**: required only when `bump` is `custom`
 
+#### Trigger from the local CLI
+
+You can also start the workflow from your machine without opening the GitHub web UI. Make sure the [GitHub CLI](https://cli.github.com/) is installed and authenticated (`gh auth login`):
+
+```bash
+# Wizard mode (prompts for bump type and confirmation)
+uv run scripts/release.py trigger
+
+# Non-interactive trigger
+uv run scripts/release.py trigger --bump auto --yes
+
+# Custom version
+uv run scripts/release.py trigger --bump custom --version 1.2.3 --yes
+```
+
+The command runs `gh workflow run release.yml` against your current branch, passing the same `bump` and `version` inputs used by the web UI.
+
 The workflow will:
 
 1. Update `CHANGELOG.md`, `gradle.properties`, `pyproject.toml`, and `uv.lock` with the new version.

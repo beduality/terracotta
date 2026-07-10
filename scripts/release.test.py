@@ -679,5 +679,635 @@ class TestMainCliFlow(unittest.TestCase):
         self.assertFalse(has_local_delete)
 
 
+class TestPromptBump(unittest.TestCase):
+
+    @patch("scripts.release.get_next_version")
+    def test_yes_returns_auto(self, mock_get_next):
+        mock_get_next.return_value = ("minor", "0.4.0")
+        strategy, custom = release.prompt_bump("0.3.0", yes=True)
+        self.assertEqual(strategy, "auto")
+        self.assertIsNone(custom)
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.get_next_version")
+    def test_auto_choice_returns_auto(self, mock_get_next, mock_select):
+        mock_get_next.return_value = ("minor", "0.4.0")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value="auto"))
+        strategy, custom = release.prompt_bump("0.3.0")
+        self.assertEqual(strategy, "auto")
+        self.assertIsNone(custom)
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.get_next_version")
+    def test_patch_choice_returns_patch(self, mock_get_next, mock_select):
+        mock_get_next.return_value = ("patch", "0.3.1")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value="patch"))
+        strategy, custom = release.prompt_bump("0.3.0")
+        self.assertEqual(strategy, "patch")
+        self.assertIsNone(custom)
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.questionary.text")
+    @patch("scripts.release.get_next_version")
+    def test_custom_choice_returns_custom_version(self, mock_get_next, mock_text, mock_select):
+        mock_get_next.return_value = ("patch", "0.3.1")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value="custom"))
+        mock_text.return_value = MagicMock(ask=MagicMock(return_value="1.0.0"))
+        strategy, custom = release.prompt_bump("0.3.0")
+        self.assertEqual(strategy, "custom")
+        self.assertEqual(custom, "1.0.0")
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.questionary.text")
+    @patch("scripts.release.get_next_version")
+    def test_custom_invalid_version_exits(self, mock_get_next, mock_text, mock_select):
+        mock_get_next.return_value = ("patch", "0.3.1")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value="custom"))
+        mock_text.return_value = MagicMock(ask=MagicMock(return_value="invalid"))
+
+        with self.assertRaises(SystemExit):
+            release.prompt_bump("0.3.0")
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.get_next_version")
+    def test_abort_on_select_ctrl_c(self, mock_get_next, mock_select):
+        mock_get_next.return_value = ("patch", "0.3.1")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value=None))
+
+        with self.assertRaises(SystemExit):
+            release.prompt_bump("0.3.0")
+
+    @patch("scripts.release.questionary.select")
+    @patch("scripts.release.questionary.text")
+    @patch("scripts.release.get_next_version")
+    def test_abort_on_custom_ctrl_c(self, mock_get_next, mock_text, mock_select):
+        mock_get_next.return_value = ("patch", "0.3.1")
+        mock_select.return_value = MagicMock(ask=MagicMock(return_value="custom"))
+        mock_text.return_value = MagicMock(ask=MagicMock(return_value=None))
+
+        with self.assertRaises(SystemExit):
+            release.prompt_bump("0.3.0")
+
+
+class TestTrigger(unittest.TestCase):
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_auto_runs_gh_workflow(
+        self, mock_get_ver, mock_sub_run, mock_prompt_bump, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_prompt_bump.return_value = ("auto", None)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.trigger(bump="auto", yes=True)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        self.assertIsNotNone(workflow_call)
+        self.assertEqual(workflow_call[0:6], ["gh", "workflow", "run", "release.yml", "--ref", "main"])
+        self.assertIn("-f", workflow_call)
+        self.assertIn("bump=auto", workflow_call)
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_custom_runs_gh_workflow_with_version(
+        self, mock_get_ver, mock_sub_run, mock_prompt_bump, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_prompt_bump.return_value = ("custom", "1.0.0")
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.trigger(bump="custom", version="1.0.0", yes=True)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        self.assertIsNotNone(workflow_call)
+        self.assertIn("bump=custom", workflow_call)
+        self.assertIn("version=1.0.0", workflow_call)
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_specific_version_string_maps_to_custom(
+        self, mock_get_ver, mock_sub_run, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.trigger(bump="1.0.0", yes=True)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        self.assertIsNotNone(workflow_call)
+        self.assertIn("bump=custom", workflow_call)
+        self.assertIn("version=1.0.0", workflow_call)
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_custom_without_version_exits(self, mock_get_ver):
+        mock_get_ver.return_value = "0.3.0"
+
+        with patch("scripts.release.subprocess.run") as mock_sub_run:
+            mock_sub_run.return_value = MagicMock(returncode=0)
+            with self.assertRaises(SystemExit):
+                release.trigger(bump="custom", yes=True)
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_invalid_bump_exits(self, mock_get_ver):
+        mock_get_ver.return_value = "0.3.0"
+
+        with patch("scripts.release.subprocess.run") as mock_sub_run:
+            mock_sub_run.return_value = MagicMock(returncode=0)
+            with self.assertRaises(SystemExit):
+                release.trigger(bump="not-a-version", yes=True)
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_no_gh_cli_exits(self, mock_get_ver):
+        mock_get_ver.return_value = "0.3.0"
+
+        with patch("scripts.release.subprocess.run") as mock_sub_run:
+            mock_sub_run.side_effect = FileNotFoundError("gh not found")
+            with self.assertRaises(SystemExit):
+                release.trigger(bump="auto", yes=True)
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_unauthenticated_gh_exits(self, mock_get_ver):
+        mock_get_ver.return_value = "0.3.0"
+
+        with patch("scripts.release.subprocess.run") as mock_sub_run:
+            mock_sub_run.side_effect = subprocess.CalledProcessError(1, ["gh", "auth", "status"])
+            with self.assertRaises(SystemExit):
+                release.trigger(bump="auto", yes=True)
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_aborted_confirmation(
+        self, mock_get_ver, mock_sub_run, mock_prompt_bump, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_prompt_bump.return_value = ("auto", None)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=False))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.trigger(bump="auto")
+
+        mock_run_cmd.assert_not_called()
+
+
+class TestTriggerGaps(unittest.TestCase):
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_get_current_version_error_exits(self, mock_get_ver):
+        mock_get_ver.side_effect = FileNotFoundError("gradle.properties not found")
+
+        with self.assertRaises(SystemExit):
+            release.trigger()
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_bump_none_uses_wizard(
+        self, mock_get_ver, mock_sub_run, mock_prompt_bump, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_prompt_bump.return_value = ("minor", None)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.trigger()
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        self.assertIsNotNone(workflow_call)
+        self.assertIn("bump=minor", workflow_call)
+
+    @patch("scripts.release.get_current_version")
+    def test_trigger_git_branch_error_exits(self, mock_get_ver):
+        mock_get_ver.return_value = "0.3.0"
+
+        with patch("scripts.release.subprocess.run") as mock_sub_run:
+            def side_effect(cmd, **kwargs):
+                if "rev-parse" in cmd:
+                    raise subprocess.CalledProcessError(1, cmd)
+                result = MagicMock()
+                result.returncode = 0
+                return result
+
+            mock_sub_run.side_effect = side_effect
+            with self.assertRaises(SystemExit):
+                release.trigger(bump="auto", yes=True)
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.subprocess.run")
+    @patch("scripts.release.get_current_version")
+    def test_trigger_warns_on_non_main_branch(
+        self, mock_get_ver, mock_sub_run, mock_confirm, mock_run_cmd
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            if "rev-parse" in cmd:
+                result.stdout = "feature/x\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.trigger(bump="auto", yes=True)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        self.assertIsNotNone(workflow_call)
+        self.assertIn("feature/x", workflow_call)
+
+
+class TestMainGaps(unittest.TestCase):
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.get_next_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    def test_main_explicit_auto_bump(
+        self, mock_run_cmd, mock_up_changelog, mock_up_pyproject, mock_up_gradle,
+        mock_get_next, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_get_next.return_value = ("minor", "0.4.0")
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        release.main(bump="auto", yes=True, dry_run=False, push=False)
+
+        mock_get_next.assert_called_once_with("0.3.0")
+        mock_up_gradle.assert_called_once_with("0.4.0")
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    def test_main_wizard_custom_bump_version_error_exits(
+        self, mock_run_cmd, mock_up_changelog, mock_up_pyproject, mock_up_gradle,
+        mock_prompt_bump, mock_get_ver, mock_confirm
+    ):
+        # An invalid current version plus a non-matching custom string forces bump_version to raise.
+        mock_get_ver.return_value = "invalid-version"
+        mock_prompt_bump.return_value = ("custom", "not-a-version")
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        with self.assertRaises(SystemExit):
+            release.main(bump=None, yes=True, dry_run=False, push=False)
+
+        mock_up_gradle.assert_not_called()
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.prompt_bump")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    def test_main_wizard_strategy_bump_version_error_exits(
+        self, mock_run_cmd, mock_up_changelog, mock_up_pyproject, mock_up_gradle,
+        mock_prompt_bump, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "invalid-version"
+        mock_prompt_bump.return_value = ("patch", None)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        with self.assertRaises(SystemExit):
+            release.main(bump=None, yes=True, dry_run=False, push=False)
+
+        mock_up_gradle.assert_not_called()
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_main_branch_detection_fallback(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(side_effect=[True, True]))
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if "rev-parse" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            result.returncode = 0
+            result.stdout = ""
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.main(bump="patch", yes=False, dry_run=False)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        push_call = next((c for c in run_calls if "push" in c and "origin" in c), None)
+        self.assertIsNotNone(push_call)
+        self.assertIn("main", push_call)
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    def test_main_user_declines_commit(
+        self, mock_run_cmd, mock_up_changelog, mock_up_pyproject,
+        mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        # proceed=True, commit=False
+        mock_confirm.return_value = MagicMock(ask=MagicMock(side_effect=[True, False]))
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=False, dry_run=False)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        self.assertFalse(any("commit" in c for c in run_calls if isinstance(c, list)))
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    def test_main_publish_runs_gradle_publish(
+        self, mock_run_cmd, mock_up_changelog, mock_up_pyproject,
+        mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        release.main(bump="patch", yes=True, dry_run=False, push=False, publish=True)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        self.assertTrue(any("validatePublishing" in c for c in run_calls if isinstance(c, list)))
+        self.assertTrue(any("publishToCentral" in c for c in run_calls if isinstance(c, list)))
+
+
+class TestMainRollbackFailurePaths(unittest.TestCase):
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_rollback_remote_tag_delete_failure(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(side_effect=[True, True]))
+
+        def run_cmd_side_effect(cmd, env=None):
+            if "push" in cmd and "origin" in cmd and "--tags" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+
+        mock_run_cmd.side_effect = run_cmd_side_effect
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            result.returncode = 0
+            result.stdout = "main\n"
+            if "push" in cmd and "--delete" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=True, dry_run=False)
+
+        rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        # Should attempt remote tag delete because "pushed" was recorded
+        self.assertTrue(
+            any("push" in c and "--delete" in c and "v0.3.1" in c for c in rollback_calls if isinstance(c, list))
+        )
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_rollback_local_tag_delete_failure(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(side_effect=[True, True]))
+
+        def run_cmd_side_effect(cmd, env=None):
+            if "tag" in cmd and cmd != ["git", "tag", "v0.3.1"]:
+                # shouldn't happen; tag creation is the only tag call before failure
+                pass
+            if "push" in cmd and "origin" in cmd and "--tags" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+
+        mock_run_cmd.side_effect = run_cmd_side_effect
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if "tag" in cmd and "-d" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            result.returncode = 0
+            result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=True, dry_run=False)
+
+        rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        self.assertTrue(
+            any("tag" in c and "-d" in c and "v0.3.1" in c for c in rollback_calls if isinstance(c, list))
+        )
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_rollback_commit_reset_failure(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(side_effect=[True, True]))
+
+        def run_cmd_side_effect(cmd, env=None):
+            if "tag" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+
+        mock_run_cmd.side_effect = run_cmd_side_effect
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if "reset" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            result.returncode = 0
+            result.stdout = "main\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=True, dry_run=False)
+
+        rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        self.assertTrue(any("reset" in c for c in rollback_calls if isinstance(c, list)))
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_rollback_uv_lock_restore_exception_ignored(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def run_cmd_side_effect(cmd, env=None):
+            if "uv" in cmd and "lock" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+
+        mock_run_cmd.side_effect = run_cmd_side_effect
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if cmd == ["git", "restore", "uv.lock"]:
+                raise subprocess.CalledProcessError(1, cmd)
+            result.returncode = 0
+            result.stdout = ""
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=True, dry_run=False, push=False)
+
+        rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        # First file restore should succeed, uv.lock restore should be attempted
+        restore_calls = [c for c in rollback_calls if isinstance(c, list) and "restore" in c]
+        self.assertEqual(len(restore_calls), 2)
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.get_current_version")
+    @patch("scripts.release.update_gradle_properties")
+    @patch("scripts.release.update_pyproject_toml")
+    @patch("scripts.release.update_changelog")
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_rollback_file_restore_failure_sets_rollback_failed(
+        self, mock_sub_run, mock_run_cmd, mock_up_changelog,
+        mock_up_pyproject, mock_up_gradle, mock_get_ver, mock_confirm
+    ):
+        mock_get_ver.return_value = "0.3.0"
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        def run_cmd_side_effect(cmd, env=None):
+            if "uv" in cmd and "lock" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+
+        mock_run_cmd.side_effect = run_cmd_side_effect
+
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if "restore" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            result.returncode = 0
+            result.stdout = ""
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.main(bump="patch", yes=True, dry_run=False, push=False)
+
+        # The function should exit with rollback_failed set and print partial success
+        # We assert the failure path was reached by checking the restore attempt
+        rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        self.assertTrue(any("restore" in c for c in rollback_calls if isinstance(c, list)))
+
+
 if __name__ == "__main__":
     unittest.main()

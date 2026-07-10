@@ -11,7 +11,7 @@ import questionary
 
 console = Console()
 app = App(
-    usage="release.py [BUMP] [OPTIONS]\n       release.py rollback <version>"
+    usage="release.py [BUMP] [OPTIONS]\n       release.py trigger [OPTIONS]\n       release.py rollback <version>"
 )
 
 def get_current_version() -> str:
@@ -99,6 +99,55 @@ def bump_version(current: str, bump_type: str) -> str:
 
     return f"{major}.{minor}.{patch}{suffix}"
 
+def prompt_bump(current_version: str, yes: bool = False) -> tuple[str, str | None]:
+    """Interactively prompt for the release bump strategy.
+
+    Returns a tuple of (strategy, custom_version). strategy is one of 'auto',
+    'patch', 'minor', 'major', or 'custom'. custom_version is only set when
+    strategy is 'custom'.
+    """
+    if yes:
+        return "auto", None
+
+    console.print("\n[bold yellow]--- Wizard Mode ---[/bold yellow]")
+
+    auto_bump, auto_version = get_next_version(current_version)
+    console.print(
+        f"Detected bump from commits: [bold magenta]{auto_bump}[/bold magenta] "
+        f"→ [bold green]{auto_version}[/bold green]"
+    )
+
+    choice = questionary.select(
+        "Select bump type",
+        choices=[
+            questionary.Choice(f"auto ({auto_bump} → {auto_version})", value="auto"),
+            "patch",
+            "minor",
+            "major",
+            "custom",
+        ],
+        default="auto",
+    ).ask()
+
+    # Handle ctrl+c
+    if choice is None:
+        console.print("[yellow]Release aborted.[/yellow]")
+        sys.exit(0)
+
+    if choice == "custom":
+        custom_version = questionary.text("Enter custom version (e.g., 0.5.0)").ask()
+        if custom_version is None:
+            console.print("[yellow]Release aborted.[/yellow]")
+            sys.exit(0)
+        if not re.match(r"^\d+\.\d+\.\d+.*$", custom_version):
+            console.print(
+                f"[bold red]Invalid version format: '{custom_version}'. Expected format: X.Y.Z[/bold red]"
+            )
+            sys.exit(1)
+        return "custom", custom_version
+
+    return choice, None
+
 def update_gradle_properties(new_version: str):
     path = Path("gradle.properties")
     content = path.read_text()
@@ -176,6 +225,104 @@ def rollback(release_version: str):
     except Exception as e:
         console.print(f"[yellow]Could not inspect git commit or reset: {e}[/yellow]")
 
+@app.command
+def trigger(
+    bump: str = None,
+    version: str = None,
+    yes: bool = False,
+):
+    """Trigger the Release workflow on GitHub Actions from the local CLI.
+
+    This is an alternative to opening the GitHub web UI. The workflow runs on
+    GitHub's infrastructure, bumps versions, builds, publishes to Maven Central,
+    creates the GitHub release, and deploys documentation.
+
+    Parameters
+    ----------
+    bump : str, optional
+        The type of version bump ('auto', 'patch', 'minor', 'major', 'custom')
+        or a specific version string (e.g., '1.2.3'). If omitted, starts wizard
+        mode.
+    version : str, optional
+        Required when bump is 'custom' or when passing a specific version
+        string directly.
+    yes : bool, optional
+        Skip all interactive prompts. Defaults to 'auto' bump strategy.
+    """
+    try:
+        current_version = get_current_version()
+    except Exception as e:
+        console.print(f"[bold red]Error reading current version:[/bold red] {e}")
+        sys.exit(1)
+
+    console.print(f"Current version: [bold cyan]{current_version}[/bold cyan]")
+
+    # Verify the GitHub CLI is available and authenticated
+    try:
+        subprocess.run(["gh", "auth", "status"], capture_output=True, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        console.print("[bold red]GitHub CLI (`gh`) is required and must be authenticated.[/bold red]")
+        console.print("[dim]Install from https://cli.github.com/ and run `gh auth login`.[/dim]")
+        sys.exit(1)
+
+    if bump is None:
+        strategy, custom_version = prompt_bump(current_version, yes)
+    else:
+        bump_clean = bump.strip().lower()
+        if re.match(r"^\d+\.\d+\.\d+.*$", bump):
+            strategy = "custom"
+            custom_version = bump
+        elif bump_clean in {"auto", "patch", "minor", "major", "custom"}:
+            strategy = bump_clean
+            custom_version = version
+        else:
+            console.print(
+                f"[bold red]Invalid bump strategy: '{bump}'. "
+                f"Choose 'auto', 'patch', 'minor', 'major', 'custom', or a specific version.[/bold red]"
+            )
+            sys.exit(1)
+
+        if strategy == "custom" and not custom_version:
+            console.print("[bold red]--version is required when --bump is 'custom'.[/bold red]")
+            sys.exit(1)
+
+    # Determine the branch to trigger the workflow on
+    try:
+        branch_result = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            capture_output=True, text=True, check=True
+        )
+        current_branch = branch_result.stdout.strip()
+    except Exception as e:
+        console.print(f"[bold red]Could not determine current git branch:[/bold red] {e}")
+        sys.exit(1)
+
+    if current_branch != "main":
+        console.print(
+            f"[yellow]Warning: you are on branch '{current_branch}', not 'main'.[/yellow]"
+        )
+
+    cmd = [
+        "gh", "workflow", "run", "release.yml",
+        "--ref", current_branch,
+        "-f", f"bump={strategy}",
+    ]
+    if strategy == "custom":
+        cmd.extend(["-f", f"version={custom_version}"])
+
+    proceed = yes or questionary.confirm(
+        f"Trigger Release workflow on '{current_branch}' with bump '{strategy}'?"
+    ).ask()
+    if not proceed:
+        console.print("[yellow]Release aborted.[/yellow]")
+        sys.exit(0)
+
+    run_command(cmd)
+    console.print(
+        f"[bold green]Successfully triggered Release workflow on {current_branch}.[/bold green]"
+    )
+    console.print("[dim]Monitor with: gh run list --workflow=release.yml[/dim]")
+
 @app.default
 def main(
     bump: str = None,
@@ -211,49 +358,24 @@ def main(
 
     # Wizard Mode
     if bump is None:
-        if yes:
-            bump = "auto"
+        strategy, custom_version = prompt_bump(current_version, yes)
+        if strategy == "auto":
+            bump, new_version = get_next_version(current_version)
+        elif strategy == "custom":
+            bump = custom_version
+            try:
+                new_version = bump_version(current_version, custom_version)
+            except Exception as e:
+                console.print(f"[bold red]Error calculating new version:[/bold red] {e}")
+                sys.exit(1)
         else:
-            console.print("\n[bold yellow]--- Wizard Mode ---[/bold yellow]")
-
-            auto_bump, auto_version = get_next_version(current_version)
-            console.print(
-                f"Detected bump from commits: [bold magenta]{auto_bump}[/bold magenta] "
-                f"→ [bold green]{auto_version}[/bold green]"
-            )
-
-            choice = questionary.select(
-                "Select bump type",
-                choices=[
-                    questionary.Choice(f"auto ({auto_bump} → {auto_version})", value="auto"),
-                    "patch",
-                    "minor",
-                    "major",
-                    "custom",
-                ],
-                default="auto",
-            ).ask()
-
-            # Handle ctrl+c
-            if choice is None:
-                console.print("[yellow]Release aborted.[/yellow]")
-                sys.exit(0)
-
-            if choice == "auto":
-                bump = auto_bump
-            elif choice == "custom":
-                bump = questionary.text("Enter custom version (e.g., 0.5.0)").ask()
-                if bump is None:
-                    console.print("[yellow]Release aborted.[/yellow]")
-                    sys.exit(0)
-                # Validate custom version format
-                if not re.match(r"^\d+\.\d+\.\d+.*$", bump):
-                    console.print(f"[bold red]Invalid version format: '{bump}'. Expected format: X.Y.Z[/bold red]")
-                    sys.exit(1)
-            else:
-                bump = choice
-
-    if bump.strip().lower() == "auto":
+            bump = strategy
+            try:
+                new_version = bump_version(current_version, strategy)
+            except Exception as e:
+                console.print(f"[bold red]Error calculating new version:[/bold red] {e}")
+                sys.exit(1)
+    elif bump.strip().lower() == "auto":
         bump, new_version = get_next_version(current_version)
     else:
         try:
@@ -340,8 +462,8 @@ def main(
         # 6. Push commit and tag
         if push:
             console.print("\n[bold]6. Pushing branch and tag...[/bold]")
-            run_command(["git", "push", "origin", current_branch, "--tags"])
             actions_taken.append("pushed")
+            run_command(["git", "push", "origin", current_branch, "--tags"])
 
             console.print(f"\n[bold green]Successfully released v{new_version}![/bold green]")
 
