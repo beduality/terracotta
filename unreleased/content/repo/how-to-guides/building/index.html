@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/how-to-guides/building/">
       
       
-        <link rel="prev" href="../../tutorials/navigating-the-codebase/">
+        <link rel="prev" href="../../tutorials/writing-documentation/">
       
       
         <link rel="next" href="../testing/">
@@ -1263,6 +1263,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
@@ -1271,6 +1299,62 @@
     
   
     Navigating the Codebase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/writing-changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/writing-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Documentation
   
 
     
@@ -1493,17 +1577,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gradle Plugin
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#verifying-your-build" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1678,7 +1751,7 @@
   <span class="md-ellipsis">
     
   
-    Tech Stack Reference
+    Tech Stack
   
 
     
@@ -1706,7 +1779,35 @@
   <span class="md-ellipsis">
     
   
-    File Structure Reference
+    File Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
   
 
     
@@ -1804,6 +1905,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1958,17 +2087,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gradle Plugin
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#verifying-your-build" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2005,7 +2123,7 @@
 
 
 <h1 id="building-the-project">Building the Project<a class="headerlink" href="#building-the-project" title="Permanent link">&para;</a></h1>
-<p>This guide covers building, compiling, and running Terracotta locally.</p>
+<p>This guide covers building Terracotta for development and contribution.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>JDK 21 (the project targets JVM 17 but compiles under JDK 21)</li>
@@ -2020,8 +2138,8 @@
 </code></pre></div>
 <p>This runs:</p>
 <ul>
-<li>Compilation</li>
-<li>Tests</li>
+<li>Compilation of all modules</li>
+<li>All tests (unit, integration, and smoke tests)</li>
 <li>Code formatting verification (Spotless)</li>
 <li>Test coverage report generation</li>
 </ul>
@@ -2038,13 +2156,9 @@
 <h3 id="check-code-formatting-ci-requirement">Check Code Formatting (CI requirement)<a class="headerlink" href="#check-code-formatting-ci-requirement" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>spotlessCheck
 </code></pre></div>
-<h2 id="gradle-plugin">Gradle Plugin<a class="headerlink" href="#gradle-plugin" title="Permanent link">&para;</a></h2>
-<p>To build and install the Gradle plugin locally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>publishToMavenLocal
-</code></pre></div>
 <h2 id="verifying-your-build">Verifying Your Build<a class="headerlink" href="#verifying-your-build" title="Permanent link">&para;</a></h2>
 <p>Run the complete verification pipeline:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>clean<span class="w"> </span>check
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>clean<span class="w"> </span>check
 </code></pre></div>
 <p>This ensures:</p>
 <ul>
@@ -2090,7 +2204,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../tutorials/navigating-the-codebase/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Navigating the Codebase">
+          <a href="../../tutorials/writing-documentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Writing Documentation">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2100,7 +2214,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Navigating the Codebase
+                Writing Documentation
               </div>
             </div>
           </a>

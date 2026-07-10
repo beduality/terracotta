@@ -1341,6 +1341,34 @@
   
   
     <li class="md-nav__item">
+      <a href="content/repo/tutorials/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="content/repo/tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
@@ -1349,6 +1377,62 @@
     
   
     Navigating the Codebase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content/repo/tutorials/writing-changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content/repo/tutorials/writing-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Documentation
   
 
     
@@ -1602,7 +1686,7 @@
   <span class="md-ellipsis">
     
   
-    Tech Stack Reference
+    Tech Stack
   
 
     
@@ -1630,7 +1714,35 @@
   <span class="md-ellipsis">
     
   
-    File Structure Reference
+    File Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content/repo/reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
   
 
     
@@ -1728,6 +1840,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content/repo/explanation/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1893,9 +2033,10 @@
 <li>Run <code>./gradlew terracottaPlan</code> to view a diff of local configuration vs remote Modrinth state.</li>
 <li>Run <code>./gradlew terracottaApply</code> to push changes (metadata, upload versions, synchronize tags) to the remote registry.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~ Update description
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>~ Update tags (from: utility to: utility, paper)
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>+ Upload version 1.2.0
+<p>Example output from <code>terracottaPlan</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~ Update summary (from: &quot;Old summary&quot; to: &quot;Lightweight Paper plugin&quot;)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>~ Update tags (from: [&quot;utility&quot;] to: [&quot;utility&quot;, &quot;paper&quot;])
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>+ Upload version 1.2.0 (file: build/libs/my-plugin-1.2.0.jar)
 </code></pre></div>
 <h2 id="setup-requirements">Setup Requirements<a class="headerlink" href="#setup-requirements" title="Permanent link">&para;</a></h2>
 <table>
