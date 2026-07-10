@@ -69,25 +69,41 @@ val config = ConfigFactory.load()
 val token = config.getString("modrinth.token")
 ```
 
+## Using the Provider Factory (Recommended)
+
+The simplest way to use the Modrinth provider is through `ModrinthProviderFactory`, which creates both providers for you:
+
+```kotlin
+import io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory
+
+val factory = ModrinthProviderFactory()
+val stateProvider = factory.createStateProvider(token)
+val registryProvider = factory.createRegistryProvider(token)
+```
+
 ## State Provider
 
-The `ModrinthStateProvider` fetches the current project state from Modrinth:
+The `ModrinthStateProvider` fetches the current project state from Modrinth. It takes a `ModrinthClient` instance:
 
 ```kotlin
 import io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider
+import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
-val stateProvider = ModrinthStateProvider(token = token)
+val client = ModrinthClient(token)
+val stateProvider = ModrinthStateProvider(client)
 val remoteProject = stateProvider.fetchProject(projectId = "my-plugin-id")
 ```
 
 ## Registry Provider
 
-The `ModrinthRegistryProvider` applies operations to Modrinth:
+The `ModrinthRegistryProvider` applies operations to Modrinth. It also takes a `ModrinthClient` instance:
 
 ```kotlin
 import io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider
+import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
-val registryProvider = ModrinthRegistryProvider(token = token)
+val client = ModrinthClient(token)
+val registryProvider = ModrinthRegistryProvider(client)
 registryProvider.apply(projectId = "my-plugin-id", operations = operations)
 ```
 
@@ -98,10 +114,10 @@ Here's a complete example showing how to use the Modrinth provider with the Terr
 ```kotlin
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.diff.DiffEngine
-import io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider
-import io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider
+import io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory
+import kotlinx.coroutines.runBlocking
 
-fun main() {
+fun main() = runBlocking {
     // Load token from environment variable
     val token = System.getenv("MODRINTH_TOKEN")
         ?: throw IllegalStateException("MODRINTH_TOKEN environment variable not set")
@@ -117,9 +133,10 @@ fun main() {
         license = "MIT"
     )
     
-    // Create providers
-    val stateProvider = ModrinthStateProvider(token)
-    val registryProvider = ModrinthRegistryProvider(token)
+    // Create providers via the factory
+    val factory = ModrinthProviderFactory()
+    val stateProvider = factory.createStateProvider(token)
+    val registryProvider = factory.createRegistryProvider(token)
     
     // Fetch remote state
     val remoteProject = stateProvider.fetchProject(localProject.id)

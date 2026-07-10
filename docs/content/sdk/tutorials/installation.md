@@ -54,21 +54,30 @@ If you need specific provider implementations, you can also add them as dependen
 
 ## Usage
 
-After adding the dependency, you can use the Terracotta SDK in your code:
+After adding the dependencies, you can use the Terracotta SDK in your code:
 
 ```kotlin
-import io.github.beduality.terracotta.core.*
-import io.github.beduality.terracotta.provider.modrinth.*
+import io.github.beduality.terracotta.core.diff.DiffEngine
+import io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory
+import kotlinx.coroutines.runBlocking
 
-// Create a state provider
-val stateProvider = ModrinthStateProvider(token = "your-token")
+fun main() = runBlocking {
+    val token = System.getenv("MODRINTH_TOKEN")
 
-// Create a registry provider
-val registryProvider = ModrinthRegistryProvider(token = "your-token")
+    // Create providers via the factory
+    val factory = ModrinthProviderFactory()
+    val stateProvider = factory.createStateProvider(token)
+    val registryProvider = factory.createRegistryProvider(token)
 
-// Use the diff engine
-val diffEngine = DiffEngine()
-val operations = diffEngine.calculate(localState, remoteState)
+    // Fetch remote state and compute diff
+    val remoteProject = stateProvider.fetchProject("my-project-id")
+    val operations = DiffEngine.diff(localProject, remoteProject)
+
+    // Apply changes
+    if (operations.isNotEmpty()) {
+        registryProvider.apply("my-project-id", operations)
+    }
+}
 ```
 
 See the [reference documentation](../reference/) for detailed API documentation.

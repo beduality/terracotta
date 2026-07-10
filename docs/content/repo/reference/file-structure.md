@@ -3,7 +3,7 @@
 ```
 .
 ├── docs/                   # Documentation (MkDocs)
-│   ├── content/            # Content organized by topic (cli, sdk, config, repo)
+│   ├── content/            # Content organized by topic (sdk, gradle-plugin, repo)
 │   ├── hooks/              # Build hooks for copying generated docs
 │   └── overrides/          # Theme customizations
 ├── guidelines/             # Contribution guidelines
@@ -18,6 +18,6 @@
 ## Modules
 
 - **terracotta-core**: Pure domain library with canonical models, provider interfaces, and semantic diff engine. Published to Maven Central as `io.github.beduality:terracotta-core`.
-- **terracotta-provider-modrinth**: Modrinth state and registry providers using OkHttp and Jackson.
-- **terracotta-cli**: Command-line interface using Picocli, compiled to native binaries via GraalVM.
+- **terracotta-provider-modrinth**: Modrinth state and registry providers using Ktor Client and Kotlinx Serialization.
+- **terracotta-gradle-plugin**: Gradle plugin providing `terracottaPlan` and `terracottaApply` tasks with multi-provider support via ServiceLoader.
 - **terracotta-github**: Pulumi infrastructure (Kotlin + Java SDK) for managing GitHub repository settings and Action secrets.
