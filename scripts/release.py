@@ -71,18 +71,18 @@ def get_next_version(current: str) -> tuple[str, str]:
 
 def bump_version(current: str, bump_type: str) -> str:
     bump_type_clean = bump_type.strip().lower()
-    
+
     # Check if the bump_type is a specific custom version
     if re.match(r"^\d+\.\d+\.\d+$", bump_type_clean):
         return bump_type_clean
-        
+
     match = re.match(r"^(\d+)\.(\d+)\.(\d+)(.*)$", current)
     if not match:
         raise ValueError(f"Current version '{current}' is not a valid semver")
-    
+
     major, minor, patch, suffix = match.groups()
     major, minor, patch = int(major), int(minor), int(patch)
-    
+
     if bump_type_clean == "major":
         major += 1
         minor = 0
@@ -96,7 +96,7 @@ def bump_version(current: str, bump_type: str) -> str:
         raise ValueError(
             f"Invalid bump type: '{bump_type}'. Choose 'major', 'minor', 'patch' or a specific version X.Y.Z"
         )
-        
+
     return f"{major}.{minor}.{patch}{suffix}"
 
 def update_gradle_properties(new_version: str):
@@ -121,10 +121,10 @@ def update_changelog(new_version: str):
     path = Path("CHANGELOG.md")
     content = path.read_text()
     today = date.today().isoformat()
-    
+
     if "## [Unreleased]" not in content:
         raise ValueError("Could not find '## [Unreleased]' section in CHANGELOG.md")
-    
+
     new_header = f"## [{new_version}] - {today}"
     new_content = content.replace("## [Unreleased]", new_header, 1)
     path.write_text(new_content)
@@ -147,7 +147,7 @@ def rollback(release_version: str):
     """
     version_tag = f"v{release_version}"
     console.print(f"[bold yellow]Initiating rollback for release {version_tag}...[/bold yellow]")
-    
+
     # 1. Delete remote tag
     if questionary.confirm(f"Delete remote tag {version_tag}?", default=True).ask():
         try:
@@ -155,7 +155,7 @@ def rollback(release_version: str):
             console.print(f"[green]✔[/green] Deleted remote tag {version_tag}")
         except Exception as e:
             console.print(f"[yellow]Could not delete remote tag (might not exist): {e}[/yellow]")
-            
+
     # 2. Delete local tag
     if questionary.confirm(f"Delete local tag {version_tag}?", default=True).ask():
         try:
@@ -163,7 +163,7 @@ def rollback(release_version: str):
             console.print(f"[green]✔[/green] Deleted local tag {version_tag}")
         except Exception as e:
             console.print(f"[yellow]Could not delete local tag (might not exist): {e}[/yellow]")
-            
+
     # 3. Check for release commit
     try:
         res = subprocess.run(["git", "log", "-1", "--pretty=%s"], capture_output=True, text=True, check=True)
@@ -181,81 +181,94 @@ def main(
     bump: str = None,
     dry_run: bool = True,
     push: bool = True,
+    yes: bool = False,
+    publish: bool = False,
 ):
-    """Automate the release process by bumping versions, updating changelogs, dry-running publications, and tagging.
+    """Automate the release process by bumping versions, updating changelogs, verifying,
+    optionally publishing, and tagging.
 
     Parameters
     ----------
     bump : str, optional
-        The type of version bump ('major', 'minor', 'patch') or a specific version string.
+        The type of version bump ('major', 'minor', 'patch', 'auto') or a specific version string.
         If omitted, starts wizard mode.
     dry_run : bool, optional
-        Run the dry-run publish verification task.
+        Run the build/verification task before publishing.
     push : bool, optional
         Commit, tag, and push changes to git.
+    yes : bool, optional
+        Skip all interactive prompts and use defaults. Useful for CI.
+    publish : bool, optional
+        Publish to Maven Central after verification.
     """
     try:
         current_version = get_current_version()
     except Exception as e:
         console.print(f"[bold red]Error reading current version:[/bold red] {e}")
         sys.exit(1)
-        
+
     console.print(f"Current version: [bold cyan]{current_version}[/bold cyan]")
-    
+
     # Wizard Mode
     if bump is None:
-        console.print("\n[bold yellow]--- Wizard Mode ---[/bold yellow]")
+        if yes:
+            bump = "auto"
+        else:
+            console.print("\n[bold yellow]--- Wizard Mode ---[/bold yellow]")
 
-        auto_bump, auto_version = get_next_version(current_version)
-        console.print(
-            f"Detected bump from commits: [bold magenta]{auto_bump}[/bold magenta] "
-            f"→ [bold green]{auto_version}[/bold green]"
-        )
+            auto_bump, auto_version = get_next_version(current_version)
+            console.print(
+                f"Detected bump from commits: [bold magenta]{auto_bump}[/bold magenta] "
+                f"→ [bold green]{auto_version}[/bold green]"
+            )
 
-        choice = questionary.select(
-            "Select bump type",
-            choices=[
-                questionary.Choice(f"auto ({auto_bump} → {auto_version})", value="auto"),
-                "patch",
-                "minor",
-                "major",
-                "custom",
-            ],
-            default="auto",
-        ).ask()
-        
-        # Handle ctrl+c
-        if choice is None:
-            console.print("[yellow]Release aborted.[/yellow]")
-            sys.exit(0)
+            choice = questionary.select(
+                "Select bump type",
+                choices=[
+                    questionary.Choice(f"auto ({auto_bump} → {auto_version})", value="auto"),
+                    "patch",
+                    "minor",
+                    "major",
+                    "custom",
+                ],
+                default="auto",
+            ).ask()
 
-        if choice == "auto":
-            bump = auto_bump
-        elif choice == "custom":
-            bump = questionary.text("Enter custom version (e.g., 0.5.0)").ask()
-            if bump is None:
+            # Handle ctrl+c
+            if choice is None:
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
-            # Validate custom version format
-            if not re.match(r"^\d+\.\d+\.\d+.*$", bump):
-                console.print(f"[bold red]Invalid version format: '{bump}'. Expected format: X.Y.Z[/bold red]")
-                sys.exit(1)
-        else:
-            bump = choice
-            
-    try:
-        new_version = bump_version(current_version, bump)
-    except Exception as e:
-        console.print(f"[bold red]Error calculating new version:[/bold red] {e}")
-        sys.exit(1)
-        
+
+            if choice == "auto":
+                bump = auto_bump
+            elif choice == "custom":
+                bump = questionary.text("Enter custom version (e.g., 0.5.0)").ask()
+                if bump is None:
+                    console.print("[yellow]Release aborted.[/yellow]")
+                    sys.exit(0)
+                # Validate custom version format
+                if not re.match(r"^\d+\.\d+\.\d+.*$", bump):
+                    console.print(f"[bold red]Invalid version format: '{bump}'. Expected format: X.Y.Z[/bold red]")
+                    sys.exit(1)
+            else:
+                bump = choice
+
+    if bump.strip().lower() == "auto":
+        bump, new_version = get_next_version(current_version)
+    else:
+        try:
+            new_version = bump_version(current_version, bump)
+        except Exception as e:
+            console.print(f"[bold red]Error calculating new version:[/bold red] {e}")
+            sys.exit(1)
+
     console.print(f"Target release version: [bold green]{new_version}[/bold green]")
-    
-    proceed = questionary.confirm("Do you want to proceed with the release?").ask()
+
+    proceed = yes or questionary.confirm("Do you want to proceed with the release?").ask()
     if not proceed:
         console.print("[yellow]Release aborted.[/yellow]")
         sys.exit(0)
-        
+
     actions_taken = []
     try:
         # 1. Update Version Numbers and Changelog
@@ -264,16 +277,16 @@ def main(
         update_gradle_properties(new_version)
         update_pyproject_toml(new_version)
         update_changelog(new_version)
-            
+
         # 2. Run uv lock to update lock file
         console.print("\n[bold]2. Updating uv.lock...[/bold]")
         run_command(["uv", "lock"])
-        
+
         # 3. Dry-Run Verification
         if dry_run:
             console.print("\n[bold]3. Dry-Run Verification...[/bold]")
-            # Skip prompt in automated mode (when bump is provided)
-            should_verify = bump is not None or questionary.confirm("Do you want to run dry-run build verification?", default=True).ask()
+            # Skip prompt in automated or CI mode
+            should_verify = bump is not None or yes or questionary.confirm("Do you want to run dry-run build verification?", default=True).ask()
             if should_verify:
                 env = os.environ.copy()
                 # Use JAVA_HOME from environment or default
@@ -282,15 +295,16 @@ def main(
                 run_command(
                     [
                         "./gradlew",
+                        "spotlessCheck",
                         "build",
                         "--no-daemon",
                     ],
                     env=env,
                 )
-                
-        # 4. Commit and Push Tag
+
+        # 4. Commit and tag locally
         if push:
-            console.print("\n[bold]4. Git Tag & Push...[/bold]")
+            console.print("\n[bold]4. Git commit and tag...[/bold]")
             # Detect current branch
             try:
                 branch_result = subprocess.run(
@@ -300,46 +314,44 @@ def main(
                 current_branch = branch_result.stdout.strip()
             except Exception:
                 current_branch = "main"  # fallback to main
-            
-            if questionary.confirm(f"Commit, tag as v{new_version}, and push to remote?", default=True).ask():
-                run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock"])
-                
-                run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
-                actions_taken.append("committed")
-                
-                run_command(["git", "tag", f"v{new_version}"])
-                actions_taken.append("tagged")
-                
-                run_command(["git", "push", "origin", current_branch, "--tags"])
-                actions_taken.append("pushed")
-                
-                console.print(f"\n[bold green]Successfully released v{new_version}![/bold green]")
-                
+
+            should_commit = yes or questionary.confirm(f"Commit, tag as v{new_version}, and push to remote?", default=True).ask()
+            if not should_commit:
+                console.print("[yellow]Release aborted.[/yellow]")
+                sys.exit(0)
+
+            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock"])
+
+            run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
+            actions_taken.append("committed")
+
+            run_command(["git", "tag", f"v{new_version}"])
+            actions_taken.append("tagged")
+
+        # 5. Publish to Maven Central
+        if publish:
+            console.print("\n[bold]5. Publishing to Maven Central...[/bold]")
+            env = os.environ.copy()
+            java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
+            env["JAVA_HOME"] = java_home
+            run_command(["./gradlew", "validatePublishing", "--no-daemon"], env=env)
+            run_command(["./gradlew", "publishToCentral", "--no-daemon"], env=env)
+
+        # 6. Push commit and tag
+        if push:
+            console.print("\n[bold]6. Pushing branch and tag...[/bold]")
+            run_command(["git", "push", "origin", current_branch, "--tags"])
+            actions_taken.append("pushed")
+
+            console.print(f"\n[bold green]Successfully released v{new_version}![/bold green]")
+
     except (FileNotFoundError, ValueError, subprocess.CalledProcessError, OSError) as e:
         console.print(f"\n[bold red]Error occurred during release process: {e}[/bold red]")
         console.print("[bold yellow]Initiating automatic rollback...[/bold yellow]")
-        
+
         rollback_failed = False
-        
-        # Rollback in reverse order: commit -> local tag -> remote tag -> files
-        if "committed" in actions_taken:
-            try:
-                subprocess.run(["git", "reset", "HEAD~1"], check=True)
-                console.print("[green]✔[/green] Reset commit")
-            except Exception as re_err:
-                console.print(f"[red]Failed to reset commit: {re_err}[/red]")
-                console.print(f"[yellow]Manual Step Needed: Run 'git reset HEAD~1'[/yellow]")
-                rollback_failed = True
-                
-        if "tagged" in actions_taken:
-            try:
-                subprocess.run(["git", "tag", "-d", f"v{new_version}"], check=True)
-                console.print("[green]✔[/green] Rolled back local tag")
-            except Exception as re_err:
-                console.print(f"[red]Failed to delete local tag: {re_err}[/red]")
-                console.print(f"[yellow]Manual Step Needed: Run 'git tag -d v{new_version}'[/yellow]")
-                rollback_failed = True
-                
+
+        # Rollback in reverse order: remote tag -> local tag -> commit -> files
         if "pushed" in actions_taken:
             try:
                 subprocess.run(["git", "push", "origin", "--delete", f"v{new_version}"], check=True)
@@ -348,7 +360,25 @@ def main(
                 console.print(f"[red]Failed to delete remote tag: {re_err}[/red]")
                 console.print(f"[yellow]Manual Step Needed: Run 'git push origin --delete v{new_version}'[/yellow]")
                 rollback_failed = True
-                
+
+        if "tagged" in actions_taken:
+            try:
+                subprocess.run(["git", "tag", "-d", f"v{new_version}"], check=True)
+                console.print("[green]✔[/green] Rolled back local tag")
+            except Exception as re_err:
+                console.print(f"[red]Failed to delete local tag: {re_err}[/red]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git tag -d v{new_version}'[/yellow]")
+                rollback_failed = True
+
+        if "committed" in actions_taken:
+            try:
+                subprocess.run(["git", "reset", "--hard", "HEAD~1"], check=True)
+                console.print("[green]✔[/green] Reset commit")
+            except Exception as re_err:
+                console.print(f"[red]Failed to reset commit: {re_err}[/red]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git reset --hard HEAD~1'[/yellow]")
+                rollback_failed = True
+
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
@@ -366,12 +396,12 @@ def main(
                 console.print(f"[red]Failed to restore modified files: {re_err}[/red]")
                 console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md'[/yellow]")
                 rollback_failed = True
-                
+
         if rollback_failed:
             console.print("\n[bold red]Automatic rollback was only partially successful. Please complete the manual step(s) listed above.[/bold red]")
         else:
             console.print("\n[bold green]Automatic rollback completed successfully. Repository has been restored to its pre-release state.[/bold green]")
-            
+
         sys.exit(1)
 
 if __name__ == "__main__":
