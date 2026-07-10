@@ -2040,11 +2040,13 @@
 <h3 id="compile-all-modules">Compile All Modules<a class="headerlink" href="#compile-all-modules" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>build
 </code></pre></div>
-<p>This runs:
-- Compilation
-- Tests
-- Code formatting verification (Spotless)
-- Test coverage report generation</p>
+<p>This runs:</p>
+<ul>
+<li>Compilation</li>
+<li>Tests</li>
+<li>Code formatting verification (Spotless)</li>
+<li>Test coverage report generation</li>
+</ul>
 <h3 id="run-tests">Run Tests<a class="headerlink" href="#run-tests" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
@@ -2062,10 +2064,12 @@
 <p>To compile the native binary using GraalVM:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>nativeCompile
 </code></pre></div>
-<p>Native binaries are built for:
-- Linux (x86_64): <code>terracotta-linux-amd64</code>
-- macOS (universal): <code>terracotta-macos-universal</code>
-- Windows (x86_64): <code>terracotta-windows-amd64.exe</code></p>
+<p>Native binaries are built for:</p>
+<ul>
+<li>Linux (x86_64): <code>terracotta-linux-amd64</code></li>
+<li>macOS (universal): <code>terracotta-macos-universal</code></li>
+<li>Windows (x86_64): <code>terracotta-windows-amd64.exe</code></li>
+</ul>
 <h2 id="gradle-plugin">Gradle Plugin<a class="headerlink" href="#gradle-plugin" title="Permanent link">&para;</a></h2>
 <p>To build and install the Gradle plugin locally:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>publishToMavenLocal
@@ -2074,11 +2078,13 @@
 <p>Run the complete verification pipeline:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-21-openjdk<span class="w"> </span>./gradlew<span class="w"> </span>clean<span class="w"> </span>check
 </code></pre></div>
-<p>This ensures:
-- All tests pass
-- Code is properly formatted
-- Test coverage meets thresholds
-- Dokka documentation builds</p>
+<p>This ensures:</p>
+<ul>
+<li>All tests pass</li>
+<li>Code is properly formatted</li>
+<li>Test coverage meets thresholds</li>
+<li>Dokka documentation builds</li>
+</ul>
 
 
 
