@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/tutorials/navigating-the-codebase/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/explanation/documentation-framework/">
       
       
-        <link rel="prev" href="../quick-start/">
+        <link rel="prev" href="../project-management/">
       
       
-        <link rel="next" href="../writing-changelog/">
+        <link rel="next" href="../changelog-guidelines/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Navigating the Codebase - Terracotta</title>
+        <title>Documentation Framework - Terracotta</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#navigating-the-codebase" class="md-skip">
+        <a href="#documentation-framework-diataxis" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Navigating the Codebase
+              Documentation Framework
             
           </span>
         </div>
@@ -1295,8 +1295,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1306,11 +1304,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1331,7 +1329,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1349,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quick-start/" class="md-nav__link">
+      <a href="../../tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -1374,37 +1372,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Navigating the Codebase
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
   
@@ -1420,192 +1391,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What you'll learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-clone-the-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Clone the Repository
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-understand-the-branch-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Understand the Branch Strategy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-project-management-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Project Management Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Project Management Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#todo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TODO
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backlog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backlog
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proposals" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proposals
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-module-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Module Structure
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Module Structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-core" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-core
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-provider-modrinth" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-provider-modrinth
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-gradle-plugin
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-github
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1618,7 +1403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../writing-changelog/" class="md-nav__link">
+      <a href="../../tutorials/writing-changelog/" class="md-nav__link">
         
   
   
@@ -2073,6 +1858,8 @@
                 
   
   
+    
+  
   
   
     
@@ -2082,11 +1869,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
         
           
           <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
@@ -2107,7 +1894,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2125,7 +1912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -2153,7 +1940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/project-management/" class="md-nav__link">
+      <a href="../project-management/" class="md-nav__link">
         
   
   
@@ -2178,10 +1965,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../explanation/documentation-framework/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2197,6 +1993,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -2209,7 +2006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/changelog-guidelines/" class="md-nav__link">
+      <a href="../changelog-guidelines/" class="md-nav__link">
         
   
   
@@ -2265,180 +2062,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What you'll learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-clone-the-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Clone the Repository
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-understand-the-branch-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Understand the Branch Strategy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-project-management-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Project Management Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Project Management Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#todo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TODO
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backlog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backlog
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proposals" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proposals
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-module-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Module Structure
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Module Structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-core" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-core
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-provider-modrinth" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-provider-modrinth
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-gradle-plugin
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#terracotta-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        terracotta-github
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2454,7 +2077,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/tutorials/navigating-the-codebase.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/explanation/documentation-framework.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2462,76 +2085,400 @@
   
 
 
-<h1 id="navigating-the-codebase">Navigating the Codebase<a class="headerlink" href="#navigating-the-codebase" title="Permanent link">&para;</a></h1>
-<p>This tutorial will help you understand the Terracotta project structure and get started contributing.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<h1 id="documentation-framework-diataxis">Documentation Framework (Diátaxis)<a class="headerlink" href="#documentation-framework-diataxis" title="Permanent link">&para;</a></h1>
+<p>Diátaxis organizes documentation into four distinct types based on user intent:</p>
 <ul>
-<li>How to clone and set up the repository locally</li>
-<li>The project's Git workflow and branch strategy</li>
-<li>How project management works with TODO, BACKLOG, and proposals</li>
-<li>How to navigate the multi-module Gradle structure</li>
+<li><strong>Tutorials</strong> → learning-oriented ("I want to learn")</li>
+<li><strong>How-to guides</strong> → task-oriented ("I want to do")</li>
+<li><strong>Reference</strong> → information-oriented ("I need to know")</li>
+<li><strong>Explanation</strong> → understanding-oriented ("I want to understand")</li>
 </ul>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Each type has a strict purpose and should not mix with the others.</p>
+<hr />
+<h1 id="1-tutorials">1. Tutorials<a class="headerlink" href="#1-tutorials" title="Permanent link">&para;</a></h1>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Tutorials are designed to <strong>teach by doing</strong>. They guide a beginner through a complete, safe, and successful first experience.</p>
+<p>They answer:</p>
+<blockquote>
+<p>"I want to learn how this works by building something."</p>
+</blockquote>
+<hr />
+<h2 id="characteristics">Characteristics<a class="headerlink" href="#characteristics" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Git 2.54.0 or later</li>
-<li>JDK 21 for building</li>
-<li>Python 3.13+ for documentation (optional)</li>
+<li>Learning-focused</li>
+<li>Step-by-step execution</li>
+<li>Controlled, ideal environment</li>
+<li>Single clear outcome</li>
+<li>No decisions or alternatives</li>
+<li>No prior knowledge assumed</li>
 </ul>
-<h2 id="1-clone-the-repository">1. Clone the Repository<a class="headerlink" href="#1-clone-the-repository" title="Permanent link">&para;</a></h2>
-<p>Fork the repository on GitHub, then clone your fork locally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;your-username&gt;/terracotta.git
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>terracotta
-</code></pre></div>
-<p>Add the upstream remote to pull in future changes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/beduality/terracotta.git
-</code></pre></div>
-<h2 id="2-understand-the-branch-strategy">2. Understand the Branch Strategy<a class="headerlink" href="#2-understand-the-branch-strategy" title="Permanent link">&para;</a></h2>
-<p>The project uses two main branches:</p>
+<hr />
+<h2 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h2>
+<h3 id="1-title">1. Title<a class="headerlink" href="#1-title" title="Permanent link">&para;</a></h3>
+<p>Must describe the outcome:</p>
 <ul>
-<li><strong><code>main</code></strong>: The development branch with the latest code and documentation</li>
-<li><strong><code>project</code></strong>: A separate branch used for project management (TODO, BACKLOG, proposals)</li>
+<li>"Build a minimal REST API in Node.js"</li>
 </ul>
-<p>The <code>project</code> branch is checked out as a git worktree at <code>project/</code> from the main branch. This keeps planning separate from code while maintaining version history.</p>
-<h2 id="3-project-management-workflow">3. Project Management Workflow<a class="headerlink" href="#3-project-management-workflow" title="Permanent link">&para;</a></h2>
-<p>All project planning happens through Pull Requests against the <code>project</code> branch. There are no external issue trackers.</p>
-<h3 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h3>
-<p><code>TODO.md</code> contains concrete, actionable tasks ready to be worked on. To pick up a task:</p>
-<ol>
-<li>Open a PR against the <code>project</code> branch</li>
-<li>Remove the task from <code>TODO.md</code> in that PR</li>
-<li>Wait for merge before starting implementation</li>
-</ol>
-<h3 id="backlog">Backlog<a class="headerlink" href="#backlog" title="Permanent link">&para;</a></h3>
-<p><code>BACKLOG.md</code> contains ideas and tasks not yet ready for implementation. Move items to TODO when they become well-defined and actionable.</p>
-<h3 id="proposals">Proposals<a class="headerlink" href="#proposals" title="Permanent link">&para;</a></h3>
-<p>For larger changes, create a proposal in <code>project/proposals/</code>:</p>
-<ol>
-<li>Create a Markdown file with a descriptive name</li>
-<li>Include: problem, solution, alternatives, open questions</li>
-<li>Open a PR against <code>project</code> containing only the proposal</li>
-<li>Iterate through review until accepted or rejected</li>
-</ol>
-<h2 id="4-module-structure">4. Module Structure<a class="headerlink" href="#4-module-structure" title="Permanent link">&para;</a></h2>
-<p>The project is organized as a multi-module Gradle build under <code>modules/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>modules/
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── terracotta-core/              # Pure domain library
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── terracotta-provider-modrinth/ # Modrinth registry integration
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>├── terracotta-gradle-plugin/     # Gradle plugin frontend
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>└── terracotta-github/            # Pulumi infrastructure
-</code></pre></div>
-<h3 id="terracotta-core">terracotta-core<a class="headerlink" href="#terracotta-core" title="Permanent link">&para;</a></h3>
-<p>Contains canonical models, provider interfaces, and the semantic diff engine. Depends only on standard Kotlin/Java APIs - no network or framework dependencies.</p>
-<h3 id="terracotta-provider-modrinth">terracotta-provider-modrinth<a class="headerlink" href="#terracotta-provider-modrinth" title="Permanent link">&para;</a></h3>
-<p>Implements registry-specific behaviors for Modrinth. Depends on Ktor Client and Kotlinx Serialization.</p>
-<h3 id="terracotta-gradle-plugin">terracotta-gradle-plugin<a class="headerlink" href="#terracotta-gradle-plugin" title="Permanent link">&para;</a></h3>
-<p>Build-tool integration providing <code>terracottaPlan</code> and <code>terracottaApply</code> tasks. Uses ServiceLoader for provider discovery.</p>
-<h3 id="terracotta-github">terracotta-github<a class="headerlink" href="#terracotta-github" title="Permanent link">&para;</a></h3>
-<p>Manages GitHub repository configuration and secrets using Pulumi Java/Kotlin.</p>
-<h2 id="5-next-steps">5. Next Steps<a class="headerlink" href="#5-next-steps" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="2-introduction">2. Introduction<a class="headerlink" href="#2-introduction" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../../how-to-guides/building/">Building and Testing</a>: Learn how to compile and test</li>
-<li><a href="../../how-to-guides/testing/">Testing Guide</a>: Understand test types and coverage</li>
-<li><a href="../reference/contributing-guidelines.md">Contributing Guidelines</a>: Review architectural guidelines</li>
+<li>What will be built</li>
+<li>Minimal prerequisites</li>
+</ul>
+<p>No theory.</p>
+<hr />
+<h3 id="3-steps">3. Steps<a class="headerlink" href="#3-steps" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sequential</li>
+<li>Small and executable</li>
+<li>Each step produces visible progress</li>
+</ul>
+<p>Example pattern:</p>
+<ul>
+<li>Step 1: do X</li>
+<li>Step 2: do Y</li>
+<li>Step 3: do Z</li>
+</ul>
+<hr />
+<h3 id="4-final-result">4. Final result<a class="headerlink" href="#4-final-result" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What now works</li>
+<li>How to verify success</li>
+</ul>
+<hr />
+<h3 id="5-next-steps-optional">5. Next steps (optional)<a class="headerlink" href="#5-next-steps-optional" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Links to how-to guides or reference docs</li>
+</ul>
+<hr />
+<h2 id="writing-principles">Writing principles<a class="headerlink" href="#writing-principles" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learning by doing</li>
+<li>One outcome only</li>
+<li>No branching paths</li>
+<li>No conceptual explanations</li>
+<li>Immediate feedback at each step</li>
+</ul>
+<hr />
+<h2 id="anti-patterns">Anti-patterns<a class="headerlink" href="#anti-patterns" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Mixing in reference material</li>
+<li>Multiple goals in one tutorial</li>
+<li>Real-world complexity</li>
+<li>Optional steps everywhere</li>
+<li>Theory-heavy content</li>
+</ul>
+<hr />
+<h2 id="mental-model">Mental model<a class="headerlink" href="#mental-model" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Follow these steps and succeed once in a controlled environment."</p>
+</blockquote>
+<hr />
+<h1 id="2-how-to-guides">2. How-to Guides<a class="headerlink" href="#2-how-to-guides" title="Permanent link">&para;</a></h1>
+<h2 id="purpose_1">Purpose<a class="headerlink" href="#purpose_1" title="Permanent link">&para;</a></h2>
+<p>How-to guides solve <strong>real-world tasks</strong>.</p>
+<p>They answer:</p>
+<blockquote>
+<p>"I want to do X."</p>
+</blockquote>
+<hr />
+<h2 id="characteristics_1">Characteristics<a class="headerlink" href="#characteristics_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Problem-oriented</li>
+<li>Real environment assumptions</li>
+<li>Assumes basic familiarity</li>
+<li>Flexible solutions</li>
+<li>Single task focus</li>
+<li>Outcome-driven</li>
+</ul>
+<hr />
+<h2 id="structure_1">Structure<a class="headerlink" href="#structure_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-title_1">1. Title<a class="headerlink" href="#1-title_1" title="Permanent link">&para;</a></h3>
+<p>Must express task:</p>
+<ul>
+<li>"Configure HTTPS for a reverse proxy"</li>
+</ul>
+<hr />
+<h3 id="2-problem-statement">2. Problem statement<a class="headerlink" href="#2-problem-statement" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What the user is trying to achieve</li>
+</ul>
+<hr />
+<h3 id="3-preconditions">3. Preconditions<a class="headerlink" href="#3-preconditions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Required tools</li>
+<li>System state</li>
+<li>Permissions</li>
+</ul>
+<p>Declarative only.</p>
+<hr />
+<h3 id="4-steps">4. Steps<a class="headerlink" href="#4-steps" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Actionable instructions</li>
+<li>May include conditional branches</li>
+<li>Focus on completion, not teaching</li>
+</ul>
+<hr />
+<h3 id="5-outcome-verification">5. Outcome / verification<a class="headerlink" href="#5-outcome-verification" title="Permanent link">&para;</a></h3>
+<ul>
+<li>How to confirm success</li>
+</ul>
+<hr />
+<h3 id="6-variants-optional">6. Variants (optional)<a class="headerlink" href="#6-variants-optional" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Alternative approaches</li>
+<li>Different environments</li>
+</ul>
+<hr />
+<h2 id="writing-principles_1">Writing principles<a class="headerlink" href="#writing-principles_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Solve a specific problem</li>
+<li>One default path</li>
+<li>Minimal necessary context</li>
+<li>Real-world assumptions</li>
+<li>Action-focused language</li>
+</ul>
+<hr />
+<h2 id="anti-patterns_1">Anti-patterns<a class="headerlink" href="#anti-patterns_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Teaching fundamentals (tutorial drift)</li>
+<li>Exhaustive API listing (reference drift)</li>
+<li>Deep conceptual explanation (explanation drift)</li>
+<li>Over-branching</li>
+<li>Missing success criteria</li>
+</ul>
+<hr />
+<h2 id="mental-model_1">Mental model<a class="headerlink" href="#mental-model_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"A recipe for solving a specific problem in a real system."</p>
+</blockquote>
+<hr />
+<h1 id="3-reference">3. Reference<a class="headerlink" href="#3-reference" title="Permanent link">&para;</a></h1>
+<h2 id="purpose_2">Purpose<a class="headerlink" href="#purpose_2" title="Permanent link">&para;</a></h2>
+<p>Reference material provides <strong>precise, complete, and structured information</strong> for lookup.</p>
+<p>It answers:</p>
+<blockquote>
+<p>"What are the exact details of this system?"</p>
+</blockquote>
+<hr />
+<h2 id="characteristics_2">Characteristics<a class="headerlink" href="#characteristics_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Exhaustive within scope</li>
+<li>Highly structured</li>
+<li>Information-dense</li>
+<li>Neutral and objective</li>
+<li>No narrative flow</li>
+<li>Designed for quick lookup</li>
+</ul>
+<hr />
+<h2 id="structure_2">Structure<a class="headerlink" href="#structure_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-definitions">1. Definitions<a class="headerlink" href="#1-definitions" title="Permanent link">&para;</a></h3>
+<p>Exact descriptions of entities:</p>
+<ul>
+<li>functions</li>
+<li>APIs</li>
+<li>commands</li>
+<li>components</li>
+</ul>
+<hr />
+<h3 id="2-parameter-tables">2. Parameter tables<a class="headerlink" href="#2-parameter-tables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-signatures">3. Signatures<a class="headerlink" href="#3-signatures" title="Permanent link">&para;</a></h3>
+<p>Example:</p>
+<ul>
+<li><code>createUser(input: UserInput): User</code></li>
+</ul>
+<hr />
+<h3 id="4-enumerations">4. Enumerations<a class="headerlink" href="#4-enumerations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>active</li>
+<li>pending</li>
+<li>suspended</li>
+</ul>
+<hr />
+<h3 id="5-error-catalog">5. Error catalog<a class="headerlink" href="#5-error-catalog" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="writing-principles_2">Writing principles<a class="headerlink" href="#writing-principles_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Precision over readability</li>
+<li>Exhaustive coverage</li>
+<li>No procedural flow</li>
+<li>No conceptual explanation</li>
+<li>Canonical naming only</li>
+</ul>
+<hr />
+<h2 id="anti-patterns_2">Anti-patterns<a class="headerlink" href="#anti-patterns_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Instructional steps</li>
+<li>Conceptual essays</li>
+<li>Partial coverage</li>
+<li>Opinionated guidance</li>
+<li>Ambiguous naming</li>
+</ul>
+<hr />
+<h2 id="mental-model_2">Mental model<a class="headerlink" href="#mental-model_2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"A precise map of a system you already know you need to use."</p>
+</blockquote>
+<hr />
+<h1 id="4-explanation">4. Explanation<a class="headerlink" href="#4-explanation" title="Permanent link">&para;</a></h1>
+<h2 id="purpose_3">Purpose<a class="headerlink" href="#purpose_3" title="Permanent link">&para;</a></h2>
+<p>Explanation builds <strong>understanding of concepts and systems</strong>.</p>
+<p>It answers:</p>
+<blockquote>
+<p>"Why does this exist and how does it work?"</p>
+</blockquote>
+<hr />
+<h2 id="characteristics_3">Characteristics<a class="headerlink" href="#characteristics_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Concept-focused</li>
+<li>Reasoning-driven</li>
+<li>Contextual and interpretive</li>
+<li>Not exhaustive</li>
+<li>Open-ended</li>
+<li>Multi-perspective</li>
+</ul>
+<hr />
+<h2 id="structure-flexible">Structure (flexible)<a class="headerlink" href="#structure-flexible" title="Permanent link">&para;</a></h2>
+<h3 id="1-concept-introduction">1. Concept introduction<a class="headerlink" href="#1-concept-introduction" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What the concept is</li>
+<li>Where it fits</li>
+</ul>
+<hr />
+<h3 id="2-underlying-model">2. Underlying model<a class="headerlink" href="#2-underlying-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li>How it works internally</li>
+<li>Relationships and structure</li>
+</ul>
+<hr />
+<h3 id="3-rationale">3. Rationale<a class="headerlink" href="#3-rationale" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Why it exists</li>
+<li>What problem it solves</li>
+</ul>
+<hr />
+<h3 id="4-trade-offs">4. Trade-offs<a class="headerlink" href="#4-trade-offs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Alternatives</li>
+<li>Limitations</li>
+<li>Design constraints</li>
+</ul>
+<hr />
+<h3 id="5-conceptual-connections">5. Conceptual connections<a class="headerlink" href="#5-conceptual-connections" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Related ideas</li>
+<li>Broader systems</li>
+</ul>
+<hr />
+<h2 id="writing-principles_3">Writing principles<a class="headerlink" href="#writing-principles_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Focus on understanding</li>
+<li>Explain "why" and "how"</li>
+<li>Use reasoning and relationships</li>
+<li>Selective detail (not exhaustive)</li>
+<li>No procedural instructions</li>
+</ul>
+<hr />
+<h2 id="anti-patterns_3">Anti-patterns<a class="headerlink" href="#anti-patterns_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Step-by-step instructions (tutorial drift)</li>
+<li>Exhaustive listings (reference drift)</li>
+<li>Surface-level definitions</li>
+<li>Pure opinion or advice</li>
+<li>Over-simplification</li>
+</ul>
+<hr />
+<h2 id="mental-model_3">Mental model<a class="headerlink" href="#mental-model_3" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"A map of ideas and relationships that explains why the system is the way it is."</p>
+</blockquote>
+<hr />
+<h1 id="5-comparison-overview">5. Comparison Overview<a class="headerlink" href="#5-comparison-overview" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Question it answers</th>
+<th>Focus</th>
+<th>Structure</th>
+<th>Completeness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tutorial</td>
+<td>How do I learn this?</td>
+<td>Learning by doing</td>
+<td>Strict step-by-step</td>
+<td>Low scope, high guidance</td>
+</tr>
+<tr>
+<td>How-to</td>
+<td>How do I do X?</td>
+<td>Task completion</td>
+<td>Flexible steps</td>
+<td>Medium, task-focused</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>What are the details?</td>
+<td>Information lookup</td>
+<td>Structured data</td>
+<td>Exhaustive within scope</td>
+</tr>
+<tr>
+<td>Explanation</td>
+<td>Why/how does it work?</td>
+<td>Understanding</td>
+<td>Conceptual narrative</td>
+<td>Selective, not exhaustive</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="6-key-separation-rules">6. Key Separation Rules<a class="headerlink" href="#6-key-separation-rules" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Tutorials teach, but do not solve real-world problems</li>
+<li>How-to guides solve problems, but do not teach fundamentals</li>
+<li>Reference documents data, but does not instruct or explain</li>
+<li>Explanation clarifies understanding, but does not instruct or enumerate</li>
 </ul>
 
 
@@ -2570,7 +2517,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../quick-start/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Quick Start">
+          <a href="../project-management/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Project Management">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2580,20 +2527,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Quick Start
+                Project Management
               </div>
             </div>
           </a>
         
         
           
-          <a href="../writing-changelog/" class="md-footer__link md-footer__link--next" aria-label="Next: Writing Changelog">
+          <a href="../changelog-guidelines/" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog Guidelines">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Writing Changelog
+                Changelog Guidelines
               </div>
             </div>
             <div class="md-footer__button md-icon">
