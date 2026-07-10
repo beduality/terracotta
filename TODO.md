@@ -4,6 +4,7 @@
 
 ## v0.2.0
 
+- Add auto-detection of project fields
 - Add config validation
 - Add gameVersions narrow types
 - Add support to staging environments like Modrinth Staging; Update docs

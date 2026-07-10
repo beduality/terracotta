@@ -12,4 +12,5 @@
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
 
+- Setup a16n
 - Publish relevant package managers to our target users (Minecraft modders); update docs and README
