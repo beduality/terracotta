@@ -2323,52 +2323,68 @@
 </ul>
 <h2 id="the-project-branch">The Project Branch<a class="headerlink" href="#the-project-branch" title="Permanent link">&para;</a></h2>
 <p>The <code>project</code> branch is a separate branch used exclusively for project management. It is checked out as a git worktree at <code>project/</code> from the main branch.</p>
-<p>This separation keeps:
-- <strong>Main branch</strong>: Focused on code and documentation
-- <strong>Project branch</strong>: Focused on planning and tasks</p>
+<p>This separation keeps:</p>
+<ul>
+<li><strong>Main branch</strong>: Focused on code and documentation</li>
+<li><strong>Project branch</strong>: Focused on planning and tasks</li>
+</ul>
 <h2 id="files-and-folders">Files and Folders<a class="headerlink" href="#files-and-folders" title="Permanent link">&para;</a></h2>
 <h3 id="todomd">TODO.md<a class="headerlink" href="#todomd" title="Permanent link">&para;</a></h3>
 <p>Contains concrete, actionable tasks ready to be worked on.</p>
-<p><strong>Content</strong>:
-- Well-defined tasks with clear acceptance criteria
-- Tasks that have been groomed and prioritized
-- Tasks ready for implementation</p>
-<p><strong>Workflow</strong>:
-1. Open a PR against <code>project</code> removing the task
-2. Wait for merge (signals others the task is being worked on)
-3. Then implement and submit the PR</p>
-<p><strong>Rules</strong>:
-- Remove from TODO when a PR targeting <code>project</code> removes it
-- Do not implement before the removal PR merges (prevents duplicate work)</p>
+<p><strong>Content</strong>:</p>
+<ul>
+<li>Well-defined tasks with clear acceptance criteria</li>
+<li>Tasks that have been groomed and prioritized</li>
+<li>Tasks ready for implementation</li>
+</ul>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Open a PR against <code>project</code> removing the task</li>
+<li>Wait for merge (signals others the task is being worked on)</li>
+<li>Then implement and submit the PR</li>
+</ol>
+<p><strong>Rules</strong>:</p>
+<ul>
+<li>Remove from TODO when a PR targeting <code>project</code> removes it</li>
+<li>Do not implement before the removal PR merges (prevents duplicate work)</li>
+</ul>
 <h3 id="backlogmd">BACKLOG.md<a class="headerlink" href="#backlogmd" title="Permanent link">&para;</a></h3>
 <p>Contains ideas and tasks not yet ready for implementation.</p>
-<p><strong>Content</strong>:
-- Ideas that need more investigation
-- Tasks that require discussion or prioritization
-- Dependent work that isn't ready
-- Large features split into smaller tasks</p>
-<p><strong>Workflow</strong>:
-- Items stay in BACKLOG until well-defined and actionable
-- Move to TODO when ready for implementation
-- No PR is needed just to add items to BACKLOG</p>
+<p><strong>Content</strong>:</p>
+<ul>
+<li>Ideas that need more investigation</li>
+<li>Tasks that require discussion or prioritization</li>
+<li>Dependent work that isn't ready</li>
+<li>Large features split into smaller tasks</li>
+</ul>
+<p><strong>Workflow</strong>:</p>
+<ul>
+<li>Items stay in BACKLOG until well-defined and actionable</li>
+<li>Move to TODO when ready for implementation</li>
+<li>No PR is needed just to add items to BACKLOG</li>
+</ul>
 <h3 id="projectproposals">project/proposals/<a class="headerlink" href="#projectproposals" title="Permanent link">&para;</a></h3>
 <p>Contains proposals for larger changes that should be discussed before implementation.</p>
-<p><strong>Structure</strong>:
+<p><strong>Structure</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>project/proposals/
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── yaml-schema-support.md
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── cli-command-rename.md
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└── new-provider-interface.md
-</code></pre></div></p>
-<p><strong>Each proposal should include</strong>:
-- The problem being solved
-- The proposed solution
-- Alternatives considered
-- Open questions or unresolved decisions</p>
-<p><strong>Workflow</strong>:
-1. Create a proposal file with a descriptive name
-2. Open a PR against <code>project</code> containing only the proposal
-3. Iterate through review until accepted or rejected
-4. Begin implementation only after acceptance</p>
+</code></pre></div>
+<p><strong>Each proposal should include</strong>:</p>
+<ul>
+<li>The problem being solved</li>
+<li>The proposed solution</li>
+<li>Alternatives considered</li>
+<li>Open questions or unresolved decisions</li>
+</ul>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Create a proposal file with a descriptive name</li>
+<li>Open a PR against <code>project</code> containing only the proposal</li>
+<li>Iterate through review until accepted or rejected</li>
+<li>Begin implementation only after acceptance</li>
+</ol>
 <h2 id="planning-workflow">Planning Workflow<a class="headerlink" href="#planning-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="starting-work-on-a-task">Starting Work on a Task<a class="headerlink" href="#starting-work-on-a-task" title="Permanent link">&para;</a></h3>
 <ol>
