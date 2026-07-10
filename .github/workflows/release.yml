@@ -1,30 +1,37 @@
-name: Release Distribution
+name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump strategy (auto, patch, minor, major, or custom)'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+          - custom
+        default: 'auto'
+      version:
+        description: 'Custom version to release (only used when bump is custom)'
+        required: false
+        type: string
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Parse Changelog
-        id: changelog
-        uses: ocavue/changelog-parser-action@v1
-        with:
-          filePath: "CHANGELOG.md"
-          removeMarkdown: false
-
-      - name: Set up Java
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
@@ -34,28 +41,60 @@ jobs:
       - name: Make Gradle Wrapper executable
         run: chmod +x gradlew
 
-      - name: Validate publishing configuration
-        run: ./gradlew validatePublishing --no-daemon
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Determine bump argument
+        id: args
+        run: |
+          if [ "${{ inputs.bump }}" = "custom" ]; then
+            echo "bump=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "bump=${{ inputs.bump }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump, build, publish, and tag
+        run: uv run scripts/release.py --yes --publish --bump "${{ steps.args.outputs.bump }}"
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
 
-      - name: Publish to Maven Central
-        run: ./gradlew publishToCentral --no-daemon
-        env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+      - name: Read released version
+        id: version
+        run: |
+          VERSION=$(sed -n 's/^version *= *//p' gradle.properties | tr -d '[:space:]')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Parse Changelog
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
+        with:
+          filePath: "CHANGELOG.md"
+          removeMarkdown: false
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ github.ref_name }}
+          tag_name: "v${{ steps.version.outputs.version }}"
+          name: "Release v${{ steps.version.outputs.version }}"
           body: ${{ steps.changelog.outputs.latestBody }}
           files: |
             modules/terracotta-core/build/libs/*.jar
             modules/terracotta-gradle-plugin/build/libs/*.jar
             modules/terracotta-provider-modrinth/build/libs/*.jar
+
+  deploy-docs:
+    needs: release
+    uses: ./.github/workflows/deploy-docs.yml

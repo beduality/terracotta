@@ -1,16 +1,15 @@
 # Releasing
 
-This guide covers the automated release process for Terracotta.
+This guide covers the release process for Terracotta.
 
 ## Overview
 
-Releases are handled by an automated release script that:
+Releases are performed from the `Release` GitHub Actions workflow. Running the release in CI makes the process safer and easier to roll back:
 
-- Bumps versions based on conventional commits
-- Updates the changelog
-- Validates the publishing configuration
-- Creates and pushes a git tag
-- Triggers the release workflow for distribution
+- Bumping versions, changelog updates, build verification, Maven Central publishing, and git tagging all happen in one workflow.
+- If publishing to Maven Central fails, `release.py` automatically rolls back the local tag and commit so no tag or changelog is left behind.
+- The GitHub release and docs deployment only happen after a successful publish.
+- The workflow can be re-run or the release can be re-triggered without force-pushing or manually cleaning up.
 
 ## Versioning
 
@@ -50,26 +49,23 @@ Follow the guidelines in `guidelines/changelog.md`:
 - Focus on user/developer/operator impact
 - Group by module (Docs, Core, Gradle Plugin, Modrinth, SDK, etc.)
 
-### 2. Run the Release Script
+### 2. Trigger the Release Workflow
 
-```bash
-uv run scripts/release.py
-```
+Go to **Actions** → **Release** → **Run workflow**. Choose:
 
-The script will:
+- **bump**: `auto` (recommended), `patch`, `minor`, `major`, or `custom`
+- **version**: required only when `bump` is `custom`
 
-1. Show the detected version bump and suggested version
-2. Let you accept or override the version
-3. Update `CHANGELOG.md` with the new version
-4. Run `./gradlew build` to verify compilation and tests pass
-5. Create a git commit and tag
-6. Push changes to the remote repository
+The workflow will:
+
+1. Update `CHANGELOG.md`, `gradle.properties`, `pyproject.toml`, and `uv.lock` with the new version.
+2. Run `./gradlew spotlessCheck build` to verify compilation and tests.
+3. Publish to Maven Central using the central-portal-publisher plugin.
+4. If publishing succeeds, commit the version changes and push the new `vX.Y.Z` tag.
+5. Create a GitHub release with the changelog body and JAR artifacts.
+6. Deploy documentation using `deploy-docs.yml`.
 
 ### 3. Distribution & Publishing
-
-Once the version tag is pushed, `.github/workflows/release.yml` automatically triggers:
-
-#### Maven Central Publishing
 
 The following modules are published automatically via the [Sonatype Central Portal](https://central.sonatype.com/):
 
@@ -113,28 +109,39 @@ The `PULUMI_CONFIG_PASSPHRASE` env var is required for non-interactive secret en
 
 The script auto-detects which secrets are needed by parsing `App.kt` — no manual list to maintain.
 
-## Manual Override
+## Manual Override / Local
 
-To manually specify the version:
+For local testing or dry runs, you can still run `release.py` locally:
 
 ```bash
-uv run scripts/release.py patch     # 0.1.x
-uv run scripts/release.py minor     # 0.x.0
-uv run scripts/release.py major     # x.0.0
-uv run scripts/release.py 0.2.0     # custom version
+uv run scripts/release.py --no-publish --no-push
 ```
+
+This will run the version bump, changelog update, and build verification without actually publishing or pushing. To see the detected version without prompts, run:
+
+```bash
+uv run scripts/release.py --yes --no-publish --no-push
+```
+
+To run the full release from a local machine (not recommended):
+
+```bash
+uv run scripts/release.py --yes --publish --bump auto
+```
+
+This requires the same `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `SIGNING_KEY`, and `SIGNING_PASSWORD` environment variables.
 
 ## Skip Dry-Run
 
-To skip the build verification dry-run step:
+To skip the build verification step:
 
 ```bash
-uv run scripts/release.py 0.2.0 --no-dry-run
+uv run scripts/release.py --no-dry-run --no-publish --no-push
 ```
 
 ## Rollback
 
-If a release needs to be rolled back:
+If the CI workflow fails, `release.py` will attempt to roll back the local tag and commit automatically. If a manual rollback is needed, run:
 
 ```bash
 uv run scripts/release.py rollback
@@ -145,7 +152,9 @@ This reverts the version bump, changelog changes, and tag.
 ## What Happens on Release
 
 1. **Changelog**: `## [Unreleased]` → `## [0.x.y] - YYYY-MM-DD`
-2. **Version**: Updated in `gradle.properties`
-3. **Tag**: Created and pushed to GitHub
-4. **CI/CD**: Release workflow triggers
-5. **Maven Central**: Artifacts bundled, signed, and published via Central Portal
+2. **Version**: Updated in `gradle.properties`, `pyproject.toml`, and `uv.lock`
+3. **Build**: `./gradlew spotlessCheck build` verifies the project
+4. **Publish**: artifacts are signed and uploaded to Maven Central
+5. **Tag**: the new `vX.Y.Z` tag is pushed to GitHub
+6. **GitHub Release**: created with the changelog body and JARs
+7. **Docs**: documentation is deployed with `mike`
