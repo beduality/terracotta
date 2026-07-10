@@ -4,6 +4,8 @@
 - Add support to staging environments like Modrinth Staging; Update docs
 - Dry-run release
 
+## v0.2.0
+
 - Add `destroy` command
 - Add "create" command
 - Add "import" command
@@ -21,3 +23,8 @@
 - Add support for multiple Terracotta files
     - Import mode
     - `platform/` convention
+
+## v0.3.0
+
+- Add Terracotta Cloud for lock management and state synchronization
+- Add Terracotta Registry Gateway

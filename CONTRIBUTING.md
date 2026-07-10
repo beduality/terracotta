@@ -142,6 +142,22 @@ When contributing:
 - Prefer unit tests for pure logic in `terracotta-core`. Integration tests that wire multiple components together belong in the relevant provider or CLI module.
 - Tests must pass on CI before a Pull Request can be merged.
 
+### Test Coverage
+
+This project uses JaCoCo for test coverage reporting. Coverage reports are generated automatically when running tests, or you can generate them explicitly with:
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew jacocoTestReport
+```
+
+HTML reports are available at:
+- `modules/terracotta-core/build/reports/jacoco/test/html/index.html`
+- `modules/terracotta-provider-modrinth/build/reports/jacoco/test/html/index.html`
+- `modules/terracotta-gradle-plugin/build/reports/jacoco/test/html/index.html`
+- etc.
+
+When contributing, aim to maintain or improve test coverage for the code you modify. It's not required to reach 100% coverage, but important logic should be tested.
+
 ### Smoke Tests
 
 Smoke tests exercise the **full compiled CLI binary** against the live Modrinth API. They verify end-to-end behavior that unit and integration tests cannot cover, such as real network responses, authentication flows, and actual command output.

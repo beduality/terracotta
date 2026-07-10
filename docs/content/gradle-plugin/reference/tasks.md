@@ -8,7 +8,7 @@ This reference describes the tasks provided by the Terracotta Gradle plugin.
 
 ### `terracottaPlan`
 
-Generate a semantic diff comparing your local build configuration against the remote registry's project state. No changes are applied.
+Generate semantic diffs comparing your local build configuration against all configured remote registries' project states. No changes are applied.
 
 **Usage:**
 ```bash
@@ -24,7 +24,7 @@ Generate a semantic diff comparing your local build configuration against the re
 
 ### `terracottaApply`
 
-Applies the planned operations, updating registry metadata and uploading missing versions.
+Applies all planned operations, updating registry metadata and uploading missing versions for all configured providers.
 
 **Usage:**
 ```bash
@@ -32,4 +32,23 @@ Applies the planned operations, updating registry metadata and uploading missing
 ```
 
 **Requirements:**
-- A valid `MODRINTH_TOKEN` environment variable or configured `modrinthToken` in the extension.
+- Valid per-provider tokens configured (e.g., `MODRINTH_TOKEN` environment variable).
+
+---
+
+### Per-Provider Tasks
+
+For each provider you configure (e.g., "modrinth", "hangar"), the plugin will register two tasks:
+- `terracottaPlan<ProviderName>` (e.g., `terracottaPlanModrinth`)
+- `terracottaApply<ProviderName>` (e.g., `terracottaApplyHangar`)
+
+These work just like the aggregate tasks, but only operate on a single provider.
+
+**Usage:**
+```bash
+# Plan changes for Modrinth only
+./gradlew terracottaPlanModrinth
+
+# Apply changes for Hangar only
+./gradlew terracottaApplyHangar
+```

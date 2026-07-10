@@ -29,41 +29,57 @@ plugins {
 
 ## 2. Configure Terracotta
 
-In your `build.gradle.kts`, configure Terracotta with your project information:
+In your `build.gradle.kts`, configure Terracotta with your project information and Modrinth provider:
 
 ```kotlin
 terracotta {
-    projectId = "my-plugin" // your Modrinth project slug or ID
-    name = "My Plugin"
-    summary = "Lightweight Paper plugin"
-    description = file("README.md").readText()
-    tags = listOf("paper", "utility")
-    license = "MIT"
-    gameVersions = listOf("1.21.8", "1.21.7")
-    loaders = listOf("paper")
-    environment = "server_only"
+    name.set("My Plugin")
+    summary.set("Lightweight Paper plugin")
+    description.set(file("README.md").readText())
+    tags.set(listOf("paper", "utility"))
+    license.set("MIT")
+    gameVersions.set(listOf("1.21.8", "1.21.7"))
+    loaders.set(listOf("paper"))
+    environment.set("server_only")
+
+    providers {
+        create("modrinth") {
+            projectId.set("my-plugin") // your Modrinth project slug or ID
+        }
+    }
 }
 ```
 
 Make sure your project contains a `README.md` file with your plugin description.
 
-## 3. Configure Modrinth authentication
+## 3. Configure Authentication
 
 Create a Modrinth API token from your Modrinth account settings.
 
-Set the token as an environment variable:
+Set the token as an environment variable for Modrinth:
 
-=== "Linux / macOS"
+```=== "Linux / macOS"
 
     ```bash
-    export MODRINTH_TOKEN="your_modrinth_api_token"
+    export MODRINTH_TOKEN="your_modrinth_token"
     ```
 
 === "Windows PowerShell"
 
     ```powershell
-    $env:MODRINTH_TOKEN="your_modrinth_api_token"
+    $env:MODRINTH_TOKEN="your_modrinth_token"
     ```
+
+Or set the token explicitly in your build.gradle.kts:
+
+```kotlin
+providers {
+    create("modrinth") {
+        projectId.set("my-modrinth-project-id")
+        token.set(System.getenv("MODRINTH_TOKEN"))
+    }
+}
+```
 
 ## 4. Preview the changes
 

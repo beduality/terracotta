@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.dokka)
     alias(libs.plugins.nexus.publish)
+    jacoco
 }
 
 allprojects {
@@ -13,6 +14,23 @@ allprojects {
 
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "jacoco")
+
+    jacoco {
+        toolVersion = libs.versions.jacoco.get()
+    }
+
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport)
+    }
+
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test)
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
 }
 
 nexusPublishing {

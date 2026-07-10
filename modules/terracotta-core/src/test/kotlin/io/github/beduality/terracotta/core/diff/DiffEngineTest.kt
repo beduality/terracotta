@@ -125,4 +125,221 @@ class DiffEngineTest {
         val versionOp = ops.filterIsInstance<Operation.UploadVersion>().first()
         assertEquals("1.1.0", versionOp.version.version)
     }
+
+    @Test
+    fun `test diff with only name changed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Old Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "New Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.nameChanged)
+        assertEquals("New Name", metaOp.newName)
+    }
+
+    @Test
+    fun `test diff with only summary changed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Old Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "New Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.summaryChanged)
+        assertEquals("New Summary", metaOp.newSummary)
+    }
+
+    @Test
+    fun `test diff with only license changed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "Apache-2.0",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.licenseChanged)
+        assertEquals("Apache-2.0", metaOp.newLicense)
+    }
+
+    @Test
+    fun `test diff with license case change should not trigger update`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "mit",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertTrue(ops.isEmpty())
+    }
+
+    @Test
+    fun `test diff with only description changed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Old description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "New description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val descOp = ops.filterIsInstance<Operation.UpdateDescription>().first()
+        assertEquals("Old description", descOp.oldDescription)
+        assertEquals("New description", descOp.newDescription)
+    }
+
+    @Test
+    fun `test diff with tags added`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = listOf("utility"),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = listOf("utility", "new-tag"),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val tagsOp = ops.filterIsInstance<Operation.UpdateTags>().first()
+        assertEquals(listOf("utility"), tagsOp.oldTags)
+        assertEquals(listOf("utility", "new-tag"), tagsOp.newTags)
+    }
+
+    @Test
+    fun `test diff with tags removed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = listOf("utility", "old-tag"),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = listOf("utility"),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val tagsOp = ops.filterIsInstance<Operation.UpdateTags>().first()
+        assertEquals(listOf("utility", "old-tag"), tagsOp.oldTags)
+        assertEquals(listOf("utility"), tagsOp.newTags)
+    }
 }

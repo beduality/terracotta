@@ -34,6 +34,7 @@ import java.io.IOException
 class ModrinthClient(
     private val token: String?,
     private val baseUrl: String = "https://api.modrinth.com/v2",
+    private val client: HttpClient = defaultClient(),
 ) {
     private val json =
         Json {
@@ -41,12 +42,18 @@ class ModrinthClient(
             encodeDefaults = false
         }
 
-    private val client =
-        HttpClient(Java) {
-            install(ContentNegotiation) {
-                json(json)
+    companion object {
+        private fun defaultClient(): HttpClient {
+            return HttpClient(Java) {
+                install(ContentNegotiation) {
+                    json(Json {
+                        ignoreUnknownKeys = true
+                        encodeDefaults = false
+                    })
+                }
             }
         }
+    }
 
     private val logger = LoggerFactory.getLogger(ModrinthClient::class.java)
 
