@@ -19,9 +19,13 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 import java.util.ServiceLoader
 
+@DisableCachingByDefault(because = "Task makes network calls and applies changes to remote registries")
 abstract class TerracottaApplyTask : DefaultTask() {
     @get:Input
     abstract val projectId: Property<String>
@@ -64,42 +68,45 @@ abstract class TerracottaApplyTask : DefaultTask() {
     abstract val token: Property<String>
 
     @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
     abstract val artifactFile: RegularFileProperty
 
     @TaskAction
-    fun apply() = runBlocking {
-        val local = createLocalProject()
+    fun apply() =
+        runBlocking {
+            val local = createLocalProject()
 
-        val providerFactory = findProviderFactory(provider.get())
-        val stateProvider: StateProvider = providerFactory.createStateProvider(token.orNull)
-        val remote = stateProvider.fetchProject(projectId.get())
+            val providerFactory = findProviderFactory(provider.get())
+            val stateProvider: StateProvider = providerFactory.createStateProvider(token.orNull)
+            val remote = stateProvider.fetchProject(projectId.get())
 
-        val operations = DiffEngine.diff(local, remote)
-        val preprocessedOperations = OperationPreprocessor.process(operations)
+            val operations = DiffEngine.diff(local, remote)
+            val preprocessedOperations = OperationPreprocessor.process(operations)
 
-        logger.lifecycle("Terracotta Apply:")
-        if (preprocessedOperations.isEmpty()) {
-            logger.lifecycle("  No changes to apply!")
-        } else {
-            val registryProvider: RegistryProvider = providerFactory.createRegistryProvider(token.orNull)
-            preprocessedOperations.forEach { op ->
-                logger.lifecycle("  Applying: ${op.description}")
+            logger.lifecycle("Terracotta Apply:")
+            if (preprocessedOperations.isEmpty()) {
+                logger.lifecycle("  No changes to apply!")
+            } else {
+                val registryProvider: RegistryProvider = providerFactory.createRegistryProvider(token.orNull)
+                preprocessedOperations.forEach { op ->
+                    logger.lifecycle("  Applying: ${op.description}")
+                }
+                registryProvider.apply(projectId.get(), preprocessedOperations)
+                logger.lifecycle("  Done!")
             }
-            registryProvider.apply(projectId.get(), preprocessedOperations)
-            logger.lifecycle("  Done!")
         }
-    }
 
     private fun createLocalProject(): TerracottaProject {
-        val version = TerracottaVersion(
-            version = project.version.toString(),
-            artifactPath = artifactFile.get().asFile.absolutePath,
-            gameVersions = gameVersions.get(),
-            loaders = loaders.get(),
-            environment = environment.get(),
-            releaseType = releaseType.get(),
-            changelog = changelog.get(),
-        )
+        val version =
+            TerracottaVersion(
+                version = project.version.toString(),
+                artifactPath = artifactFile.get().asFile.absolutePath,
+                gameVersions = gameVersions.get(),
+                loaders = loaders.get(),
+                environment = environment.get(),
+                releaseType = releaseType.get(),
+                changelog = changelog.get(),
+            )
 
         return TerracottaProject(
             id = projectId.get(),

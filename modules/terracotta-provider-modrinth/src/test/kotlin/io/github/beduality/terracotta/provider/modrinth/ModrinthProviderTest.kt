@@ -34,43 +34,18 @@ class ModrinthProviderTest {
             encodeDefaults = false
         }
 
-    private fun createMockClient(
-        mockHandler: suspend (MockEngine.MockRequestHandle) -> Unit,
-    ): HttpClient {
-        return HttpClient(MockEngine) {
-            install(ContentNegotiation) {
-                json(
-                    Json {
-                        ignoreUnknownKeys = true
-                        encodeDefaults = false
-                    },
-                )
-            }
-            engine {
-                addHandler { request ->
-                    mockHandler(this)
-                    // Default response, handler should have set a response
-                    respond(
-                        content = "",
-                        status = HttpStatusCode.OK,
-                        headers = headersOf(HttpHeaders.ContentType, "application/json"),
-                    )
-                }
-            }
-        }
-    }
-
     @Test
     fun `test ModrinthStateProvider fetch existing project`() =
         runTest {
             val modrinthProject =
                 ModrinthProject(
                     id = "my-mod-id",
+                    slug = "my-mod",
                     title = "My Mod",
                     summary = "A test mod",
                     body = "Test description",
                     categories = listOf("utility"),
-                    license = ModrinthLicense(id = "MIT", name = "MIT License"),
+                    license = ModrinthLicense(id = "MIT"),
                 )
             val modrinthVersion =
                 ModrinthVersion(
@@ -80,22 +55,20 @@ class ModrinthProviderTest {
                     files =
                         listOf(
                             ModrinthVersionFile(
-                                hashes = mapOf(),
                                 url = "",
                                 filename = "mod.jar",
                                 primary = true,
-                                size = 1024,
                             ),
                         ),
                 )
 
-            val client =
-                createMockClient { request ->
+            val mockEngine =
+                MockEngine { request ->
                     when {
                         request.url.encodedPath.contains("project/my-mod-id") &&
                             !request.url.encodedPath.contains("version") -> {
                             val responseJson = json.encodeToString(modrinthProject)
-                            request.respond(
+                            respond(
                                 content = ByteReadChannel(responseJson),
                                 status = HttpStatusCode.OK,
                                 headers = headersOf(HttpHeaders.ContentType, "application/json"),
@@ -103,15 +76,27 @@ class ModrinthProviderTest {
                         }
                         request.url.encodedPath.contains("project/my-mod-id/version") -> {
                             val responseJson = json.encodeToString(listOf(modrinthVersion))
-                            request.respond(
+                            respond(
                                 content = ByteReadChannel(responseJson),
                                 status = HttpStatusCode.OK,
                                 headers = headersOf(HttpHeaders.ContentType, "application/json"),
                             )
                         }
                         else -> {
-                            request.respond("", status = HttpStatusCode.NotFound)
+                            respond("", status = HttpStatusCode.NotFound)
                         }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
                     }
                 }
 
@@ -135,9 +120,21 @@ class ModrinthProviderTest {
     @Test
     fun `test ModrinthStateProvider fetch non-existing project returns null`() =
         runTest {
+            val mockEngine =
+                MockEngine { _ ->
+                    respond("", status = HttpStatusCode.NotFound)
+                }
+
             val client =
-                createMockClient { request ->
-                    request.respond("", status = HttpStatusCode.NotFound)
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
                 }
 
             val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
@@ -158,27 +155,39 @@ class ModrinthProviderTest {
             }
 
             var createVersionCalled = false
-            val client =
-                createMockClient { request ->
+            val mockEngine =
+                MockEngine { request ->
                     when {
                         request.url.encodedPath == "/version" -> {
                             createVersionCalled = true
-                            val responseProject =
+                            val responseVersion =
                                 ModrinthVersion(
                                     versionNumber = "1.0.0",
                                     gameVersions = listOf("1.20"),
                                     loaders = listOf("fabric"),
                                     files = emptyList(),
                                 )
-                            request.respond(
-                                json.encodeToString(responseProject),
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(responseVersion)),
                                 status = HttpStatusCode.OK,
-                                headersOf(HttpHeaders.ContentType, "application/json"),
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
                             )
                         }
                         else -> {
-                            request.respond("", HttpStatusCode.OK)
+                            respond("", HttpStatusCode.OK)
                         }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
                     }
                 }
 

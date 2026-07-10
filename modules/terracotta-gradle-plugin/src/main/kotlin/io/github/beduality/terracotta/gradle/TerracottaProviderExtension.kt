@@ -1,7 +1,6 @@
 package io.github.beduality.terracotta.gradle
 
 import org.gradle.api.Named
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 
 abstract class TerracottaProviderExtension(private val name: String) : Named {

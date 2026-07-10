@@ -48,10 +48,12 @@ class ModrinthClient(
         private fun defaultClient(): HttpClient {
             return HttpClient(Java) {
                 install(ContentNegotiation) {
-                    json(Json {
-                        ignoreUnknownKeys = true
-                        encodeDefaults = false
-                    })
+                    json(
+                        Json {
+                            ignoreUnknownKeys = true
+                            encodeDefaults = false
+                        },
+                    )
                 }
             }
         }

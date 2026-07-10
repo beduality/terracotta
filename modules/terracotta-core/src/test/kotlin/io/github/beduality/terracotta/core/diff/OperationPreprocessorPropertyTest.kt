@@ -130,38 +130,45 @@ class OperationPreprocessorPropertyTest {
         val operationLists: List<Pair<String, List<Operation>>> =
             listOf(
                 "empty list" to emptyList(),
-                "single UploadVersion" to listOf(
-                    Operation.UploadVersion(sampleVersions[0]),
-                ),
-                "single CreateProject" to listOf(
-                    Operation.CreateProject(sampleProject(sampleVersions.take(2))),
-                ),
-                "single UpdateMetadata" to listOf(
-                    Operation.UpdateMetadata(
-                        nameChanged = true,
-                        summaryChanged = false,
-                        licenseChanged = false,
-                        newName = "New Name",
-                        newSummary = "",
-                        newLicense = "",
+                "single UploadVersion" to
+                    listOf(
+                        Operation.UploadVersion(sampleVersions[0]),
                     ),
-                ),
-                "single UpdateDescription" to listOf(
-                    Operation.UpdateDescription("old", "new"),
-                ),
-                "single UpdateTags" to listOf(
-                    Operation.UpdateTags(listOf("a"), listOf("b")),
-                ),
-                "mixed operations (5)" to listOf(
-                    Operation.CreateProject(sampleProject(sampleVersions.take(1))),
-                    Operation.UploadVersion(sampleVersions[1]),
-                    Operation.UpdateMetadata(true, true, false, "n", "s", ""),
-                    Operation.UpdateDescription("old", "new"),
-                    Operation.UpdateTags(listOf("x"), listOf("y", "z")),
-                ),
-                "multiple UploadVersion (10)" to sampleVersions.take(10).map {
-                    Operation.UploadVersion(it)
-                },
+                "single CreateProject" to
+                    listOf(
+                        Operation.CreateProject(sampleProject(sampleVersions.take(2))),
+                    ),
+                "single UpdateMetadata" to
+                    listOf(
+                        Operation.UpdateMetadata(
+                            nameChanged = true,
+                            summaryChanged = false,
+                            licenseChanged = false,
+                            newName = "New Name",
+                            newSummary = "",
+                            newLicense = "",
+                        ),
+                    ),
+                "single UpdateDescription" to
+                    listOf(
+                        Operation.UpdateDescription("old", "new"),
+                    ),
+                "single UpdateTags" to
+                    listOf(
+                        Operation.UpdateTags(listOf("a"), listOf("b")),
+                    ),
+                "mixed operations (5)" to
+                    listOf(
+                        Operation.CreateProject(sampleProject(sampleVersions.take(1))),
+                        Operation.UploadVersion(sampleVersions[1]),
+                        Operation.UpdateMetadata(true, true, false, "n", "s", ""),
+                        Operation.UpdateDescription("old", "new"),
+                        Operation.UpdateTags(listOf("x"), listOf("y", "z")),
+                    ),
+                "multiple UploadVersion (10)" to
+                    sampleVersions.take(10).map {
+                        Operation.UploadVersion(it)
+                    },
             )
 
         return operationLists.map { (name, ops) ->
@@ -188,46 +195,54 @@ class OperationPreprocessorPropertyTest {
     fun `Property 4 - non-version operations pass through unchanged`(): List<DynamicTest> {
         val nonVersionOperations: List<Pair<String, Operation>> =
             listOf(
-                "UpdateMetadata(name only)" to Operation.UpdateMetadata(
-                    nameChanged = true,
-                    summaryChanged = false,
-                    licenseChanged = false,
-                    newName = "Updated Plugin",
-                    newSummary = "",
-                    newLicense = "",
-                ),
-                "UpdateMetadata(all fields)" to Operation.UpdateMetadata(
-                    nameChanged = true,
-                    summaryChanged = true,
-                    licenseChanged = true,
-                    newName = "New Name",
-                    newSummary = "New Summary",
-                    newLicense = "Apache-2.0",
-                ),
-                "UpdateDescription(short)" to Operation.UpdateDescription(
-                    oldDescription = "Old",
-                    newDescription = "New",
-                ),
-                "UpdateDescription(long)" to Operation.UpdateDescription(
-                    oldDescription = "A very long old description with lots of details",
-                    newDescription = "A very long new description with even more details",
-                ),
-                "UpdateTags(single to single)" to Operation.UpdateTags(
-                    oldTags = listOf("adventure"),
-                    newTags = listOf("utility"),
-                ),
-                "UpdateTags(multiple to multiple)" to Operation.UpdateTags(
-                    oldTags = listOf("combat", "pvp", "arena"),
-                    newTags = listOf("pve", "survival", "economy"),
-                ),
-                "UpdateTags(empty to some)" to Operation.UpdateTags(
-                    oldTags = emptyList(),
-                    newTags = listOf("new-tag"),
-                ),
-                "UpdateTags(some to empty)" to Operation.UpdateTags(
-                    oldTags = listOf("removed"),
-                    newTags = emptyList(),
-                ),
+                "UpdateMetadata(name only)" to
+                    Operation.UpdateMetadata(
+                        nameChanged = true,
+                        summaryChanged = false,
+                        licenseChanged = false,
+                        newName = "Updated Plugin",
+                        newSummary = "",
+                        newLicense = "",
+                    ),
+                "UpdateMetadata(all fields)" to
+                    Operation.UpdateMetadata(
+                        nameChanged = true,
+                        summaryChanged = true,
+                        licenseChanged = true,
+                        newName = "New Name",
+                        newSummary = "New Summary",
+                        newLicense = "Apache-2.0",
+                    ),
+                "UpdateDescription(short)" to
+                    Operation.UpdateDescription(
+                        oldDescription = "Old",
+                        newDescription = "New",
+                    ),
+                "UpdateDescription(long)" to
+                    Operation.UpdateDescription(
+                        oldDescription = "A very long old description with lots of details",
+                        newDescription = "A very long new description with even more details",
+                    ),
+                "UpdateTags(single to single)" to
+                    Operation.UpdateTags(
+                        oldTags = listOf("adventure"),
+                        newTags = listOf("utility"),
+                    ),
+                "UpdateTags(multiple to multiple)" to
+                    Operation.UpdateTags(
+                        oldTags = listOf("combat", "pvp", "arena"),
+                        newTags = listOf("pve", "survival", "economy"),
+                    ),
+                "UpdateTags(empty to some)" to
+                    Operation.UpdateTags(
+                        oldTags = emptyList(),
+                        newTags = listOf("new-tag"),
+                    ),
+                "UpdateTags(some to empty)" to
+                    Operation.UpdateTags(
+                        oldTags = listOf("removed"),
+                        newTags = emptyList(),
+                    ),
             )
 
         return nonVersionOperations.map { (name, operation) ->
