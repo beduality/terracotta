@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.spotless)
     `java-gradle-plugin`
-    `maven-publish`
 }
 
 dependencies {
@@ -18,8 +17,6 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
-    withSourcesJar()
-    withJavadocJar()
 }
 
 gradlePlugin {
@@ -49,11 +46,3 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            artifactId = "terracotta-gradle-plugin"
-        }
-    }
-}

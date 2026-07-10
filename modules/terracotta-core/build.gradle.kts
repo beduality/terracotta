@@ -16,8 +16,6 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
-    withSourcesJar()
-    withJavadocJar()
 }
 
 spotless {
@@ -52,11 +50,3 @@ tasks.withType<JacocoCoverageVerification> {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            artifactId = "terracotta-core"
-        }
-    }
-}
