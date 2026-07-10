@@ -102,4 +102,5 @@ nav:
       - Architecture Overview: content/sdk/explanation/architecture.md
   - Repo:
     - Reference:
+      - Tech Stack Reference: content/repo/reference/tech-stack.md
       - File Structure Reference: content/repo/reference/file-structure.md

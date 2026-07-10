@@ -1,6 +1,40 @@
-# Contributing to Terracotta
+# Contributing to Terracotta <!-- omit in toc -->
 
 Thank you for your interest in contributing to Terracotta! To keep the project clean, robust, and maintainable, please follow these guidelines.
+
+- [VCS](#vcs)
+  - [Cloning](#cloning)
+  - [Commits](#commits)
+  - [Pull Requests](#pull-requests)
+- [Project Management](#project-management)
+  - [TODO](#todo)
+  - [Backlog](#backlog)
+  - [Proposals](#proposals)
+- [Architectural Guidelines](#architectural-guidelines)
+- [Development Workflow](#development-workflow)
+- [Tests](#tests)
+  - [Unit \& Integration Tests](#unit--integration-tests)
+  - [Test Coverage](#test-coverage)
+  - [Smoke Tests](#smoke-tests)
+    - [Prerequisites](#prerequisites)
+    - [Running](#running)
+- [Documentation](#documentation)
+  - [Prerequisites](#prerequisites-1)
+  - [Local Preview](#local-preview)
+  - [Structure](#structure)
+  - [Adding a Page](#adding-a-page)
+  - [Rebuilding All Versions](#rebuilding-all-versions)
+  - [Deployment](#deployment)
+- [Release Process](#release-process)
+  - [Versioning](#versioning)
+  - [Changelog](#changelog)
+  - [Running the Release Script](#running-the-release-script)
+  - [Distribution \& Publishing](#distribution--publishing)
+    - [CLI Binaries (GitHub Releases)](#cli-binaries-github-releases)
+    - [Maven Central Publishing](#maven-central-publishing)
+- [Getting Help](#getting-help)
+  - [Getting Asynchronous Help](#getting-asynchronous-help)
+  - [Getting Real-Time Help](#getting-real-time-help)
 
 ## VCS
 
@@ -37,25 +71,53 @@ The commit type determines how the version bumps: `fix` → patch, `feat` → mi
 
 ## Project Management
 
-Project planning is tracked in plain Markdown files under `project/`, version-controlled alongside the code. There are no external issue trackers or project boards.
+Project planning is maintained as plain Markdown files on the `project` branch. The `project` branch is checked out as a git worktree at `project/` from the main branch.
+
+There are no external issue trackers or project boards. All planning happens through Pull Requests against the `project` branch.
+
+Before starting work, open a PR targeting `project`. This is the entry point for project planning changes. You can use it to:
+
+- Add new tasks or ideas
+- Move items between TODO and Backlog
+- Clarify or split existing tasks
+- Propose larger changes
 
 ### TODO
 
-`project/TODO.md` holds concrete, actionable tasks that are ready to be picked up. If you want to work on something, check here first. When picking up a task, remove it from the file in the same commit that introduces the work.
+`TODO.md` contains concrete, actionable tasks that are ready to be worked on.
+
+If you want to pick up a task:
+
+1. Open a PR against the `project` branch.
+2. Remove the task from `TODO.md` in that PR.
+3. Wait for the PR to merge before starting implementation.
+
+Removing the task signals to other contributors that the work is already being handled and avoids duplicate efforts.
 
 ### Backlog
 
-`project/BACKLOG.md` holds ideas and tasks that are not yet ready to act on — things that need more thought, depend on other work, or are low priority. Items graduate to `TODO.md` once they are well-defined and ready.
+`BACKLOG.md` contains ideas and tasks that are not ready for implementation yet. These may require more investigation, discussion, prioritization, or dependency work.
+
+When an item becomes well-defined and actionable, move it from `BACKLOG.md` to `TODO.md`.
 
 ### Proposals
 
-`project/proposals/*.md` is where larger changes are proposed and discussed before any implementation begins. Each proposal is a standalone Markdown file covering the problem, the proposed solution, alternatives considered, and open questions.
+`project/proposals/*.md` contains proposals for larger changes that should be discussed before implementation begins.
+
+Each proposal should be a standalone Markdown document describing:
+
+- The problem being solved
+- The proposed solution
+- Alternatives considered
+- Open questions or unresolved decisions
 
 To propose a change:
 
-1. Create a file under `project/proposals/` with a descriptive name, e.g. `project/proposals/yaml-schema-support.md`.
-2. Open a Pull Request with just the proposal file — no implementation yet.
-3. Iterate on the proposal based on review feedback until it is accepted or rejected.
+1. Create a proposal file under `project/proposals/` with a descriptive name, for example:
+   `project/proposals/yaml-schema-support.md`
+2. Open a PR against the `project` branch containing only the proposal.
+3. Iterate on the proposal through review until it is accepted or rejected.
+4. Begin implementation only after acceptance.
 
 ## Architectural Guidelines
 
@@ -92,35 +154,6 @@ This project is structured as a **Multi-Module Gradle project** under the `modul
      ```bash
      JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew spotlessCheck
      ```
-
-## Toolchain
-
-### Kotlin / JVM
-
-The main codebase is written in **Kotlin 2.0.0** targeting JVM 17, compiled under **JDK 21**.
-
-| Concern | Tool | How to run |
-|---------|------|------------|
-| Dependency management | [Gradle](https://gradle.org/) with version catalog (`gradle/libs.versions.toml`) | `JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew build` |
-| Formatting & linting | [ktlint](https://pinterest.github.io/ktlint/) via [Spotless](https://github.com/diffplug/spotless) 6.25.0 | `JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew spotlessCheck` |
-| Auto-fix formatting | ktlint via Spotless | `JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew spotlessApply` |
-| API docs | [Dokka](https://github.com/Kotlin/dokka) 1.9.20 | `JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew dokkaHtml` |
-| Testing | JUnit 5.10.2 | `JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew test` |
-
-Kotlin does not have a separate type-checker step — type errors surface during compilation (`./gradlew build`).
-
-Spotless must pass before a PR can be merged. Run `spotlessApply` to auto-fix formatting rather than fixing it by hand.
-
-### Python
-
-Python is used for the release process automation and documentation tooling. The minimum required version is **Python 3.13**. Dependencies are managed with [uv](https://docs.astral.sh/uv/).
-
-| Concern | Tool |
-|---------|------|
-| Dependency management | [uv](https://docs.astral.sh/uv/) |
-| Testing | [pytest](https://pytest.org/) |
-
-There is no enforced formatter or linter for Python scripts at this time. Keep scripts readable and consistent with the existing style.
 
 ## Tests
 
@@ -323,3 +356,25 @@ The workflow uses the following secrets (configured in GitHub repository setting
 - `SIGNING_PASSWORD`: GPG key passphrase
 
 The entire Maven Central publishing process is automated — no manual intervention is required.
+
+## Getting Help
+
+> [!WARNING]
+> For human-human communication, please prioritize asynchronous communication over real-time communication when possible.
+
+### Getting Asynchronous Help
+
+If you have questions or need help, we recommend you to follow these steps in order:
+
+1. Read through this contributing guide.
+2. Check the existing documentation in the `docs/` folder.
+3. Refer to the official documentation for any relevant technologies.
+4. Examine existing code, issues, and discussions for similar problems.
+5. If you still need help, open a new issue for bugs or feature requests, or use a discussion for general questions.
+
+### Getting Real-Time Help
+
+For immediate assistance, we encourage you to use both community support and AI.
+
+* **Community**: We have a [Discord server](https://discord.gg/D5meCv2Wnd) where you can get real-time help from our community members and core team if they are available.
+* **AI Assistants:** We encourage you to leverage general-purpose AI Assistant, such as [Gemini](https://gemini.google.com/) or [ChatGPT](https://chatgpt.com/). They provide high-level, conversational help, such as explaining complex concepts, brainstorming solutions, and more.
