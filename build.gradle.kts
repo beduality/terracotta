@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.dokka)
     alias(libs.plugins.central.portal.publisher)
+    `maven-publish`
     jacoco
 }
 
