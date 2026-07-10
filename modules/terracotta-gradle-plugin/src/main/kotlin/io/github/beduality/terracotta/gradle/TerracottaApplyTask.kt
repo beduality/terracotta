@@ -4,6 +4,7 @@ import io.github.beduality.terracotta.core.diff.DiffEngine
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.ProviderFactory
 import io.github.beduality.terracotta.core.provider.RegistryProvider
@@ -49,6 +50,12 @@ abstract class TerracottaApplyTask : DefaultTask() {
     abstract val environment: Property<TerracottaEnvironment>
 
     @get:Input
+    abstract val releaseType: Property<TerracottaReleaseType>
+
+    @get:Input
+    abstract val changelog: Property<String>
+
+    @get:Input
     abstract val provider: Property<String>
 
     @get:Input
@@ -88,6 +95,8 @@ abstract class TerracottaApplyTask : DefaultTask() {
             gameVersions = gameVersions.get(),
             loaders = loaders.get(),
             environment = environment.get(),
+            releaseType = releaseType.get(),
+            changelog = changelog.get(),
         )
 
         return TerracottaProject(

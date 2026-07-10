@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.spotless)
     `maven-publish`
     signing
@@ -7,6 +8,7 @@ plugins {
 
 dependencies {
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)
 }

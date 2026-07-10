@@ -122,9 +122,9 @@ class ModrinthClient(
                 put("loaders", buildJsonArray { version.loaders.forEach { add(it.id) } })
                 put("project_id", projectId)
                 put("file_parts", buildJsonArray { add("file_0") })
-                put("changelog", "Uploaded via Terracotta declarative deployment.")
+                put("changelog", version.changelog.ifEmpty { "Uploaded via Terracotta." })
                 put("dependencies", JsonArray(emptyList()))
-                put("version_type", "release")
+                put("version_type", version.releaseType.id)
                 put("featured", false)
             }
 

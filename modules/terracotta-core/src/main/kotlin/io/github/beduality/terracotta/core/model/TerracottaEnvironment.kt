@@ -1,8 +1,15 @@
 package io.github.beduality.terracotta.core.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class TerracottaEnvironment(val id: String) {
+    @SerialName("client_only")
     CLIENT_ONLY("client_only"),
+    @SerialName("server_only")
     SERVER_ONLY("server_only"),
+    @SerialName("universal")
     UNIVERSAL("universal"),
     ;
 

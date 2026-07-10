@@ -9,4 +9,6 @@ data class ModrinthVersion(
     @SerialName("game_versions") val gameVersions: List<String>,
     val loaders: List<String> = emptyList(),
     val files: List<ModrinthVersionFile>,
+    @SerialName("version_type") val versionType: String = "release",
+    val changelog: String? = null,
 )

@@ -6,4 +6,6 @@ data class TerracottaVersion(
     val gameVersions: List<String>,
     val loaders: List<TerracottaLoader> = emptyList(),
     val environment: TerracottaEnvironment = TerracottaEnvironment.SERVER_ONLY,
+    val releaseType: TerracottaReleaseType = TerracottaReleaseType.RELEASE,
+    val changelog: String = "",
 )
