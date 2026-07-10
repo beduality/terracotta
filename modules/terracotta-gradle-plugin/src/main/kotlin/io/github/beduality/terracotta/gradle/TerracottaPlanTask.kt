@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.diff.DiffEngine
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.ProviderFactory
@@ -40,10 +42,10 @@ abstract class TerracottaPlanTask : DefaultTask() {
     abstract val gameVersions: ListProperty<String>
 
     @get:Input
-    abstract val loaders: ListProperty<String>
+    abstract val loaders: ListProperty<TerracottaLoader>
 
     @get:Input
-    abstract val environment: Property<String>
+    abstract val environment: Property<TerracottaEnvironment>
 
     @get:Input
     abstract val provider: Property<String>

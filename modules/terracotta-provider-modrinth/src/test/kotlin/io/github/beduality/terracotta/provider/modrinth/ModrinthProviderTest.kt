@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
@@ -73,7 +74,6 @@ class ModrinthProviderTest {
                 )
             val modrinthVersion =
                 ModrinthVersion(
-                    id = "version-id",
                     versionNumber = "1.0.0",
                     gameVersions = listOf("1.20"),
                     loaders = listOf("fabric"),
@@ -129,6 +129,7 @@ class ModrinthProviderTest {
             assertEquals("MIT", terracottaProject?.license)
             assertEquals(1, terracottaProject?.versions?.size)
             assertEquals("1.0.0", terracottaProject?.versions?.firstOrNull()?.version)
+            assertEquals(listOf(TerracottaLoader.FABRIC), terracottaProject?.versions?.firstOrNull()?.loaders)
         }
 
     @Test
@@ -164,7 +165,6 @@ class ModrinthProviderTest {
                             createVersionCalled = true
                             val responseProject =
                                 ModrinthVersion(
-                                    id = "new-version-id",
                                     versionNumber = "1.0.0",
                                     gameVersions = listOf("1.20"),
                                     loaders = listOf("fabric"),
@@ -197,7 +197,7 @@ class ModrinthProviderTest {
                                 "1.0.0",
                                 tempFile.absolutePath,
                                 listOf("1.20"),
-                                listOf("fabric"),
+                                listOf(TerracottaLoader.FABRIC),
                             ),
                         ),
                     tags = emptyList(),

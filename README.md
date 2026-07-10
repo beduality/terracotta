@@ -22,6 +22,9 @@ See the [Gradle Plugin Documentation](https://beduality.github.io/terracotta/) f
 Configure Terracotta in your `build.gradle.kts`:
 
 ```kotlin
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaLoader
+
 terracotta {
     providers {
         create("modrinth") {
@@ -36,8 +39,8 @@ terracotta {
     license = "MIT"
     tags = listOf("utility", "paper")
     gameVersions = listOf("1.20.1", "1.20.2")
-    loaders = listOf("paper")
-    environment = "server_only"
+    loaders = listOf(TerracottaLoader.PAPER)
+    environment = TerracottaEnvironment.SERVER_ONLY
 }
 ```
 

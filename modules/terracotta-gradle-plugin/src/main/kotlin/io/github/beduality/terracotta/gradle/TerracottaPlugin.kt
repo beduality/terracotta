@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.gradle
 
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
@@ -10,7 +11,7 @@ class TerracottaPlugin : Plugin<Project> {
 
         extension.tags.convention(emptyList())
         extension.loaders.convention(emptyList())
-        extension.environment.convention("server_only")
+        extension.environment.convention(TerracottaEnvironment.SERVER_ONLY)
 
         project.plugins.withType(JavaPlugin::class.java) {
             extension.artifactFile.convention(project.tasks.named("jar").flatMap { it.outputs.files.singleFile })

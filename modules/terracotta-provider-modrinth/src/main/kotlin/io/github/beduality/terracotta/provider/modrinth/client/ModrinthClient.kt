@@ -1,5 +1,7 @@
 package io.github.beduality.terracotta.provider.modrinth.client
 
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthVersion
@@ -117,7 +119,7 @@ class ModrinthClient(
                 put("name", "Version ${version.version}")
                 put("version_number", version.version)
                 put("game_versions", buildJsonArray { version.gameVersions.forEach { add(it) } })
-                put("loaders", buildJsonArray { version.loaders.forEach { add(it) } })
+                put("loaders", buildJsonArray { version.loaders.forEach { add(it.id) } })
                 put("project_id", projectId)
                 put("file_parts", buildJsonArray { add("file_0") })
                 put("changelog", "Uploaded via Terracotta declarative deployment.")
@@ -153,7 +155,8 @@ class ModrinthClient(
         logger.info("Successfully uploaded version ${version.version} to Modrinth.")
     }
 
-    suspend fun createProject(project: io.github.beduality.terracotta.core.model.TerracottaProject): String {
+    suspend fun createProject(project: TerracottaProject): String {
+        val environment = project.versions.firstOrNull()?.environment ?: TerracottaEnvironment.SERVER_ONLY
         val dataPart: JsonObject =
             buildJsonObject {
                 put("slug", project.id)
@@ -161,8 +164,8 @@ class ModrinthClient(
                 put("description", project.summary)
                 put("body", project.description)
                 put("categories", buildJsonArray { project.tags.forEach { add(it) } })
-                put("client_side", "optional")
-                put("server_side", "required")
+                put("client_side", environment.toModrinthClientSide())
+                put("server_side", environment.toModrinthServerSide())
                 put("project_type", "mod")
                 put("license_id", project.license)
                 put("is_draft", true)
@@ -190,4 +193,18 @@ class ModrinthClient(
         logger.info("Successfully created project ${project.name} on Modrinth with ID ${createdProject.id}.")
         return createdProject.id
     }
+
+    private fun TerracottaEnvironment.toModrinthClientSide(): String =
+        when (this) {
+            TerracottaEnvironment.CLIENT_ONLY -> "required"
+            TerracottaEnvironment.SERVER_ONLY -> "optional"
+            TerracottaEnvironment.UNIVERSAL -> "required"
+        }
+
+    private fun TerracottaEnvironment.toModrinthServerSide(): String =
+        when (this) {
+            TerracottaEnvironment.CLIENT_ONLY -> "unsupported"
+            TerracottaEnvironment.SERVER_ONLY -> "required"
+            TerracottaEnvironment.UNIVERSAL -> "required"
+        }
 }

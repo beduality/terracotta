@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
@@ -14,7 +15,7 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
                     version = it.versionNumber,
                     artifactPath = it.files.firstOrNull()?.filename ?: "",
                     gameVersions = it.gameVersions,
-                    loaders = it.loaders,
+                    loaders = it.loaders.map(TerracottaLoader::fromId),
                 )
             }
         return TerracottaProject(

@@ -32,6 +32,9 @@ plugins {
 In your `build.gradle.kts`, configure Terracotta with your project information and Modrinth provider:
 
 ```kotlin
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaLoader
+
 terracotta {
     name.set("My Plugin")
     summary.set("Lightweight Paper plugin")
@@ -39,8 +42,8 @@ terracotta {
     tags.set(listOf("paper", "utility"))
     license.set("MIT")
     gameVersions.set(listOf("1.21.8", "1.21.7"))
-    loaders.set(listOf("paper"))
-    environment.set("server_only")
+    loaders.set(listOf(TerracottaLoader.PAPER))
+    environment.set(TerracottaEnvironment.SERVER_ONLY)
 
     providers {
         create("modrinth") {
