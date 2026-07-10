@@ -58,7 +58,7 @@ A pure platform-agnostic library containing canonical models, provider interface
 | `core.provider.StateProvider` | Abstraction to fetch the remote project state. |
 | `core.provider.RegistryProvider` | Abstraction to apply a list of generic operations to the remote registry. |
 | `core.diff.DiffEngine` | Compares local and remote models to produce a set of semantic operations. |
-| `core.diff.Operation` | Sealed interface representing mutations (`UpdateMetadata`, `UpdateDescription`, `UpdateTags`, `UploadVersion`). |
+| `core.diff.Operation` | Sealed interface representing mutations (`CreateProject`, `UpdateMetadata`, `UpdateDescription`, `UpdateTags`, `UploadVersion`). |
 
 ### Modrinth Provider (`terracotta-provider-modrinth` under `modules/terracotta-provider-modrinth`)
 

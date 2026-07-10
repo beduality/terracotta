@@ -37,6 +37,20 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy(tasks.withType<JacocoCoverageVerification>())
+}
+
+tasks.withType<JacocoCoverageVerification> {
+    dependsOn(tasks.withType<JacocoReport>())
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = "0.70".toBigDecimal()
+            }
+        }
+    }
 }
 
 publishing {
