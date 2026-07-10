@@ -4,6 +4,8 @@
 
 ## v0.2.0
 
+- Add config validation
+- Add gameVersions narrow types
 - Add support to staging environments like Modrinth Staging; Update docs
 - Add `destroy` command
 - Add "create" command
