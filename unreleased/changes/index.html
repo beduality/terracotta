@@ -707,6 +707,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plugin API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1036,6 +1064,62 @@
     
   
     API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/terracotta-core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modrinth Provider API Docs
   
 
     
@@ -1812,34 +1896,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../content/repo/reference/contributing-guidelines.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contributing Guidelines
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2063,6 +2119,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Added">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gradle-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2081,6 +2160,50 @@
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2116,6 +2239,14 @@
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<h4 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Added multi-module API reference links to the docs navigation.</li>
+<li><strong>Why</strong>: Provides API documentation for each module (core, gradle-plugin, provider-modrinth).</li>
+<li>Fixed broken internal links and replaced full URLs with relative links where appropriate.</li>
+<li><strong>Why</strong>: Ensures documentation is accurate and up-to-date.</li>
+</ul>
 <h4 id="gradle-plugin">Gradle Plugin<a class="headerlink" href="#gradle-plugin" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Gradle plugin frontend supporting <code>terracottaPlan</code> and <code>terracottaApply</code> tasks, with configuration via the <code>terracotta</code> extension.</li>
@@ -2124,6 +2255,8 @@
 <li><strong>Why</strong>: Allows publishing to multiple registries at once.</li>
 <li>Uses provider-specific tokens (e.g., <code>MODRINTH_TOKEN</code>) environment variables.</li>
 <li><strong>Why</strong>: Improves security and flexibility by using separate tokens per provider.</li>
+<li>Added <code>maven-publish</code> and <code>signing</code> plugins.</li>
+<li><strong>Why</strong>: Enables the Gradle plugin to be published to Maven Central.</li>
 </ul>
 <h4 id="modrinth">Modrinth<a class="headerlink" href="#modrinth" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2131,6 +2264,25 @@
 <li><strong>Why</strong>: Bootstraps the first concrete provider to sync project settings, metadata, and artifacts directly with Modrinth.</li>
 <li>Modrinth provider available via Maven Central.</li>
 <li><strong>Why</strong>: Enables developers to use Modrinth integration as a library in their projects.</li>
+<li>Added <code>maven-publish</code> plugin.</li>
+<li><strong>Why</strong>: Enables the Modrinth provider to be published to Maven Central.</li>
+</ul>
+<h4 id="repo">Repo<a class="headerlink" href="#repo" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Implemented automated GitHub releases on tag push in <code>release.yml</code>.</li>
+<li><strong>Why</strong>: Automates the release process and makes artifacts available to users.</li>
+<li>Added changelog parsing to the release workflow for release notes.</li>
+<li><strong>Why</strong>: Generates release notes automatically from <code>CHANGELOG.md</code>.</li>
+<li>Added JAR artifact uploads to the <code>ci.yml</code> workflow.</li>
+<li><strong>Why</strong>: Makes build artifacts available for verification and release.</li>
+<li>Added Dokka documentation generation to the <code>deploy-docs.yml</code> workflow.</li>
+<li><strong>Why</strong>: Generates API reference documentation automatically on every docs deploy.</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<h4 id="repo_1">Repo<a class="headerlink" href="#repo_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Fixed <code>version</code> in <code>build.gradle.kts</code> being hardcoded to <code>0.1.0</code> instead of reading from <code>gradle.properties</code>.</li>
+<li><strong>Why</strong>: Ensures the published version matches the intended release version.</li>
 </ul>
 
 
