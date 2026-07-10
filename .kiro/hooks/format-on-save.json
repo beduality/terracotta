@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Format with Spotless on Save",
+      "trigger": "PostFileSave",
+      "description": "Runs Gradle Spotless formatting on all Kotlin/Gradle files when a .kt or .kts file is saved",
+      "matcher": "\\.(kt|kts)$",
+      "action": {
+        "type": "command",
+        "command": "cd /home/luis/GitHub/beduality/terracotta && ./gradlew spotlessApply -q 2>/dev/null",
+        "timeout": 120
+      }
+    }
+  ]
+}
