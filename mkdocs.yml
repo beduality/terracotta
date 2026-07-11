@@ -125,7 +125,8 @@ nav:
         - Conventions: content/modules/core/reference/conventions.md
         - Version Conventions: content/modules/core/reference/version-conventions.md
         - Provider Interfaces: content/modules/core/reference/provider-interfaces.md
-        - API Documentation: content/modules/core/reference/api.md
+        - API Docs: content/modules/core/reference/api.md
+        - Dokka API Docs: apidocs/terracotta-core/index.html
       - Explanation:
         - Architecture: content/modules/core/explanation/architecture.md
         - Metadata Resolution: content/modules/core/explanation/metadata-resolution.md
