@@ -5,13 +5,23 @@ import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.core.provider.StateProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
+/**
+ * Provider factory for Modrinth.
+ *
+ * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/core/reference/provider-interfaces.html)
+ * @see [Provider API reference](https://beduality.github.io/terracotta/content/sdk/reference/provider-api.html)
+ */
 class ModrinthProviderFactory : ProviderFactory {
+    /** Provider identifier (`modrinth`). */
     override val id: String = "modrinth"
 
+    /** Creates a Modrinth state provider backed by [token]. */
     override fun createStateProvider(token: String?): StateProvider {
         return ModrinthStateProvider(ModrinthClient(token))
     }
 
+    /** Creates a Modrinth registry provider backed by [token]. */
     override fun createRegistryProvider(token: String?): RegistryProvider {
         return ModrinthRegistryProvider(ModrinthClient(token))
     }

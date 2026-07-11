@@ -4,7 +4,18 @@ import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
+/**
+ * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
+ *
+ * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ */
 class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryProvider {
+    /**
+     * Applies [operations] to the Modrinth project identified by [projectId].
+     *
+     * @param projectId Modrinth project slug or ID.
+     * @param operations changes to apply.
+     */
     override suspend fun apply(
         projectId: String,
         operations: List<Operation>,

@@ -33,9 +33,17 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
 
+/**
+ * HTTP client for the Modrinth API.
+ *
+ * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ */
 class ModrinthClient(
+    /** Authentication token for Modrinth API requests. */
     private val token: String?,
+    /** Base URL of the Modrinth API. */
     private val baseUrl: String = "https://api.modrinth.com/v2",
+    /** Underlying Ktor HTTP client. */
     private val client: HttpClient = defaultClient(),
 ) {
     private val json =
@@ -61,6 +69,7 @@ class ModrinthClient(
 
     private val logger = LoggerFactory.getLogger(ModrinthClient::class.java)
 
+    /** Fetches the Modrinth project with the given slug or ID. */
     suspend fun getProject(projectIdOrSlug: String): ModrinthProject? {
         val response =
             client.get("$baseUrl/project/$projectIdOrSlug") {
@@ -75,6 +84,7 @@ class ModrinthClient(
         }
     }
 
+    /** Fetches all versions of the Modrinth project with the given slug or ID. */
     suspend fun getVersions(projectIdOrSlug: String): List<ModrinthVersion> {
         val response =
             client.get("$baseUrl/project/$projectIdOrSlug/version") {
@@ -89,6 +99,7 @@ class ModrinthClient(
         }
     }
 
+    /** Patches the Modrinth project with the given [patchData]. */
     suspend fun patchProject(
         projectIdOrSlug: String,
         patchData: Map<String, Any>,
@@ -107,6 +118,7 @@ class ModrinthClient(
         logger.info("Successfully updated project metadata on Modrinth.")
     }
 
+    /** Uploads [version] to the Modrinth project identified by [projectId]. */
     suspend fun createVersion(
         projectId: String,
         version: TerracottaVersion,
@@ -157,6 +169,7 @@ class ModrinthClient(
         logger.info("Successfully uploaded version ${version.version} to Modrinth.")
     }
 
+    /** Creates a new Modrinth draft project and returns its generated ID. */
     suspend fun createProject(project: TerracottaProject): String {
         val environment = project.versions.firstOrNull()?.environment ?: TerracottaEnvironment.SERVER_ONLY
         val dataPart: JsonObject =

@@ -6,7 +6,19 @@ import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 
+/**
+ * Reads project and version state from Modrinth.
+ *
+ * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ */
 class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider {
+    /**
+     * Fetches the Modrinth project identified by [projectId] and converts it to
+     * a [TerracottaProject].
+     *
+     * @param projectId Modrinth project slug or ID.
+     * @return the project state, or `null` if it does not exist.
+     */
     override suspend fun fetchProject(projectId: String): TerracottaProject? {
         val project = client.getProject(projectId) ?: return null
         val versions =
