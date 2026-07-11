@@ -124,4 +124,4 @@ Choose the path that matches how you want to use Terracotta:
 
 - [:fontawesome-brands-github: GitHub](https://github.com/beduality/terracotta)
 - [:fontawesome-brands-discord: Discord](https://discord.gg/D5meCv2Wnd)
-- [License](LICENSE.md)
+- [License](LICENSE)
