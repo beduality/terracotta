@@ -1,5 +1,8 @@
 {
   "recommendations": [
+    "fwcd.kotlin",
+    "vscjava.vscode-gradle",
+    "redhat.java",
     "yzhang.markdown-all-in-one"
   ],
   "unwantedRecommendations": []

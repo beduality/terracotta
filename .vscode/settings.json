@@ -16,5 +16,30 @@
         "**/__pycache__": true,
         "**/.pytest_cache": true,
         "**/.kotlin": true
-    }
+    },
+    "files.watcherExclude": {
+        "**/.gradle/**": true,
+        "**/build/**": true,
+        "**/.kotlin/**": true,
+        "**/.venv/**": true,
+        "**/__pycache__/**": true,
+        "**/.pytest_cache/**": true
+    },
+    "search.exclude": {
+        "**/.gradle": true,
+        "**/build": true,
+        "**/.kotlin": true,
+        "**/.venv": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
+    },
+    "java.import.gradle.enabled": true,
+    "java.import.gradle.wrapper.enabled": true,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.format.enabled": false,
+    "java.format.onType.enabled": false,
+    "kotlin.formatting.enabled": false,
+    "kotlin.linting.enabled": false,
+    "gradle.nestedProjects": false
 }
