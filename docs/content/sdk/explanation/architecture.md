@@ -56,6 +56,7 @@ A pure platform-agnostic library containing canonical models, provider interface
 | `core.model.TerracottaVersion` | Canonical model representing version metadata and the compiled artifact file path. |
 | `core.model.loader.TerracottaLoader` | Interface and registry for detecting mod/plugin platforms from project files. |
 | `core.model.metadata.ProjectMetadataLoader` | Merges explicit, detected, and default project metadata. |
+| `core.config.ProjectMetadataResolver` | Build-tool-agnostic orchestrator that resolves effective metadata from `terracotta.yml`, detected files, and caller-supplied defaults. |
 | `core.model.projectfile.ProjectFileCache` | Caches reads of project files so detectors and conventions can share them. |
 | `core.model.projectfile.ProjectFileConvention` | Registry of conventions for interpreting `README.md` and `CHANGELOG.md`. |
 | `core.config.TerracottaConfig` / `TerracottaConfigLoader` | In-memory representation and loader for `terracotta.yml`. |
@@ -161,3 +162,7 @@ sequenceDiagram
 **Why use ServiceLoader for provider discovery?**
 
 :   Java's `ServiceLoader` mechanism allows providers to be added as regular dependencies without any coupling between the Gradle plugin and specific provider implementations. Users simply add the provider JAR to their classpath and configure it in the DSL.
+
+**Why keep metadata resolution in `terracotta-core`?**
+
+:   Resolving values from `terracotta.yml`, README, LICENSE, loader descriptors, and changelog conventions is build-tool agnostic. Keeping that logic in `terracotta-core` lets the Gradle plugin focus purely on Gradle wiring, and makes the same resolution available to future Maven, IDE, or CI integrations.
