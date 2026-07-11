@@ -71,7 +71,17 @@ uv run scripts/release.py trigger --bump auto --yes
 uv run scripts/release.py trigger --bump custom --version 1.2.3 --yes
 ```
 
-The command runs `gh workflow run release.yml` against your current branch, passing the same `bump` and `version` inputs used by the web UI.
+The command runs `gh workflow run release.yml` against your current branch, passing the same `bump` and `version` inputs used by the web UI. After triggering, the script extracts the run ID and asks if you want to watch it live.
+
+Watch the run in real time from the CLI:
+
+```bash
+# Monitor the latest release.yml run
+uv run scripts/release.py monitor
+
+# Monitor a specific run
+uv run scripts/release.py monitor 1234567890
+```
 
 The workflow will:
 

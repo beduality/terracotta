@@ -770,18 +770,22 @@ class TestTrigger(unittest.TestCase):
             result.returncode = 0
             if "rev-parse" in cmd:
                 result.stdout = "main\n"
+            elif cmd[0:2] == ["gh", "workflow"]:
+                result.stdout = "https://github.com/beduality/terracotta/actions/runs/12345\n"
             return result
 
         mock_sub_run.side_effect = sub_run_side_effect
 
         release.trigger(bump="auto", yes=True)
 
-        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
-        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        sub_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        workflow_call = next((c for c in sub_calls if c[0:2] == ["gh", "workflow"]), None)
         self.assertIsNotNone(workflow_call)
         self.assertEqual(workflow_call[0:6], ["gh", "workflow", "run", "release.yml", "--ref", "main"])
         self.assertIn("-f", workflow_call)
         self.assertIn("bump=auto", workflow_call)
+        # --yes skips monitoring, so run_command should not be called for watch
+        mock_run_cmd.assert_not_called()
 
     @patch("scripts.release.run_command")
     @patch("scripts.release.questionary.confirm")
@@ -800,17 +804,20 @@ class TestTrigger(unittest.TestCase):
             result.returncode = 0
             if "rev-parse" in cmd:
                 result.stdout = "main\n"
+            elif cmd[0:2] == ["gh", "workflow"]:
+                result.stdout = "https://github.com/beduality/terracotta/actions/runs/12345\n"
             return result
 
         mock_sub_run.side_effect = sub_run_side_effect
 
         release.trigger(bump="custom", version="1.0.0", yes=True)
 
-        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
-        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        sub_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        workflow_call = next((c for c in sub_calls if c[0:2] == ["gh", "workflow"]), None)
         self.assertIsNotNone(workflow_call)
         self.assertIn("bump=custom", workflow_call)
         self.assertIn("version=1.0.0", workflow_call)
+        mock_run_cmd.assert_not_called()
 
     @patch("scripts.release.run_command")
     @patch("scripts.release.questionary.confirm")
@@ -827,17 +834,20 @@ class TestTrigger(unittest.TestCase):
             result.returncode = 0
             if "rev-parse" in cmd:
                 result.stdout = "main\n"
+            elif cmd[0:2] == ["gh", "workflow"]:
+                result.stdout = "https://github.com/beduality/terracotta/actions/runs/12345\n"
             return result
 
         mock_sub_run.side_effect = sub_run_side_effect
 
         release.trigger(bump="1.0.0", yes=True)
 
-        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
-        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        sub_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        workflow_call = next((c for c in sub_calls if c[0:2] == ["gh", "workflow"]), None)
         self.assertIsNotNone(workflow_call)
         self.assertIn("bump=custom", workflow_call)
         self.assertIn("version=1.0.0", workflow_call)
+        mock_run_cmd.assert_not_called()
 
     @patch("scripts.release.get_current_version")
     def test_trigger_custom_without_version_exits(self, mock_get_ver):
@@ -928,16 +938,23 @@ class TestTriggerGaps(unittest.TestCase):
             result.returncode = 0
             if "rev-parse" in cmd:
                 result.stdout = "main\n"
+            elif cmd[0:2] == ["gh", "workflow"]:
+                result.stdout = "https://github.com/beduality/terracotta/actions/runs/12345\n"
             return result
 
         mock_sub_run.side_effect = sub_run_side_effect
 
         release.trigger()
 
-        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
-        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        sub_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        workflow_call = next((c for c in sub_calls if c[0:2] == ["gh", "workflow"]), None)
         self.assertIsNotNone(workflow_call)
         self.assertIn("bump=minor", workflow_call)
+
+        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
+        watch_call = next((c for c in run_calls if c[0:3] == ["gh", "run", "watch"]), None)
+        self.assertIsNotNone(watch_call)
+        self.assertIn("12345", watch_call)
 
     @patch("scripts.release.get_current_version")
     def test_trigger_git_branch_error_exits(self, mock_get_ver):
@@ -970,16 +987,19 @@ class TestTriggerGaps(unittest.TestCase):
             result.returncode = 0
             if "rev-parse" in cmd:
                 result.stdout = "feature/x\n"
+            elif cmd[0:2] == ["gh", "workflow"]:
+                result.stdout = "https://github.com/beduality/terracotta/actions/runs/12345\n"
             return result
 
         mock_sub_run.side_effect = sub_run_side_effect
 
         release.trigger(bump="auto", yes=True)
 
-        run_calls = [c[0][0] for c in mock_run_cmd.call_args_list]
-        workflow_call = next((c for c in run_calls if c[0:2] == ["gh", "workflow"]), None)
+        sub_calls = [c[0][0] for c in mock_sub_run.call_args_list]
+        workflow_call = next((c for c in sub_calls if c[0:2] == ["gh", "workflow"]), None)
         self.assertIsNotNone(workflow_call)
         self.assertIn("feature/x", workflow_call)
+        mock_run_cmd.assert_not_called()
 
 
 class TestMainGaps(unittest.TestCase):
@@ -1309,6 +1329,53 @@ class TestMainRollbackFailurePaths(unittest.TestCase):
         # We assert the failure path was reached by checking the restore attempt
         rollback_calls = [c[0][0] for c in mock_sub_run.call_args_list]
         self.assertTrue(any("restore" in c for c in rollback_calls if isinstance(c, list)))
+
+
+class TestMonitor(unittest.TestCase):
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_monitor_with_run_id_watches_it(self, mock_sub_run, mock_run_cmd):
+        mock_sub_run.return_value = MagicMock(returncode=0)
+
+        release.monitor(run_id="12345")
+
+        mock_run_cmd.assert_called_once_with(["gh", "run", "watch", "12345"])
+
+    @patch("scripts.release.run_command")
+    @patch("scripts.release.subprocess.run")
+    def test_monitor_without_run_id_uses_latest(self, mock_sub_run, mock_run_cmd):
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock(returncode=0)
+            if cmd[:4] == ["gh", "run", "list", "--workflow=release.yml"]:
+                result.stdout = "67890\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        release.monitor()
+
+        mock_run_cmd.assert_called_once_with(["gh", "run", "watch", "67890"])
+
+    @patch("scripts.release.subprocess.run")
+    def test_monitor_no_gh_auth_exits(self, mock_sub_run):
+        mock_sub_run.side_effect = subprocess.CalledProcessError(1, ["gh", "auth", "status"])
+
+        with self.assertRaises(SystemExit):
+            release.monitor(run_id="12345")
+
+    @patch("scripts.release.subprocess.run")
+    def test_monitor_no_recent_run_exits(self, mock_sub_run):
+        def sub_run_side_effect(cmd, **kwargs):
+            result = MagicMock(returncode=0)
+            if cmd[:4] == ["gh", "run", "list", "--workflow=release.yml"]:
+                result.stdout = "\n"
+            return result
+
+        mock_sub_run.side_effect = sub_run_side_effect
+
+        with self.assertRaises(SystemExit):
+            release.monitor()
 
 
 if __name__ == "__main__":

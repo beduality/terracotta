@@ -12,7 +12,7 @@ import questionary
 
 console = Console()
 app = App(
-    usage="release.py [BUMP] [OPTIONS]\n       release.py trigger [OPTIONS]\n       release.py rollback <version>"
+    usage="release.py [BUMP] [OPTIONS]\n       release.py trigger [OPTIONS]\n       release.py monitor [RUN_ID]\n       release.py rollback <version>"
 )
 
 def get_current_version() -> str:
@@ -439,11 +439,73 @@ def trigger(
         console.print("[yellow]Release aborted.[/yellow]")
         sys.exit(0)
 
-    run_command(cmd)
+    console.print(f"[bold blue]Running:[/bold blue] {' '.join(cmd)}")
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        console.print(result.stderr or result.stdout)
+        raise subprocess.CalledProcessError(result.returncode, cmd)
+    if result.stdout:
+        console.print(result.stdout)
+    if result.stderr:
+        console.print(result.stderr)
+
     console.print(
         f"[bold green]Successfully triggered Release workflow on {current_branch}.[/bold green]"
     )
-    console.print("[dim]Monitor with: gh run list --workflow=release.yml[/dim]")
+
+    # Extract the run ID from the GitHub CLI output so we can offer live monitoring.
+    run_id = None
+    output = str(result.stdout or "") + str(result.stderr or "")
+    for line in output.splitlines():
+        match = re.search(r"/actions/runs/(\d+)", line)
+        if match:
+            run_id = match.group(1)
+            break
+        match = re.search(r"gh run view (\d+)", line)
+        if match:
+            run_id = match.group(1)
+            break
+
+    if run_id and not yes:
+        if questionary.confirm(f"Monitor run {run_id} now?").ask():
+            monitor(run_id=run_id)
+
+@app.command
+def monitor(run_id: str = None):
+    """Monitor a Release workflow run in real time.
+
+    Streams the live status of the most recent release.yml run, or the run
+    specified by run_id, until it completes.
+
+    Parameters
+    ----------
+    run_id : str, optional
+        The GitHub Actions run ID to watch. If omitted, the latest release.yml
+        run is used.
+    """
+    try:
+        subprocess.run(["gh", "auth", "status"], capture_output=True, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        console.print("[bold red]GitHub CLI (`gh`) is required and must be authenticated.[/bold red]")
+        sys.exit(1)
+
+    if not run_id:
+        try:
+            result = subprocess.run(
+                ["gh", "run", "list", "--workflow=release.yml", "--json", "databaseId", "--jq", ".[0].databaseId"],
+                capture_output=True, text=True, check=True
+            )
+            run_id = result.stdout.strip()
+        except subprocess.CalledProcessError as e:
+            console.print(f"[bold red]Could not find a recent release.yml run:[/bold red] {e.stderr or e}")
+            sys.exit(1)
+
+    if not run_id:
+        console.print("[yellow]No recent release.yml runs found.[/yellow]")
+        sys.exit(0)
+
+    console.print(f"[dim]Monitoring run {run_id}...[/dim]")
+    run_command(["gh", "run", "watch", run_id])
 
 @app.default
 def main(
