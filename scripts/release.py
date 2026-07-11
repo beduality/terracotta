@@ -279,6 +279,44 @@ def validate_changelog_release_section(new_version: str):
     console.print("[green]✔[/green] CHANGELOG.md release section validated")
 
 
+@app.command
+def extract_release_notes(
+    version: str,
+    output: str = None,
+):
+    """Extract the changelog release notes for the given version.
+
+    Reads CHANGELOG.md and prints the body of the ## [version] section. If
+    --output is provided, the notes are written to that file instead.
+
+    Parameters
+    ----------
+    version : str
+        The release version (e.g. '0.4.0').
+    output : str, optional
+        Path to a file where the notes should be written.
+    """
+    path = Path("CHANGELOG.md")
+    if not path.exists():
+        raise FileNotFoundError("CHANGELOG.md not found")
+    content = path.read_text()
+    match = re.search(
+        rf"## \[{re.escape(version)}\].*?(?=\n## \[|\Z)",
+        content,
+        re.DOTALL,
+    )
+    if not match:
+        raise ValueError(f"CHANGELOG.md is missing a ## [{version}] section")
+    body = match.group(0).split("\n", 1)[1].strip()
+    if not body:
+        raise ValueError(f"CHANGELOG.md ## [{version}] section is empty")
+    if output:
+        Path(output).write_text(body)
+        console.print(f"[green]✔[/green] Wrote release notes to {output}")
+    else:
+        print(body)
+
+
 def validate_javadoc_jars(new_version: str):
     empty = []
     for module in [

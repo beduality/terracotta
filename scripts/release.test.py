@@ -176,6 +176,65 @@ class TestUpdateFiles(unittest.TestCase):
             release.update_changelog("0.4.0")
 
 
+class TestExtractReleaseNotes(unittest.TestCase):
+
+    @patch("scripts.release.Path")
+    def test_prints_body_without_heading(self, mock_path):
+        mock_instance = MagicMock()
+        mock_instance.exists.return_value = True
+        mock_instance.read_text.return_value = (
+            "## [Unreleased]\n\n### Added\n- Feature\n\n"
+            "## [0.4.0] - 2026-07-07\n\n### Fixed\n- Bug fix\n\n"
+            "## [0.3.0] - 2026-07-06\n- Old\n"
+        )
+        mock_path.return_value = mock_instance
+        with patch("builtins.print") as mock_print:
+            release.extract_release_notes("0.4.0")
+        mock_print.assert_called_once_with("### Fixed\n- Bug fix")
+
+    @patch("scripts.release.Path")
+    def test_writes_to_output_file(self, mock_path):
+        changelog_mock = MagicMock()
+        changelog_mock.exists.return_value = True
+        changelog_mock.read_text.return_value = (
+            "## [0.4.0] - 2026-07-07\n\n### Fixed\n- Bug fix\n"
+        )
+        output_mock = MagicMock()
+        def path_side_effect(p):
+            return changelog_mock if p == "CHANGELOG.md" else output_mock
+        mock_path.side_effect = path_side_effect
+        release.extract_release_notes("0.4.0", output="RELEASE_NOTES.md")
+        output_mock.write_text.assert_called_once_with("### Fixed\n- Bug fix")
+
+    @patch("scripts.release.Path")
+    def test_missing_section_raises(self, mock_path):
+        mock_instance = MagicMock()
+        mock_instance.exists.return_value = True
+        mock_instance.read_text.return_value = "## [Unreleased]\n- Feature"
+        mock_path.return_value = mock_instance
+        with self.assertRaises(ValueError):
+            release.extract_release_notes("0.4.0")
+
+    @patch("scripts.release.Path")
+    def test_empty_section_raises(self, mock_path):
+        mock_instance = MagicMock()
+        mock_instance.exists.return_value = True
+        mock_instance.read_text.return_value = (
+            "## [0.4.0] - 2026-07-07\n\n## [0.3.0]\n- Old"
+        )
+        mock_path.return_value = mock_instance
+        with self.assertRaises(ValueError):
+            release.extract_release_notes("0.4.0")
+
+    @patch("scripts.release.Path")
+    def test_missing_changelog_raises(self, mock_path):
+        mock_instance = MagicMock()
+        mock_instance.exists.return_value = False
+        mock_path.return_value = mock_instance
+        with self.assertRaises(FileNotFoundError):
+            release.extract_release_notes("0.4.0")
+
+
 class TestRunCommand(unittest.TestCase):
 
     @patch("scripts.release.subprocess.run")

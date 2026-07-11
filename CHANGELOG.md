@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Removed the `CI/CD Deployment` how-to guide from the docs navigation because the current stateless design does not support the documented workflow, preventing users from following an inaccurate guide.
 
+### Fixed
+
+**Repo**
+
+- Fixed the GitHub release workflow so it extracts release notes directly from `CHANGELOG.md` instead of relying on an external parser that produced empty bodies for recent releases.
+
 ## [0.1.4] - 2026-07-11
 
 ### Added
