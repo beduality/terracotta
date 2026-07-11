@@ -10,3 +10,4 @@ trigger: always_on
     - Tests must be behavior-driven and high-ROI.
 - Update `docs/` (especially `docs/index.md` and relevant `docs/content/**/*.md`), `CHANGELOG.md`, and `project/**/*.md` when applicable.
 - Update `docs/content/repo/*.md` when changing the development workflow.
+- Avoid modifying `CHANGELOG.md` previously entries.
