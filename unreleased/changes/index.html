@@ -1919,7 +1919,35 @@
   <span class="md-ellipsis">
     
   
-    API Documentation
+    API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/terracotta-core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core API Docs
   
 
     
@@ -4509,19 +4537,9 @@
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <p><strong>Docs</strong></p>
 <ul>
-<li>Reorganized module documentation under <code>docs/content/modules/</code> following the Diátaxis framework.</li>
-<li><code>tutorials/</code> for learning-oriented guides (custom loader, metadata detector, provider).</li>
-<li><code>how-to-guides/</code> for task-oriented guides (load config, resolve metadata, compute diff, add loaders/conventions, normalize versions).</li>
-<li><code>reference/</code> for lookup content (models, loaders, operations, config schema, metadata resolution, conventions, version conventions, provider interfaces) with links to the Dokka-generated API docs.</li>
-<li><code>explanation/</code> for conceptual docs (architecture, metadata resolution, diff engine, loader hierarchy, conventions).</li>
-<li>Wired the new <code>Modules</code> section into <code>mkdocs.yml</code>, grouping Core, Gradle Plugin, Modrinth Provider, and Hangar Provider docs under <code>docs/content/modules/</code>.</li>
-<li>Added a new <code>Integration</code> section under <code>docs/content/integration/</code> for cross-module guides such as adding Modrinth/Hangar to the Gradle plugin.</li>
-<li>Merged <code>docs/content/config/</code> into <code>docs/content/modules/core/reference/config-schema.md</code> and removed the separate <code>Config</code> top-level section from <code>mkdocs.yml</code>.</li>
-<li>Added <code>@see</code> links in the <code>terracotta-core</code> public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.</li>
-<li>Added member-level KDoc to public data-class properties and functions in <code>terracotta-core</code> so Dokka renders descriptions for every field and method.</li>
-<li>Expanded the Gradle plugin documentation under <code>docs/content/modules/gradle-plugin/</code> with Diátaxis sections and added <code>@see</code> links and member-level KDoc to the public DSL classes and tasks.</li>
-<li>Reorganized provider documentation under <code>docs/content/modules/provider-modrinth/</code> and <code>docs/content/modules/provider-hangar/</code> with Diátaxis sections and updated <code>@see</code> KDoc links to point to the new module docs.</li>
-<li>Trimmed duplicated core API content from <code>docs/content/sdk/reference/api.md</code> and linked it to the new core docs.</li>
+<li>Reorganized user documentation under <code>docs/content/modules/</code> and <code>docs/content/integration/</code> with Diátaxis sections for Core, Gradle Plugin, Modrinth Provider, and Hangar Provider; folded <code>docs/content/config/</code> into the Core reference.</li>
+<li>Added <code>@see</code> links and member-level KDoc to all public APIs in <code>terracotta-core</code>, <code>terracotta-gradle-plugin</code>, <code>terracotta-provider-modrinth</code>, and <code>terracotta-provider-hangar</code>, pointing to the new GitHub Pages docs.</li>
+<li>Trimmed duplicated SDK API content and linked it to the new module docs.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
 <p><strong>Docs</strong></p>
