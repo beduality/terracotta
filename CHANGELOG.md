@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+#### Repo
+
+- Fixed release pipeline so versioned docs are built from the release tag rather than the pre-release commit.
+  - **Why**: Ensures new releases appear on the docs site immediately.
+
 ## [0.1.2] - 2026-07-10
+
+### Fixed
+
+#### Repo
+
+- Fixed release tooling so each release leaves an empty "Unreleased" section in the changelog.
+  - **Why**: Keeps the changelog ready for the next development cycle.
+- Fixed docs deployment so routine pushes no longer reset the default site version from `latest` to `unreleased`.
+  - **Why**: Prevents the root site from drifting away from the latest release.
 
 ## [0.1.1] - 2026-07-10
 
