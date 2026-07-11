@@ -2,11 +2,11 @@
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
         ".gitignore": ".gitattributes",
-        "gradle.properties": "gradlew, gradlew.bat",
+        "settings.gradle.kts": "gradle.properties, gradlew, gradlew.bat",
         "build.gradle.kts": "settings.gradle, jitpack.yml",
         "README.md": "CONTRIBUTING.md, CHANGELOG.md, LICENSE, SECURITY.md",
-        "pyproject.toml": ".python-version, uv.lock",
-        "release-please-config.json": ".release-please-manifest.json"
+        "pyproject.toml": ".python-version, uv.lock, .coverage",
+        ".env.example": ".env"
     },
     "files.exclude": {
         "**/.venv": true,
