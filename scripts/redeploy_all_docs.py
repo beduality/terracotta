@@ -48,7 +48,7 @@ def main():
             run(["git", "reset", "--hard"])
             run(["git", "checkout", tag])
             run(["git", "clean", "-fdx", "-e", ".venv", "-e", ".gradle", "-e", ".env"])
-            run(["git", "checkout", "main", "--", "mkdocs.yml", "pyproject.toml", "uv.lock", "docs/overrides/", "docs/hooks/"])
+            run(["git", "checkout", "main", "--", "mkdocs.yml", "pyproject.toml", "uv.lock", "docs/hooks/"])
             
             # Build KDocs
             env = os.environ.copy()

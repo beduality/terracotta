@@ -71,7 +71,7 @@ The content follows the [Documentation Framework](../explanation/documentation-f
 
 ## Rebuilding All Versions
 
-If you change templates, overrides, hooks, or `mkdocs.yml` and want to apply them across all historical versions:
+If you change templates, hooks, or `mkdocs.yml` and want to apply them across all historical versions:
 
 ```bash
 uv run python scripts/redeploy_all_docs.py
@@ -80,7 +80,7 @@ uv run python scripts/redeploy_all_docs.py
 This script:
 
 - Checks out each release tag
-- Applies the latest config and overrides from `main`
+- Applies the latest config and hooks from `main`
 - Re-deploys all versions to the local `gh-pages` branch using `mike`
 
 ## Deployment

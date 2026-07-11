@@ -4,8 +4,7 @@
 .
 ├── docs/                   # Documentation (MkDocs)
 │   ├── content/            # Content organized by topic (sdk, gradle-plugin, repo)
-│   ├── hooks/              # Build hooks for copying generated docs
-│   └── overrides/          # Theme customizations
+│   └── hooks/              # Build hooks for copying generated docs
 ├── guidelines/             # Contribution guidelines
 ├── modules/                # Gradle modules
 ├── project/                # Project management (TODO, BACKLOG)
