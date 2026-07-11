@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-11
+
 ### Added
 
 **Hangar**
@@ -52,7 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Repo**
 
 - Fixed the GitHub release workflow so it extracts release notes directly from `CHANGELOG.md` instead of relying on an external parser that produced empty bodies for recent releases.
-
 ## [0.1.4] - 2026-07-11
 
 ### Added
