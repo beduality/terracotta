@@ -375,7 +375,7 @@ terracotta {{
     license.set("MIT")
     tags.set(listOf("test"))
     gameVersions.set(listOf("1.20.1"))
-    loaders.set(listOf(io.github.beduality.terracotta.core.model.TerracottaLoader.PAPER))
+    loaders.set(listOf("paper"))
     environment.set(io.github.beduality.terracotta.core.model.TerracottaEnvironment.SERVER_ONLY)
 }}
 '''
@@ -424,13 +424,11 @@ dependencies {{
 
     src = tmp / "src" / "main" / "kotlin" / "Smoke.kt"
     src.write_text(
-        '''import io.github.beduality.terracotta.core.model.TerracottaLoader
-import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+        '''import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 
 fun main() {
-    val loader = TerracottaLoader.PAPER
     val env = TerracottaEnvironment.SERVER_ONLY
-    println("Resolved $loader in environment $env")
+    println("Resolved environment $env")
 }
 '''
     )
