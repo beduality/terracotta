@@ -13,8 +13,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Moved the Changes link from the custom docs header to the main navigation.
   - **Why**: The custom header link was broken on mobile.
+- Wrote the smoke-testing release guide in plain English and added a section on saving pytest JSON reports as metrics.
+  - **Why**: Makes the checklist readable and archives results as data instead of prose.
+
+#### Repo
+
+- Added `pytest-json-report` to dev dependencies so smoke-test results can be saved as JSON metrics.
+  - **Why**: Removes the need to keep manual result tables in the docs.
 
 ### Fixed
+
+#### Docs
+
+- Bumped plugin version snippets in README and Gradle plugin tutorials to `0.1.2`.
+  - **Why**: Aligns public docs with the current release.
 
 #### SDK
 
@@ -29,6 +41,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Why**: Prevents version drift across `README.md`, `CHANGELOG.md`, and generated release notes.
 - Fixed docs deployment to publish the latest generated site after a release.
   - **Why**: Prevents stale or missing docs being served from GitHub Pages.
+- Added release-time validation to abort if `README.md`, the new `CHANGELOG.md` section, or the generated `-javadoc.jar` files are missing or empty.
+  - **Why**: Catches the 0.1.2 release issues before anything is published.
+- Extended release tooling to sync and validate the plugin version snippet across `docs/content/**/*.md`.
+  - **Why**: Prevents installation guides from showing an old release version.
+- Fixed GitHub Pages deployment race conditions and stale `gh-pages` checkout in `deploy-docs.yml`.
+  - **Why**: Ensures the `mike`-pushed `gh-pages` commit is what `actions/deploy-pages` actually uploads.
 
 ## [0.1.2] - 2026-07-10
 

@@ -10,8 +10,6 @@ on:
         default: ''
   push:
     branches: [main]
-    tags:
-      - "v*"
     paths:
       - docs/**
       - modules/**
@@ -28,8 +26,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -86,10 +84,13 @@ jobs:
             uv run mike deploy --push -t "Unreleased" unreleased
           fi
 
+      - name: Fetch latest gh-pages
+        run: git fetch origin gh-pages
+
       - name: Checkout latest gh-pages for upload
         uses: actions/checkout@v5
         with:
-          ref: origin/gh-pages
+          ref: gh-pages
           path: site-deploy
 
       - uses: actions/upload-pages-artifact@v4

@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import subprocess
+import zipfile
 from datetime import date
 from pathlib import Path
 from cyclopts import App
@@ -210,6 +211,95 @@ def update_readme(new_version: str):
         console.print("[green]✔[/green] Updated README.md")
     else:
         console.print("[dim]README.md already up to date[/dim]")
+
+
+def update_docs_version_snippets(new_version: str):
+    pattern = re.compile(
+        r'(id\("io\.github\.beduality\.terracotta"\)\s+version\s+")(\d+\.\d+\.\d+)(")'
+    )
+    updated = []
+    for path in Path("docs/content").rglob("*.md"):
+        content = path.read_text()
+        new_content = pattern.sub(rf"\g<1>{new_version}\g<3>", content)
+        if new_content != content:
+            path.write_text(new_content)
+            updated.append(path)
+    if updated:
+        console.print(f"[green]✔[/green] Updated docs version snippets ({len(updated)} files)")
+    else:
+        console.print("[dim]Docs version snippets already up to date[/dim]")
+
+
+def validate_docs_version_snippets(new_version: str):
+    pattern = re.compile(
+        r'id\("io\.github\.beduality\.terracotta"\)\s+version\s+"(\d+\.\d+\.\d+)"'
+    )
+    mismatches = []
+    for path in Path("docs/content").rglob("*.md"):
+        for match in pattern.finditer(path.read_text()):
+            if match.group(1) != new_version:
+                mismatches.append(f"{path}:{match.start() + 1}")
+    if mismatches:
+        raise ValueError(
+            f"Docs version snippets do not match {new_version}: {', '.join(mismatches)}"
+        )
+    console.print("[green]✔[/green] Docs version snippets validated")
+
+
+def validate_readme_version(new_version: str):
+    path = Path("README.md")
+    if not path.exists():
+        return
+    expected = f'version "{new_version}"'
+    if expected not in path.read_text():
+        raise ValueError(f"README.md is missing the expected version string {expected!r}")
+    console.print("[green]✔[/green] README.md version string validated")
+
+
+def validate_changelog_release_section(new_version: str):
+    path = Path("CHANGELOG.md")
+    content = path.read_text()
+    match = re.search(
+        rf"## \[{re.escape(new_version)}\].*?(?=\n## \[|\Z)",
+        content,
+        re.DOTALL,
+    )
+    if not match:
+        raise ValueError(f"CHANGELOG.md is missing a ## [{new_version}] section")
+    body = match.group(0).split("\n", 1)[1].strip()
+    content_lines = [
+        line for line in body.splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    ]
+    if not content_lines:
+        raise ValueError(
+            f"CHANGELOG.md ## [{new_version}] section is empty. "
+            "Add release notes before cutting the release."
+        )
+    console.print("[green]✔[/green] CHANGELOG.md release section validated")
+
+
+def validate_javadoc_jars(new_version: str):
+    empty = []
+    for module in [
+        "terracotta-core",
+        "terracotta-gradle-plugin",
+        "terracotta-provider-modrinth",
+    ]:
+        jar = Path(f"modules/{module}/build/libs/{module}-{new_version}-javadoc.jar")
+        if not jar.exists():
+            raise FileNotFoundError(f"Missing javadoc JAR: {jar}")
+        if jar.stat().st_size < 1024:
+            empty.append(f"{jar.name} ({jar.stat().st_size} bytes)")
+            continue
+        with zipfile.ZipFile(jar) as zf:
+            names = zf.namelist()
+        content = [n for n in names if n not in ("META-INF/", "META-INF/MANIFEST.MF")]
+        if not content:
+            empty.append(f"{jar.name} (only manifest)")
+    if empty:
+        raise ValueError(f"Javadoc JARs are empty: {', '.join(empty)}")
+    console.print("[green]✔[/green] Javadoc JARs validated")
 
 def run_command(cmd: list[str], env: dict = None):
     console.print(f"[bold blue]Running:[/bold blue] {' '.join(cmd)}")
@@ -432,21 +522,32 @@ def main(
         update_pyproject_toml(new_version)
         update_changelog(new_version)
         update_readme(new_version)
+        update_docs_version_snippets(new_version)
+        validate_readme_version(new_version)
+        validate_docs_version_snippets(new_version)
+        validate_changelog_release_section(new_version)
 
         # 2. Run uv lock to update lock file
         console.print("\n[bold]2. Updating uv.lock...[/bold]")
         run_command(["uv", "lock"])
 
-        # 3. Dry-Run Verification
+        # 3. Build javadoc JARs and validate release artifacts before publishing
+        console.print("\n[bold]3. Building and validating javadoc JARs...[/bold]")
+        env = os.environ.copy()
+        java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
+        env["JAVA_HOME"] = java_home
+        run_command(
+            ["./gradlew", "javadocJar", "--no-daemon"],
+            env=env,
+        )
+        validate_javadoc_jars(new_version)
+
+        # 4. Dry-Run Verification
         if dry_run:
-            console.print("\n[bold]3. Dry-Run Verification...[/bold]")
+            console.print("\n[bold]4. Dry-Run Verification...[/bold]")
             # Skip prompt in automated or CI mode
             should_verify = bump is not None or yes or questionary.confirm("Do you want to run dry-run build verification?", default=True).ask()
             if should_verify:
-                env = os.environ.copy()
-                # Use JAVA_HOME from environment or default
-                java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
-                env["JAVA_HOME"] = java_home
                 run_command(
                     [
                         "./gradlew",
@@ -457,9 +558,9 @@ def main(
                     env=env,
                 )
 
-        # 4. Commit and tag locally
+        # 5. Commit and tag locally
         if push:
-            console.print("\n[bold]4. Git commit and tag...[/bold]")
+            console.print("\n[bold]5. Git commit and tag...[/bold]")
             # Detect current branch
             try:
                 branch_result = subprocess.run(
@@ -475,7 +576,7 @@ def main(
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
 
-            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "uv.lock"])
+            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "uv.lock", "docs/content"])
 
             run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
             actions_taken.append("committed")
@@ -483,18 +584,18 @@ def main(
             run_command(["git", "tag", f"v{new_version}"])
             actions_taken.append("tagged")
 
-        # 5. Publish to Maven Central
+        # 6. Publish to Maven Central
         if publish:
-            console.print("\n[bold]5. Publishing to Maven Central...[/bold]")
+            console.print("\n[bold]6. Publishing to Maven Central...[/bold]")
             env = os.environ.copy()
             java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-21-openjdk")
             env["JAVA_HOME"] = java_home
             run_command(["./gradlew", "validatePublishing", "--no-daemon"], env=env)
             run_command(["./gradlew", "publishToCentral", "--no-daemon"], env=env)
 
-        # 6. Push commit and tag
+        # 7. Push commit and tag
         if push:
-            console.print("\n[bold]6. Pushing branch and tag...[/bold]")
+            console.print("\n[bold]7. Pushing branch and tag...[/bold]")
             actions_taken.append("pushed")
             run_command(["git", "push", "origin", current_branch, "--tags"])
 
@@ -537,7 +638,7 @@ def main(
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
-                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md"],
+                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "docs/content"],
                     check=True
                 )
                 # Try to restore uv.lock if it exists in git
