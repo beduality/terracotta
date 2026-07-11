@@ -1,16 +1,20 @@
 # Backlog
 
+- Improve AI workflow
+    - Setup a16n
+
 - Add term color library
+
+- Make CI-CD granular for modules and DAG-based for dependency-based invalidation
+- Generate docs reference from source code
+
+- Generate `.github` at `terracotta-github` module (via Kotlin and Dagger with Java SDK)
 
 - Move `release` script to its own repo
 - Move docs setup to its own repo
 - Look for a better way to load Pulumi secrets
 
-- Generate docs reference from source code
-- Generate `.github` at `terracotta-github` module (via Kotlin and Dagger with Java SDK)
-- Refactor `guidelines` to Agent Skills
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
 
-- Setup a16n
 - Publish relevant package managers to our target users (Minecraft modders); update docs and README
