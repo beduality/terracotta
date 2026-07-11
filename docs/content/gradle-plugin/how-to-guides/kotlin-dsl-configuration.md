@@ -6,7 +6,7 @@ Instead of using `terracotta.yml`, you can configure Terracotta directly in `bui
 
 ```kotlin
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.TerracottaLoader
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 terracotta {
     name.set("My Plugin")
@@ -15,7 +15,7 @@ terracotta {
     tags.set(listOf("paper", "utility"))
     license.set("MIT")
     gameVersions.set(listOf("1.21.8", "1.21.7"))
-    loaders.set(listOf(TerracottaLoader.PAPER))
+    loaders.set(listOf("paper"))
     environment.set(TerracottaEnvironment.SERVER_ONLY)
     releaseType.set(TerracottaReleaseType.RELEASE)
     changelog.set("Initial release")
@@ -33,7 +33,7 @@ terracotta {
 
 - You need to compute values from other Gradle tasks or files.
 - You prefer keeping configuration alongside the build logic.
-- You want to use typed enums such as `TerracottaLoader.PAPER` instead of string IDs.
+- You want to compute loader IDs or other values dynamically from your build.
 
 ## Mixing YAML and Kotlin DSL
 

@@ -1,7 +1,5 @@
 package io.github.beduality.terracotta.core.model.projectfile
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
-
 /**
  * Represents a `LICENSE` file in the project.
  *

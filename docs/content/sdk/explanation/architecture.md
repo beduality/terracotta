@@ -54,6 +54,11 @@ A pure platform-agnostic library containing canonical models, provider interface
 |---|---|
 | `core.model.TerracottaProject` | Canonical model representing project config metadata, tags, license, and versions. |
 | `core.model.TerracottaVersion` | Canonical model representing version metadata and the compiled artifact file path. |
+| `core.model.loader.TerracottaLoader` | Interface and registry for detecting mod/plugin platforms from project files. |
+| `core.model.metadata.ProjectMetadataLoader` | Merges explicit, detected, and default project metadata. |
+| `core.model.projectfile.ProjectFileCache` | Caches reads of project files so detectors and conventions can share them. |
+| `core.model.projectfile.ProjectFileConvention` | Registry of conventions for interpreting `README.md` and `CHANGELOG.md`. |
+| `core.config.TerracottaConfig` / `TerracottaConfigLoader` | In-memory representation and loader for `terracotta.yml`. |
 | `core.provider.ProviderFactory` | Factory interface for creating state and registry providers. Discovered via Java ServiceLoader. |
 | `core.provider.StateProvider` | Abstraction to fetch the remote project state. |
 | `core.provider.RegistryProvider` | Abstraction to apply a list of generic operations to the remote registry. |

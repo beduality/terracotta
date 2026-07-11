@@ -1,7 +1,6 @@
 package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion

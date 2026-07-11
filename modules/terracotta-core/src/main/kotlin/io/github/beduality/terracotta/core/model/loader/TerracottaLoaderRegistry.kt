@@ -1,6 +1,5 @@
 package io.github.beduality.terracotta.core.model
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import io.github.beduality.terracotta.core.model.loader.BukkitLoader
 import io.github.beduality.terracotta.core.model.loader.BungeeCordLoader
 import io.github.beduality.terracotta.core.model.loader.FabricLoader
@@ -14,6 +13,7 @@ import io.github.beduality.terracotta.core.model.loader.SpigotLoader
 import io.github.beduality.terracotta.core.model.loader.SpongeLoader
 import io.github.beduality.terracotta.core.model.loader.VelocityLoader
 import io.github.beduality.terracotta.core.model.loader.WaterfallLoader
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 
 /**
  * Dynamic registry for [TerracottaLoader] implementations.

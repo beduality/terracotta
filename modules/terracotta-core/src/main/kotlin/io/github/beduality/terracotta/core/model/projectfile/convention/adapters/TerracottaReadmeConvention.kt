@@ -7,11 +7,9 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  * non-heading paragraph is the summary.
  */
 object TerracottaReadmeConvention : ReadmeConvention {
-    override fun resolve(id: String): ReadmeConvention? =
-        if (id.equals("terracotta", ignoreCase = true)) this else null
+    override fun resolve(id: String): ReadmeConvention? = if (id.equals("terracotta", ignoreCase = true)) this else null
 
-    override fun extractDescription(content: String): String? =
-        content.trim().takeIf { it.isNotEmpty() }
+    override fun extractDescription(content: String): String? = content.trim().takeIf { it.isNotEmpty() }
 
     override fun extractSummary(content: String): String? {
         val paragraph =

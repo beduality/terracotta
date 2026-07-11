@@ -1,9 +1,8 @@
 package io.github.beduality.terracotta.core.model.loader
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import io.github.beduality.terracotta.core.model.AbstractTerracottaLoader
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 
 class QuiltLoader : AbstractTerracottaLoader("quilt", "Quilt", FabricLoader()) {
-    override fun detect(cache: ProjectFileCache): Boolean =
-        cache.read("src/main/resources/quilt.mod.json") != null
+    override fun detect(cache: ProjectFileCache): Boolean = cache.read("src/main/resources/quilt.mod.json") != null
 }

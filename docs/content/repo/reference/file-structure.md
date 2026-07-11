@@ -2,16 +2,27 @@
 
 ```
 .
+├── .agent/                 # Agent rules and guidelines
+├── .devin/                 # Devin hooks and configuration
+├── .github/                # GitHub Actions workflows and templates
+├── .vscode/                # VSCode workspace settings and extensions
 ├── docs/                   # Documentation (MkDocs)
 │   ├── content/            # Content organized by topic (sdk, gradle-plugin, repo)
 │   └── hooks/              # Build hooks for copying generated docs
-├── guidelines/             # Contribution guidelines
+├── gradle/                 # Gradle wrapper and version catalogs
 ├── modules/                # Gradle modules
-├── project/                # Project management (TODO, BACKLOG)
+├── project/                # Project management
 ├── scripts/                # Utility scripts (release, deployment)
 ├── build.gradle.kts        # Root build configuration
 ├── settings.gradle.kts     # Gradle settings
-└── mkdocs.yml              # Documentation configuration
+├── gradle.properties       # Gradle properties (version, etc.)
+├── mkdocs.yml              # Documentation configuration
+├── pyproject.toml          # Python dependencies (uv)
+├── README.md               # Project overview
+├── CHANGELOG.md            # Release notes
+├── CONTRIBUTING.md         # Contribution guidelines
+├── SECURITY.md             # Security policy
+└── LICENSE                 # License
 ```
 
 ## Modules

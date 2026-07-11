@@ -16,11 +16,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Core**
 
 - Added `terracotta.yml` parsing so library consumers can read Terracotta configuration from a standard YAML file.
+- Added an extensible loader system with a `TerracottaLoader` interface and a `TerracottaLoaderRegistry` that auto-detects supported platforms from project files.
+- Added built-in loader adapters for Bukkit, BungeeCord, Fabric, Folia, Forge, NeoForge, Paper, Purpur, Quilt, Spigot, Sponge, Velocity, and Waterfall, with parent-child inheritance so detecting a fork also records its parent loaders (e.g. Paper implies Spigot and Bukkit).
+- Added a `ProjectMetadataDetector` ServiceLoader SPI and a `ProjectMetadataLoader` that merges values detected from project files with explicit source metadata.
+- Added built-in metadata detectors that read `README.md`, license files, and loader descriptors to infer description, summary, license, loaders, and environment.
+- Added a `ProjectFileConvention` registry with `ReadmeConvention` and `ChangelogConvention` adapters, including `TerracottaReadmeConvention` and `KeepAChangelogConvention`.
+- Added release-type detection from version strings so `1.0.0-beta.1` or `1.0.0-alpha.1` are classified automatically.
+- Added a `VersionConventionResolver` with a semver convention for interpreting version strings.
 
 **Gradle Plugin**
 
 - Added `terracotta.yml` support so users can define project metadata, tags, versions, and providers in a dedicated file instead of the Kotlin DSL.
 - Added YAML-to-DSL precedence so values set in the Kotlin DSL override the same values from `terracotta.yml`, letting users keep shared metadata in YAML while still using Gradle for dynamic or secret values.
+- Integrated project metadata auto-detection so the plugin infers loaders, environment, license, description, and summary from project files when they are not configured explicitly.
+- Added a `conventions` nested DSL block for selecting README and changelog conventions.
 
 ### Fixed
 

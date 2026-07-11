@@ -5,8 +5,7 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  * has its own `## [version]` section.
  */
 object KeepAChangelogConvention : ChangelogConvention {
-    override fun resolve(id: String): ChangelogConvention? =
-        if (id.equals("keep-a-changelog", ignoreCase = true)) this else null
+    override fun resolve(id: String): ChangelogConvention? = if (id.equals("keep-a-changelog", ignoreCase = true)) this else null
 
     override fun extractVersionSection(
         content: String,

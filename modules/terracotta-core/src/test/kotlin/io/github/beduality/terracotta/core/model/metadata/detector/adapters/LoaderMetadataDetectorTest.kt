@@ -100,10 +100,10 @@ class LoaderMetadataDetectorTest {
     ) {
         File(tempDir, "custom-loader.json").writeText("{}")
 
-        val customLoader = object : AbstractTerracottaLoader("custom", "Custom") {
-            override fun detect(cache: ProjectFileCache): Boolean =
-                cache.read("custom-loader.json") != null
-        }
+        val customLoader =
+            object : AbstractTerracottaLoader("custom", "Custom") {
+                override fun detect(cache: ProjectFileCache): Boolean = cache.read("custom-loader.json") != null
+            }
         TerracottaLoaderRegistry.register(customLoader)
 
         val result = LoaderMetadataDetector().detect(context(tempDir))
@@ -111,6 +111,117 @@ class LoaderMetadataDetectorTest {
         assertTrue(result?.loaders?.any { it == "custom" } == true)
     }
 
-    private fun context(tempDir: File): ProjectMetadataContext =
-        ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
+    @Test
+    fun `detects quilt loader and inherits fabric`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/quilt.mod.json").apply {
+            parentFile.mkdirs()
+            writeText("{}")
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(setOf("quilt", "fabric"), result?.loaders?.toSet())
+    }
+
+    @Test
+    fun `detects waterfall loader and inherits bungeecord`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/bungee.yml").apply {
+            parentFile.mkdirs()
+            writeText("name: MyPlugin")
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(setOf("waterfall", "bungeecord"), result?.loaders?.toSet())
+    }
+
+    @Test
+    fun `detects bungeecord loader`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/bungee.yml").apply {
+            parentFile.mkdirs()
+            writeText("name: MyPlugin")
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertTrue(result?.loaders?.contains("bungeecord") == true)
+    }
+
+    @Test
+    fun `detects velocity loader`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/velocity-plugin.json").apply {
+            parentFile.mkdirs()
+            writeText("{}")
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(listOf("velocity"), result?.loaders)
+    }
+
+    @Test
+    fun `detects sponge loader`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/META-INF/sponge_plugins.json").apply {
+            parentFile.mkdirs()
+            writeText("{}")
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(listOf("sponge"), result?.loaders)
+    }
+
+    @Test
+    fun `detects bukkit and spigot from plugin yml`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/plugin.yml").apply {
+            parentFile.mkdirs()
+            writeText(
+                """
+                name: MyPlugin
+                version: '1.0'
+                """.trimIndent(),
+            )
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(setOf("bukkit", "spigot"), result?.loaders?.toSet())
+        assertEquals(TerracottaEnvironment.SERVER_ONLY, result?.environment)
+    }
+
+    @Test
+    fun `detects fabric universal environment`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "src/main/resources/fabric.mod.json").apply {
+            parentFile.mkdirs()
+            writeText(
+                """
+                {
+                  "schemaVersion": 1,
+                  "id": "my-mod",
+                  "environment": "*"
+                }
+                """.trimIndent(),
+            )
+        }
+
+        val result = LoaderMetadataDetector().detect(context(tempDir))
+
+        assertEquals(TerracottaEnvironment.UNIVERSAL, result?.environment)
+    }
+
+    private fun context(tempDir: File): ProjectMetadataContext = ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
 }

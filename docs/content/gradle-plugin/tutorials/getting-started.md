@@ -55,6 +55,8 @@ providers:
 
 The version is automatically discovered from your Gradle build (via the `jar` task output).
 
+You can omit fields such as `loaders`, `environment`, `license`, `description`, `summary`, and `changelog` when the corresponding project files (e.g. `fabric.mod.json`, `README.md`, `LICENSE`, `CHANGELOG.md`) are present. Terracotta detects them automatically. Values in `terracotta.yml` override detected values, and values in the Kotlin DSL override both.
+
 If you prefer to configure Terracotta in `build.gradle.kts`, see the [Kotlin DSL how-to guide](../how-to-guides/kotlin-dsl-configuration.md). You can also mix both: put shared metadata in `terracotta.yml` and override specific values in the Kotlin DSL.
 
 ## 3. Configure Authentication

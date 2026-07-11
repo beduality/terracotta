@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
@@ -119,5 +120,63 @@ class TerracottaConfigLoaderTest {
         assertEquals("my-modrinth", config.providers["modrinth"]?.projectId)
         assertEquals("my-hangar", config.providers["hangar"]?.projectId)
         assertEquals("hangar-token", config.providers["hangar"]?.token)
+    }
+
+    @Test
+    fun `returns empty config when file is empty`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText("")
+
+        val config = TerracottaConfigLoader.load(file)
+
+        assertNull(config.name)
+        assertTrue(config.providers.isEmpty())
+    }
+
+    @Test
+    fun `returns empty config when root is not a map`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText("- a list\n- not a map\n")
+
+        val config = TerracottaConfigLoader.load(file)
+
+        assertNull(config.name)
+        assertTrue(config.providers.isEmpty())
+    }
+
+    @Test
+    fun `throws when yaml is malformed`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText("name: \"unclosed string")
+
+        assertThrows<Exception> {
+            TerracottaConfigLoader.load(file)
+        }
+    }
+
+    @Test
+    fun `ignores non-list values for list fields`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText(
+            """
+            name: Plugin
+            tags: paper
+            loaders: fabric
+            """.trimIndent(),
+        )
+
+        val config = TerracottaConfigLoader.load(file)
+
+        assertEquals("Plugin", config.name)
+        assertNull(config.tags)
+        assertNull(config.loaders)
     }
 }

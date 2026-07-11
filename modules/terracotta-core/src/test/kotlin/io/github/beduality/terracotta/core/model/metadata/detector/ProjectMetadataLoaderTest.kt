@@ -1,10 +1,11 @@
 package io.github.beduality.terracotta.core.detect
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
@@ -143,5 +144,49 @@ class ProjectMetadataLoaderTest {
         val result = ProjectMetadataLoader.load(ProjectFileCache(tempDir), source)
 
         assertEquals(TerracottaReleaseType.BETA, result.releaseType)
+    }
+
+    @Test
+    fun `ignores blank source summary`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "README.md").writeText(
+            """
+            # My Plugin
+
+            Readme summary.
+            """.trimIndent(),
+        )
+
+        val source = ProjectMetadataSource(summary = "   ", version = "1.0.0")
+        val result = ProjectMetadataLoader.load(ProjectFileCache(tempDir), source)
+
+        assertEquals("Readme summary.", result.summary)
+    }
+
+    @Test
+    fun `combines multiple detected values`(
+        @TempDir tempDir: File,
+    ) {
+        File(tempDir, "README.md").writeText(
+            """
+            # My Plugin
+
+            Short summary.
+
+            Longer description.
+            """.trimIndent(),
+        )
+        File(tempDir, "LICENSE").writeText("MIT License")
+        File(tempDir, "src/main/resources/fabric.mod.json").apply {
+            parentFile.mkdirs()
+            writeText("{}")
+        }
+
+        val result = ProjectMetadataLoader.load(ProjectFileCache(tempDir), ProjectMetadataSource())
+
+        assertEquals("Short summary.", result.summary)
+        assertEquals("MIT", result.license)
+        assertTrue(result.loaders?.contains("fabric") == true)
     }
 }

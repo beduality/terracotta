@@ -1,6 +1,5 @@
 package io.github.beduality.terracotta.provider.modrinth
 
-import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient

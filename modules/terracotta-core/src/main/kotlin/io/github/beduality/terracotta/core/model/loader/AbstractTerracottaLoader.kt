@@ -14,8 +14,7 @@ abstract class AbstractTerracottaLoader(
 
     override fun toString(): String = id
 
-    override fun equals(other: Any?): Boolean =
-        other is TerracottaLoader && other.id == id
+    override fun equals(other: Any?): Boolean = other is TerracottaLoader && other.id == id
 
     override fun hashCode(): Int = id.hashCode()
 }

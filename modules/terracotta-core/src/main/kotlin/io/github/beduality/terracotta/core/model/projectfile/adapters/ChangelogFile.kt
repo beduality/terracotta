@@ -1,6 +1,5 @@
 package io.github.beduality.terracotta.core.model.projectfile
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import io.github.beduality.terracotta.core.model.projectfile.convention.ChangelogConvention
 import io.github.beduality.terracotta.core.model.projectfile.convention.KeepAChangelogConvention
 

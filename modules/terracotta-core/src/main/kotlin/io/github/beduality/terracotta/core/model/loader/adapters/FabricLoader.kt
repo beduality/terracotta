@@ -1,15 +1,14 @@
 package io.github.beduality.terracotta.core.model.loader
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import io.github.beduality.terracotta.core.model.AbstractTerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
 open class FabricLoader : AbstractTerracottaLoader("fabric", "Fabric") {
-    override fun detect(cache: ProjectFileCache): Boolean =
-        cache.read("src/main/resources/fabric.mod.json") != null
+    override fun detect(cache: ProjectFileCache): Boolean = cache.read("src/main/resources/fabric.mod.json") != null
 
     override fun detectEnvironment(cache: ProjectFileCache): TerracottaEnvironment? {
         val content = cache.read("src/main/resources/fabric.mod.json") ?: return null

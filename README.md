@@ -2,7 +2,7 @@
 
 [Docs](https://beduality.github.io/terracotta/) | [Contributing](./CONTRIBUTING.md) | [MIT License](./LICENSE)
 
-Declarative Minecraft project registry management tool. Define your project metadata, description, tags, and version artifacts in your `build.gradle.kts` and sync them to registries like Modrinth.
+Declarative Minecraft project registry management tool. Define your project metadata in `terracotta.yml` (or in your `build.gradle.kts`) and sync it to registries like Modrinth. Terracotta auto-detects loaders, environment, license, and description from standard project files when you leave them unset.
 
 ## Installation
 
@@ -19,31 +19,24 @@ See the [Gradle Plugin Documentation](https://beduality.github.io/terracotta/) f
 
 ## Usage
 
-Create a `terracotta.yml` in your project root:
+Create a `terracotta.yml` in your project root. Only the values that cannot be inferred from your project files need to be declared explicitly:
 
 ```yaml
 name: "My Plugin"
-summary: "Lightweight Paper plugin"
-description: "A useful Paper plugin."
-license: "MIT"
 tags:
   - paper
   - utility
 gameVersions:
   - "1.21.8"
   - "1.21.7"
-loaders:
-  - paper
-environment: server_only
 releaseType: release
-changelog: "Initial release"
 
 providers:
   modrinth:
     projectId: "my-modrinth-project-id"
 ```
 
-Versions are automatically discovered from your build.
+`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` are automatically detected from files such as `fabric.mod.json`, `README.md`, `LICENSE`, and `CHANGELOG.md`. You can override any detected value by adding it to `terracotta.yml`, and you can change how files are interpreted with the `convention:` block. See the [Config documentation](https://beduality.github.io/terracotta/config/) for the full schema and convention options.
 
 Run tasks:
 

@@ -52,6 +52,5 @@ class LicenseFileDetectorTest {
         assertNull(result?.license)
     }
 
-    private fun context(tempDir: File): ProjectMetadataContext =
-        ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
+    private fun context(tempDir: File): ProjectMetadataContext = ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
 }

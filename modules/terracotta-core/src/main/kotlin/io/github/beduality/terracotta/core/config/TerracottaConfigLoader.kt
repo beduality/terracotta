@@ -25,6 +25,7 @@ object TerracottaConfigLoader {
     private fun parse(map: Map<String, Any?>): TerracottaConfig {
         @Suppress("UNCHECKED_CAST")
         val providersMap = map["providers"] as? Map<String, Any?>
+
         @Suppress("UNCHECKED_CAST")
         val conventionMap = map["convention"] as? Map<String, Any?>
 

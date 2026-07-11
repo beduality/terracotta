@@ -46,14 +46,16 @@ class TerracottaProjectMetadataTest {
 
     @Test
     fun `merge combines lists with distinct entries`() {
-        val first = TerracottaProjectMetadata(
-            gameVersions = listOf("1.21.1", "1.21.2"),
-            loaders = listOf("fabric"),
-        )
-        val second = TerracottaProjectMetadata(
-            gameVersions = listOf("1.21.2", "1.21.3"),
-            loaders = listOf("forge"),
-        )
+        val first =
+            TerracottaProjectMetadata(
+                gameVersions = listOf("1.21.1", "1.21.2"),
+                loaders = listOf("fabric"),
+            )
+        val second =
+            TerracottaProjectMetadata(
+                gameVersions = listOf("1.21.2", "1.21.3"),
+                loaders = listOf("forge"),
+            )
 
         val merged = first.merge(second)
 

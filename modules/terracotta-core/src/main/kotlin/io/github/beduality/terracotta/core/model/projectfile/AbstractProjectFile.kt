@@ -1,7 +1,5 @@
 package io.github.beduality.terracotta.core.model.projectfile
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
-
 /**
  * Base class for a logical project file that may be loaded from the project
  * directory.

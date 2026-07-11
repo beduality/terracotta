@@ -79,6 +79,5 @@ class ReadmeMetadataDetectorTest {
         assertEquals("First real paragraph.", result?.summary)
     }
 
-    private fun context(tempDir: File): ProjectMetadataContext =
-        ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
+    private fun context(tempDir: File): ProjectMetadataContext = ProjectMetadataContext(ProjectFileCache(tempDir), ProjectMetadataSource())
 }

@@ -34,9 +34,10 @@ class TerracottaLoaderTest {
 
     @Test
     fun `registration allows custom loaders`() {
-        val customLoader = object : AbstractTerracottaLoader("custom", "Custom") {
-            override fun detect(cache: io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache): Boolean = false
-        }
+        val customLoader =
+            object : AbstractTerracottaLoader("custom", "Custom") {
+                override fun detect(cache: io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache): Boolean = false
+            }
         TerracottaLoaderRegistry.register(customLoader)
 
         assertEquals(customLoader, TerracottaLoaderRegistry.fromId("custom"))

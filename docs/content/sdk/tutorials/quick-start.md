@@ -21,8 +21,8 @@ This tutorial will get you up and running with the Terracotta SDK in under 10 mi
 
     ```kotlin
     dependencies {
-        implementation("io.github.beduality:terracotta-core:0.1.1")
-        implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
+        implementation("io.github.beduality:terracotta-core:0.1.3")
+        implementation("io.github.beduality:terracotta-provider-modrinth:0.1.3")
     }
     ```
 
@@ -33,12 +33,12 @@ This tutorial will get you up and running with the Terracotta SDK in under 10 mi
         <dependency>
             <groupId>io.github.beduality</groupId>
             <artifactId>terracotta-core</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.3</version>
         </dependency>
         <dependency>
             <groupId>io.github.beduality</groupId>
             <artifactId>terracotta-provider-modrinth</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.3</version>
         </dependency>
     </dependencies>
     ```
@@ -63,7 +63,9 @@ implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 Define your project configuration:
 
 ```kotlin
-import io.github.beduality.terracotta.core.model.*
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaVersion
 
 val localProject = TerracottaProject(
     id = "my-mod",
@@ -75,7 +77,7 @@ val localProject = TerracottaProject(
             version = "1.0.0",
             artifactPath = "build/libs/my-mod-1.0.0.jar",
             gameVersions = listOf("1.21"),
-            loaders = listOf(TerracottaLoader.FABRIC),
+            loaders = listOf("fabric"),
             environment = TerracottaEnvironment.CLIENT_ONLY,
         )
     ),

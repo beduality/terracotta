@@ -23,7 +23,7 @@ plugins {
 
 **Settings**:
 
-- All projects share version `io.github.beduality:0.1.1`
+- All projects share group `io.github.beduality` and version from `gradle.properties`
 - Gradle plugins use version catalog from `gradle/libs.versions.toml`
 - Spotless for code formatting
 - Dokka for API documentation

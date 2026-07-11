@@ -1,11 +1,10 @@
 package io.github.beduality.terracotta.core.detect
 
-import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
-import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
-import io.github.beduality.terracotta.core.model.releasetype.detectReleaseType
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
 import io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetadata
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
+import io.github.beduality.terracotta.core.model.releasetype.detectReleaseType
 import java.util.ServiceLoader
 
 /**
@@ -37,5 +36,4 @@ object ProjectMetadataLoader {
         }
         return metadata
     }
-
 }

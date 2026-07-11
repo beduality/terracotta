@@ -35,27 +35,29 @@ providers:                        # Per-provider configuration
 
 ## Top-level Fields
 
+All top-level fields are optional. When a value is omitted, the Gradle plugin falls back to auto-detected values from project files, then to Gradle defaults (e.g. `project.name` or `project.description`). Values set in the Kotlin DSL always override values from `terracotta.yml`.
+
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `name` | `string` | required | Project display name. |
-| `summary` | `string` | required | Short project summary. |
-| `description` | `string` | required | Full project description. |
+| `name` | `string` | auto-detected / `project.name` | Project display name. |
+| `summary` | `string` | auto-detected / `project.description` | Short project summary. |
+| `description` | `string` | auto-detected / `README.md` | Full project description. |
 | `tags` | `list<string>` | `[]` | Project tags or categories. |
-| `license` | `string` | required | License name or SPDX identifier. |
+| `license` | `string` | auto-detected / `LICENSE` | License name or SPDX identifier. |
 | `gameVersions` | `list<string>` | `[]` | Supported Minecraft versions. |
-| `loaders` | `list<string>` | `[]` | Supported loaders. See valid loader IDs below. |
-| `environment` | `string` | `server_only` | Runtime environment. |
-| `releaseType` | `string` | `release` | Stability channel for the uploaded version. |
-| `changelog` | `string` | `""` | Changelog text for the version upload. |
+| `loaders` | `list<string>` | auto-detected | Supported loaders. See valid loader IDs below. |
+| `environment` | `string` | auto-detected / `server_only` | Runtime environment. |
+| `releaseType` | `string` | auto-detected / `release` | Stability channel for the uploaded version. |
+| `changelog` | `string` | auto-detected / `""` | Changelog text for the version upload. |
 
 ## Convention Fields
 
-Each entry under `convention:` configures how project files are interpreted.
+Each entry under `convention:` selects the convention used to interpret project files.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `readme` | `string` | `terracotta` | README convention. |
-| `changelog` | `string` | `keep-a-changelog` | Changelog convention. |
+| `readme` | `string` | `terracotta` | README convention. `terracotta` uses the full file as the description and the first non-heading paragraph as the summary. |
+| `changelog` | `string` | `keep-a-changelog` | Changelog convention. `keep-a-changelog` extracts the section under `## [version]` from `CHANGELOG.md`. |
 
 ## Provider Fields
 
@@ -63,8 +65,24 @@ Each entry under `providers:` uses the provider ID (e.g. `modrinth`, `hangar`) a
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `projectId` | `string` | required | Project slug or ID on the provider. |
+| `projectId` | `string` | none | Project slug or ID on the provider. Required at runtime but can be supplied in the Kotlin DSL. |
 | `token` | `string` | `<PROVIDER>_TOKEN` env var | API token for the provider. |
+
+---
+
+## Auto-Detection
+
+Terracotta can infer several fields from standard project files when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying Kotlin DSL overrides.
+
+| Field | Source | Notes |
+|-------|--------|-------|
+| `loaders` | `fabric.mod.json`, `META-INF/mods.toml`, `paper-plugin.yml`, `plugin.yml`, `bungee.yml`, `velocity-plugin.json`, `mods.toml` (Sponge), etc. | Loader forks are resolved automatically; Paper also implies Spigot and Bukkit. |
+| `environment` | Loader-specific descriptors (e.g. `fabric.mod.json` `environment` key) | Defaults to `server_only` when not detected. |
+| `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers (MIT, Apache-2.0, etc.) are recognized. |
+| `description` | `README.md` | Full file content. |
+| `summary` | `README.md` | First non-heading paragraph. |
+| `releaseType` | Gradle project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
+| `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
 
 ---
 
@@ -86,7 +104,7 @@ Use the lowercase loader ID in `terracotta.yml`:
 - `velocity`
 - `waterfall`
 
-In the Kotlin DSL you can use the typed enum, e.g. `TerracottaLoader.PAPER`.
+In the Kotlin DSL you can pass the same lowercase string IDs to `loaders.set(listOf(...))`.
 
 ---
 

@@ -7,6 +7,10 @@ The Terracotta SDK provides a modular, platform-agnostic API for Minecraft proje
 | Package | Purpose |
 |---------|---------|
 | `io.github.beduality.terracotta.core.model` | Canonical data models |
+| `io.github.beduality.terracotta.core.model.loader` | Loader interface and registry |
+| `io.github.beduality.terracotta.core.model.metadata` | Project metadata models and source |
+| `io.github.beduality.terracotta.core.model.projectfile` | Project file cache and conventions |
+| `io.github.beduality.terracotta.core.config` | `terracotta.yml` parsing |
 | `io.github.beduality.terracotta.core.provider` | Provider interfaces |
 | `io.github.beduality.terracotta.core.diff` | Diff engine and operations |
 | `io.github.beduality.terracotta.provider.modrinth` | Modrinth provider implementation |
@@ -70,15 +74,27 @@ data class TerracottaVersion(
 
 ### TerracottaLoader
 
-| Value | ID | Description |
-|-------|-----|-------------|
-| `BUKKIT` | `"bukkit"` | Bukkit/Spigot/Paper |
-| `FABRIC` | `"fabric"` | Fabric loader |
-| `FORGE` | `"forge"` | Forge loader |
-| `NEOFORGE` | `"neoforge"` | NeoForge loader |
-| `PAPER` | `"paper"` | Paper server |
-| `QUILT` | `"quilt"` | QUILT loader |
-| *(and more)* | | |
+`TerracottaLoader` is an interface representing a mod/plugin platform. Implementations are registered in `TerracottaLoaderRegistry` and detected from project files.
+
+Built-in loader IDs:
+
+| ID | Description |
+|-----|-------------|
+| `"bukkit"` | Bukkit API |
+| `"bungeecord"` | BungeeCord proxy |
+| `"fabric"` | Fabric loader |
+| `"folia"` | Folia server |
+| `"forge"` | Forge loader |
+| `"neoforge"` | NeoForge loader |
+| `"paper"` | Paper server (implies `spigot` and `bukkit`) |
+| `"purpur"` | Purpur server |
+| `"quilt"` | Quilt loader |
+| `"spigot"` | Spigot server (implies `bukkit`) |
+| `"sponge"` | Sponge API |
+| `"velocity"` | Velocity proxy |
+| `"waterfall"` | Waterfall proxy |
+
+Loaders can declare a parent loader so that detecting a fork also records its parent chain (e.g. Paper implies Spigot and Bukkit).
 
 ### TerracottaReleaseType
 
@@ -242,7 +258,7 @@ class ModrinthClient(token: String) {
 ### Core SDK
 
 ```kotlin
-implementation("io.github.beduality:terracotta-core:0.1.1")
+implementation("io.github.beduality:terracotta-core:0.1.3")
 ```
 
 | Dependency | Version | Purpose |
@@ -254,7 +270,7 @@ implementation("io.github.beduality:terracotta-core:0.1.1")
 ### Modrinth Provider
 
 ```kotlin
-implementation("io.github.beduality:terracotta-provider-modrinth:0.1.1")
+implementation("io.github.beduality:terracotta-provider-modrinth:0.1.3")
 ```
 
 | Dependency | Version | Purpose |

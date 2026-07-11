@@ -16,15 +16,14 @@ class TerracottaProjectMetadata(
     environment: TerracottaEnvironment? = null,
     releaseType: TerracottaReleaseType? = null,
 ) : AbstractProjectMetadata(
-    name = name,
-    summary = summary,
-    description = description,
-    license = license,
-    gameVersions = gameVersions,
-    loaders = loaders,
-    environment = environment,
-    releaseType = releaseType,
-) {
-    override fun merge(other: ProjectMetadata): TerracottaProjectMetadata =
-        super.merge(other) as TerracottaProjectMetadata
+        name = name,
+        summary = summary,
+        description = description,
+        license = license,
+        gameVersions = gameVersions,
+        loaders = loaders,
+        environment = environment,
+        releaseType = releaseType,
+    ) {
+    override fun merge(other: ProjectMetadata): TerracottaProjectMetadata = super.merge(other) as TerracottaProjectMetadata
 }

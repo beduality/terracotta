@@ -64,4 +64,21 @@ class ReadmeFileTest {
         assertNull(file.description)
         assertNull(file.summary)
     }
+
+    @Test
+    fun `returns null summary when content has only headings`() {
+        val content =
+            """
+            # My Project
+
+            ## Section
+
+            ### Subsection
+            """.trimIndent()
+
+        val file = ReadmeFile(content)
+
+        assertEquals(content, file.description)
+        assertNull(file.summary)
+    }
 }
