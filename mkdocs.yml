@@ -86,7 +86,7 @@ nav:
       - Installation: content/gradle-plugin/tutorials/installation.md
       - Getting Started: content/gradle-plugin/tutorials/getting-started.md
     - How-To Guides:
-      - CI/CD Deployment: content/gradle-plugin/how-to-guides/ci-cd-setup.md
+      - Adding Hangar: content/gradle-plugin/how-to-guides/adding-hangar-provider.md
       - Kotlin DSL Configuration: content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md
     - Reference:
       - Tasks Reference: content/gradle-plugin/reference/tasks.md
@@ -100,10 +100,12 @@ nav:
     - How-To Guides:
       - Custom Providers: content/sdk/how-to-guides/custom-provider.md
       - Modrinth Provider: content/sdk/how-to-guides/modrinth-provider.md
+      - Hangar Provider: content/sdk/how-to-guides/hangar-provider.md
     - Reference:
       - API Reference: content/sdk/reference/api.md
       - Core API Docs: apidocs/terracotta-core/index.html
       - Modrinth Provider API Docs: apidocs/terracotta-provider-modrinth/index.html
+      - Hangar Provider API Docs: apidocs/terracotta-provider-hangar/index.html
       - Provider API: content/sdk/reference/provider-api.md
       - Installation: content/sdk/reference/installation.md
     - Explanation:

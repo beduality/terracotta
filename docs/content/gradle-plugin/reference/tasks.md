@@ -32,7 +32,7 @@ Applies all planned operations, updating registry metadata and uploading missing
 ```
 
 **Requirements:**
-- Valid per-provider tokens configured (e.g., `MODRINTH_TOKEN` environment variable).
+- Valid per-provider tokens configured (e.g., `MODRINTH_TOKEN` for Modrinth or `HANGAR_TOKEN` for Hangar).
 
 ---
 

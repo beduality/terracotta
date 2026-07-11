@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Hangar**
+
+- Added Hangar provider module so Terracotta can sync projects and versions with the PaperMC Hangar registry.
+  - Added JWT authentication using Hangar API keys.
+  - Added loader-to-platform mapping so Bukkit/Spigot/Paper/Purpur/Folia projects are published as `PAPER`, Velocity as `VELOCITY`, and BungeeCord/Waterfall as `WATERFALL`.
+  - Added automatic `Release`/`Snapshot` channel creation before uploading versions to Hangar.
+  - Added multipart version uploads with per-platform game version dependencies.
+
+### Removed
+
+**Docs**
+
+- Removed the `CI/CD Deployment` how-to guide from the docs navigation because the current stateless design does not support the documented workflow, preventing users from following an inaccurate guide.
+
 ## [0.1.4] - 2026-07-11
 
 ### Added

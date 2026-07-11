@@ -31,6 +31,9 @@ providers:                        # Per-provider configuration
   modrinth:
     projectId: "my-plugin"        # Project slug or ID on the provider
     token: "optional-api-token"     # Optional; MODRINTH_TOKEN env var is used if omitted
+  hangar:
+    projectId: "my-plugin"        # Project slug on Hangar
+    token: "optional-api-key"       # Optional; HANGAR_TOKEN env var is used if omitted
 ```
 
 ## Top-level Fields

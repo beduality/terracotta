@@ -52,6 +52,24 @@ If you need specific provider implementations, you can also add them as dependen
     </dependency>
     ```
 
+### Hangar Provider
+
+=== "Gradle (Kotlin)"
+
+    ```kotlin
+    implementation("io.github.beduality:terracotta-provider-hangar:0.1.3")
+    ```
+
+=== "Maven"
+
+    ```xml
+    <dependency>
+        <groupId>io.github.beduality</groupId>
+        <artifactId>terracotta-provider-hangar</artifactId>
+        <version>0.1.3</version>
+    </dependency>
+    ```
+
 ## Usage
 
 After adding the dependencies, you can use the Terracotta SDK in your code:

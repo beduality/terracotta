@@ -63,7 +63,7 @@ If you prefer to configure Terracotta in `build.gradle.kts`, see the [Kotlin DSL
 
 Create a Modrinth API token from your Modrinth account settings.
 
-Set the token as an environment variable for Modrinth:
+Set the token as an environment variable:
 
 ```=== "Linux / macOS"
 

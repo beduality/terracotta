@@ -25,6 +25,10 @@ terracotta {
             projectId.set("my-modrinth-project-id")
             token.set(System.getenv("MODRINTH_TOKEN"))
         }
+        create("hangar") {
+            projectId.set("my-hangar-project-slug")
+            token.set(System.getenv("HANGAR_TOKEN"))
+        }
     }
 }
 ```
