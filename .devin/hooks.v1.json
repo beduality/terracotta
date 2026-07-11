@@ -1,0 +1,14 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "^edit$",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "python3 .devin/hooks/format-kotlin-on-edit.py",
+          "timeout": 120
+        }
+      ]
+    }
+  ]
+}
