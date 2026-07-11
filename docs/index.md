@@ -1,52 +1,47 @@
 # Terracotta
 
-Terracotta is a declarative Minecraft project registry management tool. Define your project metadata in `terracotta.yml` (or in your `build.gradle.kts`) and sync it to registries like Modrinth and Hangar. Terracotta auto-detects loaders, environment, license, and description from standard project files when you leave them unset.
+Declarative publishing for Minecraft projects. Define your metadata once in `terracotta.yml` or in your Gradle build, then sync releases to [Modrinth](https://modrinth.com/) and [Hangar](https://hangar.papermc.io/) from a single command.
 
 ---
 
 <div class="grid cards" markdown>
 
--   :material-file-document-edit-outline:{ .lg .middle } __Declarative Configuration__
+-   :material-file-document-edit-outline:{ .lg .middle } __Define Once__
 
     ---
 
-    Define your project info, description, tags, license, and version artifacts in `terracotta.yml` or your `build.gradle.kts`.
+    Describe your project, versions, loaders, and supported game versions in one place. Terracotta auto-detects what it can from `README.md`, `LICENSE`, `CHANGELOG.md`, and platform-specific files.
 
-    [:octicons-arrow-right-24: Getting started](content/modules/gradle-plugin/tutorials/getting-started.md)
-
--   :material-eye-outline:{ .lg .middle } __Dry Runs (Plan)__
+-   :material-eye-outline:{ .lg .middle } __Plan Before You Publish__
 
     ---
 
-    Preview all updates, tag changes, and version uploads before executing them, preventing incorrect uploads or metadata state drift.
+    Run `./gradlew terracottaPlan` to see exactly what will change on every registry before any upload happens.
 
-    [:octicons-arrow-right-24: Gradle tasks](content/modules/gradle-plugin/reference/tasks.md)
-
--   :material-publish:{ .lg .middle } __Maven SDK__
+-   :material-publish:{ .lg .middle } __Publish Everywhere__
 
     ---
 
-    Integrate Terracotta's core directly into custom automation pipelines.
+    Run `./gradlew terracottaApply` to create projects, upload versions, update metadata, and synchronize tags across Modrinth and Hangar in one step.
 
-    [:octicons-arrow-right-24: Core API](content/modules/core/reference/api.md)
-
--   :material-sync:{ .lg .middle } __Provider Integrations__
+-   :material-puzzle:{ .lg .middle } __Pluggable by Design__
 
     ---
 
-    Add Modrinth or Hangar providers to the Gradle plugin and publish to multiple registries from a single build.
-
-    [:octicons-arrow-right-24: Integration guides](content/integration/README.md)
+    The core library, provider interfaces, and Gradle plugin are separate modules. Add new registries or build-tool integrations without changing the rest of the codebase.
 
 </div>
 
-## How It Works
+## What Terracotta does
 
-1. You configure Terracotta in `terracotta.yml` or your `build.gradle.kts`.
-2. Run `./gradlew terracottaPlan` to view a diff of local configuration vs remote registry state.
-3. Run `./gradlew terracottaApply` to push changes (metadata, upload versions, synchronize tags) to the remote registry.
+Terracotta compares the state you want with the state that exists on each registry, then computes and applies the smallest set of changes needed:
 
-Example output from `terracottaPlan`:
+1. **Read local state** from `terracotta.yml`, `build.gradle.kts`, and detected project files.
+2. **Fetch remote state** from each configured provider.
+3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateTags`, and `UploadVersion`.
+4. **Apply the operations** or print a human-readable plan first.
+
+Example plan output:
 
 ```text
 ~ Update summary (from: "Old summary" to: "Lightweight Paper plugin")
@@ -56,22 +51,39 @@ Example output from `terracottaPlan`:
 
 ## Installation
 
-Add the Terracotta plugin and the provider you want to use (for example, Modrinth) to your `build.gradle.kts`:
+=== "Gradle plugin"
 
-```kotlin
-plugins {
-    id("io.github.beduality.terracotta") version "0.2.0"
-}
-```
+    Add the plugin to your `build.gradle.kts`:
 
-See the [Gradle Plugin installation guide](content/modules/gradle-plugin/tutorials/installation.md) for more details, or the [Core installation guide](content/modules/core/tutorials/installation.md) if you want to use Terracotta as a library.
+    ```kotlin
+    plugins {
+        id("io.github.beduality.terracotta") version "0.2.0"
+    }
+    ```
 
-## Usage
+    Then add a provider:
 
-Create a `terracotta.yml` in your project root. Only the values that cannot be inferred from your project files need to be declared explicitly:
+    - [Adding Modrinth to the Gradle plugin](content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md)
+    - [Adding Hangar to the Gradle plugin](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md)
+
+=== "Core library"
+
+    Add the core and provider dependencies directly:
+
+    ```kotlin
+    dependencies {
+        implementation("io.github.beduality:terracotta-core:0.2.0")
+        implementation("io.github.beduality:terracotta-provider-modrinth:0.2.0")
+    }
+    ```
+
+    See the [Core installation guide](content/modules/core/tutorials/installation.md) and the [Modrinth provider tutorial](content/modules/provider-modrinth/tutorials/using-modrinth.md) for a complete walkthrough.
+
+## A minimal `terracotta.yml`
 
 ```yaml
 name: "My Plugin"
+summary: "Lightweight Paper plugin"
 tags:
   - paper
   - utility
@@ -87,38 +99,39 @@ providers:
     projectId: "my-hangar-project-slug"
 ```
 
-`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` are automatically detected from files such as `fabric.mod.json`, `README.md`, `LICENSE`, and `CHANGELOG.md`. You can override any detected value by adding it to `terracotta.yml`, and you can change how files are interpreted with the `convention:` block. See the [Config Schema](content/modules/core/reference/config-schema.md) for the full schema and convention options.
+`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` can be automatically detected from files such as `fabric.mod.json`, `paper-plugin.yml`, `README.md`, `LICENSE`, and `CHANGELOG.md`. See the [Config Schema reference](content/modules/core/reference/config-schema.md) for every available field.
 
-Provider-specific setup guides: [Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md) and [Modrinth](content/modules/provider-modrinth/tutorials/using-modrinth.md).
+## Common tasks
 
-Run tasks:
+| Task | Command |
+|---|---|
+| Plan changes across all providers | `./gradlew terracottaPlan` |
+| Apply changes across all providers | `./gradlew terracottaApply` |
+| Plan only Modrinth | `./gradlew terracottaPlanModrinth` |
+| Apply only Modrinth | `./gradlew terracottaApplyModrinth` |
 
-- Run a dry run on all providers:
-  ```bash
-  ./gradlew terracottaPlan
-  ```
+See the [Gradle tasks reference](content/modules/gradle-plugin/reference/tasks.md) for the full list.
 
-- Apply changes to all providers:
-  ```bash
-  ./gradlew terracottaApply
-  ```
+## Documentation
 
-## What's next?
+Terracotta docs are organized by what you are trying to do:
 
-Choose the path that matches how you want to use Terracotta:
+- **[Quick Start](content/modules/gradle-plugin/tutorials/getting-started.md)**: Publish your first release with the Gradle plugin.
+- **[Integration](content/integration/README.md)**: Add Modrinth or Hangar to the Gradle plugin.
+- **[Modules](content/modules/overview.md)**
+  - [Core](content/modules/core/README.md): Domain models, diff engine, and provider SPI.
+  - [Gradle Plugin](content/modules/gradle-plugin/README.md): DSL, tasks, and build integration.
+  - [Modrinth Provider](content/modules/provider-modrinth/README.md): Modrinth registry integration.
+  - [Hangar Provider](content/modules/provider-hangar/README.md): Hangar registry integration.
+- **[Repo](content/repo/README.md)**: Build, test, contribute, and release Terracotta itself.
 
-- **New user?** Follow the [Gradle plugin getting-started tutorial](content/modules/gradle-plugin/tutorials/getting-started.md) to publish your first release.
-- **Want to add a provider?** See the integration guides for [Modrinth](content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md) and [Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md).
-- **Using Terracotta as a library?** Read the [Core installation guide](content/modules/core/tutorials/installation.md) and the [provider interfaces reference](content/modules/core/reference/provider-interfaces.md).
-- **Need the full schema?** Check the [Config Schema reference](content/modules/core/reference/config-schema.md).
-
-## Setup Requirements
+## Setup requirements
 
 | Component | Version |
 |---|---|
-| JVM / JDK | 17+ |
+| JVM / JDK | 17+ (builds use JDK 21) |
 | Gradle | 8.0+ |
-| Target Registries | Modrinth, Hangar |
+| Target registries | Modrinth, Hangar |
 
 ## Links
 
