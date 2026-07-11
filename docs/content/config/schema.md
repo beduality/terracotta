@@ -23,6 +23,10 @@ environment: server_only          # client_only | server_only | universal
 releaseType: release              # release | beta | alpha
 changelog: "Initial release"      # Version changelog
 
+convention:                       # README and changelog conventions
+  readme: terracotta              # terracotta
+  changelog: keep-a-changelog     # keep-a-changelog
+
 providers:                        # Per-provider configuration
   modrinth:
     projectId: "my-plugin"        # Project slug or ID on the provider
@@ -43,6 +47,15 @@ providers:                        # Per-provider configuration
 | `environment` | `string` | `server_only` | Runtime environment. |
 | `releaseType` | `string` | `release` | Stability channel for the uploaded version. |
 | `changelog` | `string` | `""` | Changelog text for the version upload. |
+
+## Convention Fields
+
+Each entry under `convention:` configures how project files are interpreted.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `readme` | `string` | `terracotta` | README convention. |
+| `changelog` | `string` | `keep-a-changelog` | Changelog convention. |
 
 ## Provider Fields
 

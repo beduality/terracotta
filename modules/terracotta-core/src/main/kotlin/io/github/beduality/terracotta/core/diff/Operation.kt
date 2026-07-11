@@ -1,6 +1,6 @@
 package io.github.beduality.terracotta.core.diff
 
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 sealed interface Operation {
     val description: String

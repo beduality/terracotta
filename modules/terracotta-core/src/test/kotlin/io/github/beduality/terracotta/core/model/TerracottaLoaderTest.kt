@@ -7,17 +7,17 @@ import org.junit.jupiter.api.assertThrows
 
 class TerracottaLoaderTest {
     @Test
-    fun `fromId resolves all valid entries`() {
-        TerracottaLoader.entries.forEach { entry ->
-            assertEquals(entry, TerracottaLoader.fromId(entry.id))
+    fun `fromId resolves all built-in loaders`() {
+        TerracottaLoaderRegistry.all().forEach { loader ->
+            assertEquals(loader, TerracottaLoaderRegistry.fromId(loader.id))
         }
     }
 
     @Test
     fun `fromId is case-insensitive`() {
-        TerracottaLoader.entries.forEach { entry ->
-            assertEquals(entry, TerracottaLoader.fromId(entry.id.uppercase()))
-            assertEquals(entry, TerracottaLoader.fromId(entry.id.replaceFirstChar { it.uppercase() }))
+        TerracottaLoaderRegistry.all().forEach { loader ->
+            assertEquals(loader, TerracottaLoaderRegistry.fromId(loader.id.uppercase()))
+            assertEquals(loader, TerracottaLoaderRegistry.fromId(loader.id.replaceFirstChar { it.uppercase() }))
         }
     }
 
@@ -25,10 +25,20 @@ class TerracottaLoaderTest {
     fun `fromId throws on invalid input`() {
         val ex =
             assertThrows<IllegalArgumentException> {
-                TerracottaLoader.fromId("invalid_loader")
+                TerracottaLoaderRegistry.fromId("invalid_loader")
             }
         assertTrue(ex.message!!.contains("invalid_loader"))
         assertTrue(ex.message!!.contains("paper"))
         assertTrue(ex.message!!.contains("fabric"))
+    }
+
+    @Test
+    fun `registration allows custom loaders`() {
+        val customLoader = object : AbstractTerracottaLoader("custom", "Custom") {
+            override fun detect(cache: io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache): Boolean = false
+        }
+        TerracottaLoaderRegistry.register(customLoader)
+
+        assertEquals(customLoader, TerracottaLoaderRegistry.fromId("custom"))
     }
 }

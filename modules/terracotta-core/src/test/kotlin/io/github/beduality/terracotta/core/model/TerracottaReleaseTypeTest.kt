@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.model
 
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

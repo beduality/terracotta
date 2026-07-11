@@ -1,5 +1,7 @@
 package io.github.beduality.terracotta.core.model
 
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
+
 data class TerracottaProject(
     val schemaVersion: Int = 1,
     val id: String,

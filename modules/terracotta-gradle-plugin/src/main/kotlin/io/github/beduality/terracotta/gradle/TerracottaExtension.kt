@@ -1,12 +1,12 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.TerracottaLoader
-import io.github.beduality.terracotta.core.model.TerracottaReleaseType
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Nested
 
 abstract class TerracottaExtension {
     abstract val name: Property<String>
@@ -15,10 +15,14 @@ abstract class TerracottaExtension {
     abstract val tags: ListProperty<String>
     abstract val license: Property<String>
     abstract val gameVersions: ListProperty<String>
-    abstract val loaders: ListProperty<TerracottaLoader>
+    abstract val loaders: ListProperty<String>
     abstract val environment: Property<TerracottaEnvironment>
     abstract val releaseType: Property<TerracottaReleaseType>
     abstract val changelog: Property<String>
+
+    @get:Nested
+    abstract val conventions: TerracottaConventionExtension
+
     abstract val artifactFile: RegularFileProperty
 
     abstract val providers: NamedDomainObjectContainer<TerracottaProviderExtension>

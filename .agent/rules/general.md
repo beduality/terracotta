@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-- Features must be modular, composable, production-ready and well-documented.
+- Features must be modular, composable, extensible, production-ready and well-documented.
     - Keep shareable code in `modules/terracotta-core`.
 - Document public APIs with KDoc. Internal code must be self-explanatory.
     - Do not add unnecessary comments.

@@ -40,6 +40,9 @@ class TerracottaConfigLoaderTest {
             environment: server_only
             releaseType: release
             changelog: Initial release
+            convention:
+              readme: terracotta
+              changelog: keep-a-changelog
             providers:
               modrinth:
                 projectId: my-plugin
@@ -59,6 +62,8 @@ class TerracottaConfigLoaderTest {
         assertEquals("server_only", config.environment)
         assertEquals("release", config.releaseType)
         assertEquals("Initial release", config.changelog)
+        assertEquals("terracotta", config.convention.readme)
+        assertEquals("keep-a-changelog", config.convention.changelog)
 
         assertEquals(1, config.providers.size)
         val modrinth = config.providers["modrinth"]
@@ -85,6 +90,8 @@ class TerracottaConfigLoaderTest {
         assertEquals("Minimal Plugin", config.name)
         assertNull(config.summary)
         assertNull(config.tags)
+        assertNull(config.convention.readme)
+        assertNull(config.convention.changelog)
         assertEquals("minimal", config.providers["modrinth"]?.projectId)
         assertNull(config.providers["modrinth"]?.token)
     }

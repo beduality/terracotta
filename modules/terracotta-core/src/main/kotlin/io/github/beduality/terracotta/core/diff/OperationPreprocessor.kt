@@ -1,6 +1,6 @@
 package io.github.beduality.terracotta.core.diff
 
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 object OperationPreprocessor {
     private const val DEFAULT_CHANGELOG = "Uploaded via Terracotta."

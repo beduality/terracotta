@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.model
 
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DynamicTest
@@ -39,18 +40,6 @@ class EnumFromIdPropertyTest {
                         fromId = { TerracottaEnvironment.fromId(it) },
                         expectedEntry = entry,
                         allIds = TerracottaEnvironment.entries.map { it.id },
-                    ),
-                )
-            }
-            TerracottaLoader.entries.forEach { entry ->
-                add(
-                    EnumEntry(
-                        enumName = "TerracottaLoader",
-                        entryName = entry.name,
-                        id = entry.id,
-                        fromId = { TerracottaLoader.fromId(it) },
-                        expectedEntry = entry,
-                        allIds = TerracottaLoader.entries.map { it.id },
                     ),
                 )
             }
@@ -130,11 +119,6 @@ class EnumFromIdPropertyTest {
                     name = "TerracottaEnvironment",
                     fromId = { TerracottaEnvironment.fromId(it) },
                     allIds = TerracottaEnvironment.entries.map { it.id },
-                ),
-                EnumFromId(
-                    name = "TerracottaLoader",
-                    fromId = { TerracottaLoader.fromId(it) },
-                    allIds = TerracottaLoader.entries.map { it.id },
                 ),
                 EnumFromId(
                     name = "TerracottaReleaseType",

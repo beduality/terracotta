@@ -17,7 +17,16 @@ data class TerracottaConfig(
     val environment: String? = null,
     val releaseType: String? = null,
     val changelog: String? = null,
+    val convention: TerracottaConventionConfig = TerracottaConventionConfig(),
     val providers: Map<String, TerracottaProviderConfig> = emptyMap(),
+)
+
+/**
+ * Convention configuration inside `terracotta.yml`.
+ */
+data class TerracottaConventionConfig(
+    val readme: String? = null,
+    val changelog: String? = null,
 )
 
 /**

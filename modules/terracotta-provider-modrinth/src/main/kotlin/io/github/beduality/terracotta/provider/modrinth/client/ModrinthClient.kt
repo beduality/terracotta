@@ -2,7 +2,7 @@ package io.github.beduality.terracotta.provider.modrinth.client
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthVersion
 import io.ktor.client.HttpClient
@@ -121,7 +121,7 @@ class ModrinthClient(
                 put("name", version.displayName)
                 put("version_number", version.version)
                 put("game_versions", buildJsonArray { version.gameVersions.forEach { add(it) } })
-                put("loaders", buildJsonArray { version.loaders.forEach { add(it.id) } })
+                put("loaders", buildJsonArray { version.loaders.forEach { add(it) } })
                 put("project_id", projectId)
                 put("file_parts", buildJsonArray { add("file_0") })
                 put("changelog", version.changelog)

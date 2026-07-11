@@ -3,8 +3,8 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
-import io.github.beduality.terracotta.core.model.TerracottaReleaseType
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -136,7 +136,7 @@ class OperationPreprocessorTest {
                 version = "3.0.0",
                 artifactPath = "/custom/path/artifact.jar",
                 gameVersions = listOf("1.20.4", "1.20.6"),
-                loaders = listOf(TerracottaLoader.FABRIC, TerracottaLoader.QUILT),
+                loaders = listOf("fabric", "quilt"),
                 environment = TerracottaEnvironment.UNIVERSAL,
                 releaseType = TerracottaReleaseType.BETA,
                 changelog = "Some notes",
@@ -149,7 +149,7 @@ class OperationPreprocessorTest {
         assertEquals("3.0.0", processed.version)
         assertEquals("/custom/path/artifact.jar", processed.artifactPath)
         assertEquals(listOf("1.20.4", "1.20.6"), processed.gameVersions)
-        assertEquals(listOf(TerracottaLoader.FABRIC, TerracottaLoader.QUILT), processed.loaders)
+        assertEquals(listOf("fabric", "quilt"), processed.loaders)
         assertEquals(TerracottaEnvironment.UNIVERSAL, processed.environment)
         assertEquals(TerracottaReleaseType.BETA, processed.releaseType)
         assertEquals("Some notes", processed.changelog)
@@ -190,7 +190,7 @@ class OperationPreprocessorTest {
             version = versionStr,
             artifactPath = "/path/to/$versionStr.jar",
             gameVersions = listOf("1.20.4"),
-            loaders = listOf(TerracottaLoader.PAPER),
+            loaders = listOf("paper"),
             environment = TerracottaEnvironment.SERVER_ONLY,
             releaseType = TerracottaReleaseType.RELEASE,
             changelog = changelog,

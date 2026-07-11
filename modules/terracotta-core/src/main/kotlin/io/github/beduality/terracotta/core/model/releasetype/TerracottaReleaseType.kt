@@ -1,4 +1,4 @@
-package io.github.beduality.terracotta.core.model
+package io.github.beduality.terracotta.core.model.releasetype
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

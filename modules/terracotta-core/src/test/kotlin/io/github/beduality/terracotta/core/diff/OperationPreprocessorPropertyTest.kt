@@ -3,8 +3,8 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
-import io.github.beduality.terracotta.core.model.TerracottaReleaseType
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -48,7 +48,7 @@ class OperationPreprocessorPropertyTest {
                     version = version,
                     artifactPath = "/path/to/$version.jar",
                     gameVersions = listOf("1.20.4"),
-                    loaders = listOf(TerracottaLoader.PAPER),
+                    loaders = listOf("paper"),
                     environment = TerracottaEnvironment.SERVER_ONLY,
                     releaseType = TerracottaReleaseType.RELEASE,
                     changelog = changelog,

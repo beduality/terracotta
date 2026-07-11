@@ -25,6 +25,8 @@ object TerracottaConfigLoader {
     private fun parse(map: Map<String, Any?>): TerracottaConfig {
         @Suppress("UNCHECKED_CAST")
         val providersMap = map["providers"] as? Map<String, Any?>
+        @Suppress("UNCHECKED_CAST")
+        val conventionMap = map["convention"] as? Map<String, Any?>
 
         return TerracottaConfig(
             name = map.readString("name"),
@@ -37,7 +39,17 @@ object TerracottaConfigLoader {
             environment = map.readString("environment"),
             releaseType = map.readString("releaseType"),
             changelog = map.readString("changelog"),
+            convention = parseConvention(conventionMap),
             providers = parseProviders(providersMap),
+        )
+    }
+
+    private fun parseConvention(map: Map<String, Any?>?): TerracottaConventionConfig {
+        if (map == null) return TerracottaConventionConfig()
+
+        return TerracottaConventionConfig(
+            readme = map.readString("readme"),
+            changelog = map.readString("changelog"),
         )
     }
 

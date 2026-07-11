@@ -8,6 +8,7 @@ logback = "1.5.6"
 junit = "5.10.2"
 central-portal-publisher = "0.2.0-alpha.1"
 snakeyaml = "2.2"
+semver = "2.1.0"
 pulumi = "1.30.0"
 pulumi-github = "6.14.0"
 gradle-plugin = "8.1.1"
@@ -39,4 +40,5 @@ pulumi = { group = "com.pulumi", name = "pulumi", version.ref = "pulumi" }
 pulumi-github = { group = "com.pulumi", name = "github", version.ref = "pulumi-github" }
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 snakeyaml = { group = "org.yaml", name = "snakeyaml", version.ref = "snakeyaml" }
+semver = { group = "net.swiftzer.semver", name = "semver", version.ref = "semver" }
 

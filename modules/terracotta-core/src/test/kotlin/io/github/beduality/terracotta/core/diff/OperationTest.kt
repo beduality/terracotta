@@ -1,7 +1,7 @@
 package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaProject
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

@@ -2,7 +2,7 @@ package io.github.beduality.terracotta.provider.modrinth
 
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaProject
-import io.github.beduality.terracotta.core.model.TerracottaVersion
+import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthLicense
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
@@ -114,7 +114,7 @@ class ModrinthProviderTest {
             assertEquals("MIT", terracottaProject?.license)
             assertEquals(1, terracottaProject?.versions?.size)
             assertEquals("1.0.0", terracottaProject?.versions?.firstOrNull()?.version)
-            assertEquals(listOf(TerracottaLoader.FABRIC), terracottaProject?.versions?.firstOrNull()?.loaders)
+            assertEquals(listOf("fabric"), terracottaProject?.versions?.firstOrNull()?.loaders)
         }
 
     @Test
@@ -206,7 +206,7 @@ class ModrinthProviderTest {
                                 "1.0.0",
                                 tempFile.absolutePath,
                                 listOf("1.20"),
-                                listOf(TerracottaLoader.FABRIC),
+                                listOf("fabric"),
                             ),
                         ),
                     tags = emptyList(),

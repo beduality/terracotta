@@ -1,0 +1,12 @@
+package io.github.beduality.terracotta.core.model.loader
+
+import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
+import io.github.beduality.terracotta.core.model.AbstractTerracottaLoader
+
+open class ForgeLoader : AbstractTerracottaLoader("forge", "Forge") {
+    override fun detect(cache: ProjectFileCache): Boolean {
+        val content = cache.read("src/main/resources/META-INF/mods.toml") ?: return false
+        val modLoader = Regex("""modLoader\s*=\s*"([^"]+)"""").find(content)?.groupValues?.get(1)
+        return modLoader?.lowercase() == "javafml"
+    }
+}

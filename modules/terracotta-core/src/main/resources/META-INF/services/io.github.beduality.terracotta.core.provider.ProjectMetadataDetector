@@ -1,0 +1,3 @@
+io.github.beduality.terracotta.core.detect.ReadmeMetadataDetector
+io.github.beduality.terracotta.core.detect.LicenseFileDetector
+io.github.beduality.terracotta.core.detect.LoaderMetadataDetector
