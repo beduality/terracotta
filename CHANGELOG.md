@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `@see` links in the `terracotta-core` public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.
 - Added member-level KDoc to public data-class properties and functions in `terracotta-core` so Dokka renders descriptions for every field and method.
 - Added `@see` links and member-level KDoc to the `terracotta-gradle-plugin` public DSL classes and tasks, pointing to the Gradle plugin docs.
+- Added `@see` links and member-level KDoc to `terracotta-provider-modrinth` and `terracotta-provider-hangar`, pointing to the SDK provider guides.
 - Trimmed duplicated core API content from `docs/content/sdk/reference/api.md` and linked it to the new core docs.
 
 ### Fixed

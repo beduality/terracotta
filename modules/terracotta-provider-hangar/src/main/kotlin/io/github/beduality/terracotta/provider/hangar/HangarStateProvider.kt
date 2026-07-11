@@ -9,7 +9,19 @@ import io.github.beduality.terracotta.provider.hangar.client.HangarClient
 import io.github.beduality.terracotta.provider.hangar.mapper.HangarLoaderMapper
 import io.github.beduality.terracotta.provider.hangar.model.HangarVersion
 
+/**
+ * Reads project and version state from Hangar.
+ *
+ * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ */
 class HangarStateProvider(private val client: HangarClient) : StateProvider {
+    /**
+     * Fetches the Hangar project identified by [projectId] and converts it to a
+     * [TerracottaProject].
+     *
+     * @param projectId Hangar project slug or ID.
+     * @return the project state, or `null` if it does not exist.
+     */
     override suspend fun fetchProject(projectId: String): TerracottaProject? {
         val project = client.getProject(projectId) ?: return null
         val versions = client.getVersions(projectId).map { toTerracottaVersion(it) }

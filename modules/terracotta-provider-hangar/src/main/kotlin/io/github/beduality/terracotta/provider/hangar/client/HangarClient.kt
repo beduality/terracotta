@@ -36,9 +36,20 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
 
+/**
+ * HTTP client for the Hangar API.
+ *
+ * Handles JWT authentication, project metadata updates, version uploads, and
+ * channel creation.
+ *
+ * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ */
 class HangarClient(
+    /** Hangar API key. */
     private val apiKey: String?,
+    /** Base URL of the Hangar API. */
     private val baseUrl: String = "https://hangar.papermc.io/api/v1",
+    /** Underlying Ktor HTTP client. */
     private val client: HttpClient = defaultClient(),
 ) {
     private val json =
@@ -73,6 +84,7 @@ class HangarClient(
         expiresAt = auth.expiresAt?.let { it - REFRESH_MARGIN } ?: (System.currentTimeMillis() + DEFAULT_TOKEN_LIFETIME)
     }
 
+    /** Fetches the Hangar project with the given [slug]. */
     suspend fun getProject(slug: String): HangarProject? {
         val response =
             client.get("$baseUrl/projects/$slug") {
@@ -85,6 +97,7 @@ class HangarClient(
         }
     }
 
+    /** Fetches all versions of the Hangar project with the given [slug]. */
     suspend fun getVersions(slug: String): List<HangarVersion> {
         val response =
             client.get("$baseUrl/projects/$slug/versions") {
@@ -97,6 +110,7 @@ class HangarClient(
         }
     }
 
+    /** Fetches all channels of the Hangar project with the given [slug]. */
     suspend fun getChannels(slug: String): List<HangarChannel> {
         val response =
             client.get("$baseUrl/projects/$slug/channels") {
@@ -109,6 +123,7 @@ class HangarClient(
         }
     }
 
+    /** Creates a new release [name] channel on the project if it does not exist. */
     suspend fun createChannel(
         slug: String,
         name: String,
@@ -124,6 +139,7 @@ class HangarClient(
         }
     }
 
+    /** Updates Hangar project metadata. */
     suspend fun updateProject(
         slug: String,
         name: String,
@@ -153,6 +169,7 @@ class HangarClient(
         logger.info("Successfully updated project metadata on Hangar.")
     }
 
+    /** Uploads [version] to the Hangar project identified by [slug]. */
     suspend fun uploadVersion(
         slug: String,
         version: TerracottaVersion,

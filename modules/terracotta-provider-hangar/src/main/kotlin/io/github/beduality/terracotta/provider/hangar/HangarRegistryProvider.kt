@@ -5,9 +5,20 @@ import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
 import org.slf4j.LoggerFactory
 
+/**
+ * Applies Terracotta operations to Hangar by translating them into Hangar API calls.
+ *
+ * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ */
 class HangarRegistryProvider(private val client: HangarClient) : RegistryProvider {
     private val logger = LoggerFactory.getLogger(HangarRegistryProvider::class.java)
 
+    /**
+     * Applies [operations] to the Hangar project identified by [projectId].
+     *
+     * @param projectId Hangar project slug or ID.
+     * @param operations changes to apply.
+     */
     override suspend fun apply(
         projectId: String,
         operations: List<Operation>,
