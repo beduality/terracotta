@@ -17,6 +17,7 @@ docs/apidocs/
 **/__pycache__
 
 .env
+.coverage
 
 tests/smoke/build/
 
