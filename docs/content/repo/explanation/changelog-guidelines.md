@@ -1,235 +1,65 @@
 # Changelog Guidelines
 
-Designed for projects where **consumers are developers, operators, and integrators (not just end-users)**.
+Terracotta keeps a human-readable changelog because commit history is not a release note. The changelog answers one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
 
----
+## Why this matters
 
-# 1. Core Principle
+A changelog is a trust signal. It tells users, operators, and integrators whether they should upgrade, what behavior to expect, and whether they need to change their own code or configuration. It is not a commit log, implementation diary, or internal refactoring log.
 
-A changelog records:
+## What belongs in the changelog
 
-> **What changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
+Include changes that are observable outside the codebase:
 
-It is **not**:
+- New features or capabilities
+- Behavior changes, including new defaults
+- Bug fixes
+- Deprecations and removals
+- Breaking changes
+- Deployment, packaging, or tooling changes that affect consumers
+- Security fixes
 
-* commit history
-* implementation diary
-* internal refactoring log
+Do not include:
 
----
+- Internal refactors with no external effect
+- Formatting, lint, or style-only changes
+- Dependency updates that change nothing observable
+- Commit messages or implementation details
 
-# 2. Audience Model (important correction)
+## How entries are grouped
 
-"End-user" is not a useful separator.
+Entries are grouped by change category and then by module.
 
-Use **impact-based audience instead**, organized under these standard subheadings in the changelog:
+### Categories
 
-* **Players** (End-users) → players experiencing time formatting and dimension-aware messages
-* **Server Administrators** (Operators) → deployers, server admins, CI/CD users configuring settings/releases
-* **Developers** (API consumers) → library/plugin users, integrators depending on the code
-* **Maintainers** → contributors and future engineers maintaining the codebase
+Use [Keep a Changelog](https://keepachangelog.com/) categories:
 
+- **Added** — new capabilities
+- **Changed** — behavior modifications
+- **Fixed** — bug fixes
+- **Deprecated** — features scheduled for removal
+- **Removed** — deleted features
+- **Security** — security-related fixes
 
-If a change affects any of these → it belongs in the changelog.
+### Modules
 
----
+Use the module that contains the changed code:
 
-# 3. Inclusion Rules
+- **Docs** — documentation, guides, release notes, and the public site
+- **Repo** — repository tooling, CI/CD, release scripts, and conventions
+- **SDK** — SDK APIs and artifacts
+- **Core** — `terracotta-core` module
+- **Gradle Plugin** — `terracotta-gradle-plugin` module
+- **Modrinth** — `terracotta-provider-modrinth` module
 
-## MUST include if it affects:
+If a change spans modules, either split it into scoped entries or place it under the most affected module.
 
-### Behavior / runtime
+## Style principles
 
-* feature changes
-* logic changes
-* defaults
-* compatibility shifts
+- Start each entry with a **past-tense verb** (`Added`, `Fixed`, `Updated`, `Removed`, `Changed`).
+- Be specific and concrete, not vague.
+- Focus on impact, not implementation.
+- Inline the reason with `so`, `because`, or similar instead of using a separate `**Why**:` line.
+- Use bold `**Module**` headings under each category; do not use `####` headings for modules.
+- Mark breaking changes explicitly with `**Breaking**:` and migration steps.
 
-### API / integration
-
-* public API changes
-* config schema changes
-* serialization / data format changes
-
-### Deployment / operations
-
-* runtime environment changes
-* build output changes
-* installation / packaging changes
-* required tooling changes
-
-### Compatibility
-
-* breaking changes
-* deprecations
-* version constraints
-
----
-
-## MAY include (if externally relevant)
-
-* CI/CD changes **only if they affect releases or artifacts**
-* build system changes **only if output or compatibility changes**
-* infrastructure changes **only if observable externally**
-
----
-
-## MUST NOT include
-
-* formatting/lint changes
-* refactors without behavioral impact
-* internal restructuring with no external effect
-* dependency updates without impact (unless security/compatibility changes)
-
----
-
-# 4. Structural Format
-
-## Recommended: "What + Why"
-
-Each entry should ideally contain:
-
-### What (required)
-
-* factual description of the change
-* no implementation detail unless relevant
-
-### Why (optional but strongly recommended)
-
-* intent / motivation
-* avoids ambiguity for future readers
-
----
-
-## Optional: Technical Notes section
-
-Use only when necessary:
-
-* CI/CD
-* build pipelines
-* internal architecture changes
-
----
-
-# 5. Section Model
-
-Use structured sections:
-
-## Added
-
-New capabilities
-
-## Changed
-
-Behavior modifications (non-breaking or breaking depending on context)
-
-## Fixed
-
-Bug fixes
-
-## Deprecated
-
-Features scheduled for removal
-
-## Removed
-
-Deleted features
-
-## Security
-
-Vulnerabilities or security-related fixes
-
-## Infrastructure (optional)
-
-Only externally relevant internal system changes
-
----
-
-# 6. CI/CD, Build, Chore Rules
-
-## CI/CD
-
-Include only if it affects:
-
-* release process
-* artifacts
-* runtime validation
-* production pipeline behavior
-
-Exclude:
-
-* YAML refactors
-* job reordering without impact
-
----
-
-## Build system
-
-Include only if it affects:
-
-* output format (jar, bundle, etc.)
-* runtime compatibility
-* performance characteristics
-* supported environments
-
----
-
-## Chore
-
-Rule:
-
-> Never include unless it has external behavior impact
-
-Otherwise it is purely internal.
-
----
-
-# 7. "What & Why" Style Rules
-
-Preferred format:
-
-```md
-### Added
-
-#### Players
-- Locale-based time formatting  
-  - Why: support heterogeneous client environments without manual configuration
-```
-
-Constraints:
-
-* "What" must be short and concrete
-* "Why" must explain user/operator benefit
-* No implementation detail unless necessary for clarity
-
----
-
-# 8. Writing Rules
-
-* No commit messages
-* No "refactored X to Y"
-* No internal class names unless externally visible
-* Avoid jargon unless it is part of public API
-
----
-
-# 9. Breaking Changes
-
-Must be explicit:
-
-* mark clearly as breaking
-* describe migration impact
-* avoid burying in "Changed"
-
----
-
-# 10. Mental Checklist (fast validation)
-
-Before adding an entry:
-
-* Does it affect usage, integration, runtime, or deployment?
-* Can a consumer observe it?
-* Does it change behavior or contracts?
-* Does it require action from users/operators?
-
-If all "no" → do not include.
+For the mechanical writing rules and examples, see [How to Write Changelog Entries](../how-to-guides/writing-changelog.md).

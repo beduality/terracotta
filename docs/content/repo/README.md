@@ -12,12 +12,13 @@ Learning-oriented guides that help you learn by doing.
 
 - **[Quick Start](tutorials/quick-start.md)**: Get up and running in under 10 minutes
 - **[Navigating the Codebase](tutorials/navigating-the-codebase.md)**: Understand project structure and Git workflow
-- **[Writing Changelog](tutorials/writing-changelog.md)**: Learn how to document changes properly
 
 ### How-To Guides
 
 Task-oriented guides that help you accomplish specific tasks.
 
+- **[Contributing](how-to-guides/contributing.md)**: Contribution process and requirements
+- **[Writing Changelog](how-to-guides/writing-changelog.md)**: Learn how to document changes properly
 - **[Building](how-to-guides/building.md)**: Compile and test the project
 - **[Testing](how-to-guides/testing.md)**: Run tests and understand coverage
 - **[Documentation](how-to-guides/documentation.md)**: Preview and deploy documentation
@@ -30,7 +31,6 @@ Information-oriented reference for looking up details.
 - **[Tech Stack](reference/tech-stack.md)**: Tools and versions used
 - **[File Structure](reference/file-structure.md)**: Repository directory structure
 - **[Configuration](reference/configuration.md)**: All configuration files
-- **[Contributing](how-to-guides/contributing.md)**: Contribution process and requirements
 
 ### Explanation
 

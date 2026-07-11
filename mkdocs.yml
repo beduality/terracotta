@@ -110,13 +110,13 @@ nav:
       - Tutorials:
         - Quick Start: content/repo/tutorials/quick-start.md
         - Navigating the Codebase: content/repo/tutorials/navigating-the-codebase.md
-        - Writing Changelog: content/repo/tutorials/writing-changelog.md
       - How-To Guides:
+        - Contributing: content/repo/how-to-guides/contributing.md
         - Building: content/repo/how-to-guides/building.md
         - Testing: content/repo/how-to-guides/testing.md
         - Documentation: content/repo/how-to-guides/documentation.md
         - Releasing: content/repo/how-to-guides/releasing.md
-        - Contributing: content/repo/how-to-guides/contributing.md
+        - Writing Changelog: content/repo/how-to-guides/writing-changelog.md
       - Reference:
         - Tech Stack: content/repo/reference/tech-stack.md
         - File Structure: content/repo/reference/file-structure.md

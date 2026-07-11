@@ -7,46 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Docs**
+
+- Added the smoke-testing release guide in plain language and added guidance on saving pytest JSON reports as metrics.
+
+**Repo**
+
+- Archived smoke-test results as structured JSON metrics instead of manual tables.
+
 ### Changed
 
-#### Docs
+**Docs**
 
-- Moved the Changes link from the custom docs header to the main navigation.
-  - **Why**: The custom header link was broken on mobile.
-- Wrote the smoke-testing release guide in plain English and added a section on saving pytest JSON reports as metrics.
-  - **Why**: Makes the checklist readable and archives results as data instead of prose.
-
-#### Repo
-
-- Added `pytest-json-report` to dev dependencies so smoke-test results can be saved as JSON metrics.
-  - **Why**: Removes the need to keep manual result tables in the docs.
+- Moved the Changes link from the custom docs header into the main navigation so it works easily on mobile.
+- Reorganized changelog docs into a succinct explanation and a practical how-to guide, and updated `CHANGELOG.md` to use bold module headings.
 
 ### Fixed
 
-#### Docs
+**Docs**
 
-- Bumped plugin version snippets in README and Gradle plugin tutorials to `0.1.2`.
-  - **Why**: Aligns public docs with the current release.
+- Fixed docs deployments so the live site reliably matches the latest generated release, preventing stale or mismatched content.
+- Configured versioned docs to build from the release tag, so the docs site updates as soon as a release goes out.
+- Synchronized version references across `README.md`, `CHANGELOG.md`, generated release notes, and `docs/content/**/*.md` as part of the release process.
 
-#### SDK
+**Repo**
 
-- Fixed published `-javadoc.jar` files to include generated API documentation.
-  - **Why**: Maven Central requires meaningful Javadoc artifacts; empty jars fail release validation.
+- Added pre-publish checks that abort if version references are out of sync with the release version.
 
-#### Repo
+**SDK**
 
-- Fixed release pipeline so versioned docs are built from the release tag rather than the pre-release commit.
-  - **Why**: Ensures new releases appear on the docs site immediately.
-- Fixed release tooling so version bumps propagate correctly to all release artifacts.
-  - **Why**: Prevents version drift across `README.md`, `CHANGELOG.md`, and generated release notes.
-- Fixed docs deployment to publish the latest generated site after a release.
-  - **Why**: Prevents stale or missing docs being served from GitHub Pages.
-- Added release-time validation to abort if `README.md`, the new `CHANGELOG.md` section, or the generated `-javadoc.jar` files are missing or empty.
-  - **Why**: Catches the 0.1.2 release issues before anything is published.
-- Extended release tooling to sync and validate the plugin version snippet across `docs/content/**/*.md`.
-  - **Why**: Prevents installation guides from showing an old release version.
-- Fixed GitHub Pages deployment race conditions and stale `gh-pages` checkout in `deploy-docs.yml`.
-  - **Why**: Ensures the `mike`-pushed `gh-pages` commit is what `actions/deploy-pages` actually uploads.
+- Fixed publishing of `-javadoc.jar` artifacts so they include generated API documentation instead of being empty or missing, satisfying Maven Central requirements.
+- Added pre-publish checks that abort if `-javadoc.jar` artifacts are missing or empty.
 
 ## [0.1.2] - 2026-07-10
 
