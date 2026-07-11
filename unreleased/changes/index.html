@@ -2288,34 +2288,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[Unreleased]">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -2361,34 +2333,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[Unreleased]">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -2418,34 +2362,6 @@
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
-<p><strong>Docs</strong></p>
-<ul>
-<li>Added a new <code>Config</code> docs category with <code>Overview</code> and <code>Schema</code> pages so users can find the file-format reference independently of Gradle-plugin guides.</li>
-</ul>
-<p><strong>Core</strong></p>
-<ul>
-<li>Added <code>terracotta.yml</code> parsing so library consumers can read Terracotta configuration from a standard YAML file.</li>
-<li>Added an extensible loader system with a <code>TerracottaLoader</code> interface and a <code>TerracottaLoaderRegistry</code> that auto-detects supported platforms from project files.</li>
-<li>Added built-in loader adapters for Bukkit, BungeeCord, Fabric, Folia, Forge, NeoForge, Paper, Purpur, Quilt, Spigot, Sponge, Velocity, and Waterfall, with parent-child inheritance so detecting a fork also records its parent loaders (e.g. Paper implies Spigot and Bukkit).</li>
-<li>Added a <code>ProjectMetadataDetector</code> ServiceLoader SPI and a <code>ProjectMetadataLoader</code> that merges values detected from project files with explicit source metadata.</li>
-<li>Added built-in metadata detectors that read <code>README.md</code>, license files, and loader descriptors to infer description, summary, license, loaders, and environment.</li>
-<li>Added a <code>ProjectFileConvention</code> registry with <code>ReadmeConvention</code> and <code>ChangelogConvention</code> adapters, including <code>TerracottaReadmeConvention</code> and <code>KeepAChangelogConvention</code>.</li>
-<li>Added release-type detection from version strings so <code>1.0.0-beta.1</code> or <code>1.0.0-alpha.1</code> are classified automatically.</li>
-<li>Added a <code>VersionConventionResolver</code> with a semver convention for interpreting version strings.</li>
-</ul>
-<p><strong>Gradle Plugin</strong></p>
-<ul>
-<li>Added <code>terracotta.yml</code> support so users can define project metadata, tags, versions, and providers in a dedicated file instead of the Kotlin DSL.</li>
-<li>Added YAML-to-DSL precedence so values set in the Kotlin DSL override the same values from <code>terracotta.yml</code>, letting users keep shared metadata in YAML while still using Gradle for dynamic or secret values.</li>
-<li>Integrated project metadata auto-detection so the plugin infers loaders, environment, license, description, and summary from project files when they are not configured explicitly.</li>
-<li>Added a <code>conventions</code> nested DSL block for selecting README and changelog conventions.</li>
-</ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
-<p><strong>Docs</strong></p>
-<ul>
-<li>Removed the stale <code>docs/overrides</code> reference from <code>mkdocs.yml</code> so docs deployments no longer fail with a missing custom_dir path.</li>
-</ul>
 
 
 
