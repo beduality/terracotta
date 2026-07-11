@@ -1209,34 +1209,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../content/integration/how-to-guides/ci-cd-setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CI/CD Setup with GitHub Actions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -4658,7 +4630,7 @@
 <li><code>reference/</code> for lookup content (models, loaders, operations, config schema, metadata resolution, conventions, version conventions, provider interfaces) with links to the Dokka-generated API docs.</li>
 <li><code>explanation/</code> for conceptual docs (architecture, metadata resolution, diff engine, loader hierarchy, conventions).</li>
 <li>Wired the new <code>Modules</code> section into <code>mkdocs.yml</code>, grouping Core, Gradle Plugin, Modrinth Provider, and Hangar Provider docs under <code>docs/content/modules/</code>.</li>
-<li>Added a new <code>Integration</code> section under <code>docs/content/integration/</code> for cross-module guides such as adding Modrinth/Hangar to the Gradle plugin and CI/CD setup with GitHub Actions.</li>
+<li>Added a new <code>Integration</code> section under <code>docs/content/integration/</code> for cross-module guides such as adding Modrinth/Hangar to the Gradle plugin.</li>
 <li>Added <code>@see</code> links in the <code>terracotta-core</code> public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.</li>
 <li>Added member-level KDoc to public data-class properties and functions in <code>terracotta-core</code> so Dokka renders descriptions for every field and method.</li>
 <li>Expanded the Gradle plugin documentation under <code>docs/content/modules/gradle-plugin/</code> with Diátaxis sections and added <code>@see</code> links and member-level KDoc to the public DSL classes and tasks.</li>
@@ -4669,6 +4641,7 @@
 <p><strong>Docs</strong></p>
 <ul>
 <li>Fixed the pre-build hook destination so <code>LICENSE</code> is copied to <code>docs/LICENSE</code> instead of <code>docs/LICENSE.md</code>.</li>
+<li>Removed the CI/CD setup with GitHub Actions guide from <code>docs/content/integration/</code> because the workflow is not currently supported.</li>
 </ul>
 <p><strong>Repo</strong></p>
 <ul>
