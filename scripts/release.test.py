@@ -1,8 +1,11 @@
+import os
 import unittest
 from unittest.mock import patch, MagicMock, call
 import subprocess
+import tempfile
 from pathlib import Path
 import sys
+import zipfile
 from pathlib import Path as PathlibPath
 
 # Add parent directory to path to import scripts module
@@ -235,6 +238,215 @@ class TestExtractReleaseNotes(unittest.TestCase):
             release.extract_release_notes("0.4.0")
 
 
+class TestUpdateReadme(unittest.TestCase):
+
+    @patch("scripts.release.Path.exists")
+    @patch("scripts.release.Path.read_text")
+    @patch("scripts.release.Path.write_text")
+    def test_updates_version_string(self, mock_write, mock_read, mock_exists):
+        mock_exists.return_value = True
+        mock_read.return_value = 'plugins {\n    id("io.github.beduality.terracotta") version "0.3.0"\n}'
+        release.update_readme("0.4.0")
+        mock_write.assert_called_once_with(
+            'plugins {\n    id("io.github.beduality.terracotta") version "0.4.0"\n}'
+        )
+
+    @patch("scripts.release.Path.exists")
+    @patch("scripts.release.Path.write_text")
+    def test_skips_when_file_missing(self, mock_write, mock_exists):
+        mock_exists.return_value = False
+        release.update_readme("0.4.0")
+        mock_write.assert_not_called()
+
+    @patch("scripts.release.Path.exists")
+    @patch("scripts.release.Path.read_text")
+    @patch("scripts.release.Path.write_text")
+    def test_no_change_when_version_not_found(self, mock_write, mock_read, mock_exists):
+        mock_exists.return_value = True
+        content = "No version placeholder here\n"
+        mock_read.return_value = content
+        release.update_readme("0.4.0")
+        mock_write.assert_not_called()
+
+
+class TestValidateReadmeVersion(unittest.TestCase):
+
+    @patch("scripts.release.Path.exists")
+    @patch("scripts.release.Path.read_text")
+    def test_passes_when_version_present(self, mock_read, mock_exists):
+        mock_exists.return_value = True
+        mock_read.return_value = 'id("io.github.beduality.terracotta") version "0.4.0"'
+        release.validate_readme_version("0.4.0")
+
+    @patch("scripts.release.Path.exists")
+    @patch("scripts.release.Path.read_text")
+    def test_raises_when_version_missing(self, mock_read, mock_exists):
+        mock_exists.return_value = True
+        mock_read.return_value = 'id("io.github.beduality.terracotta") version "0.3.0"'
+        with self.assertRaises(ValueError):
+            release.validate_readme_version("0.4.0")
+
+    @patch("scripts.release.Path.exists")
+    def test_skips_when_file_missing(self, mock_exists):
+        mock_exists.return_value = False
+        release.validate_readme_version("0.4.0")
+
+
+class TestValidateChangelogReleaseSection(unittest.TestCase):
+
+    @patch("scripts.release.Path.read_text")
+    def test_passes_when_section_has_content(self, mock_read):
+        mock_read.return_value = "## [Unreleased]\n\n## [0.4.0] - 2026-07-07\n\n### Fixed\n- Bug fix\n"
+        release.validate_changelog_release_section("0.4.0")
+
+    @patch("scripts.release.Path.read_text")
+    def test_raises_when_section_missing(self, mock_read):
+        mock_read.return_value = "## [Unreleased]\n- Feature\n"
+        with self.assertRaises(ValueError):
+            release.validate_changelog_release_section("0.4.0")
+
+    @patch("scripts.release.Path.read_text")
+    def test_raises_when_section_empty(self, mock_read):
+        mock_read.return_value = "## [0.4.0] - 2026-07-07\n\n## [0.3.0] - 2026-07-06\n- Old\n"
+        with self.assertRaises(ValueError):
+            release.validate_changelog_release_section("0.4.0")
+
+
+class TestUpdateDocsVersionSnippets(unittest.TestCase):
+
+    def test_updates_matching_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                docs = Path("docs/content")
+                docs.mkdir(parents=True)
+                snippet = docs / "setup.md"
+                snippet.write_text(
+                    'plugins {\n    id("io.github.beduality.terracotta") version "0.3.0"\n}'
+                )
+                unchanged = docs / "other.md"
+                unchanged.write_text("No version here\n")
+
+                release.update_docs_version_snippets("0.4.0")
+
+                self.assertIn('version "0.4.0"', snippet.read_text())
+                self.assertNotIn('version "0.3.0"', snippet.read_text())
+                self.assertEqual(unchanged.read_text(), "No version here\n")
+            finally:
+                os.chdir(cwd)
+
+    def test_no_files_is_fine(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                Path("docs/content").mkdir(parents=True)
+                release.update_docs_version_snippets("0.4.0")
+            finally:
+                os.chdir(cwd)
+
+
+class TestValidateDocsVersionSnippets(unittest.TestCase):
+
+    def test_passes_when_all_snippets_match(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                docs = Path("docs/content")
+                docs.mkdir(parents=True)
+                (docs / "setup.md").write_text(
+                    'id("io.github.beduality.terracotta") version "0.4.0"'
+                )
+                release.validate_docs_version_snippets("0.4.0")
+            finally:
+                os.chdir(cwd)
+
+    def test_raises_when_snippet_mismatches(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                docs = Path("docs/content")
+                docs.mkdir(parents=True)
+                (docs / "setup.md").write_text(
+                    'id("io.github.beduality.terracotta") version "0.3.0"'
+                )
+                with self.assertRaises(ValueError):
+                    release.validate_docs_version_snippets("0.4.0")
+            finally:
+                os.chdir(cwd)
+
+
+class TestValidateJavadocJars(unittest.TestCase):
+
+    def _prepare_jars(
+        self, tmp: str, version: str, content: dict[str, bytes] | None = None
+    ):
+        for module in [
+            "terracotta-core",
+            "terracotta-gradle-plugin",
+            "terracotta-provider-modrinth",
+        ]:
+            jar_dir = Path(tmp) / f"modules/{module}/build/libs"
+            jar_dir.mkdir(parents=True)
+            jar = jar_dir / f"{module}-{version}-javadoc.jar"
+            if content:
+                with zipfile.ZipFile(jar, "w") as zf:
+                    for name, data in content.items():
+                        zf.writestr(name, data)
+
+    def test_passes_for_valid_jars(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                html = b"<html>" + b"x" * 2048 + b"</html>"
+                self._prepare_jars(tmp, "0.4.0", {"index.html": html})
+                release.validate_javadoc_jars("0.4.0")
+            finally:
+                os.chdir(cwd)
+
+    def test_raises_when_jar_missing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                with self.assertRaises(FileNotFoundError):
+                    release.validate_javadoc_jars("0.4.0")
+            finally:
+                os.chdir(cwd)
+
+    def test_raises_when_jar_too_small(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                for module in ["terracotta-core", "terracotta-gradle-plugin", "terracotta-provider-modrinth"]:
+                    jar_dir = Path(tmp) / f"modules/{module}/build/libs"
+                    jar_dir.mkdir(parents=True)
+                    (jar_dir / f"{module}-0.4.0-javadoc.jar").write_bytes(b"tiny")
+                with self.assertRaises(ValueError) as ctx:
+                    release.validate_javadoc_jars("0.4.0")
+                self.assertIn("Javadoc JARs are empty", str(ctx.exception))
+            finally:
+                os.chdir(cwd)
+
+    def test_raises_when_jar_only_manifest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                manifest = b"Manifest-Version: 1.0\n" + b"# padding\n" * 200
+                self._prepare_jars(tmp, "0.4.0", {"META-INF/MANIFEST.MF": manifest})
+                with self.assertRaises(ValueError) as ctx:
+                    release.validate_javadoc_jars("0.4.0")
+                self.assertIn("only manifest", str(ctx.exception))
+            finally:
+                os.chdir(cwd)
+
+
 class TestRunCommand(unittest.TestCase):
 
     @patch("scripts.release.subprocess.run")
@@ -396,6 +608,20 @@ class TestRollback(unittest.TestCase):
 
 
 class TestMainWizardFlow(unittest.TestCase):
+
+    def setUp(self):
+        self.patches = [
+            patch("scripts.release.validate_readme_version"),
+            patch("scripts.release.validate_docs_version_snippets"),
+            patch("scripts.release.validate_changelog_release_section"),
+            patch("scripts.release.validate_javadoc_jars"),
+        ]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
 
     @patch("scripts.release.questionary.confirm")
     @patch("scripts.release.questionary.select")
@@ -560,6 +786,20 @@ class TestMainWizardFlow(unittest.TestCase):
 
 
 class TestMainCliFlow(unittest.TestCase):
+
+    def setUp(self):
+        self.patches = [
+            patch("scripts.release.validate_readme_version"),
+            patch("scripts.release.validate_docs_version_snippets"),
+            patch("scripts.release.validate_changelog_release_section"),
+            patch("scripts.release.validate_javadoc_jars"),
+        ]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
 
     @patch("scripts.release.questionary.confirm")
     @patch("scripts.release.get_current_version")
@@ -1063,6 +1303,20 @@ class TestTriggerGaps(unittest.TestCase):
 
 class TestMainGaps(unittest.TestCase):
 
+    def setUp(self):
+        self.patches = [
+            patch("scripts.release.validate_readme_version"),
+            patch("scripts.release.validate_docs_version_snippets"),
+            patch("scripts.release.validate_changelog_release_section"),
+            patch("scripts.release.validate_javadoc_jars"),
+        ]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
+
     @patch("scripts.release.questionary.confirm")
     @patch("scripts.release.get_current_version")
     @patch("scripts.release.get_next_version")
@@ -1196,6 +1450,20 @@ class TestMainGaps(unittest.TestCase):
 
 
 class TestMainRollbackFailurePaths(unittest.TestCase):
+
+    def setUp(self):
+        self.patches = [
+            patch("scripts.release.validate_readme_version"),
+            patch("scripts.release.validate_docs_version_snippets"),
+            patch("scripts.release.validate_changelog_release_section"),
+            patch("scripts.release.validate_javadoc_jars"),
+        ]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
 
     @patch("scripts.release.questionary.confirm")
     @patch("scripts.release.get_current_version")
