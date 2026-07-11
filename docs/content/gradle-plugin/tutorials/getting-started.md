@@ -29,33 +29,33 @@ plugins {
 
 ## 2. Configure Terracotta
 
-In your `build.gradle.kts`, configure Terracotta with your project information and Modrinth provider:
+Create a `terracotta.yml` in your project root:
 
-```kotlin
-import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.TerracottaLoader
+```yaml
+name: "My Plugin"
+summary: "Lightweight Paper plugin"
+description: "A useful Paper plugin."
+tags:
+  - paper
+  - utility
+license: "MIT"
+gameVersions:
+  - "1.21.8"
+  - "1.21.7"
+loaders:
+  - paper
+environment: server_only
+releaseType: release
+changelog: "Initial release"
 
-terracotta {
-    name.set("My Plugin")
-    summary.set("Lightweight Paper plugin")
-    description.set(file("README.md").readText())
-    tags.set(listOf("paper", "utility"))
-    license.set("MIT")
-    gameVersions.set(listOf("1.21.8", "1.21.7"))
-    loaders.set(listOf(TerracottaLoader.PAPER))
-    environment.set(TerracottaEnvironment.SERVER_ONLY)
-
-    providers {
-        create("modrinth") {
-            projectId.set("my-plugin") // your Modrinth project slug or ID
-        }
-    }
-}
+providers:
+  modrinth:
+    projectId: "my-plugin" # your Modrinth project slug or ID
 ```
 
-The `versions` are automatically discovered from your Gradle build (via the `jar` task output). You can also manually specify versions if needed.
+The version is automatically discovered from your Gradle build (via the `jar` task output).
 
-Make sure your project contains a `README.md` file with your plugin description.
+If you prefer to configure Terracotta in `build.gradle.kts`, see the [Kotlin DSL how-to guide](../how-to-guides/kotlin-dsl-configuration.md). You can also mix both: put shared metadata in `terracotta.yml` and override specific values in the Kotlin DSL.
 
 ## 3. Configure Authentication
 

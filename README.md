@@ -19,31 +19,31 @@ See the [Gradle Plugin Documentation](https://beduality.github.io/terracotta/) f
 
 ## Usage
 
-Configure Terracotta in your `build.gradle.kts`:
+Create a `terracotta.yml` in your project root:
 
-```kotlin
-import io.github.beduality.terracotta.core.model.TerracottaEnvironment
-import io.github.beduality.terracotta.core.model.TerracottaLoader
+```yaml
+name: "My Plugin"
+summary: "Lightweight Paper plugin"
+description: "A useful Paper plugin."
+license: "MIT"
+tags:
+  - paper
+  - utility
+gameVersions:
+  - "1.21.8"
+  - "1.21.7"
+loaders:
+  - paper
+environment: server_only
+releaseType: release
+changelog: "Initial release"
 
-terracotta {
-    providers {
-        create("modrinth") {
-            projectId.set("my-modrinth-project-id")
-            token.set(System.getenv("MODRINTH_TOKEN")) // optional, defaults to MODRINTH_TOKEN env var
-        }
-        // Add other future providers here, e.g., create("curseforge"), etc.
-    }
-    name.set("My Plugin")
-    summary.set("Lightweight Paper plugin")
-    description.set(file("README.md").readText())
-    license.set("MIT")
-    tags.set(listOf("utility", "paper"))
-    gameVersions.set(listOf("1.20.1", "1.20.2"))
-    loaders.set(listOf(TerracottaLoader.PAPER))
-    environment.set(TerracottaEnvironment.SERVER_ONLY)
-    // Versions are automatically discovered from your build
-}
+providers:
+  modrinth:
+    projectId: "my-modrinth-project-id"
 ```
+
+Versions are automatically discovered from your build.
 
 Run tasks:
 

@@ -87,9 +87,13 @@ nav:
       - Getting Started: content/gradle-plugin/tutorials/getting-started.md
     - How-To Guides:
       - CI/CD Deployment: content/gradle-plugin/how-to-guides/ci-cd-setup.md
+      - Kotlin DSL Configuration: content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md
     - Reference:
       - Tasks Reference: content/gradle-plugin/reference/tasks.md
       - Plugin API Docs: apidocs/terracotta-gradle-plugin/index.html
+  - Config:
+    - Overview: content/config/index.md
+    - Schema: content/config/schema.md
   - SDK:
     - Tutorials:
       - Quick Start: content/sdk/tutorials/quick-start.md
