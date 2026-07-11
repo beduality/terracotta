@@ -16,6 +16,11 @@ io.github.beduality.terracotta.core.model.version
 io.github.beduality.terracotta.core.provider
 module:terracotta-gradle-plugin
 io.github.beduality.terracotta.gradle
+module:terracotta-provider-hangar
+io.github.beduality.terracotta.provider.hangar
+io.github.beduality.terracotta.provider.hangar.client
+io.github.beduality.terracotta.provider.hangar.mapper
+io.github.beduality.terracotta.provider.hangar.model
 module:terracotta-provider-modrinth
 io.github.beduality.terracotta.provider.modrinth
 io.github.beduality.terracotta.provider.modrinth.client

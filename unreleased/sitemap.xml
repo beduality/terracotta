@@ -17,6 +17,10 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/gradle-plugin/how-to-guides/adding-hangar-provider/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/gradle-plugin/how-to-guides/ci-cd-setup/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -118,6 +122,10 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/custom-provider/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/hangar-provider/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>

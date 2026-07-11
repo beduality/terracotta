@@ -593,14 +593,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gradle-plugin/how-to-guides/ci-cd-setup/" class="md-nav__link">
+      <a href="../../gradle-plugin/how-to-guides/adding-hangar-provider/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    CI/CD Deployment
+    Adding Hangar
   
 
     
@@ -1264,6 +1264,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/how-to-guides/hangar-provider/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1392,6 +1420,34 @@
     
   
     Modrinth Provider API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar Provider API Docs
   
 
     
@@ -2546,6 +2602,9 @@
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="w">        </span><span class="c1"># Project slug or ID on the provider</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;optional-api-token&quot;</span><span class="w">     </span><span class="c1"># Optional; MODRINTH_TOKEN env var is used if omitted</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="w">        </span><span class="c1"># Project slug on Hangar</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;optional-api-key&quot;</span><span class="w">       </span><span class="c1"># Optional; HANGAR_TOKEN env var is used if omitted</span>
 </code></pre></div>
 <h2 id="top-level-fields">Top-level Fields<a class="headerlink" href="#top-level-fields" title="Permanent link">&para;</a></h2>
 <p>All top-level fields are optional. When a value is omitted, the Gradle plugin falls back to auto-detected values from project files, then to Gradle defaults (e.g. <code>project.name</code> or <code>project.description</code>). Values set in the Kotlin DSL always override values from <code>terracotta.yml</code>.</p>

@@ -591,14 +591,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../content/gradle-plugin/how-to-guides/ci-cd-setup/" class="md-nav__link">
+      <a href="../content/gradle-plugin/how-to-guides/adding-hangar-provider/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    CI/CD Deployment
+    Adding Hangar
   
 
     
@@ -1125,6 +1125,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/sdk/how-to-guides/hangar-provider/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1253,6 +1281,34 @@
     
   
     Modrinth Provider API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar Provider API Docs
   
 
     
@@ -2288,6 +2344,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2333,6 +2417,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2362,6 +2474,20 @@
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<p><strong>Hangar</strong></p>
+<ul>
+<li>Added Hangar provider module so Terracotta can sync projects and versions with the PaperMC Hangar registry.</li>
+<li>Added JWT authentication using Hangar API keys.</li>
+<li>Added loader-to-platform mapping so Bukkit/Spigot/Paper/Purpur/Folia projects are published as <code>PAPER</code>, Velocity as <code>VELOCITY</code>, and BungeeCord/Waterfall as <code>WATERFALL</code>.</li>
+<li>Added automatic <code>Release</code>/<code>Snapshot</code> channel creation before uploading versions to Hangar.</li>
+<li>Added multipart version uploads with per-platform game version dependencies.</li>
+</ul>
+<h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link">&para;</a></h3>
+<p><strong>Docs</strong></p>
+<ul>
+<li>Removed the <code>CI/CD Deployment</code> how-to guide from the docs navigation because the current stateless design does not support the documented workflow, preventing users from following an inaccurate guide.</li>
+</ul>
 
 
 
