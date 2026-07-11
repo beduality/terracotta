@@ -64,7 +64,7 @@ plugins {
 }
 ```
 
-See the [Gradle Plugin installation guide](content/modules/gradle-plugin/tutorials/installation.md) for more details, or the [SDK installation guide](content/sdk/reference/installation.md) if you want to use Terracotta as a library.
+See the [Gradle Plugin installation guide](content/modules/gradle-plugin/tutorials/installation.md) for more details, or the [Core installation guide](content/modules/core/tutorials/installation.md) if you want to use Terracotta as a library.
 
 ## Usage
 

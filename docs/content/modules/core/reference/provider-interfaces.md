@@ -4,11 +4,50 @@ The provider SPI decouples core from any specific registry implementation.
 
 ## Interfaces
 
-| Interface | Responsibility |
-|-----------|----------------|
-| `ProviderFactory` | Creates state and registry providers for a registry. |
-| `StateProvider` | Fetches the remote project state. |
-| `RegistryProvider` | Applies a list of operations to the remote registry. |
+### ProviderFactory
+
+Creates state and registry providers for a registry.
+
+```kotlin
+interface ProviderFactory {
+    /** Unique identifier for this registry (e.g. "modrinth"). */
+    val id: String
+
+    /** Creates a state provider for this registry. */
+    fun createStateProvider(token: String?): StateProvider
+
+    /** Creates a registry provider for this registry. */
+    fun createRegistryProvider(token: String?): RegistryProvider
+}
+```
+
+### StateProvider
+
+Fetches the current remote project state from a registry.
+
+```kotlin
+interface StateProvider {
+    /**
+     * Fetches the remote state of a project.
+     * Returns null if the project does not exist yet.
+     */
+    suspend fun fetchProject(projectId: String): TerracottaProject?
+}
+```
+
+### RegistryProvider
+
+Applies a list of operations to the remote registry.
+
+```kotlin
+interface RegistryProvider {
+    /** Applies the given operations to the remote registry. */
+    suspend fun apply(
+        projectId: String,
+        operations: List<Operation>,
+    )
+}
+```
 
 ## Discovery
 
@@ -29,5 +68,4 @@ with the fully qualified name of the factory implementation.
 ## See also
 
 - [Implement a Custom Provider](../tutorials/implementing-a-custom-provider.md)
-- [SDK Provider API](../../../sdk/reference/provider-api.md)
 - [API Documentation](api.md)

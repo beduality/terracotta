@@ -38,28 +38,40 @@ Registries such as Modrinth and Hangar have different authentication, rate limit
 
 ```mermaid
 graph TD
-    subgraph core["terracotta-core"]
-        Config["config"]
-        Metadata["metadata"]
-        Diff["diff"]
-        ProviderAPI["provider API"]
+    subgraph terracotta-gradle-plugin["terracotta-gradle-plugin (Gradle Plugin)"]
+        Plugin["TerracottaPlugin"]
+        PlanTask["TerracottaPlanTask"]
+        ApplyTask["TerracottaApplyTask"]
+        ServiceLoaderLookup["ServiceLoader Discovery"]
     end
 
-    subgraph gradle["terracotta-gradle-plugin"]
-        Task["TerracottaApplyTask"]
-    end
-
-    subgraph provider["terracotta-provider-*"]
+    subgraph terracotta-provider-modrinth["terracotta-provider-* (Adapter)"]
+        Client["RegistryClient"]
         State["StateProvider"]
         Registry["RegistryProvider"]
+        ProviderFactoryImpl["ProviderFactory"]
     end
 
-    Task --> Config
-    Task --> Metadata
-    Task --> Diff
-    Task --> ProviderAPI
-    ProviderAPI --> State
-    ProviderAPI --> Registry
+    subgraph terracotta-core["terracotta-core (Core SDK)"]
+        DiffEngine["DiffEngine"]
+        StateProvider["StateProvider (Interface)"]
+        RegistryProvider["RegistryProvider (Interface)"]
+        ProviderFactory["ProviderFactory (Interface)"]
+        Models["TerracottaProject / TerracottaVersion"]
+        Operation["Operation"]
+    end
+
+    Plugin --> PlanTask
+    Plugin --> ApplyTask
+    PlanTask --> ServiceLoaderLookup
+    ApplyTask --> ServiceLoaderLookup
+    ServiceLoaderLookup --> ProviderFactoryImpl
+    ProviderFactoryImpl --> State
+    ProviderFactoryImpl --> Registry
+    PlanTask --> DiffEngine
+    ApplyTask --> DiffEngine
+    State --> Models
+    Registry --> Operation
 ```
 
 ## Core abstractions

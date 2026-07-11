@@ -2,6 +2,17 @@
 
 The `terracotta-provider-modrinth` module provides a complete implementation of the Terracotta provider interfaces for the Modrinth registry.
 
+!!! tip "Quick start"
+
+    If you are using the Terracotta SDK directly, the shortest path is:
+
+    1. Add `terracotta-core` and `terracotta-provider-modrinth` to your project.
+    2. Load `MODRINTH_TOKEN` from the environment.
+    3. Create a `ModrinthProviderFactory` and build a local `TerracottaProject`.
+    4. Run `DiffEngine.diff(local, remote)` and `registryProvider.apply(id, operations)`.
+
+    See the sections below for the full walkthrough.
+
 ## Installation
 
 Add the dependency to your project:
@@ -9,7 +20,7 @@ Add the dependency to your project:
 === "Gradle (Kotlin)"
 
     ```kotlin
-    implementation("io.github.beduality:terracotta-provider-modrinth:0.1.3")
+    implementation("io.github.beduality:terracotta-provider-modrinth:0.2.0")
     ```
 
 === "Maven"
@@ -18,7 +29,7 @@ Add the dependency to your project:
     <dependency>
         <groupId>io.github.beduality</groupId>
         <artifactId>terracotta-provider-modrinth</artifactId>
-        <version>0.1.3</version>
+        <version>0.2.0</version>
     </dependency>
     ```
 

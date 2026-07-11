@@ -10,7 +10,7 @@ import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
  *
  * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
  * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
- * @see [Provider API reference](https://beduality.github.io/terracotta/content/sdk/reference/provider-api.html)
+ * @see [Provider API reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
  */
 class ModrinthProviderFactory : ProviderFactory {
     /** Provider identifier (`modrinth`). */

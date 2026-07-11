@@ -10,7 +10,7 @@ import io.github.beduality.terracotta.provider.hangar.client.HangarClient
  *
  * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
  * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
- * @see [Provider API reference](https://beduality.github.io/terracotta/content/sdk/reference/provider-api.html)
+ * @see [Provider API reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
  */
 class HangarProviderFactory : ProviderFactory {
     /** Provider identifier (`hangar`). */

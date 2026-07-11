@@ -82,20 +82,6 @@ nav:
   - Quick Start:
     - Introduction: index.md
     - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
-  - SDK:
-    - Tutorials:
-      - Quick Start: content/sdk/tutorials/quick-start.md
-    - How-To Guides:
-      - Custom Providers: content/sdk/how-to-guides/custom-provider.md
-    - Reference:
-      - API Reference: content/sdk/reference/api.md
-      - Core API Docs: apidocs/terracotta-core/index.html
-      - Modrinth Provider API Docs: apidocs/terracotta-provider-modrinth/index.html
-      - Hangar Provider API Docs: apidocs/terracotta-provider-hangar/index.html
-      - Provider API: content/sdk/reference/provider-api.md
-      - Installation: content/sdk/reference/installation.md
-    - Explanation:
-      - Architecture Overview: content/sdk/explanation/architecture.md
   - Integration:
     - Overview: content/integration/README.md
     - How-To Guides:
@@ -106,6 +92,7 @@ nav:
     - Core:
       - Introduction: content/modules/core/README.md
       - Tutorials:
+        - Installation: content/modules/core/tutorials/installation.md
         - Implement a Custom Loader: content/modules/core/tutorials/implementing-a-custom-loader.md
         - Implement a Custom Metadata Detector: content/modules/core/tutorials/implementing-a-custom-metadata-detector.md
         - Implement a Custom Provider: content/modules/core/tutorials/implementing-a-custom-provider.md

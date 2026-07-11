@@ -9,7 +9,7 @@ Add the dependency to your project:
 === "Gradle (Kotlin)"
 
     ```kotlin
-    implementation("io.github.beduality:terracotta-provider-hangar:0.1.4")
+    implementation("io.github.beduality:terracotta-provider-hangar:0.2.0")
     ```
 
 === "Maven"
@@ -18,7 +18,7 @@ Add the dependency to your project:
     <dependency>
         <groupId>io.github.beduality</groupId>
         <artifactId>terracotta-provider-hangar</artifactId>
-        <version>0.1.4</version>
+        <version>0.2.0</version>
     </dependency>
     ```
 

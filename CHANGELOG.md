@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Reorganized user documentation under `docs/content/modules/` and `docs/content/integration/` with Diátaxis sections for Core, Gradle Plugin, Modrinth Provider, and Hangar Provider; folded `docs/content/config/` into the Core reference.
 - Added `@see` links and member-level KDoc to all public APIs in `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modrinth`, and `terracotta-provider-hangar`, pointing to the new GitHub Pages docs.
-- Trimmed duplicated SDK API content and linked it to the new module docs.
+- Removed the separate `docs/content/sdk/` section and folded its remaining pages into module docs: installation moved to `modules/core/tutorials/installation.md`, custom-provider content merged into `modules/core/tutorials/implementing-a-custom-provider.md`, provider API reference merged into `modules/core/reference/provider-interfaces.md`, architecture explanation merged into `modules/core/explanation/architecture.md`, and the Modrinth quick-start merged into `modules/provider-modrinth/tutorials/using-modrinth.md`.
 
 ### Fixed
 

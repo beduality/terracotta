@@ -136,7 +136,17 @@ You now have a minimal provider that:
 - Receives operations computed by `DiffEngine`.
 - Can be discovered and wired into the Gradle plugin via `ServiceLoader`.
 
+## Production checklist
+
+When you move from the in-memory example to a real registry, keep these points in mind:
+
+- **Authentication**: accept the token in `ProviderFactory.createStateProvider` and `createRegistryProvider` and pass it to your HTTP client.
+- **Error handling**: throw descriptive exceptions for network, auth, and validation failures. Return `null` from `StateProvider.fetchProject` only when the project does not exist.
+- **Rate limiting**: add retries or back-off for registry rate limits.
+- **Model mapping**: translate registry-specific responses into `TerracottaProject` and `TerracottaVersion`, and handle each `Operation` subtype in `RegistryProvider.apply`.
+- **ServiceLoader registration**: create `META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory` containing the fully qualified name of your factory.
+
 ## Next steps
 
-- Read the [Provider Interfaces](../reference/provider-interfaces.md) reference for production implementation requirements.
+- Read the [Provider Interfaces](../reference/provider-interfaces.md) reference for the interface signatures and discovery rules.
 - Review the [Architecture](../explanation/architecture.md) explanation to understand why providers are decoupled from the Gradle plugin.
