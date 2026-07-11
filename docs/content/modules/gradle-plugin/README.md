@@ -15,6 +15,5 @@ This section follows the [Diátaxis](https://diataxis.fr/) documentation framewo
 - [Publish your first release](tutorials/getting-started.md)
 - [Configure providers in `build.gradle.kts`](how-to-guides/kotlin-dsl-configuration.md)
 - [Add a Hangar provider](../../integration/how-to-guides/adding-hangar-to-gradle-plugin.md)
-- [Automate releases in CI/CD](../../integration/how-to-guides/ci-cd-setup.md)
 - [Gradle tasks reference](reference/tasks.md)
 - [Dokka API docs](reference/api.md)

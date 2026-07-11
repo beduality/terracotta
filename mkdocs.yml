@@ -104,7 +104,6 @@ nav:
     - How-To Guides:
       - Adding Modrinth to the Gradle Plugin: content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md
       - Adding Hangar to the Gradle Plugin: content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md
-      - CI/CD Setup with GitHub Actions: content/integration/how-to-guides/ci-cd-setup.md
   - Modules:
     - Overview: content/modules/overview.md
     - Core:

@@ -67,5 +67,4 @@ You can also run the aggregate `terracottaPlan` and `terracottaApply` tasks to o
 ## What's next?
 
 - [Adding Hangar to the Gradle plugin](adding-hangar-to-gradle-plugin.md)
-- [CI/CD setup with GitHub Actions](ci-cd-setup.md)
 - [Modrinth provider module docs](../../modules/provider-modrinth/README.md)

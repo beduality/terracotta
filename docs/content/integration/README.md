@@ -8,4 +8,3 @@ These pages are intentionally separate from module-specific docs so that each mo
 
 - [Adding Modrinth to the Gradle plugin](how-to-guides/adding-modrinth-to-gradle-plugin.md)
 - [Adding Hangar to the Gradle plugin](how-to-guides/adding-hangar-to-gradle-plugin.md)
-- [CI/CD setup with GitHub Actions](how-to-guides/ci-cd-setup.md)
