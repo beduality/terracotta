@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#documentation-framework-diataxis" class="md-skip">
+        <a href="#documentation-framework" class="md-skip">
           Skip to content
         </a>
       
@@ -3420,6 +3420,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/smoke-testing-a-release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoke Testing a Release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/writing-changelog/" class="md-nav__link">
         
   
@@ -3569,34 +3597,6 @@
     
   
     Configuration
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/architecture-reference/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture Reference
   
 
     
@@ -3904,401 +3904,40 @@
   
 
 
-<h1 id="documentation-framework-diataxis">Documentation Framework (Diátaxis)<a class="headerlink" href="#documentation-framework-diataxis" title="Permanent link">&para;</a></h1>
-<p>Diátaxis organizes documentation into four distinct types based on user intent:</p>
-<ul>
-<li><strong>Tutorials</strong> → learning-oriented ("I want to learn")</li>
-<li><strong>How-to guides</strong> → task-oriented ("I want to do")</li>
-<li><strong>Reference</strong> → information-oriented ("I need to know")</li>
-<li><strong>Explanation</strong> → understanding-oriented ("I want to understand")</li>
-</ul>
-<p>Each type has a strict purpose and should not mix with the others.</p>
-<hr />
-<h1 id="1-tutorials">1. Tutorials<a class="headerlink" href="#1-tutorials" title="Permanent link">&para;</a></h1>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Tutorials are designed to <strong>teach by doing</strong>. They guide a beginner through a complete, safe, and successful first experience.</p>
-<p>They answer:</p>
-<blockquote>
-<p>"I want to learn how this works by building something."</p>
-</blockquote>
-<hr />
-<h2 id="characteristics">Characteristics<a class="headerlink" href="#characteristics" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Learning-focused</li>
-<li>Step-by-step execution</li>
-<li>Controlled, ideal environment</li>
-<li>Single clear outcome</li>
-<li>No decisions or alternatives</li>
-<li>No prior knowledge assumed</li>
-</ul>
-<hr />
-<h2 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h2>
-<h3 id="1-title">1. Title<a class="headerlink" href="#1-title" title="Permanent link">&para;</a></h3>
-<p>Must describe the outcome:</p>
-<ul>
-<li>"Build a minimal REST API in Node.js"</li>
-</ul>
-<hr />
-<h3 id="2-introduction">2. Introduction<a class="headerlink" href="#2-introduction" title="Permanent link">&para;</a></h3>
-<ul>
-<li>What will be built</li>
-<li>Minimal prerequisites</li>
-</ul>
-<p>No theory.</p>
-<hr />
-<h3 id="3-steps">3. Steps<a class="headerlink" href="#3-steps" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Sequential</li>
-<li>Small and executable</li>
-<li>Each step produces visible progress</li>
-</ul>
-<p>Example pattern:</p>
-<ul>
-<li>Step 1: do X</li>
-<li>Step 2: do Y</li>
-<li>Step 3: do Z</li>
-</ul>
-<hr />
-<h3 id="4-final-result">4. Final result<a class="headerlink" href="#4-final-result" title="Permanent link">&para;</a></h3>
-<ul>
-<li>What now works</li>
-<li>How to verify success</li>
-</ul>
-<hr />
-<h3 id="5-next-steps-optional">5. Next steps (optional)<a class="headerlink" href="#5-next-steps-optional" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Links to how-to guides or reference docs</li>
-</ul>
-<hr />
-<h2 id="writing-principles">Writing principles<a class="headerlink" href="#writing-principles" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Learning by doing</li>
-<li>One outcome only</li>
-<li>No branching paths</li>
-<li>No conceptual explanations</li>
-<li>Immediate feedback at each step</li>
-</ul>
-<hr />
-<h2 id="anti-patterns">Anti-patterns<a class="headerlink" href="#anti-patterns" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Mixing in reference material</li>
-<li>Multiple goals in one tutorial</li>
-<li>Real-world complexity</li>
-<li>Optional steps everywhere</li>
-<li>Theory-heavy content</li>
-</ul>
-<hr />
-<h2 id="mental-model">Mental model<a class="headerlink" href="#mental-model" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>"Follow these steps and succeed once in a controlled environment."</p>
-</blockquote>
-<hr />
-<h1 id="2-how-to-guides">2. How-to Guides<a class="headerlink" href="#2-how-to-guides" title="Permanent link">&para;</a></h1>
-<h2 id="purpose_1">Purpose<a class="headerlink" href="#purpose_1" title="Permanent link">&para;</a></h2>
-<p>How-to guides solve <strong>real-world tasks</strong>.</p>
-<p>They answer:</p>
-<blockquote>
-<p>"I want to do X."</p>
-</blockquote>
-<hr />
-<h2 id="characteristics_1">Characteristics<a class="headerlink" href="#characteristics_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Problem-oriented</li>
-<li>Real environment assumptions</li>
-<li>Assumes basic familiarity</li>
-<li>Flexible solutions</li>
-<li>Single task focus</li>
-<li>Outcome-driven</li>
-</ul>
-<hr />
-<h2 id="structure_1">Structure<a class="headerlink" href="#structure_1" title="Permanent link">&para;</a></h2>
-<h3 id="1-title_1">1. Title<a class="headerlink" href="#1-title_1" title="Permanent link">&para;</a></h3>
-<p>Must express task:</p>
-<ul>
-<li>"Configure HTTPS for a reverse proxy"</li>
-</ul>
-<hr />
-<h3 id="2-problem-statement">2. Problem statement<a class="headerlink" href="#2-problem-statement" title="Permanent link">&para;</a></h3>
-<ul>
-<li>What the user is trying to achieve</li>
-</ul>
-<hr />
-<h3 id="3-preconditions">3. Preconditions<a class="headerlink" href="#3-preconditions" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Required tools</li>
-<li>System state</li>
-<li>Permissions</li>
-</ul>
-<p>Declarative only.</p>
-<hr />
-<h3 id="4-steps">4. Steps<a class="headerlink" href="#4-steps" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Actionable instructions</li>
-<li>May include conditional branches</li>
-<li>Focus on completion, not teaching</li>
-</ul>
-<hr />
-<h3 id="5-outcome-verification">5. Outcome / verification<a class="headerlink" href="#5-outcome-verification" title="Permanent link">&para;</a></h3>
-<ul>
-<li>How to confirm success</li>
-</ul>
-<hr />
-<h3 id="6-variants-optional">6. Variants (optional)<a class="headerlink" href="#6-variants-optional" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Alternative approaches</li>
-<li>Different environments</li>
-</ul>
-<hr />
-<h2 id="writing-principles_1">Writing principles<a class="headerlink" href="#writing-principles_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Solve a specific problem</li>
-<li>One default path</li>
-<li>Minimal necessary context</li>
-<li>Real-world assumptions</li>
-<li>Action-focused language</li>
-</ul>
-<hr />
-<h2 id="anti-patterns_1">Anti-patterns<a class="headerlink" href="#anti-patterns_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Teaching fundamentals (tutorial drift)</li>
-<li>Exhaustive API listing (reference drift)</li>
-<li>Deep conceptual explanation (explanation drift)</li>
-<li>Over-branching</li>
-<li>Missing success criteria</li>
-</ul>
-<hr />
-<h2 id="mental-model_1">Mental model<a class="headerlink" href="#mental-model_1" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>"A recipe for solving a specific problem in a real system."</p>
-</blockquote>
-<hr />
-<h1 id="3-reference">3. Reference<a class="headerlink" href="#3-reference" title="Permanent link">&para;</a></h1>
-<h2 id="purpose_2">Purpose<a class="headerlink" href="#purpose_2" title="Permanent link">&para;</a></h2>
-<p>Reference material provides <strong>precise, complete, and structured information</strong> for lookup.</p>
-<p>It answers:</p>
-<blockquote>
-<p>"What are the exact details of this system?"</p>
-</blockquote>
-<hr />
-<h2 id="characteristics_2">Characteristics<a class="headerlink" href="#characteristics_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Exhaustive within scope</li>
-<li>Highly structured</li>
-<li>Information-dense</li>
-<li>Neutral and objective</li>
-<li>No narrative flow</li>
-<li>Designed for quick lookup</li>
-</ul>
-<hr />
-<h2 id="structure_2">Structure<a class="headerlink" href="#structure_2" title="Permanent link">&para;</a></h2>
-<h3 id="1-definitions">1. Definitions<a class="headerlink" href="#1-definitions" title="Permanent link">&para;</a></h3>
-<p>Exact descriptions of entities:</p>
-<ul>
-<li>functions</li>
-<li>APIs</li>
-<li>commands</li>
-<li>components</li>
-</ul>
-<hr />
-<h3 id="2-parameter-tables">2. Parameter tables<a class="headerlink" href="#2-parameter-tables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="3-signatures">3. Signatures<a class="headerlink" href="#3-signatures" title="Permanent link">&para;</a></h3>
-<p>Example:</p>
-<ul>
-<li><code>createUser(input: UserInput): User</code></li>
-</ul>
-<hr />
-<h3 id="4-enumerations">4. Enumerations<a class="headerlink" href="#4-enumerations" title="Permanent link">&para;</a></h3>
-<ul>
-<li>active</li>
-<li>pending</li>
-<li>suspended</li>
-</ul>
-<hr />
-<h3 id="5-error-catalog">5. Error catalog<a class="headerlink" href="#5-error-catalog" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Code</th>
-<th>Meaning</th>
-<th>Condition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="writing-principles_2">Writing principles<a class="headerlink" href="#writing-principles_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Precision over readability</li>
-<li>Exhaustive coverage</li>
-<li>No procedural flow</li>
-<li>No conceptual explanation</li>
-<li>Canonical naming only</li>
-</ul>
-<hr />
-<h2 id="anti-patterns_2">Anti-patterns<a class="headerlink" href="#anti-patterns_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Instructional steps</li>
-<li>Conceptual essays</li>
-<li>Partial coverage</li>
-<li>Opinionated guidance</li>
-<li>Ambiguous naming</li>
-</ul>
-<hr />
-<h2 id="mental-model_2">Mental model<a class="headerlink" href="#mental-model_2" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>"A precise map of a system you already know you need to use."</p>
-</blockquote>
-<hr />
-<h1 id="4-explanation">4. Explanation<a class="headerlink" href="#4-explanation" title="Permanent link">&para;</a></h1>
-<h2 id="purpose_3">Purpose<a class="headerlink" href="#purpose_3" title="Permanent link">&para;</a></h2>
-<p>Explanation builds <strong>understanding of concepts and systems</strong>.</p>
-<p>It answers:</p>
-<blockquote>
-<p>"Why does this exist and how does it work?"</p>
-</blockquote>
-<hr />
-<h2 id="characteristics_3">Characteristics<a class="headerlink" href="#characteristics_3" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Concept-focused</li>
-<li>Reasoning-driven</li>
-<li>Contextual and interpretive</li>
-<li>Not exhaustive</li>
-<li>Open-ended</li>
-<li>Multi-perspective</li>
-</ul>
-<hr />
-<h2 id="structure-flexible">Structure (flexible)<a class="headerlink" href="#structure-flexible" title="Permanent link">&para;</a></h2>
-<h3 id="1-concept-introduction">1. Concept introduction<a class="headerlink" href="#1-concept-introduction" title="Permanent link">&para;</a></h3>
-<ul>
-<li>What the concept is</li>
-<li>Where it fits</li>
-</ul>
-<hr />
-<h3 id="2-underlying-model">2. Underlying model<a class="headerlink" href="#2-underlying-model" title="Permanent link">&para;</a></h3>
-<ul>
-<li>How it works internally</li>
-<li>Relationships and structure</li>
-</ul>
-<hr />
-<h3 id="3-rationale">3. Rationale<a class="headerlink" href="#3-rationale" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Why it exists</li>
-<li>What problem it solves</li>
-</ul>
-<hr />
-<h3 id="4-trade-offs">4. Trade-offs<a class="headerlink" href="#4-trade-offs" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Alternatives</li>
-<li>Limitations</li>
-<li>Design constraints</li>
-</ul>
-<hr />
-<h3 id="5-conceptual-connections">5. Conceptual connections<a class="headerlink" href="#5-conceptual-connections" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Related ideas</li>
-<li>Broader systems</li>
-</ul>
-<hr />
-<h2 id="writing-principles_3">Writing principles<a class="headerlink" href="#writing-principles_3" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Focus on understanding</li>
-<li>Explain "why" and "how"</li>
-<li>Use reasoning and relationships</li>
-<li>Selective detail (not exhaustive)</li>
-<li>No procedural instructions</li>
-</ul>
-<hr />
-<h2 id="anti-patterns_3">Anti-patterns<a class="headerlink" href="#anti-patterns_3" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Step-by-step instructions (tutorial drift)</li>
-<li>Exhaustive listings (reference drift)</li>
-<li>Surface-level definitions</li>
-<li>Pure opinion or advice</li>
-<li>Over-simplification</li>
-</ul>
-<hr />
-<h2 id="mental-model_3">Mental model<a class="headerlink" href="#mental-model_3" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>"A map of ideas and relationships that explains why the system is the way it is."</p>
-</blockquote>
-<hr />
-<h1 id="5-comparison-overview">5. Comparison Overview<a class="headerlink" href="#5-comparison-overview" title="Permanent link">&para;</a></h1>
+<h1 id="documentation-framework">Documentation Framework<a class="headerlink" href="#documentation-framework" title="Permanent link">&para;</a></h1>
+<p>Terracotta docs follow the <a href="https://diataxis.fr/">Diátaxis</a> framework, organized by user intent:</p>
 <table>
 <thead>
 <tr>
 <th>Type</th>
 <th>Question it answers</th>
-<th>Focus</th>
-<th>Structure</th>
-<th>Completeness</th>
+<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Tutorial</td>
+<td><strong>Tutorial</strong></td>
 <td>How do I learn this?</td>
-<td>Learning by doing</td>
-<td>Strict step-by-step</td>
-<td>Low scope, high guidance</td>
+<td><a href="../../../modules/core/tutorials/implementing-a-custom-provider/">Implement a Custom Provider</a></td>
 </tr>
 <tr>
-<td>How-to</td>
+<td><strong>How-to Guide</strong></td>
 <td>How do I do X?</td>
-<td>Task completion</td>
-<td>Flexible steps</td>
-<td>Medium, task-focused</td>
+<td><a href="../../../integration/how-to-guides/adding-modrinth-to-gradle-plugin/">Adding Modrinth to the Gradle Plugin</a></td>
 </tr>
 <tr>
-<td>Reference</td>
-<td>What are the details?</td>
-<td>Information lookup</td>
-<td>Structured data</td>
-<td>Exhaustive within scope</td>
+<td><strong>Reference</strong></td>
+<td>What are the exact details?</td>
+<td><a href="../../../modules/core/reference/config-schema/">Config Schema</a></td>
 </tr>
 <tr>
-<td>Explanation</td>
-<td>Why/how does it work?</td>
-<td>Understanding</td>
-<td>Conceptual narrative</td>
-<td>Selective, not exhaustive</td>
+<td><strong>Explanation</strong></td>
+<td>Why does it work this way?</td>
+<td><a href="../../../modules/core/explanation/architecture/">Core Architecture</a></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h1 id="6-key-separation-rules">6. Key Separation Rules<a class="headerlink" href="#6-key-separation-rules" title="Permanent link">&para;</a></h1>
-<ul>
-<li>Tutorials teach, but do not solve real-world problems</li>
-<li>How-to guides solve problems, but do not teach fundamentals</li>
-<li>Reference documents data, but does not instruct or explain</li>
-<li>Explanation clarifies understanding, but does not instruct or enumerate</li>
-</ul>
+<p>Each page belongs to exactly one type. Mixing types in a single page makes it harder for readers to find what they need.</p>
 
 
 
