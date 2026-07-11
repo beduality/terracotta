@@ -7,6 +7,12 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
 import java.io.File
 
+/**
+ * Bridges the parsed `terracotta.yml` and Gradle project values into the
+ * `terracotta` DSL extension.
+ *
+ * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
+ */
 internal object TerracottaExtensionConfigurer {
     fun configure(
         extension: TerracottaExtension,

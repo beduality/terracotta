@@ -3,6 +3,12 @@ package io.github.beduality.terracotta.gradle
 import io.github.beduality.terracotta.core.config.TerracottaConfig
 import org.gradle.api.Project
 
+/**
+ * Registers the `terracottaPlan` and `terracottaApply` tasks for each configured
+ * provider.
+ *
+ * @see [Tasks reference](https://beduality.github.io/terracotta/content/gradle-plugin/reference/tasks.html)
+ */
 internal object TerracottaTaskRegistrar {
     fun registerTasks(
         extension: TerracottaExtension,

@@ -24,52 +24,74 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.work.DisableCachingByDefault
 import java.util.ServiceLoader
 
+/**
+ * Gradle task that applies Terracotta changes to a remote registry.
+ *
+ * Creates or updates the project metadata and uploads any missing versions.
+ *
+ * @see [Tasks reference](https://beduality.github.io/terracotta/content/gradle-plugin/reference/tasks.html)
+ */
 @DisableCachingByDefault(because = "Task makes network calls and applies changes to remote registries")
 abstract class TerracottaApplyTask : DefaultTask() {
     @get:Input
+    /** Registry project identifier. */
     abstract val projectId: Property<String>
 
     @get:Input
+    /** Project display name. */
     abstract val modName: Property<String>
 
     @get:Input
+    /** Short project summary. */
     abstract val summary: Property<String>
 
     @get:Input
+    /** Full project description. */
     abstract val modDescription: Property<String>
 
     @get:Input
+    /** Search tags. */
     abstract val tags: ListProperty<String>
 
     @get:Input
+    /** SPDX license identifier. */
     abstract val license: Property<String>
 
     @get:Input
+    /** Supported Minecraft game versions. */
     abstract val gameVersions: ListProperty<String>
 
     @get:Input
+    /** Supported loader identifiers. */
     abstract val loaders: ListProperty<String>
 
     @get:Input
+    /** Runtime environment. */
     abstract val environment: Property<TerracottaEnvironment>
 
     @get:Input
+    /** Release type. */
     abstract val releaseType: Property<TerracottaReleaseType>
 
     @get:Input
+    /** Release notes for the current version. */
     abstract val changelog: Property<String>
 
     @get:Input
+    /** Provider identifier. */
     abstract val provider: Property<String>
 
     @get:Input
     @get:Optional
+    /** Authentication token for the provider registry. */
     abstract val token: Property<String>
 
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NONE)
+    /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty
 
+    /** Applies the computed operations to the remote registry. */
     @TaskAction
     fun apply() =
         runBlocking {
