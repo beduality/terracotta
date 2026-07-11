@@ -7,7 +7,7 @@ import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 /**
  * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
  *
- * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
  */
 class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryProvider {
     /**

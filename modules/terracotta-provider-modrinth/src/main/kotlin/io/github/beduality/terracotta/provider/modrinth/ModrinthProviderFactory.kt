@@ -8,8 +8,8 @@ import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 /**
  * Provider factory for Modrinth.
  *
- * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
- * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/core/reference/provider-interfaces.html)
+ * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
+ * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
  * @see [Provider API reference](https://beduality.github.io/terracotta/content/sdk/reference/provider-api.html)
  */
 class ModrinthProviderFactory : ProviderFactory {

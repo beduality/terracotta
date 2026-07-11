@@ -36,7 +36,7 @@ import java.io.IOException
 /**
  * HTTP client for the Modrinth API.
  *
- * @see [Modrinth provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/modrinth-provider.html)
+ * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
  */
 class ModrinthClient(
     /** Authentication token for Modrinth API requests. */

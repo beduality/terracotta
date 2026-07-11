@@ -122,7 +122,7 @@ registryProvider.apply(localProject.id, operations)
 ## What's Next?
 
 - **[Provider API Reference](../reference/provider-api.md)**: Learn about all provider interfaces
-- **[Modrinth Provider How-To](../how-to-guides/modrinth-provider.md)**: Detailed Modrinth integration guide
+- **[Modrinth Provider Tutorial](../../modules/provider-modrinth/tutorials/using-modrinth.md)**: Detailed Modrinth integration guide
 - **[Architecture Overview](../explanation/architecture.md)**: Understand how Terracotta works
 
 ## Troubleshooting

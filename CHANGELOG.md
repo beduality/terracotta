@@ -16,11 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `how-to-guides/` for task-oriented guides (load config, resolve metadata, compute diff, add loaders/conventions, normalize versions).
   - `reference/` for lookup content (models, loaders, operations, config schema, metadata resolution, conventions, version conventions, provider interfaces) with links to the Dokka-generated API docs.
   - `explanation/` for conceptual docs (architecture, metadata resolution, diff engine, loader hierarchy, conventions).
-- Wired the new `Modules` section into `mkdocs.yml`, grouping Core and Gradle Plugin docs under `docs/content/modules/`.
+- Wired the new `Modules` section into `mkdocs.yml`, grouping Core, Gradle Plugin, and Modrinth Provider docs under `docs/content/modules/`.
 - Added `@see` links in the `terracotta-core` public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.
 - Added member-level KDoc to public data-class properties and functions in `terracotta-core` so Dokka renders descriptions for every field and method.
 - Expanded the Gradle plugin documentation under `docs/content/modules/gradle-plugin/` with Diátaxis sections and added `@see` links and member-level KDoc to the public DSL classes and tasks.
-- Added `@see` links and member-level KDoc to `terracotta-provider-modrinth` and `terracotta-provider-hangar`, pointing to the SDK provider guides.
+- Reorganized provider documentation under `docs/content/modules/provider-modrinth/` with Diátaxis sections and updated `@see` KDoc links to point to the new module docs.
 - Trimmed duplicated core API content from `docs/content/sdk/reference/api.md` and linked it to the new core docs.
 
 ### Fixed
