@@ -11,19 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Docs**
 
-- Reorganized module documentation under `docs/content/modules/` following the Diátaxis framework.
-  - `tutorials/` for learning-oriented guides (custom loader, metadata detector, provider).
-  - `how-to-guides/` for task-oriented guides (load config, resolve metadata, compute diff, add loaders/conventions, normalize versions).
-  - `reference/` for lookup content (models, loaders, operations, config schema, metadata resolution, conventions, version conventions, provider interfaces) with links to the Dokka-generated API docs.
-  - `explanation/` for conceptual docs (architecture, metadata resolution, diff engine, loader hierarchy, conventions).
-- Wired the new `Modules` section into `mkdocs.yml`, grouping Core, Gradle Plugin, Modrinth Provider, and Hangar Provider docs under `docs/content/modules/`.
-- Added a new `Integration` section under `docs/content/integration/` for cross-module guides such as adding Modrinth/Hangar to the Gradle plugin.
-- Merged `docs/content/config/` into `docs/content/modules/core/reference/config-schema.md` and removed the separate `Config` top-level section from `mkdocs.yml`.
-- Added `@see` links in the `terracotta-core` public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.
-- Added member-level KDoc to public data-class properties and functions in `terracotta-core` so Dokka renders descriptions for every field and method.
-- Expanded the Gradle plugin documentation under `docs/content/modules/gradle-plugin/` with Diátaxis sections and added `@see` links and member-level KDoc to the public DSL classes and tasks.
-- Reorganized provider documentation under `docs/content/modules/provider-modrinth/` and `docs/content/modules/provider-hangar/` with Diátaxis sections and updated `@see` KDoc links to point to the new module docs.
-- Trimmed duplicated core API content from `docs/content/sdk/reference/api.md` and linked it to the new core docs.
+- Reorganized user documentation under `docs/content/modules/` and `docs/content/integration/` with Diátaxis sections for Core, Gradle Plugin, Modrinth Provider, and Hangar Provider; folded `docs/content/config/` into the Core reference.
+- Added `@see` links and member-level KDoc to all public APIs in `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modrinth`, and `terracotta-provider-hangar`, pointing to the new GitHub Pages docs.
+- Trimmed duplicated SDK API content and linked it to the new module docs.
 
 ### Fixed
 
