@@ -1166,6 +1166,8 @@ class TestTrigger(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 release.trigger(bump="not-a-version", yes=True)
 
+
+
     @patch("scripts.release.get_current_version")
     def test_trigger_no_gh_cli_exits(self, mock_get_ver):
         mock_get_ver.return_value = "0.3.0"
@@ -1703,6 +1705,125 @@ class TestMonitor(unittest.TestCase):
 
         with self.assertRaises(SystemExit):
             release.monitor()
+
+
+
+class TestAbort(unittest.TestCase):
+
+    def _auth_ok(self, mock_sub_run):
+        """Set up subprocess.run so gh auth status succeeds."""
+        def side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if cmd[0:2] == ["gh", "auth"]:
+                result.returncode = 0
+            elif "run" in cmd and "list" in cmd:
+                result.returncode = 0
+                result.stdout = "12345\n"
+            elif "run" in cmd and "cancel" in cmd:
+                result.returncode = 0
+            return result
+        mock_sub_run.side_effect = side_effect
+
+    @patch("scripts.release.subprocess.run")
+    def test_abort_with_run_id_and_yes_cancels_immediately(self, mock_sub_run):
+        self._auth_ok(mock_sub_run)
+
+        release.abort(run_id="55555", yes=True)
+
+        cancel_call = next(
+            (c[0][0] for c in mock_sub_run.call_args_list if "cancel" in c[0][0]),
+            None,
+        )
+        self.assertIsNotNone(cancel_call)
+        self.assertEqual(cancel_call, ["gh", "run", "cancel", "55555"])
+
+    @patch("scripts.release.subprocess.run")
+    def test_abort_without_run_id_fetches_latest_active_run(self, mock_sub_run):
+        self._auth_ok(mock_sub_run)
+
+        release.abort(yes=True)
+
+        list_call = next(
+            (c[0][0] for c in mock_sub_run.call_args_list if "list" in c[0][0]),
+            None,
+        )
+        self.assertIsNotNone(list_call)
+        self.assertIn("--workflow=release.yml", list_call)
+        cancel_call = next(
+            (c[0][0] for c in mock_sub_run.call_args_list if "cancel" in c[0][0]),
+            None,
+        )
+        self.assertEqual(cancel_call, ["gh", "run", "cancel", "12345"])
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.subprocess.run")
+    def test_abort_prompts_and_cancels_when_confirmed(self, mock_sub_run, mock_confirm):
+        self._auth_ok(mock_sub_run)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=True))
+
+        release.abort(run_id="55555")
+
+        mock_confirm.assert_called_once()
+        cancel_call = next(
+            (c[0][0] for c in mock_sub_run.call_args_list if "cancel" in c[0][0]),
+            None,
+        )
+        self.assertEqual(cancel_call, ["gh", "run", "cancel", "55555"])
+
+    @patch("scripts.release.questionary.confirm")
+    @patch("scripts.release.subprocess.run")
+    def test_abort_prompts_and_exits_when_declined(self, mock_sub_run, mock_confirm):
+        self._auth_ok(mock_sub_run)
+        mock_confirm.return_value = MagicMock(ask=MagicMock(return_value=False))
+
+        with self.assertRaises(SystemExit):
+            release.abort(run_id="55555")
+
+        cancel_call = next(
+            (c[0][0] for c in mock_sub_run.call_args_list if "cancel" in c[0][0]),
+            None,
+        )
+        self.assertIsNone(cancel_call)
+
+    @patch("scripts.release.subprocess.run")
+    def test_abort_no_active_runs_exits_cleanly(self, mock_sub_run):
+        def side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if cmd[0:2] == ["gh", "auth"]:
+                result.returncode = 0
+            elif "run" in cmd and "list" in cmd:
+                result.returncode = 0
+                result.stdout = "\n"
+            return result
+        mock_sub_run.side_effect = side_effect
+
+        with self.assertRaises(SystemExit):
+            release.abort(yes=True)
+
+    @patch("scripts.release.subprocess.run")
+    def test_abort_gh_auth_failure_exits(self, mock_sub_run):
+        def side_effect(cmd, **kwargs):
+            if cmd[0:2] == ["gh", "auth"]:
+                raise subprocess.CalledProcessError(1, cmd)
+            return MagicMock(returncode=0)
+        mock_sub_run.side_effect = side_effect
+
+        with self.assertRaises(SystemExit):
+            release.abort(run_id="55555", yes=True)
+
+    @patch("scripts.release.subprocess.run")
+    def test_abort_cancel_failure_exits(self, mock_sub_run):
+        def side_effect(cmd, **kwargs):
+            result = MagicMock()
+            if cmd[0:2] == ["gh", "auth"]:
+                result.returncode = 0
+            elif "cancel" in cmd:
+                raise subprocess.CalledProcessError(1, cmd)
+            return result
+        mock_sub_run.side_effect = side_effect
+
+        with self.assertRaises(SystemExit):
+            release.abort(run_id="55555", yes=True)
 
 
 if __name__ == "__main__":

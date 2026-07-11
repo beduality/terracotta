@@ -487,6 +487,55 @@ def trigger(
             monitor(run_id=run_id)
 
 @app.command
+def abort(run_id: str = None, yes: bool = False):
+    """Cancel a Release workflow run.
+
+    Cancels the most recent release.yml run, or the run specified by run_id.
+
+    Parameters
+    ----------
+    run_id : str, optional
+        The GitHub Actions run ID to cancel. If omitted, the latest release.yml
+        run is used.
+    yes : bool, optional
+        Skip the confirmation prompt. Defaults to False.
+    """
+    try:
+        subprocess.run(["gh", "auth", "status"], capture_output=True, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        console.print("[bold red]GitHub CLI (`gh`) is required and must be authenticated.[/bold red]")
+        sys.exit(1)
+
+    if not run_id:
+        try:
+            result = subprocess.run(
+                ["gh", "run", "list", "--workflow=release.yml", "--json", "databaseId,status", "--jq", ".[0] | select(.status != \"completed\") | .databaseId"],
+                capture_output=True, text=True, check=True
+            )
+            run_id = result.stdout.strip()
+        except subprocess.CalledProcessError as e:
+            console.print(f"[bold red]Could not find a recent release.yml run:[/bold red] {e.stderr or e}")
+            sys.exit(1)
+
+    if not run_id:
+        console.print("[yellow]No active release.yml runs found.[/yellow]")
+        sys.exit(0)
+
+    if not yes:
+        proceed = questionary.confirm(f"Cancel release.yml run {run_id}?").ask()
+        if not proceed:
+            console.print("[yellow]Cancellation aborted.[/yellow]")
+            sys.exit(0)
+
+    try:
+        subprocess.run(["gh", "run", "cancel", run_id], check=True)
+        console.print(f"[bold green]✔[/bold green] Cancelled release.yml run {run_id}")
+    except subprocess.CalledProcessError as e:
+        console.print(f"[bold red]Failed to cancel run {run_id}:[/bold red] {e}")
+        sys.exit(1)
+
+
+@app.command
 def monitor(run_id: str = None):
     """Monitor a Release workflow run in real time.
 
