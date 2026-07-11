@@ -2370,6 +2370,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fixed" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2454,6 +2465,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fixed" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2505,10 +2527,33 @@
 <li>Added automatic <code>Release</code>/<code>Snapshot</code> channel creation before uploading versions to Hangar.</li>
 <li>Added multipart version uploads with per-platform game version dependencies.</li>
 </ul>
+<p><strong>Core</strong></p>
+<ul>
+<li>Added automatic <code>releaseType</code> detection from the source version so callers can supply a version and have its release channel inferred (e.g. <code>1.0.0-beta.1</code> maps to <code>BETA</code>).</li>
+<li>Added automatic <code>gameVersion</code> detection from loader descriptors (<code>plugin.yml</code>, <code>paper-plugin.yml</code>, <code>fabric.mod.json</code>, <code>mods.toml</code>).</li>
+<li>Detection is driven by a <code>GameVersionConvention</code> SPI with a <code>MinecraftGameVersionConvention</code> implementation, so it understands classic releases (<code>1.20.1</code>), snapshots (<code>25w14a</code>), pre-releases (<code>1.21.5-pre1</code>), release candidates (<code>1.21.5-rc1</code>), and version ranges such as <code>[1.20.1,1.20.2)</code>.</li>
+<li>Detected versions are normalized and used as a low-priority default, so explicit <code>gameVersions</code> configuration still takes precedence.</li>
+</ul>
+<p><strong>Gradle Plugin</strong></p>
+<ul>
+<li>Added <code>releaseType</code> and <code>gameVersion</code> detectors for Gradle-specific files (<code>gradle.properties</code>, <code>gradle/libs.versions.toml</code>, <code>build.gradle.kts</code> / <code>build.gradle</code>) via the <code>ProjectMetadataDetector</code> ServiceLoader SPI.</li>
+<li>Added fallback version resolution from <code>gradle.properties</code> when <code>project.version</code> is <code>unspecified</code>, so the resolved version is passed into core metadata resolution instead of core reading Gradle files directly.</li>
+</ul>
 <h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link">&para;</a></h3>
+<p><strong>Core</strong></p>
+<ul>
+<li>Removed Gradle business logic from <code>terracotta-core</code>: <code>gradle.properties</code> version fallback, Gradle build-file game-version extraction, and the <code>gradle.properties</code> release-type detector now live in <code>terracotta-gradle-plugin</code>.</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
 <p><strong>Docs</strong></p>
 <ul>
 <li>Removed the <code>CI/CD Deployment</code> how-to guide from the docs navigation because the current stateless design does not support the documented workflow, preventing users from following an inaccurate guide.</li>
+<li>Moved the project introduction, installation, and usage content from <code>README.md</code> into <code>docs/index.md</code> so the docs site is the single source of truth for presentation content. <code>README.md</code> is now a lightweight index page that links to the documentation.</li>
+<li>Added a pre-build hook that copies <code>LICENSE</code> into <code>docs/LICENSE.md</code> so the docs site can link to the license without leaving the generated site.</li>
+</ul>
+<p><strong>Repo</strong></p>
+<ul>
+<li>Updated the release script to keep Gradle plugin version snippets in <code>docs/index.md</code> in sync and removed <code>README.md</code> version-string handling.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
 <p><strong>Repo</strong></p>
