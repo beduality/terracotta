@@ -174,14 +174,42 @@ def update_changelog(new_version: str):
     if "## [Unreleased]" not in content:
         raise ValueError("Could not find '## [Unreleased]' section in CHANGELOG.md")
 
-    new_header = f"## [{new_version}] - {today}"
-    new_content = content.replace(
-        "## [Unreleased]",
-        f"## [Unreleased]\n\n{new_header}",
-        1,
+    # Find the Unreleased section and its body, stopping at the next ## [ header.
+    match = re.search(
+        r"(## \[Unreleased\])\n(.*?)(?=\n## \[|\Z)",
+        content,
+        re.DOTALL,
     )
+    if not match:
+        raise ValueError("Could not parse '## [Unreleased]' section in CHANGELOG.md")
+
+    unreleased_body = match.group(2).rstrip()
+    new_header = f"## [{new_version}] - {today}"
+
+    # Replace the Unreleased section with an empty one and place the new release
+    # section (with the old Unreleased body) right after it.
+    new_section = f"## [Unreleased]\n\n{new_header}\n{unreleased_body}"
+    new_content = content[: match.start()] + new_section + content[match.end() :]
     path.write_text(new_content)
     console.print("[green]✔[/green] Updated CHANGELOG.md")
+
+
+def update_readme(new_version: str):
+    path = Path("README.md")
+    if not path.exists():
+        console.print("[yellow]⚠[/yellow] README.md not found, skipping")
+        return
+    content = path.read_text()
+    new_content = re.sub(
+        r'version\s*"\d+\.\d+\.\d+"',
+        f'version "{new_version}"',
+        content,
+    )
+    if new_content != content:
+        path.write_text(new_content)
+        console.print("[green]✔[/green] Updated README.md")
+    else:
+        console.print("[dim]README.md already up to date[/dim]")
 
 def run_command(cmd: list[str], env: dict = None):
     console.print(f"[bold blue]Running:[/bold blue] {' '.join(cmd)}")
@@ -397,12 +425,13 @@ def main(
 
     actions_taken = []
     try:
-        # 1. Update Version Numbers and Changelog
-        console.print("\n[bold]1. Updating version numbers & changelog...[/bold]")
+        # 1. Update Version Numbers, Changelog, and README
+        console.print("\n[bold]1. Updating version numbers, changelog, and README...[/bold]")
         actions_taken.append("files_modified")
         update_gradle_properties(new_version)
         update_pyproject_toml(new_version)
         update_changelog(new_version)
+        update_readme(new_version)
 
         # 2. Run uv lock to update lock file
         console.print("\n[bold]2. Updating uv.lock...[/bold]")
@@ -446,7 +475,7 @@ def main(
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
 
-            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock"])
+            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "uv.lock"])
 
             run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
             actions_taken.append("committed")
@@ -508,7 +537,7 @@ def main(
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
-                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md"],
+                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md"],
                     check=True
                 )
                 # Try to restore uv.lock if it exists in git
@@ -520,7 +549,7 @@ def main(
                 console.print("[green]✔[/green] Restored modified files")
             except Exception as re_err:
                 console.print(f"[red]Failed to restore modified files: {re_err}[/red]")
-                console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md'[/yellow]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md README.md'[/yellow]")
                 rollback_failed = True
 
         if rollback_failed:
