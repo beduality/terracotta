@@ -6,11 +6,14 @@ Usage:
 
 mapping.json example:
     {
-        "io.github.beduality.terracotta.core.config.*": "content/core/how-to-guides/load-terracotta-config.html",
-        "io.github.beduality.terracotta.core.diff.*": "content/core/reference/operations.html",
-        "io.github.beduality.terracotta.core.model.loader.*": "content/core/reference/loaders.html",
-        "io.github.beduality.terracotta.core.model.*": "content/core/reference/models.html",
-        "io.github.beduality.terracotta.core.provider.*": "content/core/reference/provider-interfaces.html"
+        "io.github.beduality.terracotta.core.config.*": "content/modules/core/how-to-guides/load-terracotta-config.html",
+        "io.github.beduality.terracotta.core.diff.*": "content/modules/core/reference/operations.html",
+        "io.github.beduality.terracotta.core.model.loader.*": "content/modules/core/reference/loaders.html",
+        "io.github.beduality.terracotta.core.model.*": "content/modules/core/reference/models.html",
+        "io.github.beduality.terracotta.core.provider.*": "content/modules/core/reference/provider-interfaces.html",
+        "io.github.beduality.terracotta.gradle.*": "content/modules/gradle-plugin/reference/api.html",
+        "io.github.beduality.terracotta.provider.modrinth.*": "content/modules/provider-modrinth/reference/api.html",
+        "io.github.beduality.terracotta.provider.hangar.*": "content/modules/provider-hangar/reference/api.html"
     }
 
 Patterns are matched against the relative package path (e.g. "config/TerracottaConfig.kt").
