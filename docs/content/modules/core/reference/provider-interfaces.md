@@ -29,5 +29,5 @@ with the fully qualified name of the factory implementation.
 ## See also
 
 - [Implement a Custom Provider](../tutorials/implementing-a-custom-provider.md)
-- [SDK Provider API](../../sdk/reference/provider-api.md)
+- [SDK Provider API](../../../sdk/reference/provider-api.md)
 - [API Documentation](api.md)

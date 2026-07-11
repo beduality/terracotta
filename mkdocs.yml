@@ -81,17 +81,7 @@ extra:
 nav:
   - Quick Start:
     - Introduction: index.md
-    - Getting Started: content/gradle-plugin/tutorials/getting-started.md
-  - Gradle Plugin:
-    - Tutorials:
-      - Installation: content/gradle-plugin/tutorials/installation.md
-      - Getting Started: content/gradle-plugin/tutorials/getting-started.md
-    - How-To Guides:
-      - Adding Hangar: content/gradle-plugin/how-to-guides/adding-hangar-provider.md
-      - Kotlin DSL Configuration: content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md
-    - Reference:
-      - Tasks Reference: content/gradle-plugin/reference/tasks.md
-      - Plugin API Docs: apidocs/terracotta-gradle-plugin/index.html
+    - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
   - Config:
     - Overview: content/config/index.md
     - Schema: content/config/schema.md
@@ -111,35 +101,54 @@ nav:
       - Installation: content/sdk/reference/installation.md
     - Explanation:
       - Architecture Overview: content/sdk/explanation/architecture.md
-  - Core:
-      - Introduction: content/core/README.md
+  - Modules:
+    - Overview: content/modules/overview.md
+    - Core:
+      - Introduction: content/modules/core/README.md
       - Tutorials:
-        - Implement a Custom Loader: content/core/tutorials/implementing-a-custom-loader.md
-        - Implement a Custom Metadata Detector: content/core/tutorials/implementing-a-custom-metadata-detector.md
-        - Implement a Custom Provider: content/core/tutorials/implementing-a-custom-provider.md
+        - Implement a Custom Loader: content/modules/core/tutorials/implementing-a-custom-loader.md
+        - Implement a Custom Metadata Detector: content/modules/core/tutorials/implementing-a-custom-metadata-detector.md
+        - Implement a Custom Provider: content/modules/core/tutorials/implementing-a-custom-provider.md
       - How-To Guides:
-        - Load a terracotta.yml File: content/core/how-to-guides/load-terracotta-config.md
-        - Resolve Project Metadata: content/core/how-to-guides/resolve-project-metadata.md
-        - Compute a Diff: content/core/how-to-guides/compute-a-diff.md
-        - Add a New Loader: content/core/how-to-guides/add-a-new-loader.md
-        - Add a Project-File Convention: content/core/how-to-guides/add-a-new-project-file-convention.md
-        - Normalize Game Versions: content/core/how-to-guides/normalize-game-versions.md
+        - Load a terracotta.yml File: content/modules/core/how-to-guides/load-terracotta-config.md
+        - Resolve Project Metadata: content/modules/core/how-to-guides/resolve-project-metadata.md
+        - Compute a Diff: content/modules/core/how-to-guides/compute-a-diff.md
+        - Add a New Loader: content/modules/core/how-to-guides/add-a-new-loader.md
+        - Add a Project-File Convention: content/modules/core/how-to-guides/add-a-new-project-file-convention.md
+        - Normalize Game Versions: content/modules/core/how-to-guides/normalize-game-versions.md
       - Reference:
-        - Models: content/core/reference/models.md
-        - Loaders: content/core/reference/loaders.md
-        - Operations: content/core/reference/operations.md
-        - Config Schema: content/core/reference/config-schema.md
-        - Metadata Resolution: content/core/reference/metadata-resolution.md
-        - Conventions: content/core/reference/conventions.md
-        - Version Conventions: content/core/reference/version-conventions.md
-        - Provider Interfaces: content/core/reference/provider-interfaces.md
-        - API Documentation: content/core/reference/api.md
+        - Models: content/modules/core/reference/models.md
+        - Loaders: content/modules/core/reference/loaders.md
+        - Operations: content/modules/core/reference/operations.md
+        - Config Schema: content/modules/core/reference/config-schema.md
+        - Metadata Resolution: content/modules/core/reference/metadata-resolution.md
+        - Conventions: content/modules/core/reference/conventions.md
+        - Version Conventions: content/modules/core/reference/version-conventions.md
+        - Provider Interfaces: content/modules/core/reference/provider-interfaces.md
+        - API Documentation: content/modules/core/reference/api.md
       - Explanation:
-        - Architecture: content/core/explanation/architecture.md
-        - Metadata Resolution: content/core/explanation/metadata-resolution.md
-        - Diff Engine: content/core/explanation/diff-engine.md
-        - Loader Hierarchy: content/core/explanation/loader-hierarchy.md
-        - Conventions: content/core/explanation/conventions.md
+        - Architecture: content/modules/core/explanation/architecture.md
+        - Metadata Resolution: content/modules/core/explanation/metadata-resolution.md
+        - Diff Engine: content/modules/core/explanation/diff-engine.md
+        - Loader Hierarchy: content/modules/core/explanation/loader-hierarchy.md
+        - Conventions: content/modules/core/explanation/conventions.md
+    - Gradle Plugin:
+      - Introduction: content/modules/gradle-plugin/README.md
+      - Tutorials:
+        - Installation: content/modules/gradle-plugin/tutorials/installation.md
+        - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
+      - How-To Guides:
+        - Adding Hangar: content/modules/gradle-plugin/how-to-guides/adding-hangar-provider.md
+        - CI/CD Setup: content/modules/gradle-plugin/how-to-guides/ci-cd-setup.md
+        - Kotlin DSL Configuration: content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md
+      - Reference:
+        - Tasks Reference: content/modules/gradle-plugin/reference/tasks.md
+        - API Docs: content/modules/gradle-plugin/reference/api.md
+        - Dokka API Docs: apidocs/terracotta-gradle-plugin/index.html
+      - Explanation:
+        - Architecture: content/modules/gradle-plugin/explanation/architecture.md
+        - DSL Design: content/modules/gradle-plugin/explanation/dsl-design.md
+        - Task Lifecycle: content/modules/gradle-plugin/explanation/task-lifecycle.md
   - Repo:
       - Introduction: content/repo/README.md
       - Tutorials:
