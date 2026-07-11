@@ -47,7 +47,7 @@ Before releasing, add all user-facing changes under `## [Unreleased]` in `CHANGE
 
 Follow the guidelines in `guidelines/changelog.md`:
 - Focus on user/developer/operator impact
-- Group by module (Docs, Core, Gradle Plugin, Modrinth, SDK, etc.)
+- Group by module (Docs, Repo, Core, Gradle Plugin, Modrinth, Hangar, etc.)
 
 ### 2. Trigger the Release Workflow
 

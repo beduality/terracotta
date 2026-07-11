@@ -96,9 +96,14 @@ repo_url: https://github.com/beduality/terracotta
 **Navigation Structure**:
 
 - Quick Start
-- Gradle Plugin
-- SDK
+- Integration
+- Modules
+  - Core
+  - Gradle Plugin
+  - Modrinth Provider
+  - Hangar Provider
 - Repo
+- Changes
 
 ## Module-Specific Configuration
 

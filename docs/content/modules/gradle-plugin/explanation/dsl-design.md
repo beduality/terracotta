@@ -23,4 +23,4 @@ Providers are configured through a `NamedDomainObjectContainer`. Each provider d
 
 The nested `conventions` block selects the README and CHANGELOG conventions that Terracotta uses to interpret project files. Conventions are pluggable in core; the Gradle DSL only selects which conventions to apply.
 
-For the available conventions, see the [Core Conventions reference](../core/reference/conventions.md).
+For the available conventions, see the [Core Conventions reference](../../core/reference/conventions.md).

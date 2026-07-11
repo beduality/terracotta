@@ -4,7 +4,7 @@ The API reference for the Modrinth provider module is generated automatically by
 
 Because the API is covered by KDoc in the source files, this page links directly to the generated documentation rather than duplicating signatures.
 
-<a href="../../../apidocs/terracotta-provider-modrinth/index.html" target="_blank">Open the Modrinth provider Dokka API docs</a>
+<a href="../../../../apidocs/terracotta-provider-modrinth/index.html" target="_blank">Open the Modrinth provider Dokka API docs</a>
 
 ## Key entry points
 

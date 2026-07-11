@@ -4,7 +4,7 @@ The API reference for the Gradle plugin module is generated automatically by [Do
 
 Because the API is covered by KDoc in the source files, this page links directly to the generated documentation rather than duplicating signatures.
 
-<a href="../../../apidocs/terracotta-gradle-plugin/index.html" target="_blank">Open the Gradle plugin Dokka API docs</a>
+<a href="../../../../apidocs/terracotta-gradle-plugin/index.html" target="_blank">Open the Gradle plugin Dokka API docs</a>
 
 ## Key entry points
 

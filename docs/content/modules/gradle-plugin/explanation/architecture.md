@@ -29,4 +29,4 @@ flowchart LR
 
 The plugin intentionally delegates to `terracotta-core` so that the same metadata resolution, diff, and provider abstractions can be reused by non-Gradle consumers such as the SDK and CLI.
 
-See the [Core Architecture](../core/explanation/architecture.md) for the corresponding design on the core side.
+See the [Core Architecture](../../core/explanation/architecture.md) for the corresponding design on the core side.

@@ -33,7 +33,7 @@ Add entries under `## [Unreleased]` in `CHANGELOG.md`. Place them in the correct
 ```md
 ### Fixed
 
-**SDK**
+**Core**
 
 - Fixed publishing of `-javadoc.jar` artifacts so they include generated API documentation instead of empty JARs, satisfying Maven Central requirements.
 ```
@@ -43,7 +43,7 @@ Add entries under `## [Unreleased]` in `CHANGELOG.md`. Place them in the correct
 ```md
 ### Fixed
 
-**SDK**
+**Core**
 
 - Refactored `JavadocTask` to use `DokkaJavadoc`.
 ```

@@ -63,4 +63,4 @@ Values set in the Kotlin DSL always override values from `terracotta.yml`.
 
 ---
 
-See the [Config Schema](../../modules/core/reference/config-schema.md) for a complete list of available fields.
+See the [Config Schema](../../core/reference/config-schema.md) for a complete list of available fields.

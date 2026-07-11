@@ -16,6 +16,12 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/) for Python
 
 ## Local Preview
 
+The docs include generated Kotlin API references. To include them, build the KDocs first with JDK 21 (the version used by CI):
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew :dokkaHtmlMultiModule --no-daemon
+```
+
 ### Option 1: Full Versioned Preview (Recommended)
 
 Deploy the docs under a local version alias and serve:

@@ -16,4 +16,4 @@ The Modrinth provider translates between Terracotta's generic operations and the
 - Each `TerracottaVersion` is uploaded as a Modrinth version with a single primary file.
 - `Operation.CreateProject` creates a draft Modrinth project through the project creation endpoint.
 
-See the [Provider Interfaces reference](../core/reference/provider-interfaces.md) for the generic abstractions this provider implements.
+See the [Provider Interfaces reference](../../core/reference/provider-interfaces.md) for the generic abstractions this provider implements.

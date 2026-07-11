@@ -17,4 +17,4 @@ The Hangar provider translates between Terracotta's generic operations and the H
 - Loader IDs are mapped to Hangar platforms via `HangarLoaderMapper`.
 - `CLIENT_ONLY` environments are ignored because Hangar is implicitly server-only.
 
-See the [Provider Interfaces reference](../core/reference/provider-interfaces.md) for the generic abstractions this provider implements.
+See the [Provider Interfaces reference](../../core/reference/provider-interfaces.md) for the generic abstractions this provider implements.

@@ -166,12 +166,12 @@ nav:
         - Testing: content/repo/how-to-guides/testing.md
         - Documentation: content/repo/how-to-guides/documentation.md
         - Releasing: content/repo/how-to-guides/releasing.md
+        - Smoke Testing a Release: content/repo/how-to-guides/smoke-testing-a-release.md
         - Writing Changelog: content/repo/how-to-guides/writing-changelog.md
       - Reference:
         - Tech Stack: content/repo/reference/tech-stack.md
         - File Structure: content/repo/reference/file-structure.md
         - Configuration: content/repo/reference/configuration.md
-        - Architecture Reference: content/repo/reference/architecture-reference.md
         - Code Style: content/repo/reference/code-style.md
       - Explanation:
         - Architecture: content/repo/explanation/architecture.md

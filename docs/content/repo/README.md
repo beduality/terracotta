@@ -48,5 +48,5 @@ Understanding-oriented content that explains concepts and "why" decisions were m
 ## Links
 
 - [Main README](https://github.com/beduality/terracotta/blob/main/README.md): Project overview
-- [Core Documentation](../modules/core/README.md): For developers using the Terracotta SDK
+- [Core Documentation](../modules/core/README.md): For developers using the Terracotta core library
 - [Gradle Plugin Documentation](../modules/gradle-plugin/tutorials/installation.md): For users of the Gradle plugin

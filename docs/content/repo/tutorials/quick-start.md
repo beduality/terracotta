@@ -1,96 +1,38 @@
 # Quick Start
 
-This tutorial will get you up and running with Terracotta in under 10 minutes.
-
-## What you'll learn
-
-- How to clone and set up the repository locally
-- How to build the project for the first time
-- How to run tests to verify your setup
-- How to start making changes
+Get a local copy of Terracotta built and tested in under 10 minutes.
 
 ## Prerequisites
 
-- Git 2.54.0 or later
+- Git 2.54+
 - JDK 21
-- Python 3.13+ (optional, for documentation)
+- (Optional) Python 3.13+ for documentation work
 
-## 1. Clone the Repository
-
-Fork the repository on GitHub, then clone your fork locally:
+## 1. Clone and build
 
 ```bash
-git clone https://github.com/<your-username>/terracotta.git
+git clone https://github.com/beduality/terracotta.git
 cd terracotta
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew build
 ```
 
-Add the upstream remote to pull in future changes:
+`./gradlew build` compiles all modules, runs tests, checks formatting, and generates coverage reports.
+
+## 2. Verify tests
 
 ```bash
-git remote add upstream https://github.com/beduality/terracotta.git
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew test
 ```
 
-## 2. Verify Your Java Setup
-
-Terracotta requires JDK 21. Verify your setup:
+## 3. Format your changes
 
 ```bash
-java -version
-# Should show openjdk version "21.x.x"
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew spotlessApply
 ```
 
-If your system default is a newer Java version, prefix commands with:
+## What's next?
 
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-```
-
-## 3. Build the Project
-
-Run the complete build pipeline to verify everything works:
-
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-./gradlew build
-```
-
-This command:
-
-- Compiles all modules
-- Runs all unit and integration tests
-- Checks code formatting
-- Generates coverage reports
-
-If the build succeeds, you're ready to contribute!
-
-## 4. Run Tests
-
-Verify tests pass independently:
-
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-./gradlew test
-```
-
-## 5. Format Your Code
-
-Before committing, ensure your code follows the project style:
-
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-./gradlew spotlessApply
-```
-
-## 6. Next Steps
-
-- [Navigating the Codebase](./navigating-the-codebase.md): Understand the project structure in detail
-- [Building and Testing](../how-to-guides/building.md): Learn about build options and verification
-- [Testing Guide](../how-to-guides/testing.md): Understand test types and coverage expectations
-
-## What's Next?
-
-You now have a working local copy of Terracotta. Ready to make your first contribution?
-
-1. Pick a task from `project/TODO.md`
-2. Follow the [Contributing](../how-to-guides/contributing.md) guide
-3. Create your PR against the `main` branch
+- [Navigating the Codebase](./navigating-the-codebase.md): Understand project structure and Git workflow.
+- [Contributing](../how-to-guides/contributing.md): Learn the contribution process.
+- [Building](../how-to-guides/building.md) and [Testing](../how-to-guides/testing.md): Detailed build and test options.
+- [Documentation](../how-to-guides/documentation.md): Preview the docs site locally.

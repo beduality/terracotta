@@ -46,10 +46,10 @@ Use the module that contains the changed code:
 
 - **Docs** — documentation, guides, release notes, and the public site
 - **Repo** — repository tooling, CI/CD, release scripts, and conventions
-- **SDK** — SDK APIs and artifacts
 - **Core** — `terracotta-core` module
 - **Gradle Plugin** — `terracotta-gradle-plugin` module
 - **Modrinth** — `terracotta-provider-modrinth` module
+- **Hangar** — `terracotta-provider-hangar` module
 
 If a change spans modules, either split it into scoped entries or place it under the most affected module.
 
