@@ -27,5 +27,4 @@ open class ForgeLoader : AbstractTerracottaLoader("forge", "Forge") {
         }
         return emptyList()
     }
-
 }
