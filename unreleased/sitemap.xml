@@ -17,6 +17,22 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/integration/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/integration/how-to-guides/adding-hangar-to-gradle-plugin/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/integration/how-to-guides/adding-modrinth-to-gradle-plugin/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/integration/how-to-guides/ci-cd-setup/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/modules/overview/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -130,14 +146,6 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/modules/gradle-plugin/explanation/task-lifecycle/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/gradle-plugin/how-to-guides/adding-hangar-provider/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/gradle-plugin/how-to-guides/ci-cd-setup/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>

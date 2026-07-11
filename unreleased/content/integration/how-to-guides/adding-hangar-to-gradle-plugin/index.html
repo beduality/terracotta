@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/modules/gradle-plugin/how-to-guides/ci-cd-setup/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">
       
       
-        <link rel="prev" href="../adding-hangar-provider/">
+        <link rel="prev" href="../adding-modrinth-to-gradle-plugin/">
       
       
-        <link rel="next" href="../kotlin-dsl-configuration/">
+        <link rel="next" href="../ci-cd-setup/">
       
       
         
       
       
-      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>CI/CD Setup - Terracotta</title>
+        <title>Adding Hangar to the Gradle Plugin - Terracotta</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cicd-setup-with-github-actions" class="md-skip">
+        <a href="#adding-hangar" class="md-skip">
           Skip to content
         </a>
       
@@ -98,9 +98,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CI/CD Setup
+              Adding Hangar to the Gradle Plugin
             
           </span>
         </div>
@@ -235,9 +235,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../assets/images/logo.png" alt="logo">
 
     </a>
     Terracotta
@@ -316,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -344,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -431,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../config/" class="md-nav__link">
+      <a href="../../../config/" class="md-nav__link">
         
   
   
@@ -459,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../config/schema/" class="md-nav__link">
+      <a href="../../../config/schema/" class="md-nav__link">
         
   
   
@@ -595,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/tutorials/quick-start/" class="md-nav__link">
+      <a href="../../../sdk/tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -680,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/how-to-guides/custom-provider/" class="md-nav__link">
+      <a href="../../../sdk/how-to-guides/custom-provider/" class="md-nav__link">
         
   
   
@@ -765,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/reference/api/" class="md-nav__link">
+      <a href="../../../sdk/reference/api/" class="md-nav__link">
         
   
   
@@ -793,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-core/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-core/" class="md-nav__link">
         
   
   
@@ -821,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
         
   
   
@@ -849,7 +849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
         
   
   
@@ -877,7 +877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/reference/provider-api/" class="md-nav__link">
+      <a href="../../../sdk/reference/provider-api/" class="md-nav__link">
         
   
   
@@ -905,7 +905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/reference/installation/" class="md-nav__link">
+      <a href="../../../sdk/reference/installation/" class="md-nav__link">
         
   
   
@@ -990,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../sdk/explanation/architecture/" class="md-nav__link">
+      <a href="../../../sdk/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -1058,7 +1058,7 @@
   <span class="md-ellipsis">
     
   
-    Modules
+    Integration
   
 
     
@@ -1071,6 +1071,360 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-To Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-To Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-modrinth-to-gradle-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Modrinth to the Gradle Plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Hangar to the Gradle Plugin
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Hangar to the Gradle Plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before you start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-add-the-hangar-provider-to-terracottayml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add the Hangar provider to terracotta.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configure-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verify-supported-loaders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verify supported loaders
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-plan-and-apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Plan and apply
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Setup with GitHub Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1087,7 +1441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/" class="md-nav__link">
+      <a href="../../../modules/overview/" class="md-nav__link">
         
   
   
@@ -1125,10 +1479,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
             
   
   
@@ -1146,8 +1500,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1164,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/" class="md-nav__link">
+      <a href="../../../modules/core/" class="md-nav__link">
         
   
   
@@ -1202,10 +1556,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_2" id="__nav_5_2_2_label" tabindex="0">
             
   
   
@@ -1223,8 +1577,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1241,7 +1595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
         
   
   
@@ -1269,7 +1623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
         
   
   
@@ -1297,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
         
   
   
@@ -1343,10 +1697,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
             
   
   
@@ -1364,8 +1718,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1382,7 +1736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/load-terracotta-config/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/load-terracotta-config/" class="md-nav__link">
         
   
   
@@ -1410,7 +1764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
         
   
   
@@ -1438,7 +1792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/compute-a-diff/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/compute-a-diff/" class="md-nav__link">
         
   
   
@@ -1466,7 +1820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/add-a-new-loader/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/add-a-new-loader/" class="md-nav__link">
         
   
   
@@ -1494,7 +1848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
         
   
   
@@ -1522,7 +1876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/how-to-guides/normalize-game-versions/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/normalize-game-versions/" class="md-nav__link">
         
   
   
@@ -1568,10 +1922,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_4" id="__nav_5_2_4_label" tabindex="0">
             
   
   
@@ -1589,8 +1943,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1607,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/models/" class="md-nav__link">
+      <a href="../../../modules/core/reference/models/" class="md-nav__link">
         
   
   
@@ -1635,7 +1989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/loaders/" class="md-nav__link">
+      <a href="../../../modules/core/reference/loaders/" class="md-nav__link">
         
   
   
@@ -1663,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/operations/" class="md-nav__link">
+      <a href="../../../modules/core/reference/operations/" class="md-nav__link">
         
   
   
@@ -1691,7 +2045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/config-schema/" class="md-nav__link">
+      <a href="../../../modules/core/reference/config-schema/" class="md-nav__link">
         
   
   
@@ -1719,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/metadata-resolution/" class="md-nav__link">
+      <a href="../../../modules/core/reference/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -1747,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/conventions/" class="md-nav__link">
+      <a href="../../../modules/core/reference/conventions/" class="md-nav__link">
         
   
   
@@ -1775,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/version-conventions/" class="md-nav__link">
+      <a href="../../../modules/core/reference/version-conventions/" class="md-nav__link">
         
   
   
@@ -1803,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/provider-interfaces/" class="md-nav__link">
+      <a href="../../../modules/core/reference/provider-interfaces/" class="md-nav__link">
         
   
   
@@ -1831,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/reference/api/" class="md-nav__link">
+      <a href="../../../modules/core/reference/api/" class="md-nav__link">
         
   
   
@@ -1877,10 +2231,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_2_5" id="__nav_4_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
@@ -1898,8 +2252,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_5">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1916,7 +2270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -1944,7 +2298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -1972,7 +2326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/explanation/diff-engine/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/diff-engine/" class="md-nav__link">
         
   
   
@@ -2000,7 +2354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/explanation/loader-hierarchy/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/loader-hierarchy/" class="md-nav__link">
         
   
   
@@ -2028,7 +2382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../core/explanation/conventions/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/conventions/" class="md-nav__link">
         
   
   
@@ -2069,8 +2423,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2080,14 +2432,14 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
             
   
   
@@ -2105,8 +2457,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2123,7 +2475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2161,10 +2513,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3_2" id="__nav_5_3_2_label" tabindex="0">
             
   
   
@@ -2182,8 +2534,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2200,7 +2552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/installation/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/installation/" class="md-nav__link">
         
   
   
@@ -2228,7 +2580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -2261,8 +2613,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2272,14 +2622,14 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3_3" id="__nav_5_3_3_label" tabindex="0">
             
   
   
@@ -2297,8 +2647,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_3_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2315,132 +2665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adding-hangar-provider/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Adding Hangar
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CI/CD Setup
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CI/CD Setup
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-store-your-modrinth-token" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Store your Modrinth Token
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-create-the-workflow-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Create the workflow file
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../kotlin-dsl-configuration/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration/" class="md-nav__link">
         
   
   
@@ -2486,10 +2711,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3_4" id="__nav_5_3_4_label" tabindex="0">
             
   
   
@@ -2507,8 +2732,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2525,7 +2750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/tasks/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/reference/tasks/" class="md-nav__link">
         
   
   
@@ -2553,7 +2778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/reference/api/" class="md-nav__link">
         
   
   
@@ -2581,7 +2806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2627,10 +2852,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3_5" id="__nav_4_3_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3_5" id="__nav_5_3_5_label" tabindex="0">
             
   
   
@@ -2648,8 +2873,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3_5">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2666,7 +2891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -2694,7 +2919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/dsl-design/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/dsl-design/" class="md-nav__link">
         
   
   
@@ -2722,7 +2947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/task-lifecycle/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/task-lifecycle/" class="md-nav__link">
         
   
   
@@ -2776,10 +3001,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
             
   
   
@@ -2797,8 +3022,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2815,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-modrinth/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/" class="md-nav__link">
         
   
   
@@ -2853,10 +3078,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
             
   
   
@@ -2874,8 +3099,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2892,7 +3117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-modrinth/tutorials/using-modrinth/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/tutorials/using-modrinth/" class="md-nav__link">
         
   
   
@@ -2938,10 +3163,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4_3" id="__nav_5_4_3_label" tabindex="0">
             
   
   
@@ -2959,8 +3184,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2977,7 +3202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-modrinth/reference/api/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/reference/api/" class="md-nav__link">
         
   
   
@@ -3005,7 +3230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
         
   
   
@@ -3051,10 +3276,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4_4" id="__nav_5_4_4_label" tabindex="0">
             
   
   
@@ -3072,8 +3297,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3090,7 +3315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-modrinth/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -3118,7 +3343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-modrinth/explanation/version-mapping/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/explanation/version-mapping/" class="md-nav__link">
         
   
   
@@ -3172,10 +3397,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
             
   
   
@@ -3193,8 +3418,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3211,7 +3436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-hangar/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/" class="md-nav__link">
         
   
   
@@ -3249,10 +3474,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_5_2" id="__nav_4_5_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
             
   
   
@@ -3270,8 +3495,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3288,7 +3513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-hangar/tutorials/using-hangar/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/tutorials/using-hangar/" class="md-nav__link">
         
   
   
@@ -3334,10 +3559,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_5_3" id="__nav_4_5_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
             
   
   
@@ -3355,8 +3580,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3373,7 +3598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-hangar/reference/api/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/reference/api/" class="md-nav__link">
         
   
   
@@ -3401,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
         
   
   
@@ -3447,10 +3672,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_5_4" id="__nav_4_5_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5_4" id="__nav_5_5_4_label" tabindex="0">
             
   
   
@@ -3468,8 +3693,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3486,7 +3711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-hangar/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -3514,7 +3739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../provider-hangar/explanation/loader-mapping/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/explanation/loader-mapping/" class="md-nav__link">
         
   
   
@@ -3578,10 +3803,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -3599,8 +3824,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3617,7 +3842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/" class="md-nav__link">
+      <a href="../../../repo/" class="md-nav__link">
         
   
   
@@ -3655,10 +3880,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
         
           
-          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
             
   
   
@@ -3676,8 +3901,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3694,7 +3919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/tutorials/quick-start/" class="md-nav__link">
+      <a href="../../../repo/tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -3722,7 +3947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
+      <a href="../../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
   
@@ -3768,10 +3993,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
         
           
-          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
             
   
   
@@ -3789,8 +4014,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3807,7 +4032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/contributing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/contributing/" class="md-nav__link">
         
   
   
@@ -3835,7 +4060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/building/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/building/" class="md-nav__link">
         
   
   
@@ -3863,7 +4088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/testing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/testing/" class="md-nav__link">
         
   
   
@@ -3891,7 +4116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/documentation/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/documentation/" class="md-nav__link">
         
   
   
@@ -3919,7 +4144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/releasing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/releasing/" class="md-nav__link">
         
   
   
@@ -3947,7 +4172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
         
   
   
@@ -3993,10 +4218,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
         
           
-          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
             
   
   
@@ -4014,8 +4239,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4032,7 +4257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/reference/tech-stack/" class="md-nav__link">
+      <a href="../../../repo/reference/tech-stack/" class="md-nav__link">
         
   
   
@@ -4060,7 +4285,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/reference/file-structure/" class="md-nav__link">
+      <a href="../../../repo/reference/file-structure/" class="md-nav__link">
         
   
   
@@ -4088,7 +4313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/reference/configuration/" class="md-nav__link">
+      <a href="../../../repo/reference/configuration/" class="md-nav__link">
         
   
   
@@ -4116,7 +4341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/reference/architecture-reference/" class="md-nav__link">
+      <a href="../../../repo/reference/architecture-reference/" class="md-nav__link">
         
   
   
@@ -4144,7 +4369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/reference/code-style/" class="md-nav__link">
+      <a href="../../../repo/reference/code-style/" class="md-nav__link">
         
   
   
@@ -4190,10 +4415,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
             
   
   
@@ -4211,8 +4436,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4229,7 +4454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/explanation/architecture/" class="md-nav__link">
+      <a href="../../../repo/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -4257,7 +4482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/explanation/project-management/" class="md-nav__link">
+      <a href="../../../repo/explanation/project-management/" class="md-nav__link">
         
   
   
@@ -4285,7 +4510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/explanation/documentation-framework/" class="md-nav__link">
+      <a href="../../../repo/explanation/documentation-framework/" class="md-nav__link">
         
   
   
@@ -4313,7 +4538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../repo/explanation/changelog-guidelines/" class="md-nav__link">
+      <a href="../../../repo/explanation/changelog-guidelines/" class="md-nav__link">
         
   
   
@@ -4356,7 +4581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../changes/" class="md-nav__link">
+      <a href="../../../../changes/" class="md-nav__link">
         
   
   
@@ -4403,10 +4628,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-store-your-modrinth-token" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Store your Modrinth Token
+        Before you start
       
     </span>
   </a>
@@ -4414,10 +4639,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-workflow-file" class="md-nav__link">
+  <a href="#1-add-the-hangar-provider-to-terracottayml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Create the workflow file
+        1. Add the Hangar provider to terracotta.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configure-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verify-supported-loaders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verify supported loaders
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-plan-and-apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Plan and apply
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's next?
       
     </span>
   </a>
@@ -4441,7 +4721,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/modules/gradle-plugin/how-to-guides/ci-cd-setup.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4449,42 +4729,131 @@
   
 
 
-<h1 id="cicd-setup-with-github-actions">CI/CD Setup with GitHub Actions<a class="headerlink" href="#cicd-setup-with-github-actions" title="Permanent link">&para;</a></h1>
-<p>You can automate publishing version updates and syncing project metadata using GitHub Actions.</p>
-<h2 id="1-store-your-modrinth-token">1. Store your Modrinth Token<a class="headerlink" href="#1-store-your-modrinth-token" title="Permanent link">&para;</a></h2>
-<p>First, add your Modrinth API token to your GitHub repository secrets:
-1. Go to your repository <strong>Settings</strong> &gt; <strong>Secrets and variables</strong> &gt; <strong>Actions</strong>.
-2. Click <strong>New repository secret</strong>.
-3. Name it <code>MODRINTH_TOKEN</code> and paste your API token.</p>
-<h2 id="2-create-the-workflow-file">2. Create the workflow file<a class="headerlink" href="#2-create-the-workflow-file" title="Permanent link">&para;</a></h2>
-<p>Create a workflow file in <code>.github/workflows/deploy.yml</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Plugin</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">on</span><span class="p">:</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;v*&#39;</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">jobs</span><span class="p">:</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">publish</span><span class="p">:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout Code</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up JDK 17</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-java@v4</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">          </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;zulu&#39;</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;17&#39;</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;gradle&#39;</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy with Terracotta</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">          </span><span class="nt">MODRINTH_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.MODRINTH_TOKEN }}</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./gradlew terracottaApply</span>
+<h1 id="adding-hangar">Adding Hangar<a class="headerlink" href="#adding-hangar" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to add a <a href="https://hangar.papermc.io/">Hangar</a> provider to an existing Terracotta setup. It assumes you have already installed the Terracotta Gradle plugin and configured your project metadata.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<p>Hangar does not expose a project creation API. Log in to Hangar and create your project manually before running Terracotta. Make a note of the project slug — you will use it as the <code>projectId</code>.</p>
+<h2 id="1-add-the-hangar-provider-to-terracottayml">1. Add the Hangar provider to <code>terracotta.yml</code><a class="headerlink" href="#1-add-the-hangar-provider-to-terracottayml" title="Permanent link">&para;</a></h2>
+<p>Add a <code>hangar</code> entry under <code>providers:</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="w"> </span><span class="c1"># your Hangar project slug</span>
 </code></pre></div>
-<p>Whenever you push a tag like <code>v1.2.0</code>, this workflow will build your plugin and execute Terracotta to upload your release artifact automatically.</p>
+<p>If you already have other providers configured, add <code>hangar</code> alongside them:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+</code></pre></div>
+<h2 id="2-configure-authentication">2. Configure authentication<a class="headerlink" href="#2-configure-authentication" title="Permanent link">&para;</a></h2>
+<p>Create a Hangar API key from your Hangar account settings.</p>
+<p>Set the key as an environment variable. Terracotta uses the <code>&lt;PROVIDER&gt;_TOKEN</code> convention, so the variable name for Hangar is <code>HANGAR_TOKEN</code>:</p>
+<p>```=== "Linux / macOS"</p>
+<div class="highlight"><pre><span></span><code>```bash
+export HANGAR_TOKEN=&quot;your_hangar_token&quot;
+```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows PowerShell</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">$env:HANGAR_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Or set the token explicitly in your <code>build.gradle.kts</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">providers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">create</span><span class="p">(</span><span class="s">&quot;hangar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="n">projectId</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;my-hangar-project-slug&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="n">token</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;HANGAR_TOKEN&quot;</span><span class="p">))</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="3-verify-supported-loaders">3. Verify supported loaders<a class="headerlink" href="#3-verify-supported-loaders" title="Permanent link">&para;</a></h2>
+<p>Hangar uses a coarser platform model than individual loaders. Terracotta maps your configured loaders to Hangar platforms automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Terracotta loader</th>
+<th>Hangar platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bukkit</code></td>
+<td><code>PAPER</code></td>
+</tr>
+<tr>
+<td><code>spigot</code></td>
+<td><code>PAPER</code></td>
+</tr>
+<tr>
+<td><code>paper</code></td>
+<td><code>PAPER</code></td>
+</tr>
+<tr>
+<td><code>purpur</code></td>
+<td><code>PAPER</code></td>
+</tr>
+<tr>
+<td><code>folia</code></td>
+<td><code>PAPER</code></td>
+</tr>
+<tr>
+<td><code>velocity</code></td>
+<td><code>VELOCITY</code></td>
+</tr>
+<tr>
+<td><code>bungeecord</code></td>
+<td><code>WATERFALL</code></td>
+</tr>
+<tr>
+<td><code>waterfall</code></td>
+<td><code>WATERFALL</code></td>
+</tr>
+</tbody>
+</table>
+<p>Unsupported loaders such as <code>fabric</code>, <code>forge</code>, <code>quilt</code>, <code>neoforge</code>, and <code>sponge</code> are skipped with a warning.</p>
+<h2 id="4-plan-and-apply">4. Plan and apply<a class="headerlink" href="#4-plan-and-apply" title="Permanent link">&para;</a></h2>
+<p>Run a dry run to see what Terracotta will change on Hangar:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./gradlew<span class="w"> </span>terracottaPlanHangar
+</code></pre></div>
+<p>Apply the changes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./gradlew<span class="w"> </span>terracottaApplyHangar
+</code></pre></div>
+<p>You can also run the aggregate tasks <code>terracottaPlan</code> and <code>terracottaApply</code> to plan or apply changes for all configured providers at once.</p>
+<h2 id="release-channels">Release channels<a class="headerlink" href="#release-channels" title="Permanent link">&para;</a></h2>
+<p>Hangar versions are uploaded to a channel. Terracotta maps your configured <code>releaseType</code> to Hangar channels:</p>
+<table>
+<thead>
+<tr>
+<th>Terracotta <code>releaseType</code></th>
+<th>Hangar channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>release</code></td>
+<td><code>Release</code></td>
+</tr>
+<tr>
+<td><code>beta</code></td>
+<td><code>Snapshot</code></td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td><code>Snapshot</code></td>
+</tr>
+</tbody>
+</table>
+<p>If the channel does not exist on the project yet, Terracotta creates it automatically before uploading.</p>
+<h2 id="whats-next">What's next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about all available configuration options in the <a href="../../../config/schema/">Config Schema</a>.</li>
+<li>Automate Hangar releases in CI/CD with the <a href="../ci-cd-setup/">CI/CD Deployment guide</a>.</li>
+<li>Use the <a href="../../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration/">Kotlin DSL how-to guide</a> to configure Hangar entirely in <code>build.gradle.kts</code>.</li>
+</ul>
 
 
 
@@ -4522,7 +4891,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../adding-hangar-provider/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Adding Hangar">
+          <a href="../adding-modrinth-to-gradle-plugin/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Adding Modrinth to the Gradle Plugin">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4532,20 +4901,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Adding Hangar
+                Adding Modrinth to the Gradle Plugin
               </div>
             </div>
           </a>
         
         
           
-          <a href="../kotlin-dsl-configuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Kotlin DSL Configuration">
+          <a href="../ci-cd-setup/" class="md-footer__link md-footer__link--next" aria-label="Next: CI/CD Setup with GitHub Actions">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Kotlin DSL Configuration
+                CI/CD Setup with GitHub Actions
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4611,10 +4980,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
