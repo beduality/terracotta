@@ -19,15 +19,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Core**
 
-- Added automatic `gameVersion` detection from project files, including loader descriptors (`plugin.yml`, `paper-plugin.yml`, `fabric.mod.json`, `mods.toml`) and build files (`gradle.properties`, `gradle/libs.versions.toml`, `build.gradle.kts`).
+- Added automatic `releaseType` detection from the source version so callers can supply a version and have its release channel inferred (e.g. `1.0.0-beta.1` maps to `BETA`).
+- Added automatic `gameVersion` detection from loader descriptors (`plugin.yml`, `paper-plugin.yml`, `fabric.mod.json`, `mods.toml`).
   - Detection is driven by a `GameVersionConvention` SPI with a `MinecraftGameVersionConvention` implementation, so it understands classic releases (`1.20.1`), snapshots (`25w14a`), pre-releases (`1.21.5-pre1`), release candidates (`1.21.5-rc1`), and version ranges such as `[1.20.1,1.20.2)`.
   - Detected versions are normalized and used as a low-priority default, so explicit `gameVersions` configuration still takes precedence.
 
+**Gradle Plugin**
+
+- Added `releaseType` and `gameVersion` detectors for Gradle-specific files (`gradle.properties`, `gradle/libs.versions.toml`, `build.gradle.kts` / `build.gradle`) via the `ProjectMetadataDetector` ServiceLoader SPI.
+- Added fallback version resolution from `gradle.properties` when `project.version` is `unspecified`, so the resolved version is passed into core metadata resolution instead of core reading Gradle files directly.
+
 ### Removed
+
+**Core**
+
+- Removed Gradle business logic from `terracotta-core`: `gradle.properties` version fallback, Gradle build-file game-version extraction, and the `gradle.properties` release-type detector now live in `terracotta-gradle-plugin`.
+
+### Changed
 
 **Docs**
 
 - Removed the `CI/CD Deployment` how-to guide from the docs navigation because the current stateless design does not support the documented workflow, preventing users from following an inaccurate guide.
+- Moved the project introduction, installation, and usage content from `README.md` into `docs/index.md` so the docs site is the single source of truth for presentation content. `README.md` is now a lightweight index page that links to the documentation.
+- Added a pre-build hook that copies `LICENSE` into `docs/LICENSE.md` so the docs site can link to the license without leaving the generated site.
+
+**Repo**
+
+- Updated the release script to keep Gradle plugin version snippets in `docs/index.md` in sync and removed `README.md` version-string handling.
 
 ### Fixed
 

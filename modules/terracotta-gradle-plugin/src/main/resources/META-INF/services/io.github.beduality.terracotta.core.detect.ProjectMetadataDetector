@@ -1,0 +1,2 @@
+io.github.beduality.terracotta.gradle.detect.GradleReleaseTypeMetadataDetector
+io.github.beduality.terracotta.gradle.detect.GradleGameVersionMetadataDetector

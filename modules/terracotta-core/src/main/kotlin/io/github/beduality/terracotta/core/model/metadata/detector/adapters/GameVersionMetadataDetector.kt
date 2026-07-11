@@ -7,11 +7,10 @@ import io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetad
 
 class GameVersionMetadataDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {
-        val fromLoaders = TerracottaLoaderRegistry.detectAll(context.cache).flatMap { it.detectGameVersions(context.cache) }
-        val fromBuildFiles = BuildFileGameVersionSource.extract(context.cache)
-
         val versions =
-            (fromLoaders + fromBuildFiles)
+            TerracottaLoaderRegistry
+                .detectAll(context.cache)
+                .flatMap { it.detectGameVersions(context.cache) }
                 .flatMap { GameVersionNormalizer.normalize(it) }
                 .distinct()
 

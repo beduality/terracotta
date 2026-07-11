@@ -82,15 +82,6 @@ class ProjectMetadataResolver(
     }
 
     private fun resolveVersion(version: String?): String? {
-        if (version != null && version != "unspecified") return version
-        return readGradlePropertiesVersion(projectDir)
-    }
-
-    private fun readGradlePropertiesVersion(projectDir: File): String? {
-        val file =
-            File(projectDir, "gradle.properties").takeIf { it.exists() && it.isFile }
-                ?: return null
-        val match = Regex("""^version\s*=\s*([^\s]+)""", RegexOption.MULTILINE).find(file.readText())
-        return match?.groupValues?.get(1)?.trim()
+        return version?.takeIf { it != "unspecified" }
     }
 }

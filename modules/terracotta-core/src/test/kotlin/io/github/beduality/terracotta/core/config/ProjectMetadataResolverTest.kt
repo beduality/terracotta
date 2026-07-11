@@ -107,30 +107,6 @@ class ProjectMetadataResolverTest {
     }
 
     @Test
-    fun `falls back to gradle properties when version is unspecified`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "gradle.properties").writeText("version = 2.0.0")
-        File(tempDir, "CHANGELOG.md").writeText(
-            """
-            # Changelog
-
-            ## [2.0.0]
-
-            - release notes
-            """.trimIndent(),
-        )
-
-        val config = TerracottaConfig()
-        val source = ProjectMetadataSource(version = "unspecified")
-        val resolver = ProjectMetadataResolver(tempDir, config, source)
-
-        val result = resolver.resolve()
-
-        assertEquals("- release notes", result.changelog)
-    }
-
-    @Test
     fun `applies defaults when no values are available`(
         @TempDir tempDir: File,
     ) {

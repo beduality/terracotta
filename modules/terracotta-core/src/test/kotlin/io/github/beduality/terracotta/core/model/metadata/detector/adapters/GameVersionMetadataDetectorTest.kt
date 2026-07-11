@@ -103,78 +103,12 @@ class GameVersionMetadataDetectorTest {
     }
 
     @Test
-    fun `detects game version from gradle properties`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "gradle.properties").writeText("minecraft_version=1.20.1")
-
-        val result = GameVersionMetadataDetector().detect(context(tempDir))
-
-        assertEquals(listOf("1.20.1"), result?.gameVersions)
-    }
-
-    @Test
-    fun `detects game version from build gradle kts paper-api coordinate`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "build.gradle.kts").writeText(
-            """
-            dependencies {
-                paper-api("1.20.1-R0.1-SNAPSHOT")
-            }
-            """.trimIndent(),
-        )
-
-        val result = GameVersionMetadataDetector().detect(context(tempDir))
-
-        assertEquals(listOf("1.20.1"), result?.gameVersions)
-    }
-
-    @Test
-    fun `detects game version from libs versions toml`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "gradle").mkdirs()
-        File(tempDir, "gradle/libs.versions.toml").writeText(
-            """
-            [versions]
-            minecraft = "1.20.1"
-            """.trimIndent(),
-        )
-
-        val result = GameVersionMetadataDetector().detect(context(tempDir))
-
-        assertEquals(listOf("1.20.1"), result?.gameVersions)
-    }
-
-    @Test
     fun `returns null when no game version can be detected`(
         @TempDir tempDir: File,
     ) {
         val result = GameVersionMetadataDetector().detect(context(tempDir))
 
         assertNull(result)
-    }
-
-    @Test
-    fun `combines game versions from multiple sources`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "src/main/resources/plugin.yml").apply {
-            parentFile.mkdirs()
-            writeText(
-                """
-                name: MyPlugin
-                version: '1.0'
-                api-version: '1.20'
-                """.trimIndent(),
-            )
-        }
-        File(tempDir, "gradle.properties").writeText("minecraft_version=1.20.1")
-
-        val result = GameVersionMetadataDetector().detect(context(tempDir))
-
-        assertEquals(listOf("1.20", "1.20.1"), result?.gameVersions)
     }
 
     @Test
@@ -220,23 +154,6 @@ class GameVersionMetadataDetectorTest {
         val result = GameVersionMetadataDetector().detect(context(tempDir))
 
         assertEquals(listOf("25w14a"), result?.gameVersions)
-    }
-
-    @Test
-    fun `detects pre-release game version from build gradle kts`(
-        @TempDir tempDir: File,
-    ) {
-        File(tempDir, "build.gradle.kts").writeText(
-            """
-            dependencies {
-                paper-api("1.21.5-pre1-R0.1-SNAPSHOT")
-            }
-            """.trimIndent(),
-        )
-
-        val result = GameVersionMetadataDetector().detect(context(tempDir))
-
-        assertEquals(listOf("1.21.5-pre1"), result?.gameVersions)
     }
 
     @Test
