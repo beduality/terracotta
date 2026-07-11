@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-07-11
+
 ### Added
 
 **Docs**
@@ -40,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed publishing of `-javadoc.jar` artifacts so they include generated API documentation instead of being empty or missing, satisfying Maven Central requirements.
 - Added pre-publish checks that abort if `-javadoc.jar` artifacts are missing or empty.
-
 ## [0.1.2] - 2026-07-10
 
 ### Fixed
