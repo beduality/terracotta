@@ -103,6 +103,15 @@ Run tasks:
   ./gradlew terracottaApply
   ```
 
+## What's next?
+
+Choose the path that matches how you want to use Terracotta:
+
+- **New user?** Follow the [Gradle plugin getting-started tutorial](content/modules/gradle-plugin/tutorials/getting-started.md) to publish your first release.
+- **Want to add a provider?** See the integration guides for [Modrinth](content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md) and [Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md).
+- **Using Terracotta as a library?** Read the [Core installation guide](content/modules/core/tutorials/installation.md) and the [provider interfaces reference](content/modules/core/reference/provider-interfaces.md).
+- **Need the full schema?** Check the [Config Schema reference](content/modules/core/reference/config-schema.md).
+
 ## Setup Requirements
 
 | Component | Version |
