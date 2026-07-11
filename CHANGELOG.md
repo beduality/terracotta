@@ -16,10 +16,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+#### SDK
+
+- Fixed published `-javadoc.jar` files to include generated API documentation.
+  - **Why**: Maven Central requires meaningful Javadoc artifacts; empty jars fail release validation.
+
 #### Repo
 
 - Fixed release pipeline so versioned docs are built from the release tag rather than the pre-release commit.
   - **Why**: Ensures new releases appear on the docs site immediately.
+- Fixed release tooling so version bumps propagate correctly to all release artifacts.
+  - **Why**: Prevents version drift across `README.md`, `CHANGELOG.md`, and generated release notes.
+- Fixed docs deployment to publish the latest generated site after a release.
+  - **Why**: Prevents stale or missing docs being served from GitHub Pages.
 
 ## [0.1.2] - 2026-07-10
 
