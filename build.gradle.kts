@@ -28,6 +28,15 @@ subprojects {
         }
     }
 
+    // The Central Portal publisher plugin auto-creates an empty javadocJar for
+    // Kotlin projects. Wire it to the Dokka Javadoc output so the published
+    // -javadoc.jar is meaningful.
+    tasks.withType<Jar>().matching { it.name == "javadocJar" }.configureEach {
+        val dokkaJavadoc = tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaJavadoc")
+        from(dokkaJavadoc.flatMap { it.outputDirectory })
+        dependsOn(dokkaJavadoc)
+    }
+
     jacoco {
         toolVersion = jacocoVersion
     }
