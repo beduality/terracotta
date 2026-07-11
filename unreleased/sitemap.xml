@@ -161,6 +161,26 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/explanation/architecture/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/explanation/version-mapping/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/reference/api/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/tutorials/using-modrinth/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -246,10 +266,6 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/hangar-provider/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/modrinth-provider/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>

@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/modrinth-provider/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/explanation/architecture/">
       
       
-        <link rel="prev" href="../custom-provider/">
+        <link rel="prev" href="../../../../../apidocs/terracotta-provider-modrinth/">
       
       
-        <link rel="next" href="../hangar-provider/">
+        <link rel="next" href="../version-mapping/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Modrinth Provider - Terracotta</title>
+        <title>Architecture - Terracotta</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#using-the-modrinth-provider" class="md-skip">
+        <a href="#modrinth-provider-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -98,9 +98,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Modrinth Provider
+              Architecture
             
           </span>
         </div>
@@ -235,9 +235,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../../assets/images/logo.png" alt="logo">
 
     </a>
     Terracotta
@@ -316,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -344,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -431,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../config/" class="md-nav__link">
+      <a href="../../../../config/" class="md-nav__link">
         
   
   
@@ -459,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../config/schema/" class="md-nav__link">
+      <a href="../../../../config/schema/" class="md-nav__link">
         
   
   
@@ -491,8 +491,6 @@
       
   
   
-    
-  
   
   
     
@@ -505,11 +503,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -530,7 +528,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -597,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/quick-start/" class="md-nav__link">
+      <a href="../../../../sdk/tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -630,8 +628,6 @@
                 
   
   
-    
-  
   
   
     
@@ -641,11 +637,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -666,7 +662,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -684,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-provider/" class="md-nav__link">
+      <a href="../../../../sdk/how-to-guides/custom-provider/" class="md-nav__link">
         
   
   
@@ -709,212 +705,10 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modrinth Provider
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modrinth Provider
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Authentication
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Authentication">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from Environment Variables
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-env-file-recommended-for-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from .env File (Recommended for Development)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-configuration-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from Configuration Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-provider-factory-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using the Provider Factory (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#state-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        State Provider
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registry-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Registry Provider
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error Handling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rate-limiting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rate Limiting
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../hangar-provider/" class="md-nav__link">
+      <a href="../../../../sdk/how-to-guides/hangar-provider/" class="md-nav__link">
         
   
   
@@ -999,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../../../sdk/reference/api/" class="md-nav__link">
         
   
   
@@ -1027,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../apidocs/terracotta-core/" class="md-nav__link">
+      <a href="../../../../../apidocs/terracotta-core/" class="md-nav__link">
         
   
   
@@ -1055,7 +849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+      <a href="../../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
         
   
   
@@ -1083,7 +877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+      <a href="../../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
         
   
   
@@ -1111,7 +905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/provider-api/" class="md-nav__link">
+      <a href="../../../../sdk/reference/provider-api/" class="md-nav__link">
         
   
   
@@ -1139,7 +933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/installation/" class="md-nav__link">
+      <a href="../../../../sdk/reference/installation/" class="md-nav__link">
         
   
   
@@ -1224,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../explanation/architecture/" class="md-nav__link">
+      <a href="../../../../sdk/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -1264,8 +1058,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1276,11 +1072,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -1301,7 +1097,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1319,7 +1115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/overview/" class="md-nav__link">
+      <a href="../../../overview/" class="md-nav__link">
         
   
   
@@ -1396,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/" class="md-nav__link">
+      <a href="../../../core/" class="md-nav__link">
         
   
   
@@ -1473,7 +1269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
+      <a href="../../../core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
         
   
   
@@ -1501,7 +1297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
+      <a href="../../../core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
         
   
   
@@ -1529,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
+      <a href="../../../core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
         
   
   
@@ -1614,7 +1410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/load-terracotta-config/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/load-terracotta-config/" class="md-nav__link">
         
   
   
@@ -1642,7 +1438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
         
   
   
@@ -1670,7 +1466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/compute-a-diff/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/compute-a-diff/" class="md-nav__link">
         
   
   
@@ -1698,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/add-a-new-loader/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/add-a-new-loader/" class="md-nav__link">
         
   
   
@@ -1726,7 +1522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
         
   
   
@@ -1754,7 +1550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/how-to-guides/normalize-game-versions/" class="md-nav__link">
+      <a href="../../../core/how-to-guides/normalize-game-versions/" class="md-nav__link">
         
   
   
@@ -1839,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/models/" class="md-nav__link">
+      <a href="../../../core/reference/models/" class="md-nav__link">
         
   
   
@@ -1867,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/loaders/" class="md-nav__link">
+      <a href="../../../core/reference/loaders/" class="md-nav__link">
         
   
   
@@ -1895,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/operations/" class="md-nav__link">
+      <a href="../../../core/reference/operations/" class="md-nav__link">
         
   
   
@@ -1923,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/config-schema/" class="md-nav__link">
+      <a href="../../../core/reference/config-schema/" class="md-nav__link">
         
   
   
@@ -1951,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/metadata-resolution/" class="md-nav__link">
+      <a href="../../../core/reference/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -1979,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/conventions/" class="md-nav__link">
+      <a href="../../../core/reference/conventions/" class="md-nav__link">
         
   
   
@@ -2007,7 +1803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/version-conventions/" class="md-nav__link">
+      <a href="../../../core/reference/version-conventions/" class="md-nav__link">
         
   
   
@@ -2035,7 +1831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/provider-interfaces/" class="md-nav__link">
+      <a href="../../../core/reference/provider-interfaces/" class="md-nav__link">
         
   
   
@@ -2063,7 +1859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/reference/api/" class="md-nav__link">
+      <a href="../../../core/reference/api/" class="md-nav__link">
         
   
   
@@ -2148,7 +1944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/explanation/architecture/" class="md-nav__link">
+      <a href="../../../core/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -2176,7 +1972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/explanation/metadata-resolution/" class="md-nav__link">
+      <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -2204,7 +2000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/explanation/diff-engine/" class="md-nav__link">
+      <a href="../../../core/explanation/diff-engine/" class="md-nav__link">
         
   
   
@@ -2232,7 +2028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/explanation/loader-hierarchy/" class="md-nav__link">
+      <a href="../../../core/explanation/loader-hierarchy/" class="md-nav__link">
         
   
   
@@ -2260,7 +2056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/core/explanation/conventions/" class="md-nav__link">
+      <a href="../../../core/explanation/conventions/" class="md-nav__link">
         
   
   
@@ -2353,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/" class="md-nav__link">
+      <a href="../../../gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2430,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/tutorials/installation/" class="md-nav__link">
+      <a href="../../../gradle-plugin/tutorials/installation/" class="md-nav__link">
         
   
   
@@ -2458,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -2543,7 +2339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/how-to-guides/adding-hangar-provider/" class="md-nav__link">
+      <a href="../../../gradle-plugin/how-to-guides/adding-hangar-provider/" class="md-nav__link">
         
   
   
@@ -2571,7 +2367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/how-to-guides/ci-cd-setup/" class="md-nav__link">
+      <a href="../../../gradle-plugin/how-to-guides/ci-cd-setup/" class="md-nav__link">
         
   
   
@@ -2599,7 +2395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration/" class="md-nav__link">
+      <a href="../../../gradle-plugin/how-to-guides/kotlin-dsl-configuration/" class="md-nav__link">
         
   
   
@@ -2684,7 +2480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/reference/tasks/" class="md-nav__link">
+      <a href="../../../gradle-plugin/reference/tasks/" class="md-nav__link">
         
   
   
@@ -2712,7 +2508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/reference/api/" class="md-nav__link">
+      <a href="../../../gradle-plugin/reference/api/" class="md-nav__link">
         
   
   
@@ -2740,7 +2536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
+      <a href="../../../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2825,7 +2621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/explanation/architecture/" class="md-nav__link">
+      <a href="../../../gradle-plugin/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -2853,7 +2649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/explanation/dsl-design/" class="md-nav__link">
+      <a href="../../../gradle-plugin/explanation/dsl-design/" class="md-nav__link">
         
   
   
@@ -2881,7 +2677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../modules/gradle-plugin/explanation/task-lifecycle/" class="md-nav__link">
+      <a href="../../../gradle-plugin/explanation/task-lifecycle/" class="md-nav__link">
         
   
   
@@ -2889,6 +2685,475 @@
     
   
     Task Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modrinth Provider
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modrinth Provider
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/using-modrinth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Modrinth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modrinth Provider API Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explanation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explanation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version Mapping
   
 
     
@@ -2984,7 +3249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/" class="md-nav__link">
+      <a href="../../../../repo/" class="md-nav__link">
         
   
   
@@ -3061,7 +3326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/tutorials/quick-start/" class="md-nav__link">
+      <a href="../../../../repo/tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -3089,7 +3354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
+      <a href="../../../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
   
@@ -3174,7 +3439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/contributing/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/contributing/" class="md-nav__link">
         
   
   
@@ -3202,7 +3467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/building/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/building/" class="md-nav__link">
         
   
   
@@ -3230,7 +3495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/testing/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/testing/" class="md-nav__link">
         
   
   
@@ -3258,7 +3523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/documentation/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/documentation/" class="md-nav__link">
         
   
   
@@ -3286,7 +3551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/releasing/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/releasing/" class="md-nav__link">
         
   
   
@@ -3314,7 +3579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
+      <a href="../../../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
         
   
   
@@ -3399,7 +3664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/reference/tech-stack/" class="md-nav__link">
+      <a href="../../../../repo/reference/tech-stack/" class="md-nav__link">
         
   
   
@@ -3427,7 +3692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/reference/file-structure/" class="md-nav__link">
+      <a href="../../../../repo/reference/file-structure/" class="md-nav__link">
         
   
   
@@ -3455,7 +3720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/reference/configuration/" class="md-nav__link">
+      <a href="../../../../repo/reference/configuration/" class="md-nav__link">
         
   
   
@@ -3483,7 +3748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/reference/architecture-reference/" class="md-nav__link">
+      <a href="../../../../repo/reference/architecture-reference/" class="md-nav__link">
         
   
   
@@ -3511,7 +3776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/reference/code-style/" class="md-nav__link">
+      <a href="../../../../repo/reference/code-style/" class="md-nav__link">
         
   
   
@@ -3596,7 +3861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/explanation/architecture/" class="md-nav__link">
+      <a href="../../../../repo/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -3624,7 +3889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/explanation/project-management/" class="md-nav__link">
+      <a href="../../../../repo/explanation/project-management/" class="md-nav__link">
         
   
   
@@ -3652,7 +3917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/explanation/documentation-framework/" class="md-nav__link">
+      <a href="../../../../repo/explanation/documentation-framework/" class="md-nav__link">
         
   
   
@@ -3680,7 +3945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo/explanation/changelog-guidelines/" class="md-nav__link">
+      <a href="../../../../repo/explanation/changelog-guidelines/" class="md-nav__link">
         
   
   
@@ -3723,7 +3988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../changes/" class="md-nav__link">
+      <a href="../../../../../changes/" class="md-nav__link">
         
   
   
@@ -3770,10 +4035,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Components
       
     </span>
   </a>
@@ -3781,115 +4046,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#authentication" class="md-nav__link">
+  <a href="#mapping-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Authentication
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Authentication">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from Environment Variables
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-env-file-recommended-for-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from .env File (Recommended for Development)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loading-from-configuration-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading from Configuration Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-provider-factory-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using the Provider Factory (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#state-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        State Provider
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registry-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Registry Provider
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error Handling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rate-limiting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rate Limiting
+        Mapping behavior
       
     </span>
   </a>
@@ -3913,7 +4073,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/sdk/how-to-guides/modrinth-provider.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/modules/provider-modrinth/explanation/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3921,139 +4081,23 @@
   
 
 
-<h1 id="using-the-modrinth-provider">Using the Modrinth Provider<a class="headerlink" href="#using-the-modrinth-provider" title="Permanent link">&para;</a></h1>
-<p>The <code>terracotta-provider-modrinth</code> module provides a complete implementation of the Terracotta provider interfaces for the Modrinth registry.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>Add the dependency to your project:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Gradle (Kotlin)</label><label for="__tabbed_1_2">Maven</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-provider-modrinth:0.1.3&quot;</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&lt;dependency&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.github.beduality<span class="nt">&lt;/groupId&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>terracotta-provider-modrinth<span class="nt">&lt;/artifactId&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>0.1.3<span class="nt">&lt;/version&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
-<p>The Modrinth provider requires an API token for authentication. You can obtain one from <a href="https://modrinth.com/settings/tokens">Modrinth's settings</a>.</p>
-<p><strong>Important</strong>: Never hardcode API tokens in your source code. Always load them from environment variables or configuration files.</p>
-<h3 id="loading-from-environment-variables">Loading from Environment Variables<a class="headerlink" href="#loading-from-environment-variables" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="o">?:</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN environment variable not set&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="loading-from-env-file-recommended-for-development">Loading from .env File (Recommended for Development)<a class="headerlink" href="#loading-from-env-file-recommended-for-development" title="Permanent link">&para;</a></h3>
-<p>Add the <a href="https://github.com/soywod/kotlin-dotenv">dotenv-kotlin</a> library to your project:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.cdimascio:dotenv-kotlin:6.4.1&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>Create a <code>.env</code> file in your project root (add it to <code>.gitignore</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MODRINTH_TOKEN=your-token-here
-</code></pre></div>
-<p>Load the token:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.cdimascio.dotenv.dotenv</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">dotenv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dotenv</span><span class="p">()</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dotenv</span><span class="o">[</span><span class="s">&quot;MODRINTH_TOKEN&quot;</span><span class="o">]</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="o">?:</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN not found in .env file&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="loading-from-configuration-files">Loading from Configuration Files<a class="headerlink" href="#loading-from-configuration-files" title="Permanent link">&para;</a></h3>
-<p>For production applications, use your application's configuration system:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// Using HOCON typesafe-config</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigFactory</span><span class="p">.</span><span class="na">load</span><span class="p">()</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;modrinth.token&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="using-the-provider-factory-recommended">Using the Provider Factory (Recommended)<a class="headerlink" href="#using-the-provider-factory-recommended" title="Permanent link">&para;</a></h2>
-<p>The simplest way to use the Modrinth provider is through <code>ModrinthProviderFactory</code>, which creates both providers for you:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthProviderFactory</span><span class="p">()</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">stateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="state-provider">State Provider<a class="headerlink" href="#state-provider" title="Permanent link">&para;</a></h2>
-<p>The <code>ModrinthStateProvider</code> fetches the current project state from Modrinth. It takes a <code>ModrinthClient</code> instance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthClient</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">stateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthStateProvider</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kd">val</span><span class="w"> </span><span class="nv">remoteProject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stateProvider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-id&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="registry-provider">Registry Provider<a class="headerlink" href="#registry-provider" title="Permanent link">&para;</a></h2>
-<p>The <code>ModrinthRegistryProvider</code> applies operations to Modrinth. It also takes a <code>ModrinthClient</code> instance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthClient</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthRegistryProvider</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h2>
-<p>Here's a complete example showing how to use the Modrinth provider with the Terracotta core:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaProject</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.DiffEngine</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.runBlocking</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="c1">// Load token from environment variable</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN&quot;</span><span class="p">)</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">        </span><span class="o">?:</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN environment variable not set&quot;</span><span class="p">)</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="c1">// Define your local project state</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">localProject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TerracottaProject</span><span class="p">(</span>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Plugin&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">        </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A great plugin&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Full description here&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">        </span><span class="n">versions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emptyList</span><span class="p">(),</span>
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">        </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;plugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utility&quot;</span><span class="p">),</span>
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">        </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MIT&quot;</span>
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">    </span><span class="p">)</span>
-<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
-<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">    </span><span class="c1">// Create providers via the factory</span>
-<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthProviderFactory</span><span class="p">()</span>
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">stateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>
-<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">    </span><span class="c1">// Fetch remote state</span>
-<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">remoteProject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stateProvider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">localProject</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
-<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
-<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">    </span><span class="c1">// Calculate differences</span>
-<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DiffEngine</span><span class="p">.</span><span class="na">diff</span><span class="p">(</span><span class="n">localProject</span><span class="p">,</span><span class="w"> </span><span class="n">remoteProject</span><span class="p">)</span>
-<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>
-<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">    </span><span class="c1">// Apply changes</span>
-<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operations</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">        </span><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">localProject</span><span class="p">.</span><span class="na">id</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
-<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Applied </span><span class="si">${</span><span class="n">operations</span><span class="p">.</span><span class="na">size</span><span class="si">}</span><span class="s"> changes&quot;</span><span class="p">)</span>
-<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No changes needed&quot;</span><span class="p">)</span>
-<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
-<p>The providers may throw exceptions for various reasons:</p>
+<h1 id="modrinth-provider-architecture">Modrinth Provider Architecture<a class="headerlink" href="#modrinth-provider-architecture" title="Permanent link">&para;</a></h1>
+<p>The Modrinth provider translates between Terracotta's generic operations and the Modrinth API.</p>
+<h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Authentication errors</strong>: Invalid or missing API token</li>
-<li><strong>Network errors</strong>: Connection issues with Modrinth API</li>
-<li><strong>Not found errors</strong>: Project doesn't exist on Modrinth</li>
-<li><strong>Validation errors</strong>: Invalid project data</li>
+<li><code>ModrinthProviderFactory</code> — creates state and registry providers for the <code>modrinth</code> provider ID.</li>
+<li><code>ModrinthStateProvider</code> — fetches project and version data from Modrinth and converts it to <code>TerracottaProject</code>.</li>
+<li><code>ModrinthRegistryProvider</code> — applies <code>Operation</code> objects to Modrinth by calling the appropriate API endpoints.</li>
+<li><code>ModrinthClient</code> — thin HTTP client over the Modrinth REST API.</li>
+<li>Model classes (<code>ModrinthProject</code>, <code>ModrinthVersion</code>, etc.) — serializable DTOs used by the client.</li>
 </ul>
-<p>Always wrap provider calls in try-catch blocks:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stateProvider</span><span class="p">.</span><span class="na">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">)</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Failed to fetch project: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
-</code></pre></div>
-<h2 id="rate-limiting">Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permanent link">&para;</a></h2>
-<p>Modrinth has rate limits on their API. The provider handles retry logic automatically, but you should be mindful of making too many requests in a short period.</p>
+<h2 id="mapping-behavior">Mapping behavior<a class="headerlink" href="#mapping-behavior" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>TerracottaReleaseType</code> maps to Modrinth <code>version_type</code> (<code>release</code>, <code>beta</code>, <code>alpha</code>).</li>
+<li>Each <code>TerracottaVersion</code> is uploaded as a Modrinth version with a single primary file.</li>
+<li><code>Operation.CreateProject</code> creates a draft Modrinth project through the project creation endpoint.</li>
+</ul>
+<p>See the <a href="../core/reference/provider-interfaces.md">Provider Interfaces reference</a> for the generic abstractions this provider implements.</p>
 
 
 
@@ -4091,7 +4135,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../custom-provider/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Providers">
+          <a href="../../../../../apidocs/terracotta-provider-modrinth/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Modrinth Provider API Docs">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4101,20 +4145,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Custom Providers
+                Modrinth Provider API Docs
               </div>
             </div>
           </a>
         
         
           
-          <a href="../hangar-provider/" class="md-footer__link md-footer__link--next" aria-label="Next: Hangar Provider">
+          <a href="../version-mapping/" class="md-footer__link md-footer__link--next" aria-label="Next: Version Mapping">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Hangar Provider
+                Version Mapping
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4180,10 +4224,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
