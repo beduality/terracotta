@@ -82,9 +82,6 @@ nav:
   - Quick Start:
     - Introduction: index.md
     - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
-  - Config:
-    - Overview: content/config/index.md
-    - Schema: content/config/schema.md
   - SDK:
     - Tutorials:
       - Quick Start: content/sdk/tutorials/quick-start.md

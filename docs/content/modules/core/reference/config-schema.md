@@ -28,37 +28,94 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 
 ## Provider block
 
+Each entry under `providers:` uses the provider ID (e.g. `modrinth`, `hangar`) as the key.
+
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `projectId` | string | No | Project ID on the provider. |
-| `token` | string | No | Authentication token. |
+| `projectId` | string | No | Project slug or ID on the provider. Required at runtime but can be supplied in the Kotlin DSL. |
+| `token` | string | No | API token for the provider. Defaults to the `<PROVIDER>_TOKEN` environment variable. |
 
 ## Example
 
 ```yaml
-name: My Plugin
-summary: A useful Paper plugin
+name: "My Plugin"
+summary: "Lightweight Paper plugin"
+description: "A useful plugin."
 tags:
   - paper
   - utility
-license: MIT
+license: "MIT"
 gameVersions:
-  - 1.21.1
+  - "1.21.8"
+  - "1.21.7"
 loaders:
   - paper
 environment: server_only
 releaseType: release
+changelog: "Initial release"
+
 convention:
   readme: terracotta
   changelog: keep-a-changelog
+
 providers:
   modrinth:
-    projectId: my-plugin
+    projectId: "my-plugin"
+  hangar:
+    projectId: "my-plugin"
 ```
 
 ## Partial files
 
-All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults.
+All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults. Values set in the Kotlin DSL always override values from `terracotta.yml`.
+
+## Auto-detection
+
+Terracotta can infer several fields from standard project files when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying Kotlin DSL overrides.
+
+| Field | Source | Notes |
+|-------|--------|-------|
+| `loaders` | `fabric.mod.json`, `META-INF/mods.toml`, `paper-plugin.yml`, `plugin.yml`, `bungee.yml`, `velocity-plugin.json`, `mods.toml` (Sponge), etc. | Loader forks are resolved automatically; Paper also implies Spigot and Bukkit. |
+| `environment` | Loader-specific descriptors | Defaults to `server_only` when not detected. |
+| `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers are recognized. |
+| `description` | `README.md` | Full file content. |
+| `summary` | `README.md` | First non-heading paragraph. |
+| `releaseType` | Gradle project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
+| `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
+
+## Loader IDs
+
+Use the lowercase loader ID in `terracotta.yml` and in the Kotlin DSL:
+
+- `bukkit`
+- `bungeecord`
+- `fabric`
+- `folia`
+- `forge`
+- `neoforge`
+- `paper`
+- `purpur`
+- `quilt`
+- `spigot`
+- `sponge`
+- `velocity`
+- `waterfall`
+
+## Environment values
+
+| Value | Meaning |
+|-------|---------|
+| `client_only` | Client-side only |
+| `server_only` | Server-side only |
+| `universal` | Works on both client and server |
+
+## Release type values
+
+| Value | Meaning |
+|-------|---------|
+| `release` | Stable release |
+| `beta` | Beta release |
+| `alpha` | Alpha release |
 
 ## See also
 

@@ -12,7 +12,7 @@ Terracotta is a declarative Minecraft project registry management tool. Define y
 
     Define your project info, description, tags, license, and version artifacts in `terracotta.yml` or your `build.gradle.kts`.
 
-    [:octicons-arrow-right-24: Getting started](content/gradle-plugin/tutorials/getting-started.md)
+    [:octicons-arrow-right-24: Getting started](content/modules/gradle-plugin/tutorials/getting-started.md)
 
 -   :material-eye-outline:{ .lg .middle } __Dry Runs (Plan)__
 
@@ -20,7 +20,7 @@ Terracotta is a declarative Minecraft project registry management tool. Define y
 
     Preview all updates, tag changes, and version uploads before executing them, preventing incorrect uploads or metadata state drift.
 
-    [:octicons-arrow-right-24: Gradle tasks](content/gradle-plugin/reference/tasks.md)
+    [:octicons-arrow-right-24: Gradle tasks](content/modules/gradle-plugin/reference/tasks.md)
 
 -   :material-publish:{ .lg .middle } __Maven SDK__
 
@@ -28,15 +28,15 @@ Terracotta is a declarative Minecraft project registry management tool. Define y
 
     Integrate Terracotta's core directly into custom automation pipelines.
 
-    [:octicons-arrow-right-24: Core API](content/sdk/reference/api.md)
+    [:octicons-arrow-right-24: Core API](content/modules/core/reference/api.md)
 
--   :material-sync:{ .lg .middle } __CI/CD Integration__
+-   :material-sync:{ .lg .middle } __Provider Integrations__
 
     ---
 
-    Easily integrate with GitHub Actions to apply registry changes automatically when you push tags or release artifacts.
+    Add Modrinth or Hangar providers to the Gradle plugin and publish to multiple registries from a single build.
 
-    [:octicons-arrow-right-24: CI/CD Guide](content/gradle-plugin/how-to-guides/ci-cd-setup.md)
+    [:octicons-arrow-right-24: Integration guides](content/integration/README.md)
 
 </div>
 
@@ -64,7 +64,7 @@ plugins {
 }
 ```
 
-See the [Gradle Plugin installation guide](content/gradle-plugin/tutorials/installation.md) for more details, or the [SDK installation guide](content/sdk/reference/installation.md) if you want to use Terracotta as a library.
+See the [Gradle Plugin installation guide](content/modules/gradle-plugin/tutorials/installation.md) for more details, or the [SDK installation guide](content/sdk/reference/installation.md) if you want to use Terracotta as a library.
 
 ## Usage
 
@@ -87,9 +87,9 @@ providers:
     projectId: "my-hangar-project-slug"
 ```
 
-`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` are automatically detected from files such as `fabric.mod.json`, `README.md`, `LICENSE`, and `CHANGELOG.md`. You can override any detected value by adding it to `terracotta.yml`, and you can change how files are interpreted with the `convention:` block. See the [Config documentation](content/config/index.md) for the full schema and convention options.
+`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` are automatically detected from files such as `fabric.mod.json`, `README.md`, `LICENSE`, and `CHANGELOG.md`. You can override any detected value by adding it to `terracotta.yml`, and you can change how files are interpreted with the `convention:` block. See the [Config Schema](content/modules/core/reference/config-schema.md) for the full schema and convention options.
 
-Provider-specific setup guides: [Hangar](content/gradle-plugin/how-to-guides/adding-hangar-provider.md) and [Modrinth](content/sdk/how-to-guides/modrinth-provider.md).
+Provider-specific setup guides: [Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md) and [Modrinth](content/modules/provider-modrinth/tutorials/using-modrinth.md).
 
 Run tasks:
 

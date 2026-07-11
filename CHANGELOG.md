@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `explanation/` for conceptual docs (architecture, metadata resolution, diff engine, loader hierarchy, conventions).
 - Wired the new `Modules` section into `mkdocs.yml`, grouping Core, Gradle Plugin, Modrinth Provider, and Hangar Provider docs under `docs/content/modules/`.
 - Added a new `Integration` section under `docs/content/integration/` for cross-module guides such as adding Modrinth/Hangar to the Gradle plugin.
+- Merged `docs/content/config/` into `docs/content/modules/core/reference/config-schema.md` and removed the separate `Config` top-level section from `mkdocs.yml`.
 - Added `@see` links in the `terracotta-core` public API KDoc that point every public class, interface, object, enum, and top-level function to the relevant GitHub Pages guide, reference, or explanation.
 - Added member-level KDoc to public data-class properties and functions in `terracotta-core` so Dokka renders descriptions for every field and method.
 - Expanded the Gradle plugin documentation under `docs/content/modules/gradle-plugin/` with Diátaxis sections and added `@see` links and member-level KDoc to the public DSL classes and tasks.

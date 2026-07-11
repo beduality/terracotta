@@ -102,5 +102,5 @@ If the channel does not exist on the project yet, Terracotta creates it automati
 
 ## What's next?
 
-- Learn about all available configuration options in the [Config Schema](../../config/schema.md).
+- Learn about all available configuration options in the [Config Schema](../../modules/core/reference/config-schema.md).
 - Use the [Kotlin DSL how-to guide](../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md) to configure Hangar entirely in `build.gradle.kts`.
