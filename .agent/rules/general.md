@@ -2,6 +2,11 @@
 trigger: always_on
 ---
 
-- Keep shareable code in modules/terracotta-core to avoid duplicate business logic implementation
-- After your changes, update documentation, changelog, README.md and project/**/*.md if applicable
-- If you changed something related to the development workflow, update `docs/content/repo/*.md`
+- Features must be modular, composable, production-ready and well-documented.
+    - Keep shareable code in `modules/terracotta-core`.
+- Document public APIs with KDoc. Internal code must be self-explanatory.
+    - Do not add unnecessary comments.
+- Write failing tests before implementing a feature.
+    - Tests must be behavior-driven and high-ROI.
+- Update documentation, `CHANGELOG.md`, `README.md`, and `project/**/*.md` when applicable.
+- Update `docs/content/repo/*.md` when changing the development workflow.
