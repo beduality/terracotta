@@ -121,6 +121,10 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/core/tutorials/installation/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/modules/gradle-plugin/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -270,30 +274,6 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/tutorials/quick-start/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/explanation/architecture/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/custom-provider/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/reference/api/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/reference/installation/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/reference/provider-api/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/tutorials/quick-start/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
 </urlset>
