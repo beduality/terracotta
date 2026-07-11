@@ -161,6 +161,26 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/explanation/architecture/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/explanation/loader-mapping/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/reference/api/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/tutorials/using-hangar/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/modules/provider-modrinth/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -262,10 +282,6 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/custom-provider/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://beduality.github.io/terracotta/unreleased/content/sdk/how-to-guides/hangar-provider/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
