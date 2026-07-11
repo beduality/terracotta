@@ -60,7 +60,7 @@ Add the Terracotta plugin and the provider you want to use (for example, Modrint
 
 ```kotlin
 plugins {
-    id("io.github.beduality.terracotta") version "0.4.0"
+    id("io.github.beduality.terracotta") version "0.2.0"
 }
 ```
 
