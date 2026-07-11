@@ -128,3 +128,4 @@ nav:
         - Project Management: content/repo/explanation/project-management.md
         - Documentation Framework: content/repo/explanation/documentation-framework.md
         - Changelog Guidelines: content/repo/explanation/changelog-guidelines.md
+  - Changes: changes.md

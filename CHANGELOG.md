@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+#### Docs
+
+- Moved the Changes link from the custom docs header to the main navigation.
+  - **Why**: The custom header link was broken on mobile.
+
 ### Fixed
 
 #### Repo
