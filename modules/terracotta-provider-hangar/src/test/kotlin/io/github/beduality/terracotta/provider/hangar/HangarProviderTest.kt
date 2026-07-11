@@ -1,5 +1,8 @@
 package io.github.beduality.terracotta.provider.hangar
 
+import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
@@ -11,19 +14,28 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.TextContent
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 
 class HangarProviderTest {
     private val json =
@@ -209,6 +221,547 @@ class HangarProviderTest {
             registryProvider.apply("my-plugin", listOf(io.github.beduality.terracotta.core.diff.Operation.UploadVersion(version)))
 
             assertEquals(true, channelChecked)
+            assertEquals(true, uploadCalled)
+        }
+
+    @Test
+    fun `test HangarRegistryProvider apply metadata updates`() =
+        runTest {
+            val currentProject =
+                HangarProject(
+                    name = "Old Name",
+                    description = "Old summary",
+                    body = "Old body",
+                    tags = listOf("old"),
+                    license = "MIT",
+                )
+
+            var patchBody: String? = null
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Get -> {
+                            val responseJson = json.encodeToString(currentProject)
+                            respond(
+                                content = ByteReadChannel(responseJson),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Patch -> {
+                            patchBody = (request.body as TextContent).text
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            val operations =
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = true,
+                        summaryChanged = true,
+                        licenseChanged = false,
+                        newName = "New Name",
+                        newSummary = "New summary",
+                        newLicense = "",
+                    ),
+                    Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
+                    Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
+                )
+
+            registryProvider.apply("my-plugin", operations)
+
+            assertNotNull(patchBody)
+            val body = json.parseToJsonElement(patchBody!!).jsonObject
+            assertEquals("New Name", body["name"]?.jsonPrimitive?.content)
+            assertEquals("New summary", body["description"]?.jsonPrimitive?.content)
+            assertEquals("New body", body["body"]?.jsonPrimitive?.content)
+            assertEquals("MIT", body["license"]?.jsonPrimitive?.content)
+            assertEquals(listOf("new", "tag"), body["tags"]?.jsonArray?.map { it.jsonPrimitive.content })
+        }
+
+    @Test
+    fun `test HangarRegistryProvider warns on CreateProject and skips`() =
+        runTest {
+            var requestCount = 0
+            val mockEngine =
+                MockEngine { _ ->
+                    requestCount++
+                    respond("", status = HttpStatusCode.OK)
+                }
+
+            val client = HttpClient(mockEngine)
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            val project =
+                TerracottaProject(
+                    id = "my-plugin",
+                    name = "My Plugin",
+                    summary = "Summary",
+                    description = "Description",
+                    versions = emptyList(),
+                    tags = emptyList(),
+                    license = "MIT",
+                )
+
+            registryProvider.apply("my-plugin", listOf(Operation.CreateProject(project)))
+
+            assertEquals(0, requestCount)
+        }
+
+    @Test
+    fun `test HangarRegistryProvider does nothing when operations list is empty`() =
+        runTest {
+            var requestCount = 0
+            val mockEngine =
+                MockEngine { _ ->
+                    requestCount++
+                    respond("", status = HttpStatusCode.OK)
+                }
+
+            val client = HttpClient(mockEngine)
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            registryProvider.apply("my-plugin", emptyList())
+
+            assertEquals(0, requestCount)
+        }
+
+    @Test
+    fun `test HangarStateProvider maps snapshot and alpha channels`() =
+        runTest {
+            val project =
+                HangarProject(
+                    name = "My Plugin",
+                    description = "Summary",
+                    body = "Body",
+                    tags = emptyList(),
+                    license = "MIT",
+                )
+            val snapshotVersion =
+                HangarVersion(
+                    version = "1.1.0",
+                    channel = "Snapshot",
+                    description = "Snapshot notes",
+                    platformDependencies = mapOf("PAPER" to listOf("1.20.2")),
+                    fileName = "plugin.jar",
+                )
+            val alphaVersion =
+                HangarVersion(
+                    version = "1.2.0",
+                    channel = "Alpha",
+                    description = "Alpha notes",
+                    platformDependencies = mapOf("VELOCITY" to listOf("3.3.0")),
+                    fileName = "plugin.jar",
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/projects/my-plugin") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(project)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/versions") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(listOf(snapshotVersion, alphaVersion))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val stateProvider = HangarStateProvider(hangarClient)
+
+            val terracottaProject = stateProvider.fetchProject("my-plugin")
+
+            assertNotNull(terracottaProject)
+            val versions = terracottaProject?.versions
+            assertEquals(2, versions?.size)
+            assertEquals(TerracottaReleaseType.BETA, versions?.first { it.version == "1.1.0" }?.releaseType)
+            assertEquals(TerracottaReleaseType.ALPHA, versions?.first { it.version == "1.2.0" }?.releaseType)
+        }
+
+    @Test
+    fun `test HangarClient caches JWT token`() =
+        runTest {
+            var authCalls = 0
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            authCalls++
+                            val authResponse =
+                                buildJsonObject {
+                                    put("token", "jwt-token")
+                                    put("expiresAt", Long.MAX_VALUE)
+                                }
+                            respond(
+                                content = ByteReadChannel(authResponse.toString()),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") -> {
+                            val project =
+                                HangarProject(
+                                    name = "My Plugin",
+                                    description = "Summary",
+                                    body = "Body",
+                                    tags = emptyList(),
+                                    license = "MIT",
+                                )
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(project)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            hangarClient.getProject("my-plugin")
+            hangarClient.getProject("my-plugin")
+
+            assertEquals(1, authCalls)
+        }
+
+    @Test
+    fun `test HangarClient refreshes expired JWT token`() =
+        runTest {
+            var authCalls = 0
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            authCalls++
+                            val authResponse =
+                                buildJsonObject {
+                                    put("token", "jwt-token")
+                                    put("expiresAt", 0L)
+                                }
+                            respond(
+                                content = ByteReadChannel(authResponse.toString()),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") -> {
+                            val project =
+                                HangarProject(
+                                    name = "My Plugin",
+                                    description = "Summary",
+                                    body = "Body",
+                                    tags = emptyList(),
+                                    license = "MIT",
+                                )
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(project)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            hangarClient.getProject("my-plugin")
+            hangarClient.getProject("my-plugin")
+
+            assertEquals(2, authCalls)
+        }
+
+    @Test
+    fun `test HangarClient uploadVersion creates channel when missing`() =
+        runTest {
+            val tempFile = File.createTempFile("test", ".jar")
+            tempFile.deleteOnExit()
+            FileOutputStream(tempFile).use {
+                it.write("dummy content".toByteArray())
+            }
+
+            var channelCreated = false
+            var uploadCalled = false
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(mapOf("token" to "jwt-token"))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/channels") && request.method == HttpMethod.Get -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(emptyList<HangarChannel>())),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/channels") && request.method == HttpMethod.Post -> {
+                            channelCreated = true
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/upload") -> {
+                            uploadCalled = true
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.OK)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            val version =
+                TerracottaVersion(
+                    version = "1.0.0",
+                    artifactPath = tempFile.absolutePath,
+                    gameVersions = listOf("1.20.1"),
+                    loaders = listOf("paper"),
+                    releaseType = TerracottaReleaseType.RELEASE,
+                    changelog = "Release notes",
+                )
+
+            hangarClient.uploadVersion("my-plugin", version)
+
+            assertEquals(true, channelCreated)
+            assertEquals(true, uploadCalled)
+        }
+
+    @Test
+    fun `test HangarClient uploadVersion throws when no supported platforms`() =
+        runTest {
+            val tempFile = File.createTempFile("test", ".jar")
+            tempFile.deleteOnExit()
+            FileOutputStream(tempFile).use {
+                it.write("dummy content".toByteArray())
+            }
+
+            val mockEngine = MockEngine { _ -> respond("", status = HttpStatusCode.OK) }
+            val client = HttpClient(mockEngine)
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            val version =
+                TerracottaVersion(
+                    version = "1.0.0",
+                    artifactPath = tempFile.absolutePath,
+                    gameVersions = listOf("1.20.1"),
+                    loaders = listOf("fabric", "forge"),
+                    releaseType = TerracottaReleaseType.RELEASE,
+                    changelog = "Release notes",
+                )
+
+            val exception =
+                try {
+                    hangarClient.uploadVersion("my-plugin", version)
+                    null
+                } catch (e: IOException) {
+                    e
+                }
+            assertNotNull(exception)
+            assertTrue(exception!!.message?.contains("No supported Hangar platforms") == true)
+        }
+
+    @Test
+    fun `test HangarClient uploadVersion throws when artifact missing`() =
+        runTest {
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(mapOf("token" to "jwt-token"))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/channels") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(listOf(HangarChannel("Release")))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> respond("", status = HttpStatusCode.OK)
+                    }
+                }
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            val version =
+                TerracottaVersion(
+                    version = "1.0.0",
+                    artifactPath = "/nonexistent/artifact.jar",
+                    gameVersions = listOf("1.20.1"),
+                    loaders = listOf("paper"),
+                    releaseType = TerracottaReleaseType.RELEASE,
+                    changelog = "Release notes",
+                )
+
+            val exception =
+                try {
+                    hangarClient.uploadVersion("my-plugin", version)
+                    null
+                } catch (e: IOException) {
+                    e
+                }
+            assertNotNull(exception)
+            assertTrue(exception!!.message?.contains("Artifact file not found") == true)
+        }
+
+    @Test
+    fun `test HangarClient uploadVersion ignores CLIENT_ONLY environment`() =
+        runTest {
+            val tempFile = File.createTempFile("test", ".jar")
+            tempFile.deleteOnExit()
+            FileOutputStream(tempFile).use {
+                it.write("dummy content".toByteArray())
+            }
+
+            var uploadCalled = false
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(mapOf("token" to "jwt-token"))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/channels") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(listOf(HangarChannel("Release")))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin/upload") -> {
+                            uploadCalled = true
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.OK)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+
+            val version =
+                TerracottaVersion(
+                    version = "1.0.0",
+                    artifactPath = tempFile.absolutePath,
+                    gameVersions = listOf("1.20.1"),
+                    loaders = listOf("paper"),
+                    releaseType = TerracottaReleaseType.RELEASE,
+                    changelog = "Release notes",
+                    environment = TerracottaEnvironment.CLIENT_ONLY,
+                )
+
+            hangarClient.uploadVersion("my-plugin", version)
+
             assertEquals(true, uploadCalled)
         }
 }
