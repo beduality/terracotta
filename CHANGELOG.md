@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Core**
 
-- Removed Gradle business logic from `terracotta-core`: `gradle.properties` version fallback, Gradle build-file game-version extraction, and the `gradle.properties` release-type detector now live in `terracotta-gradle-plugin`.
+- Removed Gradle business logic from `terracotta-core`: the `gradle.properties` version fallback now lives in `terracotta-gradle-plugin`.
 
 ### Changed
 
