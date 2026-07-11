@@ -26,6 +26,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -98,3 +100,5 @@ jobs:
   deploy-docs:
     needs: release
     uses: ./.github/workflows/deploy-docs.yml
+    with:
+      ref: v${{ needs.release.outputs.version }}
