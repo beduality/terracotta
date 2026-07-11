@@ -13,9 +13,9 @@ import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
  * scripts (`build.gradle.kts` / `build.gradle`) for known Minecraft-related
  * version declarations and dependency coordinates.
  *
- * @see [Normalize game versions guide](https://beduality.github.io/terracotta/content/core/how-to-guides/normalize-game-versions.html)
- * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Normalize game versions guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/normalize-game-versions.html)
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/version-conventions.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
  */
 class GradleGameVersionMetadataDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {

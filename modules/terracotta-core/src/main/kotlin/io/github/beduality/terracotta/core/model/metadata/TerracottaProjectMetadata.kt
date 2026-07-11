@@ -6,7 +6,7 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
 /**
  * Default project metadata implementation used by built-in detectors.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
  */
 class TerracottaProjectMetadata(
     name: String? = null,

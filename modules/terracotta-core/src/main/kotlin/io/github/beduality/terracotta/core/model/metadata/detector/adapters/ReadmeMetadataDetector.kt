@@ -11,8 +11,8 @@ import io.github.beduality.terracotta.core.model.projectfile.ReadmeFile
  * The full file content becomes the description, and the first non-empty,
  * non-heading paragraph becomes the summary.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
- * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/modules/core/tutorials/implementing-a-custom-metadata-detector.html)
  */
 class ReadmeMetadataDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {

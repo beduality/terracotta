@@ -2,12 +2,14 @@
 
 You can automate publishing version updates and syncing project metadata using GitHub Actions.
 
-## 1. Store your Modrinth Token
+## 1. Store your provider tokens
 
-First, add your Modrinth API token to your GitHub repository secrets:
-1. Go to your repository **Settings** > **Secrets and variables** > **Actions**.
-2. Click **New repository secret**.
-3. Name it `MODRINTH_TOKEN` and paste your API token.
+For each provider you configure, add its token as a GitHub repository secret:
+
+- `MODRINTH_TOKEN` for Modrinth
+- `HANGAR_TOKEN` for Hangar
+
+Go to your repository **Settings** > **Secrets and variables** > **Actions**, click **New repository secret**, and paste each token.
 
 ## 2. Create the workflow file
 
@@ -38,6 +40,7 @@ jobs:
       - name: Deploy with Terracotta
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
         run: ./gradlew terracottaApply
 ```
 

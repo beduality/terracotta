@@ -11,8 +11,8 @@ import java.io.File
  * Registers the `terracotta` extension and the `terracottaPlan` / `terracottaApply`
  * tasks for each configured provider.
  *
- * @see [Getting started tutorial](https://beduality.github.io/terracotta/content/gradle-plugin/tutorials/getting-started.html)
- * @see [Installation guide](https://beduality.github.io/terracotta/content/gradle-plugin/tutorials/installation.html)
+ * @see [Getting started tutorial](https://beduality.github.io/terracotta/content/modules/gradle-plugin/tutorials/getting-started.html)
+ * @see [Installation guide](https://beduality.github.io/terracotta/content/modules/gradle-plugin/tutorials/installation.html)
  */
 class TerracottaPlugin : Plugin<Project> {
     override fun apply(project: Project) {

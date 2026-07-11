@@ -9,7 +9,7 @@ import java.util.Objects
  *
  * Provides a default [merge] implementation and value-based equality.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
  */
 abstract class AbstractProjectMetadata(
     /** Project display name. */

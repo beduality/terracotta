@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
  * - Hangar: channel = "Release" | "Snapshot" (alpha/beta typically mapped to Snapshot)
  * - CurseForge: releaseType = "release" | "beta" | "alpha"
  *
- * @see [Models reference](https://beduality.github.io/terracotta/content/core/reference/models.html)
+ * @see [Models reference](https://beduality.github.io/terracotta/content/modules/core/reference/models.html)
  */
 @Serializable
 enum class TerracottaReleaseType(val id: String) {

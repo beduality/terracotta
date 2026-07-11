@@ -7,7 +7,7 @@ import org.gradle.api.Project
  * Registers the `terracottaPlan` and `terracottaApply` tasks for each configured
  * provider.
  *
- * @see [Tasks reference](https://beduality.github.io/terracotta/content/gradle-plugin/reference/tasks.html)
+ * @see [Tasks reference](https://beduality.github.io/terracotta/content/modules/gradle-plugin/reference/tasks.html)
  */
 internal object TerracottaTaskRegistrar {
     fun registerTasks(

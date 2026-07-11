@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 /**
  * Maps Terracotta loader identifiers to Hangar platform names and back.
  *
- * @see [Loader hierarchy explanation](https://beduality.github.io/terracotta/content/core/explanation/loader-hierarchy.html)
+ * @see [Loader hierarchy explanation](https://beduality.github.io/terracotta/content/modules/core/explanation/loader-hierarchy.html)
  */
 object HangarLoaderMapper {
     private val logger = LoggerFactory.getLogger(HangarLoaderMapper::class.java)

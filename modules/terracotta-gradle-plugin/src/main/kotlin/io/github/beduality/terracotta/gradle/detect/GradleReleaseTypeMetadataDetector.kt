@@ -12,8 +12,8 @@ import io.github.beduality.terracotta.core.model.releasetype.detectReleaseType
  * Unknown or `unspecified` versions are ignored so they do not override
  * explicit configuration.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
- * @see [Release type explanation](https://beduality.github.io/terracotta/content/core/explanation/metadata-resolution.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
+ * @see [Release type explanation](https://beduality.github.io/terracotta/content/modules/core/explanation/metadata-resolution.html)
  */
 class GradleReleaseTypeMetadataDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {

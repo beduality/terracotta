@@ -11,8 +11,8 @@ import java.util.ServiceLoader
  * Loads auto-detected project metadata from all registered
  * [ProjectMetadataDetector]s and from a [ProjectMetadataSource].
  *
- * @see [Resolve project metadata guide](https://beduality.github.io/terracotta/content/core/how-to-guides/resolve-project-metadata.html)
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Resolve project metadata guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/resolve-project-metadata.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
  */
 object ProjectMetadataLoader {
     /** Loads metadata from project files. */

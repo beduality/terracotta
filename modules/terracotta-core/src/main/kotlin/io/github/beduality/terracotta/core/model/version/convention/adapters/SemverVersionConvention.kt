@@ -7,7 +7,7 @@ import net.swiftzer.semver.SemVer
  *
  * Tolerates a leading "v" or "V" prefix before delegating to the semver library.
  *
- * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/version-conventions.html)
  */
 object SemverVersionConvention : VersionConvention {
     /** Parses the given value according to this convention. */

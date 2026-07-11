@@ -14,8 +14,8 @@ import org.gradle.api.tasks.Nested
  * Properties set here override values from `terracotta.yml`. Convention values are
  * applied when neither the DSL nor the file provides a value.
  *
- * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
- * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
+ * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/modules/core/reference/config-schema.html)
  */
 abstract class TerracottaExtension {
     /** Project display name. */

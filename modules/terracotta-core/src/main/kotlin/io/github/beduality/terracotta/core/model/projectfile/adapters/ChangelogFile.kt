@@ -9,8 +9,8 @@ import io.github.beduality.terracotta.core.model.projectfile.convention.KeepACha
  * Supports extracting the release notes for a specific version using a
  * configurable [ChangelogConvention]. The default is [KeepAChangelogConvention].
  *
- * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
- * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-project-file-convention.html)
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/conventions.html)
+ * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/add-a-new-project-file-convention.html)
  */
 class ChangelogFile(
     content: String?,

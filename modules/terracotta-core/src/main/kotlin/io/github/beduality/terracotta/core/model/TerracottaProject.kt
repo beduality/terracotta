@@ -3,7 +3,7 @@ package io.github.beduality.terracotta.core.model
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
- * @see [Models reference](https://beduality.github.io/terracotta/content/core/reference/models.html)
+ * @see [Models reference](https://beduality.github.io/terracotta/content/modules/core/reference/models.html)
  */
 data class TerracottaProject(
     /** Internal schema version. */

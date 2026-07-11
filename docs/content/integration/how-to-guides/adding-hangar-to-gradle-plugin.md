@@ -102,6 +102,6 @@ If the channel does not exist on the project yet, Terracotta creates it automati
 
 ## What's next?
 
-- Learn about all available configuration options in the [Config Schema](../../../config/schema.md).
+- Learn about all available configuration options in the [Config Schema](../../config/schema.md).
 - Automate Hangar releases in CI/CD with the [CI/CD Deployment guide](ci-cd-setup.md).
-- Use the [Kotlin DSL how-to guide](kotlin-dsl-configuration.md) to configure Hangar entirely in `build.gradle.kts`.
+- Use the [Kotlin DSL how-to guide](../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md) to configure Hangar entirely in `build.gradle.kts`.

@@ -5,8 +5,8 @@ import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 /**
  * Convenience base class for built-in loader implementations.
  *
- * @see [Loaders reference](https://beduality.github.io/terracotta/content/core/reference/loaders.html)
- * @see [Add a new loader guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-loader.html)
+ * @see [Loaders reference](https://beduality.github.io/terracotta/content/modules/core/reference/loaders.html)
+ * @see [Add a new loader guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/add-a-new-loader.html)
  */
 abstract class AbstractTerracottaLoader(
     /** Unique identifier. */

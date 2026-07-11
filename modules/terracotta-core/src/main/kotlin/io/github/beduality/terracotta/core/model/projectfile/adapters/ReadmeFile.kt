@@ -9,8 +9,8 @@ import io.github.beduality.terracotta.core.model.projectfile.convention.Terracot
  * Exposes the full description and a short summary using a configurable
  * [ReadmeConvention]. The default is [TerracottaReadmeConvention].
  *
- * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
- * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-project-file-convention.html)
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/conventions.html)
+ * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/add-a-new-project-file-convention.html)
  */
 class ReadmeFile(
     content: String?,

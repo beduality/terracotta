@@ -11,7 +11,7 @@ import java.io.File
  * Bridges the parsed `terracotta.yml` and Gradle project values into the
  * `terracotta` DSL extension.
  *
- * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
+ * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
  */
 internal object TerracottaExtensionConfigurer {
     fun configure(

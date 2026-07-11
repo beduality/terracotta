@@ -3,7 +3,7 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
- * @see [Operations reference](https://beduality.github.io/terracotta/content/core/reference/operations.html)
+ * @see [Operations reference](https://beduality.github.io/terracotta/content/modules/core/reference/operations.html)
  */
 sealed interface Operation {
     /** Human-readable description of this operation. */

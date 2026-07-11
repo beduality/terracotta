@@ -13,8 +13,8 @@ import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
  *
  * Also infers the environment by asking each detected loader for its environment.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
- * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/modules/core/tutorials/implementing-a-custom-metadata-detector.html)
  */
 class LoaderMetadataDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {

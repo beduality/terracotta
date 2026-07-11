@@ -4,7 +4,7 @@ import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
- * @see [Models reference](https://beduality.github.io/terracotta/content/core/reference/models.html)
+ * @see [Models reference](https://beduality.github.io/terracotta/content/modules/core/reference/models.html)
  */
 data class TerracottaVersion(
     /** Version string. */

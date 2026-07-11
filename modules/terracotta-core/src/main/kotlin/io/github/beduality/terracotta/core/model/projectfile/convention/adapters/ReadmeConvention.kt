@@ -6,7 +6,7 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  * Implementations are resolved from string identifiers via
  * [ProjectFileConventionRegistry].
  *
- * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/conventions.html)
  */
 interface ReadmeConvention : ProjectFileConvention {
     /** Extracts the full description from the README [content]. */

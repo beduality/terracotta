@@ -3,8 +3,8 @@ package io.github.beduality.terracotta.core.detect.adapters
 import io.github.beduality.terracotta.core.model.version.GameVersionConventionResolver
 
 /**
- * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
- * @see [Normalize game versions guide](https://beduality.github.io/terracotta/content/core/how-to-guides/normalize-game-versions.html)
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/version-conventions.html)
+ * @see [Normalize game versions guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/normalize-game-versions.html)
  */
 
 object GameVersionNormalizer {

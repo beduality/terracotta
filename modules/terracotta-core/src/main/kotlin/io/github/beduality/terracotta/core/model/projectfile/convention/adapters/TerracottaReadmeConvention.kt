@@ -6,8 +6,8 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  * The full trimmed content is the description, and the first non-empty,
  * non-heading paragraph is the summary.
  *
- * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
- * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-project-file-convention.html)
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/conventions.html)
+ * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/add-a-new-project-file-convention.html)
  */
 object TerracottaReadmeConvention : ReadmeConvention {
     /** Resolves metadata. */

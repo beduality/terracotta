@@ -10,8 +10,8 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
  * pieces of information. Detected values are used as low-priority defaults and
  * can be overridden by explicit configuration.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
- * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/modules/core/tutorials/implementing-a-custom-metadata-detector.html)
  */
 interface ProjectMetadata {
     /** Project name. */

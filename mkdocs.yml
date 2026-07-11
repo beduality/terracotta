@@ -99,6 +99,12 @@ nav:
       - Installation: content/sdk/reference/installation.md
     - Explanation:
       - Architecture Overview: content/sdk/explanation/architecture.md
+  - Integration:
+    - Overview: content/integration/README.md
+    - How-To Guides:
+      - Adding Modrinth to the Gradle Plugin: content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md
+      - Adding Hangar to the Gradle Plugin: content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md
+      - CI/CD Setup with GitHub Actions: content/integration/how-to-guides/ci-cd-setup.md
   - Modules:
     - Overview: content/modules/overview.md
     - Core:
@@ -136,8 +142,6 @@ nav:
         - Installation: content/modules/gradle-plugin/tutorials/installation.md
         - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
       - How-To Guides:
-        - Adding Hangar: content/modules/gradle-plugin/how-to-guides/adding-hangar-provider.md
-        - CI/CD Setup: content/modules/gradle-plugin/how-to-guides/ci-cd-setup.md
         - Kotlin DSL Configuration: content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md
       - Reference:
         - Tasks Reference: content/modules/gradle-plugin/reference/tasks.md

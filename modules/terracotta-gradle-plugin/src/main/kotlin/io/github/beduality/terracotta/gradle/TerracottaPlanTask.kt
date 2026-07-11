@@ -28,7 +28,7 @@ import java.util.ServiceLoader
  *
  * Outputs a human-readable plan without modifying the remote state.
  *
- * @see [Tasks reference](https://beduality.github.io/terracotta/content/gradle-plugin/reference/tasks.html)
+ * @see [Tasks reference](https://beduality.github.io/terracotta/content/modules/gradle-plugin/reference/tasks.html)
  */
 @DisableCachingByDefault(because = "Task makes network calls to fetch remote project state")
 abstract class TerracottaPlanTask : DefaultTask() {

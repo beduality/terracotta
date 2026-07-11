@@ -7,7 +7,7 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
  * Fully resolved project metadata after merging explicit configuration,
  * auto-detected values, and defaults.
  *
- * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
  */
 data class ResolvedProjectMetadata(
     /** Project display name. */

@@ -29,7 +29,7 @@ import java.util.ServiceLoader
  *
  * Creates or updates the project metadata and uploads any missing versions.
  *
- * @see [Tasks reference](https://beduality.github.io/terracotta/content/gradle-plugin/reference/tasks.html)
+ * @see [Tasks reference](https://beduality.github.io/terracotta/content/modules/gradle-plugin/reference/tasks.html)
  */
 @DisableCachingByDefault(because = "Task makes network calls and applies changes to remote registries")
 abstract class TerracottaApplyTask : DefaultTask() {

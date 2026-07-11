@@ -6,7 +6,7 @@ import java.io.File
  * Caches file reads for a project directory so multiple detectors can inspect
  * the same file without reading it from disk more than once.
  *
- * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/modules/core/reference/conventions.html)
  */
 class ProjectFileCache(private val projectDir: File) {
     private val cache = mutableMapOf<String, String?>()

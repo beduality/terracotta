@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * @see [Models reference](https://beduality.github.io/terracotta/content/core/reference/models.html)
+ * @see [Models reference](https://beduality.github.io/terracotta/content/modules/core/reference/models.html)
  */
 @Serializable
 enum class TerracottaEnvironment(val id: String) {

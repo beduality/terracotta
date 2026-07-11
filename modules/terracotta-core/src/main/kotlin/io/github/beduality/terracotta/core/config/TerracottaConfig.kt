@@ -5,8 +5,8 @@ package io.github.beduality.terracotta.core.config
  *
  * All fields are optional so the file can be partial; missing values fall back
  * to defaults supplied by the caller (for example, the Gradle plugin or a CLI).
- * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
- * @see [Load a terracotta.yml file](https://beduality.github.io/terracotta/content/core/how-to-guides/load-terracotta-config.html)
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/modules/core/reference/config-schema.html)
+ * @see [Load a terracotta.yml file](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/load-terracotta-config.html)
  */
 data class TerracottaConfig(
     /** Project display name. */
@@ -37,7 +37,7 @@ data class TerracottaConfig(
 
 /**
  * Convention configuration inside `terracotta.yml`.
- * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/modules/core/reference/config-schema.html)
  */
 data class TerracottaConventionConfig(
     /** Identifier of the convention used to interpret `README.md`. */
@@ -48,7 +48,7 @@ data class TerracottaConventionConfig(
 
 /**
  * Provider-specific configuration inside `terracotta.yml`.
- * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/modules/core/reference/config-schema.html)
  */
 data class TerracottaProviderConfig(
     /** Project ID on the provider registry. */
