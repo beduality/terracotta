@@ -4,6 +4,8 @@ import net.swiftzer.semver.SemVer
 
 /**
  * Strategy for parsing and validating version strings according to a specific convention.
+ *
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
  */
 interface VersionConvention {
     /**

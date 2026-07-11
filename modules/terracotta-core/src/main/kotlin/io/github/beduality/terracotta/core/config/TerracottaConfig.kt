@@ -5,34 +5,54 @@ package io.github.beduality.terracotta.core.config
  *
  * All fields are optional so the file can be partial; missing values fall back
  * to defaults supplied by the caller (for example, the Gradle plugin or a CLI).
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
+ * @see [Load a terracotta.yml file](https://beduality.github.io/terracotta/content/core/how-to-guides/load-terracotta-config.html)
  */
 data class TerracottaConfig(
+    /** Project display name. */
     val name: String? = null,
+    /** Short project summary or tagline. */
     val summary: String? = null,
+    /** Full project description. */
     val description: String? = null,
+    /** Search tags. */
     val tags: List<String>? = null,
+    /** SPDX license identifier. */
     val license: String? = null,
+    /** Supported Minecraft game versions. */
     val gameVersions: List<String>? = null,
+    /** Supported loader identifiers. */
     val loaders: List<String>? = null,
+    /** Runtime environment identifier (`client_only`, `server_only`, or `universal`). */
     val environment: String? = null,
+    /** Release type identifier (`release`, `beta`, or `alpha`). */
     val releaseType: String? = null,
+    /** Changelog text for the current version. */
     val changelog: String? = null,
+    /** README and changelog convention identifiers. */
     val convention: TerracottaConventionConfig = TerracottaConventionConfig(),
+    /** Per-provider configuration keyed by provider ID. */
     val providers: Map<String, TerracottaProviderConfig> = emptyMap(),
 )
 
 /**
  * Convention configuration inside `terracotta.yml`.
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
  */
 data class TerracottaConventionConfig(
+    /** Identifier of the convention used to interpret `README.md`. */
     val readme: String? = null,
+    /** Identifier of the convention used to interpret `CHANGELOG.md`. */
     val changelog: String? = null,
 )
 
 /**
  * Provider-specific configuration inside `terracotta.yml`.
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
  */
 data class TerracottaProviderConfig(
+    /** Project ID on the provider registry. */
     val projectId: String? = null,
+    /** Authentication token for the provider registry. */
     val token: String? = null,
 )

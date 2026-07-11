@@ -2,6 +2,11 @@ package io.github.beduality.terracotta.core.detect.adapters
 
 import io.github.beduality.terracotta.core.model.version.GameVersionConventionResolver
 
+/**
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
+ * @see [Normalize game versions guide](https://beduality.github.io/terracotta/content/core/how-to-guides/normalize-game-versions.html)
+ */
+
 object GameVersionNormalizer {
     private val candidates =
         Regex(
@@ -11,10 +16,12 @@ object GameVersionNormalizer {
 
     private val convention = GameVersionConventionResolver.resolve(null)
 
+    /** Normalizes the given version string. */
     fun normalize(raw: String): List<String> =
         candidates
             .findAll(raw)
             .mapNotNull { match ->
+                /** Authentication token. */
                 val token = match.groupValues[1].ifEmpty { match.groupValues[2] }
                 convention.parse(token)
             }

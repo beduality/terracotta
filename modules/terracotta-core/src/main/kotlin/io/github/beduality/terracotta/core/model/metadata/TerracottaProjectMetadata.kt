@@ -5,6 +5,8 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
 
 /**
  * Default project metadata implementation used by built-in detectors.
+ *
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
  */
 class TerracottaProjectMetadata(
     name: String? = null,
@@ -25,5 +27,6 @@ class TerracottaProjectMetadata(
         environment = environment,
         releaseType = releaseType,
     ) {
+    /** Merges this metadata with [other], preferring local values. */
     override fun merge(other: ProjectMetadata): TerracottaProjectMetadata = super.merge(other) as TerracottaProjectMetadata
 }

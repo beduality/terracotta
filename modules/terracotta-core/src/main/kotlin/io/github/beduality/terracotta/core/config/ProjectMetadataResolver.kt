@@ -19,6 +19,10 @@ import java.io.File
  * The resolution is build-tool agnostic; callers such as the Gradle plugin pass
  * in the project directory, the parsed [TerracottaConfig], and a
  * [ProjectMetadataSource] for values that come from the build system.
+ *
+ * @see [Resolve project metadata guide](https://beduality.github.io/terracotta/content/core/how-to-guides/resolve-project-metadata.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Metadata resolution explanation](https://beduality.github.io/terracotta/content/core/explanation/metadata-resolution.html)
  */
 class ProjectMetadataResolver(
     private val projectDir: File,
@@ -48,7 +52,10 @@ class ProjectMetadataResolver(
      * [detectChangelog] instead.
      */
     fun resolve(): ResolvedProjectMetadata {
+        /** Version string. */
         val version = resolveVersion(source.version)
+
+        /** Release notes. */
         val changelog = config.changelog ?: (version?.let { detectChangelog(it) } ?: "")
 
         return ResolvedProjectMetadata(
@@ -76,6 +83,9 @@ class ProjectMetadataResolver(
     /**
      * Extracts the changelog section for the given [version] from the project
      * changelog file using the configured changelog convention.
+     *
+     * @param version the version to look up in the changelog.
+     * @return the release notes for [version], or `null` if not found.
      */
     fun detectChangelog(version: String): String? {
         return ChangelogFile.load(cache, changelogConvention).extractVersionSection(version)

@@ -9,6 +9,9 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
  * All fields are optional because different detectors may contribute different
  * pieces of information. Detected values are used as low-priority defaults and
  * can be overridden by explicit configuration.
+ *
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
  */
 interface ProjectMetadata {
     /** Project name. */

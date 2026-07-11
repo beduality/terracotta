@@ -10,6 +10,9 @@ import io.github.beduality.terracotta.core.model.projectfile.LicenseFile
  *
  * Only a small set of common SPDX identifiers is recognized; unknown licenses
  * are ignored so they do not override explicit configuration.
+ *
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
  */
 class LicenseFileDetector : ProjectMetadataDetector {
     override fun detect(context: ProjectMetadataContext): TerracottaProjectMetadata? {

@@ -2,6 +2,8 @@ package io.github.beduality.terracotta.core.model.version
 
 /**
  * Resolves game-version conventions from string identifiers.
+ *
+ * @see [Version conventions reference](https://beduality.github.io/terracotta/content/core/reference/version-conventions.html)
  */
 object GameVersionConventionResolver {
     /**

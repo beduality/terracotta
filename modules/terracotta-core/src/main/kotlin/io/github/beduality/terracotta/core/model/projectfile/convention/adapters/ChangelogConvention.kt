@@ -5,6 +5,8 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  *
  * Implementations are resolved from string identifiers via
  * [ProjectFileConventionRegistry].
+ *
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
  */
 interface ChangelogConvention : ProjectFileConvention {
     /**
@@ -17,5 +19,6 @@ interface ChangelogConvention : ProjectFileConvention {
         version: String,
     ): String?
 
+    /** Resolves metadata. */
     override fun resolve(id: String): ChangelogConvention?
 }

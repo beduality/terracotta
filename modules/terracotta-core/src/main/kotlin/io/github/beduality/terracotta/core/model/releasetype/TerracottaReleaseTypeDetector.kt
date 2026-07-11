@@ -10,6 +10,8 @@ import io.github.beduality.terracotta.core.model.version.SemverVersionConvention
  * - "beta", "snapshot", "rc" → [TerracottaReleaseType.BETA]
  * - "unspecified" or unparseable versions → `null`
  * - anything else → [TerracottaReleaseType.RELEASE]
+ *
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
  */
 fun detectReleaseType(version: String): TerracottaReleaseType? {
     if (version == "unspecified") return null

@@ -5,6 +5,9 @@ import java.io.File
 
 /**
  * Loads a `terracotta.yml` file into [TerracottaConfig].
+ *
+ * @see [Load a terracotta.yml file](https://beduality.github.io/terracotta/content/core/how-to-guides/load-terracotta-config.html)
+ * @see [Config schema reference](https://beduality.github.io/terracotta/content/core/reference/config-schema.html)
  */
 object TerracottaConfigLoader {
     /**

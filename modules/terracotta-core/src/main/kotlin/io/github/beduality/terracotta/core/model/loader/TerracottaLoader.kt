@@ -8,6 +8,10 @@ import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
  * Implementations are registered in [TerracottaLoaderRegistry] and may declare a
  * parent loader to model platform forks (e.g. Paper extends Spigot, which extends
  * Bukkit).
+ *
+ * @see [Loaders reference](https://beduality.github.io/terracotta/content/core/reference/loaders.html)
+ * @see [Add a new loader guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-loader.html)
+ * @see [Loader hierarchy explanation](https://beduality.github.io/terracotta/content/core/explanation/loader-hierarchy.html)
  */
 interface TerracottaLoader {
     /** Unique identifier for this loader, used in configuration and APIs. */

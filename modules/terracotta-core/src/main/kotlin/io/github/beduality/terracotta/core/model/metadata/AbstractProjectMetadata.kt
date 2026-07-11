@@ -8,17 +8,28 @@ import java.util.Objects
  * Convenience base class for project metadata implementations.
  *
  * Provides a default [merge] implementation and value-based equality.
+ *
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
  */
 abstract class AbstractProjectMetadata(
+    /** Project display name. */
     override val name: String? = null,
+    /** Short description or tagline. */
     override val summary: String? = null,
+    /** Full project description. */
     override val description: String? = null,
+    /** SPDX license identifier. */
     override val license: String? = null,
+    /** Supported Minecraft game versions. */
     override val gameVersions: List<String>? = null,
+    /** Supported loader identifiers. */
     override val loaders: List<String>? = null,
+    /** Runtime environment. */
     override val environment: TerracottaEnvironment? = null,
+    /** Release type. */
     override val releaseType: TerracottaReleaseType? = null,
 ) : ProjectMetadata {
+    /** Merges this metadata with [other], preferring local values. */
     override fun merge(other: ProjectMetadata): ProjectMetadata =
         TerracottaProjectMetadata(
             name = this.name ?: other.name,

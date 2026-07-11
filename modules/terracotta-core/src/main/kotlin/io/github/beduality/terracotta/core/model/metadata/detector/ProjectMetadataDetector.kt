@@ -12,6 +12,9 @@ import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
  *
  * Detectors receive a [ProjectMetadataContext] so that multiple detectors can
  * share the file cache and the conventions used to interpret project files.
+ *
+ * @see [Implement a custom metadata detector tutorial](https://beduality.github.io/terracotta/content/core/tutorials/implementing-a-custom-metadata-detector.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
  */
 interface ProjectMetadataDetector {
     /**

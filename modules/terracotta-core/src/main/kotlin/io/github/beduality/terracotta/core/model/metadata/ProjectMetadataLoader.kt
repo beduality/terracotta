@@ -10,13 +10,18 @@ import java.util.ServiceLoader
 /**
  * Loads auto-detected project metadata from all registered
  * [ProjectMetadataDetector]s and from a [ProjectMetadataSource].
+ *
+ * @see [Resolve project metadata guide](https://beduality.github.io/terracotta/content/core/how-to-guides/resolve-project-metadata.html)
+ * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/core/reference/metadata-resolution.html)
  */
 object ProjectMetadataLoader {
+    /** Loads metadata from project files. */
     fun load(
         cache: ProjectFileCache,
         source: ProjectMetadataSource,
     ): TerracottaProjectMetadata = load(ProjectMetadataContext(cache, source))
 
+    /** Loads metadata from project files. */
     fun load(context: ProjectMetadataContext): TerracottaProjectMetadata {
         val detectedFromFiles = loadFromDetectors(context)
         val detectedFromSource =

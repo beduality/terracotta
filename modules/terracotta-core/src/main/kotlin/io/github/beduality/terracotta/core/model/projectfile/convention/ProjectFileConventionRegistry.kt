@@ -9,6 +9,9 @@ import java.util.ServiceLoader
  * can be contributed by other libraries via Java's [ServiceLoader] mechanism by
  * providing a `META-INF/services/io.github.beduality.terracotta.core.model.projectfile.convention.ProjectFileConvention`
  * service file, or by calling [register] at runtime.
+ *
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
+ * @see [Add a project-file convention guide](https://beduality.github.io/terracotta/content/core/how-to-guides/add-a-new-project-file-convention.html)
  */
 object ProjectFileConventionRegistry {
     private val conventions = mutableListOf<ProjectFileConvention>()

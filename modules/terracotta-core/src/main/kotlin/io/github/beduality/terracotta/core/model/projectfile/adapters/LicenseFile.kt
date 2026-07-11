@@ -4,6 +4,8 @@ package io.github.beduality.terracotta.core.model.projectfile
  * Represents a `LICENSE` file in the project.
  *
  * Detects a small set of common SPDX identifiers from the file content.
+ *
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
  */
 class LicenseFile(content: String?) : AbstractProjectFile(content) {
     companion object {

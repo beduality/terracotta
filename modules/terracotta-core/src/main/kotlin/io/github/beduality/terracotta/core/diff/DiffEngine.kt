@@ -2,6 +2,11 @@ package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaProject
 
+/**
+ * @see [Compute a diff guide](https://beduality.github.io/terracotta/content/core/how-to-guides/compute-a-diff.html)
+ * @see [Operations reference](https://beduality.github.io/terracotta/content/core/reference/operations.html)
+ * @see [Diff engine explanation](https://beduality.github.io/terracotta/content/core/explanation/diff-engine.html)
+ */
 object DiffEngine {
     /**
      * Computes the semantic diff between a desired local project state

@@ -111,6 +111,35 @@ nav:
       - Installation: content/sdk/reference/installation.md
     - Explanation:
       - Architecture Overview: content/sdk/explanation/architecture.md
+  - Core:
+      - Introduction: content/core/README.md
+      - Tutorials:
+        - Implement a Custom Loader: content/core/tutorials/implementing-a-custom-loader.md
+        - Implement a Custom Metadata Detector: content/core/tutorials/implementing-a-custom-metadata-detector.md
+        - Implement a Custom Provider: content/core/tutorials/implementing-a-custom-provider.md
+      - How-To Guides:
+        - Load a terracotta.yml File: content/core/how-to-guides/load-terracotta-config.md
+        - Resolve Project Metadata: content/core/how-to-guides/resolve-project-metadata.md
+        - Compute a Diff: content/core/how-to-guides/compute-a-diff.md
+        - Add a New Loader: content/core/how-to-guides/add-a-new-loader.md
+        - Add a Project-File Convention: content/core/how-to-guides/add-a-new-project-file-convention.md
+        - Normalize Game Versions: content/core/how-to-guides/normalize-game-versions.md
+      - Reference:
+        - Models: content/core/reference/models.md
+        - Loaders: content/core/reference/loaders.md
+        - Operations: content/core/reference/operations.md
+        - Config Schema: content/core/reference/config-schema.md
+        - Metadata Resolution: content/core/reference/metadata-resolution.md
+        - Conventions: content/core/reference/conventions.md
+        - Version Conventions: content/core/reference/version-conventions.md
+        - Provider Interfaces: content/core/reference/provider-interfaces.md
+        - API Documentation: content/core/reference/api.md
+      - Explanation:
+        - Architecture: content/core/explanation/architecture.md
+        - Metadata Resolution: content/core/explanation/metadata-resolution.md
+        - Diff Engine: content/core/explanation/diff-engine.md
+        - Loader Hierarchy: content/core/explanation/loader-hierarchy.md
+        - Conventions: content/core/explanation/conventions.md
   - Repo:
       - Introduction: content/repo/README.md
       - Tutorials:

@@ -5,6 +5,8 @@ package io.github.beduality.terracotta.core.model.projectfile.convention
  *
  * Implementations are resolved from string identifiers via
  * [ProjectFileConventionRegistry].
+ *
+ * @see [Conventions reference](https://beduality.github.io/terracotta/content/core/reference/conventions.html)
  */
 interface ReadmeConvention : ProjectFileConvention {
     /** Extracts the full description from the README [content]. */
@@ -13,5 +15,6 @@ interface ReadmeConvention : ProjectFileConvention {
     /** Extracts a short summary from the README [content]. */
     fun extractSummary(content: String): String?
 
+    /** Resolves metadata. */
     override fun resolve(id: String): ReadmeConvention?
 }
