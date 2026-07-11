@@ -28,6 +28,14 @@ interface TerracottaLoader {
      */
     fun detectEnvironment(cache: ProjectFileCache): TerracottaEnvironment?
 
+    /**
+     * Detects supported game versions for this loader from its descriptor file(s).
+     *
+     * Returns an empty list when the descriptor does not carry version
+     * information.
+     */
+    fun detectGameVersions(cache: ProjectFileCache): List<String> = emptyList()
+
     /** Returns `true` if this loader is [loader] or inherits from it. */
     fun isOrInheritsFrom(loader: TerracottaLoader): Boolean {
         var current: TerracottaLoader? = this

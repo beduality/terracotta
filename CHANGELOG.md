@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added automatic `Release`/`Snapshot` channel creation before uploading versions to Hangar.
   - Added multipart version uploads with per-platform game version dependencies.
 
+**Core**
+
+- Added automatic `gameVersion` detection from project files, including loader descriptors (`plugin.yml`, `paper-plugin.yml`, `fabric.mod.json`, `mods.toml`) and build files (`gradle.properties`, `gradle/libs.versions.toml`, `build.gradle.kts`).
+  - Detection is driven by a `GameVersionConvention` SPI with a `MinecraftGameVersionConvention` implementation, so it understands classic releases (`1.20.1`), snapshots (`25w14a`), pre-releases (`1.21.5-pre1`), release candidates (`1.21.5-rc1`), and version ranges such as `[1.20.1,1.20.2)`.
+  - Detected versions are normalized and used as a low-priority default, so explicit `gameVersions` configuration still takes precedence.
+
 ### Removed
 
 **Docs**

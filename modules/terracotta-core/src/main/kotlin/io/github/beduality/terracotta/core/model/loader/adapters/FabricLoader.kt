@@ -20,4 +20,12 @@ open class FabricLoader : AbstractTerracottaLoader("fabric", "Fabric") {
             else -> null
         }
     }
+
+    override fun detectGameVersions(cache: ProjectFileCache): List<String> {
+        val content = cache.read("src/main/resources/fabric.mod.json") ?: return emptyList()
+        val json = Json.parseToJsonElement(content) as? JsonObject ?: return emptyList()
+        val depends = json["depends"] as? JsonObject ?: return emptyList()
+        val minecraft = depends["minecraft"] ?: return emptyList()
+        return listOfNotNull(minecraft.jsonPrimitive.content)
+    }
 }
