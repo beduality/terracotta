@@ -1,8 +1,8 @@
 # TODO
 
-- Dry-run release
-
 ## v0.2.0
+
+- Make CICD granular for modules and DAG-based for dependency-based invalidation
 
 - Add auto-detection of project fields
 - Add config validation
