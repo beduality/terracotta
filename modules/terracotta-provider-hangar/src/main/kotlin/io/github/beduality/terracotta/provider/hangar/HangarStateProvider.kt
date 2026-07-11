@@ -12,7 +12,7 @@ import io.github.beduality.terracotta.provider.hangar.model.HangarVersion
 /**
  * Reads project and version state from Hangar.
  *
- * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
  */
 class HangarStateProvider(private val client: HangarClient) : StateProvider {
     /**

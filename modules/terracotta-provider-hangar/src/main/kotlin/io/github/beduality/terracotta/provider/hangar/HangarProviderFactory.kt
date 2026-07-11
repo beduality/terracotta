@@ -8,8 +8,8 @@ import io.github.beduality.terracotta.provider.hangar.client.HangarClient
 /**
  * Provider factory for Hangar.
  *
- * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
- * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/core/reference/provider-interfaces.html)
+ * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
+ * @see [Provider interfaces reference](https://beduality.github.io/terracotta/content/modules/core/reference/provider-interfaces.html)
  * @see [Provider API reference](https://beduality.github.io/terracotta/content/sdk/reference/provider-api.html)
  */
 class HangarProviderFactory : ProviderFactory {

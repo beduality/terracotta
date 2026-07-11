@@ -90,7 +90,6 @@ nav:
       - Quick Start: content/sdk/tutorials/quick-start.md
     - How-To Guides:
       - Custom Providers: content/sdk/how-to-guides/custom-provider.md
-      - Hangar Provider: content/sdk/how-to-guides/hangar-provider.md
     - Reference:
       - API Reference: content/sdk/reference/api.md
       - Core API Docs: apidocs/terracotta-core/index.html
@@ -158,6 +157,16 @@ nav:
       - Explanation:
         - Architecture: content/modules/provider-modrinth/explanation/architecture.md
         - Version Mapping: content/modules/provider-modrinth/explanation/version-mapping.md
+    - Hangar Provider:
+      - Introduction: content/modules/provider-hangar/README.md
+      - Tutorials:
+        - Using Hangar: content/modules/provider-hangar/tutorials/using-hangar.md
+      - Reference:
+        - API Docs: content/modules/provider-hangar/reference/api.md
+        - Dokka API Docs: apidocs/terracotta-provider-hangar/index.html
+      - Explanation:
+        - Architecture: content/modules/provider-hangar/explanation/architecture.md
+        - Loader Mapping: content/modules/provider-hangar/explanation/loader-mapping.md
   - Repo:
       - Introduction: content/repo/README.md
       - Tutorials:

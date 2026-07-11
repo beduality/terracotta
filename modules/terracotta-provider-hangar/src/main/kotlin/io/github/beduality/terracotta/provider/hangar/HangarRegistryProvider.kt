@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 /**
  * Applies Terracotta operations to Hangar by translating them into Hangar API calls.
  *
- * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
  */
 class HangarRegistryProvider(private val client: HangarClient) : RegistryProvider {
     private val logger = LoggerFactory.getLogger(HangarRegistryProvider::class.java)

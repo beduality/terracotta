@@ -42,7 +42,7 @@ import java.io.IOException
  * Handles JWT authentication, project metadata updates, version uploads, and
  * channel creation.
  *
- * @see [Hangar provider guide](https://beduality.github.io/terracotta/content/sdk/how-to-guides/hangar-provider.html)
+ * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
  */
 class HangarClient(
     /** Hangar API key. */
