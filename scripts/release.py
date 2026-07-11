@@ -195,22 +195,10 @@ def update_changelog(new_version: str):
     console.print("[green]✔[/green] Updated CHANGELOG.md")
 
 
-def update_readme(new_version: str):
-    path = Path("README.md")
-    if not path.exists():
-        console.print("[yellow]⚠[/yellow] README.md not found, skipping")
-        return
-    content = path.read_text()
-    new_content = re.sub(
-        r'version\s*"\d+\.\d+\.\d+"',
-        f'version "{new_version}"',
-        content,
-    )
-    if new_content != content:
-        path.write_text(new_content)
-        console.print("[green]✔[/green] Updated README.md")
-    else:
-        console.print("[dim]README.md already up to date[/dim]")
+def _docs_markdown_paths() -> list[Path]:
+    paths = [Path("docs/index.md")]
+    paths.extend(Path("docs/content").rglob("*.md"))
+    return paths
 
 
 def update_docs_version_snippets(new_version: str):
@@ -218,7 +206,7 @@ def update_docs_version_snippets(new_version: str):
         r'(id\("io\.github\.beduality\.terracotta"\)\s+version\s+")(\d+\.\d+\.\d+)(")'
     )
     updated = []
-    for path in Path("docs/content").rglob("*.md"):
+    for path in _docs_markdown_paths():
         content = path.read_text()
         new_content = pattern.sub(rf"\g<1>{new_version}\g<3>", content)
         if new_content != content:
@@ -235,7 +223,7 @@ def validate_docs_version_snippets(new_version: str):
         r'id\("io\.github\.beduality\.terracotta"\)\s+version\s+"(\d+\.\d+\.\d+)"'
     )
     mismatches = []
-    for path in Path("docs/content").rglob("*.md"):
+    for path in _docs_markdown_paths():
         for match in pattern.finditer(path.read_text()):
             if match.group(1) != new_version:
                 mismatches.append(f"{path}:{match.start() + 1}")
@@ -244,16 +232,6 @@ def validate_docs_version_snippets(new_version: str):
             f"Docs version snippets do not match {new_version}: {', '.join(mismatches)}"
         )
     console.print("[green]✔[/green] Docs version snippets validated")
-
-
-def validate_readme_version(new_version: str):
-    path = Path("README.md")
-    if not path.exists():
-        return
-    expected = f'version "{new_version}"'
-    if expected not in path.read_text():
-        raise ValueError(f"README.md is missing the expected version string {expected!r}")
-    console.print("[green]✔[/green] README.md version string validated")
 
 
 def validate_changelog_release_section(new_version: str):
@@ -615,15 +593,13 @@ def main(
 
     actions_taken = []
     try:
-        # 1. Update Version Numbers, Changelog, and README
-        console.print("\n[bold]1. Updating version numbers, changelog, and README...[/bold]")
+        # 1. Update Version Numbers, Changelog, and Docs
+        console.print("\n[bold]1. Updating version numbers, changelog, and docs...[/bold]")
         actions_taken.append("files_modified")
         update_gradle_properties(new_version)
         update_pyproject_toml(new_version)
         update_changelog(new_version)
-        update_readme(new_version)
         update_docs_version_snippets(new_version)
-        validate_readme_version(new_version)
         validate_docs_version_snippets(new_version)
         validate_changelog_release_section(new_version)
 
@@ -676,7 +652,7 @@ def main(
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
 
-            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "uv.lock", "docs/content"])
+            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock", "docs/index.md", "docs/content"])
 
             run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
             actions_taken.append("committed")
@@ -738,7 +714,7 @@ def main(
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
-                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "README.md", "docs/content"],
+                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "docs/index.md", "docs/content"],
                     check=True
                 )
                 # Try to restore uv.lock if it exists in git
@@ -750,7 +726,7 @@ def main(
                 console.print("[green]✔[/green] Restored modified files")
             except Exception as re_err:
                 console.print(f"[red]Failed to restore modified files: {re_err}[/red]")
-                console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md README.md'[/yellow]")
+                console.print(f"[yellow]Manual Step Needed: Run 'git restore gradle.properties pyproject.toml CHANGELOG.md docs/index.md docs/content'[/yellow]")
                 rollback_failed = True
 
         if rollback_failed:

@@ -8,5 +8,5 @@ trigger: always_on
     - Do not add unnecessary comments.
 - Write failing tests before implementing a feature.
     - Tests must be behavior-driven and high-ROI.
-- Update documentation, `CHANGELOG.md`, `README.md`, and `project/**/*.md` when applicable.
+- Update `docs/` (especially `docs/index.md` and relevant `docs/content/**/*.md`), `CHANGELOG.md`, and `project/**/*.md` when applicable.
 - Update `docs/content/repo/*.md` when changing the development workflow.

@@ -206,7 +206,7 @@ def test_source_tree_version_strings(release_version, tag):
         f"{tag}:gradle.properties": f"version = {release_version}",
         f"{tag}:pyproject.toml": f'version = "{release_version}"',
         f"{tag}:CHANGELOG.md": f"## [{release_version}]",
-        f"{tag}:README.md": f'version "{release_version}"',
+        f"{tag}:docs/index.md": f'version "{release_version}"',
     }
 
     failures = []
