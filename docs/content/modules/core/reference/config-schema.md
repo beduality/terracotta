@@ -12,6 +12,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `tags` | list of strings | No | Search tags. |
 | `license` | string | No | SPDX license identifier. |
 | `licenseUrl` | string | No | Optional URL to the full license text. Forwarded to Modrinth; ignored by Hangar. |
+| `icon` | string | No | Path to the project icon file. Uploaded to Modrinth; skipped by Hangar. |
 | `gameVersions` | list of strings | No | Supported Minecraft versions. |
 | `loaders` | list of strings | No | Loader identifiers. |
 | `environment` | string | No | `client_only`, `server_only`, or `universal`. |
@@ -63,6 +64,7 @@ tags:
   - utility
 license: "MIT"
 licenseUrl: "https://github.com/example/my-plugin/blob/main/LICENSE"
+icon: "docs/assets/icon.png"
 gameVersions:
   - "1.21.8"
   - "1.21.7"

@@ -74,6 +74,30 @@ object DiffEngine {
         // Compare gallery images
         operations.addAll(diffGallery(local.gallery, remote.gallery))
 
+        // Compare icon
+        operations.addAll(diffIcon(local.icon, remote.icon))
+
+        return operations
+    }
+
+    private fun diffIcon(
+        localIcon: String?,
+        remoteIcon: String?,
+    ): List<Operation> {
+        val operations = mutableListOf<Operation>()
+
+        when {
+            localIcon == null && remoteIcon != null -> {
+                operations.add(Operation.DeleteIcon(remoteIcon))
+            }
+            localIcon != null && remoteIcon == null -> {
+                operations.add(Operation.UploadIcon(localIcon))
+            }
+            localIcon != null && remoteIcon != null && localIcon != remoteIcon -> {
+                operations.add(Operation.UpdateIcon(remoteIcon, localIcon))
+            }
+        }
+
         return operations
     }
 

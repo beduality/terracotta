@@ -95,4 +95,29 @@ sealed interface Operation {
     data class DeleteGalleryItem(val item: TerracottaGalleryItem) : Operation {
         override val description: String = "- Delete gallery image '${item.title}'"
     }
+
+    /** Uploads [iconPath] as the project icon. */
+    data class UploadIcon(val iconPath: String) : Operation {
+        override val description: String = "+ Upload project icon"
+    }
+
+    /**
+     * Replaces the existing project icon with [iconPath].
+     *
+     * @property oldIconUrl Previous icon URL on the remote project, or null if unknown.
+     * @property iconPath Local path to the new icon file.
+     */
+    data class UpdateIcon(
+        /** Previous icon URL on the remote project, or null if unknown. */
+        val oldIconUrl: String?,
+        /** Local path to the new icon file. */
+        val iconPath: String,
+    ) : Operation {
+        override val description: String = "~ Update project icon"
+    }
+
+    /** Deletes the project icon identified by [iconUrl] from the remote project. */
+    data class DeleteIcon(val iconUrl: String) : Operation {
+        override val description: String = "- Delete project icon"
+    }
 }

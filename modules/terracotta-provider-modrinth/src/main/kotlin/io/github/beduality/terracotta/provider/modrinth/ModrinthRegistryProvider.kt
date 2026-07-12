@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.provider.modrinth
 import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import org.slf4j.LoggerFactory
 
 /**
  * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
@@ -10,6 +11,8 @@ import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
  * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
  */
 class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryProvider {
+    private val logger = LoggerFactory.getLogger(ModrinthRegistryProvider::class.java)
+
     /**
      * Applies [operations] to the Modrinth project identified by [projectId].
      *
@@ -54,6 +57,15 @@ class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryPro
                 }
                 is Operation.DeleteGalleryItem -> {
                     client.deleteGalleryItem(resolvedProjectId, op.item.imagePath)
+                }
+                is Operation.UploadIcon -> {
+                    client.uploadIcon(resolvedProjectId, op.iconPath)
+                }
+                is Operation.UpdateIcon -> {
+                    client.uploadIcon(resolvedProjectId, op.iconPath)
+                }
+                is Operation.DeleteIcon -> {
+                    logger.warn("Modrinth does not support deleting a project icon; skipping icon deletion.")
                 }
             }
         }

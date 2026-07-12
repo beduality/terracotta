@@ -62,7 +62,9 @@ class ModrinthClient(
 
     companion object {
         private val SUPPORTED_GALLERY_EXTENSIONS = setOf("png", "jpg", "jpeg", "webp", "gif", "bmp")
+        private val SUPPORTED_ICON_EXTENSIONS = setOf("png", "jpg", "jpeg", "webp", "gif", "bmp")
         private const val MAX_GALLERY_SIZE_BYTES = 5L * 1024 * 1024
+        private const val MAX_ICON_SIZE_BYTES = 256L * 1024
 
         private fun defaultClient(): HttpClient {
             return HttpClient(Java) {
@@ -348,5 +350,47 @@ class ModrinthClient(
             throw IOException("Failed to delete gallery image: ${response.status.value} ${response.bodyAsText()}")
         }
         logger.info("Successfully deleted gallery image from Modrinth project $projectId.")
+    }
+
+    /** Uploads [iconPath] as the icon of the project identified by [projectId]. */
+    suspend fun uploadIcon(
+        projectId: String,
+        iconPath: String,
+    ) {
+        val processed = assetProcessor.process(File(iconPath))
+        GalleryValidator.validate(
+            processed.path,
+            SUPPORTED_ICON_EXTENSIONS,
+            MAX_ICON_SIZE_BYTES,
+        )
+
+        val extension = processed.extension.ifBlank { File(iconPath).extension }
+        val file = File(processed.path)
+
+        val response =
+            client.patch("$baseUrl/project/$projectId/icon") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                parameter("ext", extension)
+                setBody(
+                    MultiPartFormDataContent(
+                        formData {
+                            append(
+                                "icon",
+                                file.readBytes(),
+                                Headers.build {
+                                    append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
+                                    append(HttpHeaders.ContentType, processed.contentType)
+                                },
+                            )
+                        },
+                    ),
+                )
+            }
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to upload project icon: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully uploaded project icon to Modrinth project $projectId.")
     }
 }

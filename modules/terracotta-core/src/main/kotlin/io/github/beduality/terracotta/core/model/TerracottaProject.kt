@@ -24,6 +24,8 @@ data class TerracottaProject(
     val license: String,
     /** Optional URL to the full license text. */
     val licenseUrl: String? = null,
+    /** Project icon: local path in config, remote URL when read from provider state. */
+    val icon: String? = null,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem> = emptyList(),
 )

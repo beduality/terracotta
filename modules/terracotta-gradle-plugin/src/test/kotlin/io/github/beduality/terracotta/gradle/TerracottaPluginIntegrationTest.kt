@@ -438,4 +438,42 @@ class TerracottaPluginIntegrationTest {
         assertTrue("GALLERY=YAML Image:yaml-image.png" in result.output, "Expected YAML gallery item")
         assertTrue("GALLERY=DSL Image:dsl-image.png" in result.output, "Expected DSL gallery item")
     }
+
+    @Test
+    fun `loads icon from terracotta yml and dsl override`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            icon: docs/assets/yaml-icon.png
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                icon.set(file("docs/assets/dsl-icon.png"))
+            }
+
+            tasks.register("printIcon") {
+                doLast {
+                    println("ICON=" + terracotta.icon.orNull?.asFile?.name)
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printIcon")
+                .build()
+
+        assertTrue("ICON=dsl-icon.png" in result.output, "Expected DSL to override YAML icon")
+    }
 }

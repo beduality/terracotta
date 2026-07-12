@@ -19,6 +19,7 @@ terracotta {
     environment.set(TerracottaEnvironment.SERVER_ONLY)
     releaseType.set(TerracottaReleaseType.RELEASE)
     changelog.set("Initial release")
+    icon.set(file("docs/assets/icon.png"))
 
     gallery {
         register("screenshot") {

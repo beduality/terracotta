@@ -406,4 +406,53 @@ class ModrinthClientTest {
             assertNotNull(capturedBody)
             assertTrue(capturedBody!!.contains("""license_url":"https://example.com/LICENSE"""))
         }
+
+    @Test
+    fun `uploadIcon patches icon endpoint with multipart body`() =
+        runTest {
+            val tempDir = Files.createTempDirectory("modrinth-icon").toFile()
+            tempDir.deleteOnExit()
+            val icon = File(tempDir, "icon.png")
+            icon.deleteOnExit()
+            icon.writeText("icon-content")
+
+            var uploaded = false
+            var authHeader: String? = null
+            var extParam: String? = null
+            val mockEngine =
+                MockEngine { request ->
+                    if (request.url.encodedPath == "/project/my-mod/icon" && request.method == HttpMethod.Patch) {
+                        uploaded = true
+                        authHeader = request.headers[HttpHeaders.Authorization]
+                        extParam = request.url.parameters["ext"]
+                        val body = String(request.body.toByteArray())
+                        assertTrue(body.contains("filename=\"icon.png\""))
+                        assertTrue(body.contains("icon-content"))
+                        respond("", HttpStatusCode.NoContent)
+                    } else {
+                        respond("", HttpStatusCode.NotFound)
+                    }
+                }
+            val client = ModrinthClient(token = "my-token", baseUrl = "http://localhost", client = createClient(mockEngine))
+            client.uploadIcon("my-mod", icon.absolutePath)
+            assertTrue(uploaded)
+            assertEquals("my-token", authHeader)
+            assertEquals("png", extParam)
+        }
+
+    @Test
+    fun `uploadIcon throws IOException when icon file is missing`() =
+        runTest {
+            val mockEngine = MockEngine { _ -> respond("", HttpStatusCode.OK) }
+            val client = ModrinthClient(token = null, baseUrl = "http://localhost", client = createClient(mockEngine))
+            val exception =
+                try {
+                    client.uploadIcon("my-mod", "/nonexistent/icon.png")
+                    null
+                } catch (e: IOException) {
+                    e
+                }
+            assertNotNull(exception)
+            assertTrue(exception!!.message!!.contains("Gallery image not found"))
+        }
 }

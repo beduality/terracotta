@@ -52,6 +52,7 @@ internal object TerracottaTaskRegistrar {
                     task.provider.set(providerId)
                     task.token.set(providerExt.token)
                     task.artifactFile.set(extension.artifactFile)
+                    task.icon.set(extension.icon)
                     task.gallery.convention(galleryItemsProvider(project, extension))
                 }
             allPlanTasks.add(providerPlanTask)
@@ -79,6 +80,7 @@ internal object TerracottaTaskRegistrar {
                     task.provider.set(providerId)
                     task.token.set(providerExt.token)
                     task.artifactFile.set(extension.artifactFile)
+                    task.icon.set(extension.icon)
                     task.gallery.convention(galleryItemsProvider(project, extension))
 
                     task.dependsOn(providerPlanTask)

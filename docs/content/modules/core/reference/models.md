@@ -16,6 +16,8 @@ Represents a project as it should appear on a registry.
 | `versions` | List of `TerracottaVersion` objects. |
 | `tags` | Search tags. |
 | `license` | SPDX license identifier. |
+| `licenseUrl` | Optional URL to the full license text. |
+| `icon` | Path to the project icon file, or the remote icon URL when read from provider state. |
 | `gallery` | List of `TerracottaGalleryItem` objects. |
 
 ## TerracottaGalleryItem

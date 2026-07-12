@@ -33,6 +33,8 @@ data class ResolvedProjectMetadata(
     val releaseType: TerracottaReleaseType,
     /** Release notes for the current version. */
     val changelog: String,
+    /** Path to the project icon file, or null if not configured. */
+    val icon: String?,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem>,
     /** Identifier of the README convention used. */

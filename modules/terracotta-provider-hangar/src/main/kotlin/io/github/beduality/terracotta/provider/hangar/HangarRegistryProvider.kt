@@ -53,6 +53,10 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
                 is Operation.UpdateGalleryItem,
                 is Operation.DeleteGalleryItem,
                 -> galleryOpsSkipped++
+                is Operation.UploadIcon,
+                is Operation.UpdateIcon,
+                is Operation.DeleteIcon,
+                -> logger.warn("Hangar does not support project icon uploads; skipping icon operation.")
             }
         }
 

@@ -443,4 +443,117 @@ class DiffEngineTest {
         assertEquals(listOf("utility", "old-tag"), tagsOp.oldTags)
         assertEquals(listOf("utility"), tagsOp.newTags)
     }
+
+    @Test
+    fun `test diff with icon upload when remote has no icon`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                icon = "docs/assets/icon.png",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val iconOp = ops.filterIsInstance<Operation.UploadIcon>().first()
+        assertEquals("docs/assets/icon.png", iconOp.iconPath)
+    }
+
+    @Test
+    fun `test diff with icon update when remote icon differs`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                icon = "https://hangar.papermc.io/avatars/old.png",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                icon = "docs/assets/icon.png",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val iconOp = ops.filterIsInstance<Operation.UpdateIcon>().first()
+        assertEquals("https://hangar.papermc.io/avatars/old.png", iconOp.oldIconUrl)
+        assertEquals("docs/assets/icon.png", iconOp.iconPath)
+    }
+
+    @Test
+    fun `test diff with icon deletion when local removes icon`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                icon = "https://hangar.papermc.io/avatars/old.png",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertEquals(1, ops.size)
+        val iconOp = ops.filterIsInstance<Operation.DeleteIcon>().first()
+        assertEquals("https://hangar.papermc.io/avatars/old.png", iconOp.iconUrl)
+    }
+
+    @Test
+    fun `test diff with identical icons should not trigger update`() {
+        val project =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                icon = "docs/assets/icon.png",
+            )
+
+        val ops = DiffEngine.diff(project, project)
+        assertTrue(ops.isEmpty())
+    }
 }

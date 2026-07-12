@@ -149,6 +149,31 @@ When `terracottaApply` runs, the provider uploads new images, updates metadata f
 images whose title/description/featured/ordering changed, and deletes images whose
 title no longer exists in the local configuration.
 
+## Project icon
+
+The Modrinth provider can upload and update the project icon. The icon is declared
+with the `icon` field in `terracotta.yml` or with `icon.set(...)` in the Gradle DSL.
+
+### Supported formats and limits
+
+| Limit | Value |
+|-------|-------|
+| Maximum file size | 256 KiB |
+| Supported extensions | `png`, `jpg`, `jpeg`, `webp`, `gif`, `bmp` |
+
+### Configuration example
+
+```yaml
+name: "My Plugin"
+icon: "docs/assets/icon.png"
+# ... other fields ...
+```
+
+When the local icon is configured and the remote project has no icon, the provider
+uploads it using `PATCH /project/{id}/icon`. When the remote project already has an
+icon, the provider replaces it. Modrinth does not expose an API for deleting the
+icon, so `DeleteIcon` operations are skipped with a warning.
+
 ## Complete Example
 
 Here's a complete example showing how to use the Modrinth provider with the Terracotta core:

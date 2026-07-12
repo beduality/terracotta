@@ -33,6 +33,7 @@ internal object TerracottaExtensionConfigurer {
         extension.tags.convention(resolved.tags)
         extension.license.convention(resolved.license)
         resolved.licenseUrl?.let { extension.licenseUrl.convention(it) }
+        resolved.icon?.let { extension.icon.convention(project.layout.projectDirectory.file(it)) }
         extension.gameVersions.convention(resolved.gameVersions)
         extension.loaders.convention(resolved.loaders)
         extension.environment.convention(resolved.environment)

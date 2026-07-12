@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Core**
+
+- Added optional `icon` field to `TerracottaProject`, `TerracottaConfig`, `ResolvedProjectMetadata`, and project metadata resolution. The value is a local file path in configuration and a remote URL when read from provider state.
+- Added `UploadIcon`, `UpdateIcon`, and `DeleteIcon` operations and diff logic that compares the local icon path against the remote icon URL.
+
+**Gradle Plugin**
+
+- Added `terracotta.icon` DSL property as a `RegularFileProperty`, populated from `terracotta.yml` and wired into `terracottaPlan` and `terracottaApply` tasks.
+
+**Modrinth**
+
+- Added project icon support via `ModrinthClient.uploadIcon`, which calls `PATCH /project/{id}/icon` with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). `ModrinthStateProvider.fetchProject` now reads `icon_url` into the canonical `icon` field.
+
+**Hangar**
+
+- Hangar registry provider now skips icon operations with a warning, since Hangar does not expose a public API for uploading or deleting project icons.
+
 ## [0.4.1] - 2026-07-12
 
 ### Fixed

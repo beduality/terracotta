@@ -42,6 +42,7 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
             tags = project.categories,
             license = project.license.id,
             licenseUrl = project.license.url,
+            icon = project.iconUrl,
             gallery =
                 project.gallery.map {
                     TerracottaGalleryItem(

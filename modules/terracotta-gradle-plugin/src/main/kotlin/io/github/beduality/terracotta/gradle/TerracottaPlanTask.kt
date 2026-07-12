@@ -96,6 +96,12 @@ abstract class TerracottaPlanTask : DefaultTask() {
     /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty
 
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    @get:Optional
+    /** Project icon to upload. */
+    abstract val icon: RegularFileProperty
+
     @get:Input
     /** Gallery images for the project. */
     abstract val gallery: ListProperty<TerracottaGalleryItem>
@@ -144,6 +150,7 @@ abstract class TerracottaPlanTask : DefaultTask() {
             tags = tags.get(),
             license = license.get(),
             licenseUrl = licenseUrl.orNull,
+            icon = icon.orNull?.asFile?.absolutePath,
             gallery = gallery.get(),
         )
     }

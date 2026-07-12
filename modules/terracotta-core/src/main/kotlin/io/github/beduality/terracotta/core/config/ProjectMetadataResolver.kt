@@ -76,6 +76,7 @@ class ProjectMetadataResolver(
                     ?: detected.releaseType
                     ?: TerracottaReleaseType.RELEASE,
             changelog = changelog,
+            icon = config.icon,
             gallery = config.gallery ?: emptyList(),
             readmeConvention = config.convention.readme ?: "terracotta",
             changelogConvention = config.convention.changelog ?: "keep-a-changelog",

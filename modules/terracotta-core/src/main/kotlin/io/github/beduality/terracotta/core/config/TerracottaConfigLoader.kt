@@ -40,6 +40,7 @@ object TerracottaConfigLoader {
             tags = map.readStringList("tags"),
             license = map.readString("license"),
             licenseUrl = map.readString("licenseUrl"),
+            icon = map.readString("icon"),
             gameVersions = map.readStringList("gameVersions"),
             loaders = map.readStringList("loaders"),
             environment = map.readString("environment"),

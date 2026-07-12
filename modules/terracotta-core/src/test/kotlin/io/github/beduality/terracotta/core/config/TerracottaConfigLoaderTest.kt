@@ -92,6 +92,7 @@ class TerracottaConfigLoaderTest {
 
         assertEquals("Minimal Plugin", config.name)
         assertNull(config.summary)
+        assertNull(config.icon)
         assertNull(config.tags)
         assertNull(config.convention.readme)
         assertNull(config.convention.changelog)
@@ -232,5 +233,23 @@ class TerracottaConfigLoaderTest {
         assertEquals("", item?.description)
         assertEquals(false, item?.featured)
         assertEquals(0, item?.ordering)
+    }
+
+    @Test
+    fun `loads icon field`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText(
+            """
+            name: Icon Plugin
+            icon: docs/assets/icon.png
+            """.trimIndent(),
+        )
+
+        val config = TerracottaConfigLoader.load(file)
+
+        assertEquals("Icon Plugin", config.name)
+        assertEquals("docs/assets/icon.png", config.icon)
     }
 }

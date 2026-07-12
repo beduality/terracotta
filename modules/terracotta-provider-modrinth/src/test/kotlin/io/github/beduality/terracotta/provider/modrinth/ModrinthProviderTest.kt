@@ -829,4 +829,151 @@ class ModrinthProviderTest {
             val metadataBody = json.parseToJsonElement(capturedPatches[0].second).jsonObject
             assertEquals("https://example.com/LICENSE", metadataBody["license_url"]?.jsonPrimitive?.content)
         }
+
+    @Test
+    fun `test ModrinthStateProvider maps iconUrl`() =
+        runTest {
+            val modrinthProject =
+                ModrinthProject(
+                    id = "my-mod-id",
+                    slug = "my-mod",
+                    title = "My Mod",
+                    summary = "A test mod",
+                    body = "Test description",
+                    categories = listOf("utility"),
+                    license = ModrinthLicense(id = "MIT"),
+                    iconUrl = "https://cdn.modrinth.com/data/icon.png",
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.contains("project/my-mod-id") &&
+                            !request.url.encodedPath.contains("version") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(modrinthProject)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.contains("project/my-mod-id/version") -> {
+                            respond(
+                                content = ByteReadChannel("[]"),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val stateProvider = ModrinthStateProvider(modrinthClient)
+
+            val terracottaProject = stateProvider.fetchProject("my-mod-id")
+
+            assertEquals("https://cdn.modrinth.com/data/icon.png", terracottaProject?.icon)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider uploads icon on UploadIcon`() =
+        runTest {
+            val iconFile = File.createTempFile("icon", ".png")
+            iconFile.deleteOnExit()
+            iconFile.writeBytes(ByteArray(10))
+
+            val uploadedPaths = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.method == HttpMethod.Patch && request.url.encodedPath == "/project/my-mod/icon" -> {
+                            uploadedPaths.add(request.url.encodedPath)
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+
+            registryProvider.apply("my-mod", listOf(Operation.UploadIcon(iconFile.absolutePath)))
+
+            assertEquals(listOf("/project/my-mod/icon"), uploadedPaths)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider uploads icon on UpdateIcon`() =
+        runTest {
+            val iconFile = File.createTempFile("icon", ".png")
+            iconFile.deleteOnExit()
+            iconFile.writeBytes(ByteArray(10))
+
+            val uploadedPaths = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.method == HttpMethod.Patch && request.url.encodedPath == "/project/my-mod/icon" -> {
+                            uploadedPaths.add(request.url.encodedPath)
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+
+            registryProvider.apply(
+                "my-mod",
+                listOf(
+                    Operation.UpdateIcon(
+                        oldIconUrl = "https://cdn.modrinth.com/data/old.png",
+                        iconPath = iconFile.absolutePath,
+                    ),
+                ),
+            )
+
+            assertEquals(listOf("/project/my-mod/icon"), uploadedPaths)
+        }
 }

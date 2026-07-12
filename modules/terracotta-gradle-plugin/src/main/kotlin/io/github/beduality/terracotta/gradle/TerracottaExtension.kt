@@ -36,6 +36,9 @@ abstract class TerracottaExtension {
     /** Optional URL to the full license text. */
     abstract val licenseUrl: Property<String>
 
+    /** Project icon file to upload. */
+    abstract val icon: RegularFileProperty
+
     /** Supported Minecraft game versions. */
     abstract val gameVersions: ListProperty<String>
 

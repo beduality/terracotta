@@ -21,6 +21,8 @@ data class ModrinthProject(
     val categories: List<String>,
     /** License information. */
     val license: ModrinthLicense,
+    /** Project icon URL. */
+    @kotlinx.serialization.SerialName("icon_url") val iconUrl: String? = null,
     /** Gallery images for the project. */
     val gallery: List<ModrinthGalleryItem> = emptyList(),
 )

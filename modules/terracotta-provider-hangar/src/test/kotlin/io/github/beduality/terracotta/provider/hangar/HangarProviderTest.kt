@@ -999,4 +999,42 @@ class HangarProviderTest {
             assertEquals("New Name", body["name"]?.jsonPrimitive?.content)
             assertNull(body["licenseUrl"])
         }
+
+    @Test
+    fun `test HangarRegistryProvider skips icon operations without failing`() =
+        runTest {
+            var networkCalled = false
+
+            val mockEngine =
+                MockEngine { _ ->
+                    networkCalled = true
+                    respond("", status = HttpStatusCode.OK)
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            registryProvider.apply(
+                "my-plugin",
+                listOf(
+                    Operation.UploadIcon("docs/assets/icon.png"),
+                    Operation.UpdateIcon(oldIconUrl = "https://cdn/old.png", iconPath = "docs/assets/icon.png"),
+                    Operation.DeleteIcon(iconUrl = "https://cdn/old.png"),
+                ),
+            )
+
+            assertEquals(false, networkCalled)
+        }
 }

@@ -14,6 +14,9 @@
 | `UploadGalleryItem(item)` | Upload a new gallery image. |
 | `UpdateGalleryItem(oldItem, newItem)` | Update metadata of an existing gallery image. |
 | `DeleteGalleryItem(item)` | Remove a gallery image from the remote project. |
+| `UploadIcon(iconPath)` | Upload a project icon. |
+| `UpdateIcon(oldIconUrl, iconPath)` | Replace the project icon. |
+| `DeleteIcon(iconUrl)` | Delete the project icon. |
 
 ## Diff behavior
 
@@ -29,6 +32,9 @@
 | Local gallery item not present remotely | `UploadGalleryItem`. |
 | Matched gallery item metadata changed | `UpdateGalleryItem`. |
 | Remote gallery item not present locally | `DeleteGalleryItem`. |
+| Local icon configured but remote has none | `UploadIcon`. |
+| Local icon differs from remote icon | `UpdateIcon`. |
+| Remote icon present but local has none | `DeleteIcon`. |
 
 ## License comparison
 

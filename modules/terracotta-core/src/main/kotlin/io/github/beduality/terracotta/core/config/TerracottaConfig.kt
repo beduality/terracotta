@@ -23,6 +23,8 @@ data class TerracottaConfig(
     val license: String? = null,
     /** Optional URL to the full license text. */
     val licenseUrl: String? = null,
+    /** Path to the project icon file. */
+    val icon: String? = null,
     /** Supported Minecraft game versions. */
     val gameVersions: List<String>? = null,
     /** Supported loader identifiers. */
