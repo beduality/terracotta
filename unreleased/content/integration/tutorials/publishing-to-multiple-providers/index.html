@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/modules/provider-hangar/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/integration/tutorials/publishing-to-multiple-providers/">
       
       
-        <link rel="prev" href="../provider-modrinth/explanation/version-mapping/">
+        <link rel="prev" href="../../">
       
       
-        <link rel="next" href="tutorials/using-hangar/">
+        <link rel="next" href="../../how-to-guides/adding-modrinth-to-gradle-plugin/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Introduction - Terracotta</title>
+        <title>Publishing to Multiple Providers - Terracotta</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hangar-provider" class="md-skip">
+        <a href="#publishing-to-multiple-providers" class="md-skip">
           Skip to content
         </a>
       
@@ -98,9 +98,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../.." title="Terracotta" class="md-header__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Publishing to Multiple Providers
             
           </span>
         </div>
@@ -235,9 +235,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
+    <a href="../../../.." title="Terracotta" class="md-nav__button md-logo" aria-label="Terracotta" data-md-component="logo">
       
-  <img src="../../../assets/images/logo.png" alt="logo">
+  <img src="../../../../assets/images/logo.png" alt="logo">
 
     </a>
     Terracotta
@@ -316,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -344,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -372,7 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../navigating-docs/" class="md-nav__link">
+      <a href="../../../navigating-docs/" class="md-nav__link">
         
   
   
@@ -400,7 +400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../changes/" class="md-nav__link">
+      <a href="../../../../changes/" class="md-nav__link">
         
   
   
@@ -432,8 +432,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -444,11 +446,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -469,7 +471,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -487,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -512,6 +514,8 @@
                 
   
   
+    
+  
   
   
     
@@ -521,11 +525,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -546,7 +550,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -561,10 +565,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../integration/tutorials/publishing-to-multiple-providers/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publishing to Multiple Providers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -580,6 +611,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-youll-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you'll learn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-configure-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configure providers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Set tokens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-plan-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Plan the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-apply-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Apply the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -649,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/how-to-guides/adding-modrinth-to-gradle-plugin/" class="md-nav__link">
+      <a href="../../how-to-guides/adding-modrinth-to-gradle-plugin/" class="md-nav__link">
         
   
   
@@ -677,7 +805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/how-to-guides/adding-hangar-to-gradle-plugin/" class="md-nav__link">
+      <a href="../../how-to-guides/adding-hangar-to-gradle-plugin/" class="md-nav__link">
         
   
   
@@ -705,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/how-to-guides/troubleshooting/" class="md-nav__link">
+      <a href="../../how-to-guides/troubleshooting/" class="md-nav__link">
         
   
   
@@ -790,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/reference/provider-configuration/" class="md-nav__link">
+      <a href="../../reference/provider-configuration/" class="md-nav__link">
         
   
   
@@ -875,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integration/explanation/design/" class="md-nav__link">
+      <a href="../../explanation/design/" class="md-nav__link">
         
   
   
@@ -915,8 +1043,6 @@
       
   
   
-    
-  
   
   
     
@@ -929,11 +1055,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -954,7 +1080,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -972,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../../modules/overview/" class="md-nav__link">
         
   
   
@@ -1049,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/" class="md-nav__link">
+      <a href="../../../modules/core/" class="md-nav__link">
         
   
   
@@ -1126,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/tutorials/installation/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/installation/" class="md-nav__link">
         
   
   
@@ -1154,7 +1280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-loader/" class="md-nav__link">
         
   
   
@@ -1182,7 +1308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-metadata-detector/" class="md-nav__link">
         
   
   
@@ -1210,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
+      <a href="../../../modules/core/tutorials/implementing-a-custom-provider/" class="md-nav__link">
         
   
   
@@ -1295,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/load-terracotta-config/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/load-terracotta-config/" class="md-nav__link">
         
   
   
@@ -1323,7 +1449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/resolve-project-metadata/" class="md-nav__link">
         
   
   
@@ -1351,7 +1477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/compute-a-diff/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/compute-a-diff/" class="md-nav__link">
         
   
   
@@ -1379,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/add-a-new-loader/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/add-a-new-loader/" class="md-nav__link">
         
   
   
@@ -1407,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/add-a-new-project-file-convention/" class="md-nav__link">
         
   
   
@@ -1435,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/how-to-guides/normalize-game-versions/" class="md-nav__link">
+      <a href="../../../modules/core/how-to-guides/normalize-game-versions/" class="md-nav__link">
         
   
   
@@ -1520,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/models/" class="md-nav__link">
+      <a href="../../../modules/core/reference/models/" class="md-nav__link">
         
   
   
@@ -1548,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/loaders/" class="md-nav__link">
+      <a href="../../../modules/core/reference/loaders/" class="md-nav__link">
         
   
   
@@ -1576,7 +1702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/operations/" class="md-nav__link">
+      <a href="../../../modules/core/reference/operations/" class="md-nav__link">
         
   
   
@@ -1604,7 +1730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/config-schema/" class="md-nav__link">
+      <a href="../../../modules/core/reference/config-schema/" class="md-nav__link">
         
   
   
@@ -1632,7 +1758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/metadata-resolution/" class="md-nav__link">
+      <a href="../../../modules/core/reference/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -1660,7 +1786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/conventions/" class="md-nav__link">
+      <a href="../../../modules/core/reference/conventions/" class="md-nav__link">
         
   
   
@@ -1688,7 +1814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/version-conventions/" class="md-nav__link">
+      <a href="../../../modules/core/reference/version-conventions/" class="md-nav__link">
         
   
   
@@ -1716,7 +1842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/provider-interfaces/" class="md-nav__link">
+      <a href="../../../modules/core/reference/provider-interfaces/" class="md-nav__link">
         
   
   
@@ -1744,7 +1870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/reference/api/" class="md-nav__link">
+      <a href="../../../modules/core/reference/api/" class="md-nav__link">
         
   
   
@@ -1772,7 +1898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../apidocs/terracotta-core/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-core/" class="md-nav__link">
         
   
   
@@ -1857,7 +1983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -1885,7 +2011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/explanation/metadata-resolution/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/metadata-resolution/" class="md-nav__link">
         
   
   
@@ -1913,7 +2039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/explanation/diff-engine/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/diff-engine/" class="md-nav__link">
         
   
   
@@ -1941,7 +2067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/explanation/loader-hierarchy/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/loader-hierarchy/" class="md-nav__link">
         
   
   
@@ -1969,7 +2095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../core/explanation/conventions/" class="md-nav__link">
+      <a href="../../../modules/core/explanation/conventions/" class="md-nav__link">
         
   
   
@@ -2062,7 +2188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2139,7 +2265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/tutorials/installation/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/installation/" class="md-nav__link">
         
   
   
@@ -2167,7 +2293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/tutorials/getting-started/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -2252,7 +2378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/how-to-guides/kotlin-dsl-configuration/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration/" class="md-nav__link">
         
   
   
@@ -2337,7 +2463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/reference/tasks/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/reference/tasks/" class="md-nav__link">
         
   
   
@@ -2365,7 +2491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/reference/api/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/reference/api/" class="md-nav__link">
         
   
   
@@ -2393,7 +2519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-gradle-plugin/" class="md-nav__link">
         
   
   
@@ -2478,7 +2604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -2506,7 +2632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/explanation/dsl-design/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/dsl-design/" class="md-nav__link">
         
   
   
@@ -2534,7 +2660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gradle-plugin/explanation/task-lifecycle/" class="md-nav__link">
+      <a href="../../../modules/gradle-plugin/explanation/task-lifecycle/" class="md-nav__link">
         
   
   
@@ -2627,7 +2753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../provider-modrinth/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/" class="md-nav__link">
         
   
   
@@ -2704,7 +2830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../provider-modrinth/tutorials/using-modrinth/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/tutorials/using-modrinth/" class="md-nav__link">
         
   
   
@@ -2789,7 +2915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../provider-modrinth/reference/api/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/reference/api/" class="md-nav__link">
         
   
   
@@ -2817,7 +2943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-modrinth/" class="md-nav__link">
         
   
   
@@ -2902,7 +3028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../provider-modrinth/explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -2930,7 +3056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../provider-modrinth/explanation/version-mapping/" class="md-nav__link">
+      <a href="../../../modules/provider-modrinth/explanation/version-mapping/" class="md-nav__link">
         
   
   
@@ -2971,8 +3097,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2982,11 +3106,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
         
           
           <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
@@ -3007,7 +3131,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3022,37 +3146,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introduction
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../modules/provider-hangar/" class="md-nav__link">
         
   
   
@@ -3068,37 +3165,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick links
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3160,7 +3226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tutorials/using-hangar/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/tutorials/using-hangar/" class="md-nav__link">
         
   
   
@@ -3245,7 +3311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/api/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/reference/api/" class="md-nav__link">
         
   
   
@@ -3273,7 +3339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
+      <a href="../../../../apidocs/terracotta-provider-hangar/" class="md-nav__link">
         
   
   
@@ -3358,7 +3424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="explanation/architecture/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -3386,7 +3452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="explanation/loader-mapping/" class="md-nav__link">
+      <a href="../../../modules/provider-hangar/explanation/loader-mapping/" class="md-nav__link">
         
   
   
@@ -3489,7 +3555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/" class="md-nav__link">
+      <a href="../../../repo/" class="md-nav__link">
         
   
   
@@ -3566,7 +3632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/tutorials/quick-start/" class="md-nav__link">
+      <a href="../../../repo/tutorials/quick-start/" class="md-nav__link">
         
   
   
@@ -3594,7 +3660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
+      <a href="../../../repo/tutorials/navigating-the-codebase/" class="md-nav__link">
         
   
   
@@ -3622,7 +3688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/tutorials/first-contribution/" class="md-nav__link">
+      <a href="../../../repo/tutorials/first-contribution/" class="md-nav__link">
         
   
   
@@ -3707,7 +3773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/contributing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/contributing/" class="md-nav__link">
         
   
   
@@ -3735,7 +3801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/building/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/building/" class="md-nav__link">
         
   
   
@@ -3763,7 +3829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/testing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/testing/" class="md-nav__link">
         
   
   
@@ -3791,7 +3857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/documentation/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/documentation/" class="md-nav__link">
         
   
   
@@ -3819,7 +3885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/releasing/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/releasing/" class="md-nav__link">
         
   
   
@@ -3847,7 +3913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/smoke-testing-a-release/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/smoke-testing-a-release/" class="md-nav__link">
         
   
   
@@ -3875,7 +3941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
+      <a href="../../../repo/how-to-guides/writing-changelog/" class="md-nav__link">
         
   
   
@@ -3960,7 +4026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/tech-stack/" class="md-nav__link">
+      <a href="../../../repo/reference/tech-stack/" class="md-nav__link">
         
   
   
@@ -3988,7 +4054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/file-structure/" class="md-nav__link">
+      <a href="../../../repo/reference/file-structure/" class="md-nav__link">
         
   
   
@@ -4016,7 +4082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/configuration/" class="md-nav__link">
+      <a href="../../../repo/reference/configuration/" class="md-nav__link">
         
   
   
@@ -4044,7 +4110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/scripts/" class="md-nav__link">
+      <a href="../../../repo/reference/scripts/" class="md-nav__link">
         
   
   
@@ -4072,7 +4138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/ci-cd/" class="md-nav__link">
+      <a href="../../../repo/reference/ci-cd/" class="md-nav__link">
         
   
   
@@ -4100,7 +4166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/branches/" class="md-nav__link">
+      <a href="../../../repo/reference/branches/" class="md-nav__link">
         
   
   
@@ -4128,7 +4194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/project-files/" class="md-nav__link">
+      <a href="../../../repo/reference/project-files/" class="md-nav__link">
         
   
   
@@ -4156,7 +4222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/code-style/" class="md-nav__link">
+      <a href="../../../repo/reference/code-style/" class="md-nav__link">
         
   
   
@@ -4184,7 +4250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/commit-conventions/" class="md-nav__link">
+      <a href="../../../repo/reference/commit-conventions/" class="md-nav__link">
         
   
   
@@ -4212,7 +4278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/documentation-style/" class="md-nav__link">
+      <a href="../../../repo/reference/documentation-style/" class="md-nav__link">
         
   
   
@@ -4240,7 +4306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/reference/changelog-guidelines/" class="md-nav__link">
+      <a href="../../../repo/reference/changelog-guidelines/" class="md-nav__link">
         
   
   
@@ -4325,7 +4391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/explanation/project-management/" class="md-nav__link">
+      <a href="../../../repo/explanation/project-management/" class="md-nav__link">
         
   
   
@@ -4353,7 +4419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/explanation/architecture/" class="md-nav__link">
+      <a href="../../../repo/explanation/architecture/" class="md-nav__link">
         
   
   
@@ -4381,7 +4447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/explanation/branch-strategy/" class="md-nav__link">
+      <a href="../../../repo/explanation/branch-strategy/" class="md-nav__link">
         
   
   
@@ -4409,7 +4475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/explanation/release-design/" class="md-nav__link">
+      <a href="../../../repo/explanation/release-design/" class="md-nav__link">
         
   
   
@@ -4437,7 +4503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../repo/explanation/changelog/" class="md-nav__link">
+      <a href="../../../repo/explanation/changelog/" class="md-nav__link">
         
   
   
@@ -4500,10 +4566,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#what-youll-learn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick links
+        What you'll learn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-configure-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configure providers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Set tokens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-plan-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Plan the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-apply-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Apply the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's next?
       
     </span>
   </a>
@@ -4527,7 +4659,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/modules/provider-hangar/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/integration/tutorials/publishing-to-multiple-providers.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4540,12 +4672,56 @@
     1 min read
   </p>
 
-<h1 id="hangar-provider">Hangar Provider<a class="headerlink" href="#hangar-provider" title="Permanent link">&para;</a></h1>
-<p>The <code>terracotta-provider-hangar</code> module implements the Terracotta provider interfaces for the <a href="https://hangar.papermc.io/">Hangar</a> registry.</p>
-<h2 id="quick-links">Quick links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
+<h1 id="publishing-to-multiple-providers">Publishing to Multiple Providers<a class="headerlink" href="#publishing-to-multiple-providers" title="Permanent link">&para;</a></h1>
+<p>This tutorial walks you through publishing a Minecraft plugin to both Modrinth and Hangar in a single Terracotta run.</p>
+<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="tutorials/using-hangar/">Using the Hangar provider</a></li>
-<li><a href="reference/api/">API reference</a></li>
+<li>How to configure multiple providers in <code>terracotta.yml</code>.</li>
+<li>How to authenticate with Modrinth and Hangar tokens.</li>
+<li>How to plan and apply changes across both providers.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The Terracotta Gradle plugin installed. See <a href="../../../modules/gradle-plugin/tutorials/installation/">Installing the Gradle plugin</a>.</li>
+<li>A Modrinth account and API token.</li>
+<li>A Hangar account and API key.</li>
+<li>A Minecraft plugin project with a JAR artifact.</li>
+</ul>
+<h2 id="1-configure-providers">1. Configure providers<a class="headerlink" href="#1-configure-providers" title="Permanent link">&para;</a></h2>
+<p>Create or edit <code>terracotta.yml</code> in your project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+</code></pre></div>
+<p>Use the same slug if it is available on both platforms, or use different values if your project slugs differ.</p>
+<h2 id="2-set-tokens">2. Set tokens<a class="headerlink" href="#2-set-tokens" title="Permanent link">&para;</a></h2>
+<p>Export both tokens in your shell:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HANGAR_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
+</code></pre></div>
+<p>On Windows PowerShell:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">$env:MODRINTH_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">$env:HANGAR_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
+</code></pre></div>
+<p>Terracotta reads tokens from <code>&lt;PROVIDER&gt;_TOKEN</code> environment variables by default.</p>
+<h2 id="3-plan-the-release">3. Plan the release<a class="headerlink" href="#3-plan-the-release" title="Permanent link">&para;</a></h2>
+<p>Run the aggregate plan task to see what Terracotta will do on both providers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./gradlew<span class="w"> </span>terracottaPlan
+</code></pre></div>
+<p>The output shows operations for each provider separately. Review the project metadata, version, supported loaders, and game versions.</p>
+<h2 id="4-apply-the-release">4. Apply the release<a class="headerlink" href="#4-apply-the-release" title="Permanent link">&para;</a></h2>
+<p>When the plan looks correct, apply it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>terracottaApply
+</code></pre></div>
+<p>Terracotta creates or updates the project on each provider and uploads the version. If one provider fails, the other provider's operations are not rolled back automatically — check the output and fix the failing provider before re-running.</p>
+<h2 id="whats-next">What's next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../how-to-guides/adding-modrinth-to-gradle-plugin/">Add Modrinth to the Gradle plugin</a></li>
+<li><a href="../../how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar to the Gradle plugin</a></li>
+<li><a href="../../reference/provider-configuration/">Provider configuration</a></li>
+<li><a href="../../how-to-guides/troubleshooting/">Troubleshoot provider integration</a></li>
 </ul>
 
 
@@ -4587,7 +4763,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../provider-modrinth/explanation/version-mapping/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Version Mapping">
+          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4597,20 +4773,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Version Mapping
+                Overview
               </div>
             </div>
           </a>
         
         
           
-          <a href="tutorials/using-hangar/" class="md-footer__link md-footer__link--next" aria-label="Next: Using Hangar">
+          <a href="../../how-to-guides/adding-modrinth-to-gradle-plugin/" class="md-footer__link md-footer__link--next" aria-label="Next: Adding Modrinth to the Gradle Plugin">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Using Hangar
+                Adding Modrinth to the Gradle Plugin
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4676,10 +4852,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
