@@ -122,6 +122,18 @@ terracotta {
 
 `homepage`, `source`, `issues`, `wiki`, and `community` accept `Property<String>`. `donation(platform, url)` appends a donation link, and `other(label, url)` appends an arbitrary label-to-URL entry.
 
+## State file
+
+You can override the file used to persist Terracotta run state:
+
+```kotlin
+terracotta {
+    stateFile.set(file("custom-state.yml"))
+}
+```
+
+The default path is `.terracotta-state.yml` in the project directory. State files are generated at build time and should not be committed; see [State Management](../../core/explanation/state-management.md) for details.
+
 ---
 
 See the [Config Schema](../../core/reference/config-schema.md) for a complete list of available fields.

@@ -11,10 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Core**
 
+- Added pluggable state-management layer in `io.github.beduality.terracotta.core.state` with the `StateSource` interface, `TerracottaState` model, and a `FileSystemStateSource` implementation that persists to `.terracotta-state.yml`.
 - Added canonical project links (`homepage`, `source`, `issues`, `wiki`, `community`, `donations`, `other`) via `TerracottaProjectLinks` and `TerracottaDonationLink`. The `links` field is available on `TerracottaProject`, `TerracottaConfig`, `ProjectMetadata`, and `ResolvedProjectMetadata`. Link changes are detected by `DiffEngine` and emitted as `Operation.UpdateMetadata` with `linksChanged` and `newLinks`.
 
 **Gradle Plugin**
 
+- Added `terracotta.stateFile` DSL property as a `RegularFileProperty`. It defaults to `.terracotta-state.yml` in the project directory and can be overridden in `build.gradle.kts`.
 - Added nested `terracotta.links { ... }` DSL extension (`TerracottaLinksExtension`) for configuring links in `build.gradle.kts`. DSL values override `terracotta.yml` values and are wired into `terracottaPlan` and `terracottaApply` tasks.
 
 **Modrinth**

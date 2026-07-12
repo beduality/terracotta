@@ -132,6 +132,7 @@ nav:
         - Provider Logic: content/modules/core/explanation/provider-logic.md
         - Metadata Resolution: content/modules/core/explanation/metadata-resolution.md
         - Diff Engine: content/modules/core/explanation/diff-engine.md
+        - State Management: content/modules/core/explanation/state-management.md
         - Loader Hierarchy: content/modules/core/explanation/loader-hierarchy.md
         - Conventions: content/modules/core/explanation/conventions.md
     - Gradle Plugin:

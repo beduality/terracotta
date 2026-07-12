@@ -76,4 +76,13 @@ abstract class TerracottaExtension {
 
     /** Per-provider configuration. */
     abstract val providers: NamedDomainObjectContainer<TerracottaProviderExtension>
+
+    /**
+     * File used to persist Terracotta run state between executions.
+     *
+     * Defaults to `.terracotta-state.yml` in the project directory.
+     *
+     * @see [Kotlin DSL Configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
+     */
+    abstract val stateFile: RegularFileProperty
 }

@@ -534,6 +534,68 @@ class TerracottaPluginIntegrationTest {
     }
 
     @Test
+    fun `state file defaults to terracotta-state yml in project directory`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("printStateFile") {
+                doLast {
+                    println("STATE_FILE=" + terracotta.stateFile.get().asFile.name)
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printStateFile")
+                .build()
+
+        assertTrue("STATE_FILE=.terracotta-state.yml" in result.output, "Expected default state file name")
+    }
+
+    @Test
+    fun `state file can be overridden through dsl`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                stateFile.set(file("custom-state.yml"))
+            }
+
+            tasks.register("printStateFile") {
+                doLast {
+                    println("STATE_FILE=" + terracotta.stateFile.get().asFile.name)
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printStateFile")
+                .build()
+
+        assertTrue("STATE_FILE=custom-state.yml" in result.output, "Expected DSL state file override")
+    }
+
+    @Test
     fun `links defaults to empty when absent`(
         @TempDir projectDir: File,
     ) {

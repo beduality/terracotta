@@ -1,6 +1,5 @@
 package io.github.beduality.terracotta.core.model
 
-import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**

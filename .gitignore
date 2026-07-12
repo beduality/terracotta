@@ -22,4 +22,7 @@ docs/apidocs/
 
 tests/smoke/build/
 
+# Terracotta run state; generated at build time
+.terracotta-state.yml
+
 project/

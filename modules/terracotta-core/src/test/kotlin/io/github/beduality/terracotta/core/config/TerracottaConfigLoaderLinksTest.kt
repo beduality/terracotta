@@ -1,7 +1,6 @@
 package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaDonationLink
-import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
