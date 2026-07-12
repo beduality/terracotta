@@ -4225,29 +4225,13 @@
 </code></pre></div>
 <h2 id="2-configure-terracotta">2. Configure Terracotta<a class="headerlink" href="#2-configure-terracotta" title="Permanent link">&para;</a></h2>
 <p>Create a <code>terracotta.yml</code> in your project root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Plugin&quot;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lightweight</span><span class="nv"> </span><span class="s">Paper</span><span class="nv"> </span><span class="s">plugin&quot;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A</span><span class="nv"> </span><span class="s">useful</span><span class="nv"> </span><span class="s">Paper</span><span class="nv"> </span><span class="s">plugin.&quot;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">tags</span><span class="p">:</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">paper</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">utility</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MIT&quot;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nt">gameVersions</span><span class="p">:</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;1.21.8&quot;</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;1.21.7&quot;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nt">loaders</span><span class="p">:</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">paper</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">server_only</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nt">releaseType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="nt">changelog</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Initial</span><span class="nv"> </span><span class="s">release&quot;</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nt">providers</span><span class="p">:</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="w"> </span><span class="c1"># your Modrinth project slug or ID</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span><span class="w"> </span><span class="c1"># your Modrinth project slug or ID</span>
 </code></pre></div>
-<p>The version is automatically discovered from your Gradle build (via the <code>jar</code> task output).</p>
-<p>You can omit fields such as <code>loaders</code>, <code>environment</code>, <code>license</code>, <code>description</code>, <code>summary</code>, and <code>changelog</code> when the corresponding project files (e.g. <code>fabric.mod.json</code>, <code>README.md</code>, <code>LICENSE</code>, <code>CHANGELOG.md</code>) are present. Terracotta detects them automatically. Values in <code>terracotta.yml</code> override detected values, and values in the Kotlin DSL override both.</p>
-<p>If you prefer to configure Terracotta in <code>build.gradle.kts</code>, see the <a href="../../how-to-guides/kotlin-dsl-configuration/">Kotlin DSL how-to guide</a>. You can also mix both: put shared metadata in <code>terracotta.yml</code> and override specific values in the Kotlin DSL.</p>
+<p>This is the smallest file that Terracotta needs. The plugin detects <code>name</code>, <code>summary</code>, <code>description</code>, <code>gameVersions</code>, <code>loaders</code>, <code>environment</code>, <code>license</code>, <code>releaseType</code>, and <code>changelog</code> from files such as <code>README.md</code>, <code>paper-plugin.yml</code>, <code>LICENSE</code>, <code>CHANGELOG.md</code>, and your Gradle project metadata.</p>
+<p>The version number is discovered from the <code>jar</code> task output, and the artifact path is resolved from the main JAR produced by the build.</p>
+<p>You can add explicit values to <code>terracotta.yml</code> to override detected values. Values set in the Kotlin DSL override both. See the <a href="../../how-to-guides/kotlin-dsl-configuration/">Kotlin DSL how-to guide</a> for details.</p>
 <h2 id="3-configure-authentication">3. Configure Authentication<a class="headerlink" href="#3-configure-authentication" title="Permanent link">&para;</a></h2>
 <p>Create a Modrinth API token from your Modrinth account settings.</p>
 <p>Set the token as an environment variable:</p>
@@ -4286,9 +4270,9 @@ export MODRINTH_TOKEN=&quot;your_modrinth_token&quot;
 <p>Your plugin is now published on Modrinth through Terracotta.</p>
 <p>Next steps:</p>
 <ul>
-<li>Learn about all available configuration options</li>
-<li>Automate releases in CI/CD</li>
-<li>Manage multiple versions and platforms</li>
+<li>See the <a href="../../../core/reference/config-schema/">Config Schema reference</a> for all available fields.</li>
+<li>Add a <a href="../../../../integration/how-to-guides/adding-hangar-to-gradle-plugin/">Hangar provider</a> to publish to multiple registries.</li>
+<li>Read the <a href="../../how-to-guides/kotlin-dsl-configuration/">Kotlin DSL how-to guide</a> to override values directly in <code>build.gradle.kts</code>.</li>
 </ul>
 
 
