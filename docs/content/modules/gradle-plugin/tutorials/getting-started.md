@@ -32,32 +32,16 @@ plugins {
 Create a `terracotta.yml` in your project root:
 
 ```yaml
-name: "My Plugin"
-summary: "Lightweight Paper plugin"
-description: "A useful Paper plugin."
-tags:
-  - paper
-  - utility
-license: "MIT"
-gameVersions:
-  - "1.21.8"
-  - "1.21.7"
-loaders:
-  - paper
-environment: server_only
-releaseType: release
-changelog: "Initial release"
-
 providers:
   modrinth:
     projectId: "my-plugin" # your Modrinth project slug or ID
 ```
 
-The version is automatically discovered from your Gradle build (via the `jar` task output).
+This is the smallest file that Terracotta needs. The plugin detects `name`, `summary`, `description`, `gameVersions`, `loaders`, `environment`, `license`, `releaseType`, and `changelog` from files such as `README.md`, `paper-plugin.yml`, `LICENSE`, `CHANGELOG.md`, and your Gradle project metadata.
 
-You can omit fields such as `loaders`, `environment`, `license`, `description`, `summary`, and `changelog` when the corresponding project files (e.g. `fabric.mod.json`, `README.md`, `LICENSE`, `CHANGELOG.md`) are present. Terracotta detects them automatically. Values in `terracotta.yml` override detected values, and values in the Kotlin DSL override both.
+The version number is discovered from the `jar` task output, and the artifact path is resolved from the main JAR produced by the build.
 
-If you prefer to configure Terracotta in `build.gradle.kts`, see the [Kotlin DSL how-to guide](../how-to-guides/kotlin-dsl-configuration.md). You can also mix both: put shared metadata in `terracotta.yml` and override specific values in the Kotlin DSL.
+You can add explicit values to `terracotta.yml` to override detected values. Values set in the Kotlin DSL override both. See the [Kotlin DSL how-to guide](../how-to-guides/kotlin-dsl-configuration.md) for details.
 
 ## 3. Configure Authentication
 
@@ -114,6 +98,6 @@ Your plugin is now published on Modrinth through Terracotta.
 
 Next steps:
 
-* Learn about all available configuration options
-* Automate releases in CI/CD
-* Manage multiple versions and platforms
+* See the [Config Schema reference](../../core/reference/config-schema.md) for all available fields.
+* Add a [Hangar provider](../../../integration/how-to-guides/adding-hangar-to-gradle-plugin.md) to publish to multiple registries.
+* Read the [Kotlin DSL how-to guide](../how-to-guides/kotlin-dsl-configuration.md) to override values directly in `build.gradle.kts`.
