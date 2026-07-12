@@ -60,7 +60,7 @@ Terracotta needs Sonatype and GPG secrets for releases. Storing them in the GitH
 - Review changes through PRs.
 - Reproduce the repository configuration if needed.
 
-Secrets are loaded from a local `.env` file by `scripts/load-pulumi-secrets.py`, encrypted in Pulumi config, and provisioned as GitHub Actions secrets.
+Secrets are loaded from a local `.env` file by `scripts/load_pulumi_secrets.py`, encrypted in Pulumi config, and provisioned as GitHub Actions secrets.
 
 ## Documentation as a first-class concern
 

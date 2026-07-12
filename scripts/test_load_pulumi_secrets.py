@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for load-pulumi-secrets.py with 100% behavior coverage."""
+"""Tests for load_pulumi_secrets.py with 100% behavior coverage."""
 
 import base64
 import importlib.util
@@ -12,7 +12,7 @@ import pytest
 # Import the module under test (hyphenated filename requires importlib)
 _spec = importlib.util.spec_from_file_location(
     "load_pulumi_secrets",
-    Path(__file__).parent / "load-pulumi-secrets.py",
+    Path(__file__).parent / "load_pulumi_secrets.py",
 )
 mod = importlib.util.module_from_spec(_spec)
 sys.modules["load_pulumi_secrets"] = mod
@@ -108,18 +108,18 @@ class TestDetectSecretsFromAppKt:
                 "SIGNING_PASSWORD",
             )
         ''')
-        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py")):
+        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py")):
             result = detect_secrets_from_app_kt()
         assert result == ["SONATYPE_USERNAME", "SONATYPE_PASSWORD", "SIGNING_KEY", "SIGNING_PASSWORD"]
 
     def test_returns_empty_when_file_missing(self, tmp_path):
-        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py")):
+        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py")):
             result = detect_secrets_from_app_kt()
         assert result == []
 
     def test_returns_empty_when_no_secrets_list_found(self, tmp_path):
         self._make_app_kt(tmp_path, "fun main() { }")
-        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py")):
+        with patch.object(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py")):
             result = detect_secrets_from_app_kt()
         assert result == []
 
@@ -176,7 +176,7 @@ class TestMain:
         # Create Pulumi.yaml so the script finds the project dir
         pulumi_dir = tmp_path / "modules" / "terracotta-github"
         (pulumi_dir / "Pulumi.yaml").write_text("name: terracotta-github\n")
-        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py"))
+        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py"))
 
     def test_successful_run(self, tmp_path, monkeypatch):
         self._setup(
@@ -201,7 +201,7 @@ class TestMain:
     def test_exits_when_no_secrets_detected(self, tmp_path, monkeypatch):
         (tmp_path / ".env").write_text("KEY=val\n")
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py"))
+        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py"))
 
         with pytest.raises(SystemExit) as exc_info:
             main()
@@ -217,7 +217,7 @@ class TestMain:
         )
         app_kt.parent.mkdir(parents=True)
         app_kt.write_text('val secrets = listOf("SONATYPE_USERNAME")')
-        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load-pulumi-secrets.py"))
+        monkeypatch.setattr(mod, "__file__", str(tmp_path / "scripts" / "load_pulumi_secrets.py"))
 
         with pytest.raises(SystemExit) as exc_info:
             main()

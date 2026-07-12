@@ -28,13 +28,13 @@ Common flags:
 
 ## Infrastructure
 
-### `load-pulumi-secrets.py`
+### `load_pulumi_secrets.py`
 
 Syncs secrets from a local `.env` file into Pulumi config for the `terracotta-github` module.
 
 ```bash
 export PULUMI_CONFIG_PASSPHRASE="..."
-uv run scripts/load-pulumi-secrets.py
+uv run scripts/load_pulumi_secrets.py
 ```
 
 The script parses `modules/terracotta-github/src/.../App.kt` to detect which secrets are needed, so the secret list stays in one place.
@@ -63,7 +63,7 @@ Pytest suite for smoke testing a release end-to-end. See [Smoke Testing a Releas
 
 ### `test_load_pulumi_secrets.py`
 
-Unit tests for `load-pulumi-secrets.py`.
+Unit tests for `load_pulumi_secrets.py`.
 
 ### `redeploy_all_docs.test.py`
 
