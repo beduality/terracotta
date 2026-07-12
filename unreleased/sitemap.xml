@@ -209,7 +209,15 @@
          <lastmod>2026-07-12</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/explanation/architecture/</loc>
+         <lastmod>2026-07-12</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/explanation/branch-strategy/</loc>
+         <lastmod>2026-07-12</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/explanation/changelog/</loc>
          <lastmod>2026-07-12</lastmod>
     </url>
     <url>
@@ -265,7 +273,15 @@
          <lastmod>2026-07-12</lastmod>
     </url>
     <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/commit-conventions/</loc>
+         <lastmod>2026-07-12</lastmod>
+    </url>
+    <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/configuration/</loc>
+         <lastmod>2026-07-12</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/documentation-style/</loc>
          <lastmod>2026-07-12</lastmod>
     </url>
     <url>
@@ -282,6 +298,10 @@
     </url>
     <url>
          <loc>https://beduality.github.io/terracotta/unreleased/content/repo/reference/tech-stack/</loc>
+         <lastmod>2026-07-12</lastmod>
+    </url>
+    <url>
+         <loc>https://beduality.github.io/terracotta/unreleased/content/repo/tutorials/first-contribution/</loc>
          <lastmod>2026-07-12</lastmod>
     </url>
     <url>

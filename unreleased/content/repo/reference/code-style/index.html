@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/reference/code-style/">
       
       
-        <link rel="prev" href="../configuration/">
+        <link rel="prev" href="../project-files/">
       
       
-        <link rel="next" href="../changelog-guidelines/">
+        <link rel="next" href="../commit-conventions/">
       
       
         
@@ -3272,6 +3272,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Contribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3511,7 +3539,7 @@
   <span class="md-ellipsis">
     
   
-    Writing Changelog
+    Writing Changelog Entries
   
 
     
@@ -3672,6 +3700,118 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -3735,15 +3875,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kotlin-style" class="md-nav__link">
+  <a href="#kotlin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kotlin Style
+        Kotlin
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Kotlin Style">
+    <nav class="md-nav" aria-label="Kotlin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3769,10 +3909,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#conventions" class="md-nav__link">
+  <a href="#formatting-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conventions
+        Formatting rules
       
     </span>
   </a>
@@ -3780,10 +3920,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#annotations" class="md-nav__link">
+  <a href="#naming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations
+        Naming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization annotations
       
     </span>
   </a>
@@ -3796,60 +3947,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
+  <a href="#python" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commit Style
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commit Style">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conventional-commits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Conventional Commits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pull-request-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pull Request Requirements
+        Python
       
     </span>
   </a>
@@ -3857,21 +3958,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python-style" class="md-nav__link">
+  <a href="#related-references" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Python Style
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentation Style
+        Related references
       
     </span>
   </a>
@@ -3882,6 +3972,62 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commit-conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commit Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation-style/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Style
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4000,6 +4146,118 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repo Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/branch-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/release-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4042,15 +4300,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kotlin-style" class="md-nav__link">
+  <a href="#kotlin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kotlin Style
+        Kotlin
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Kotlin Style">
+    <nav class="md-nav" aria-label="Kotlin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4076,10 +4334,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#conventions" class="md-nav__link">
+  <a href="#formatting-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conventions
+        Formatting rules
       
     </span>
   </a>
@@ -4087,10 +4345,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#annotations" class="md-nav__link">
+  <a href="#naming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations
+        Naming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization annotations
       
     </span>
   </a>
@@ -4103,60 +4372,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
+  <a href="#python" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commit Style
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commit Style">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conventional-commits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Conventional Commits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pull-request-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pull Request Requirements
+        Python
       
     </span>
   </a>
@@ -4164,21 +4383,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python-style" class="md-nav__link">
+  <a href="#related-references" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Python Style
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentation Style
+        Related references
       
     </span>
   </a>
@@ -4211,8 +4419,8 @@
 
 
 <h1 id="code-style-reference">Code Style Reference<a class="headerlink" href="#code-style-reference" title="Permanent link">&para;</a></h1>
-<p>This reference documents the code style and formatting requirements for Terracotta.</p>
-<h2 id="kotlin-style">Kotlin Style<a class="headerlink" href="#kotlin-style" title="Permanent link">&para;</a></h2>
+<p>This reference documents Kotlin and Python code style for the Terracotta codebase.</p>
+<h2 id="kotlin">Kotlin<a class="headerlink" href="#kotlin" title="Permanent link">&para;</a></h2>
 <h3 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Language Version</strong>: Kotlin 2.3.21</li>
@@ -4220,141 +4428,83 @@
 <li><strong>Compiler</strong>: JDK 21</li>
 </ul>
 <h3 id="formatting">Formatting<a class="headerlink" href="#formatting" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Tool</strong>: ktlint via Spotless 6.25.0</li>
-<li><strong>Run</strong>: <code>./gradlew spotlessApply</code> (auto-fix)</li>
-<li><strong>Check</strong>: <code>./gradlew spotlessCheck</code> (CI requirement)</li>
-</ul>
-<p><strong>Configuration</strong>: Found in <code>build.gradle.kts</code> under <code>spotless</code> block.</p>
-<h3 id="conventions">Conventions<a class="headerlink" href="#conventions" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Imports</strong>: No wildcard imports (<code>import package.*</code>)</li>
-<li><strong>Line Length</strong>: Max 120 characters</li>
-<li><strong>Braces</strong>: K&amp;R style</li>
-<li><strong>Spacing</strong>: 4 spaces, no tabs</li>
-<li><strong>Naming</strong>:</li>
-<li>Classes: <code>PascalCase</code></li>
-<li>Functions: <code>camelCase</code></li>
-<li>Constants: <code>UPPER_SNAKE_CASE</code></li>
-<li>Types: <code>PascalCase</code></li>
-</ol>
-<h3 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Use <code>@Serializable</code> from Kotlinx Serialization for data models</li>
-<li>Use <code>@SerialName</code> for explicit JSON property names</li>
-</ul>
-<h2 id="commit-style">Commit Style<a class="headerlink" href="#commit-style" title="Permanent link">&para;</a></h2>
-<h3 id="conventional-commits">Conventional Commits<a class="headerlink" href="#conventional-commits" title="Permanent link">&para;</a></h3>
-<p>Terracotta follows <a href="https://www.conventionalcommits.org/">Conventional Commits</a>.</p>
-<p><strong>Format</strong>: <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code></p>
-<p><strong>Types</strong>:</p>
+<p>Spotless runs ktlint. Auto-fix with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./gradlew<span class="w"> </span>spotlessApply
+</code></pre></div>
+<p>CI requires:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./gradlew<span class="w"> </span>spotlessCheck
+</code></pre></div>
+<h3 id="formatting-rules">Formatting rules<a class="headerlink" href="#formatting-rules" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Type</th>
-<th>Purpose</th>
-<th>Version Bump</th>
+<th>Rule</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>feat</code></td>
-<td>New feature</td>
-<td>Minor</td>
+<td>Wildcard imports</td>
+<td>Not allowed</td>
 </tr>
 <tr>
-<td><code>fix</code></td>
-<td>Bug fix</td>
-<td>Patch</td>
+<td>Line length</td>
+<td>120 characters</td>
 </tr>
 <tr>
-<td><code>docs</code></td>
-<td>Documentation</td>
-<td>None</td>
+<td>Braces</td>
+<td>K&amp;R style</td>
 </tr>
 <tr>
-<td><code>refactor</code></td>
-<td>Code refactoring</td>
-<td>None</td>
-</tr>
-<tr>
-<td><code>test</code></td>
-<td>Test additions/changes</td>
-<td>None</td>
-</tr>
-<tr>
-<td><code>chore</code></td>
-<td>Maintenance</td>
-<td>None</td>
+<td>Indentation</td>
+<td>4 spaces, no tabs</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scopes</strong>:</p>
+<h3 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Scope</th>
-<th>Module</th>
+<th>Kind</th>
+<th>Convention</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>core</code></td>
-<td><code>terracotta-core</code></td>
+<td>Classes</td>
+<td><code>PascalCase</code></td>
 </tr>
 <tr>
-<td><code>modrinth</code></td>
-<td><code>terracotta-provider-modrinth</code></td>
+<td>Functions</td>
+<td><code>camelCase</code></td>
 </tr>
 <tr>
-<td><code>gradle-plugin</code></td>
-<td><code>terracotta-gradle-plugin</code></td>
+<td>Constants</td>
+<td><code>UPPER_SNAKE_CASE</code></td>
 </tr>
 <tr>
-<td><code>github</code></td>
-<td><code>terracotta-github</code></td>
-</tr>
-<tr>
-<td><code>docs</code></td>
-<td>Documentation</td>
-</tr>
-<tr>
-<td><code>ci</code></td>
-<td>CI/CD workflows</td>
+<td>Types</td>
+<td><code>PascalCase</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>feat(core): add TerracottaVersion.displayName field
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>fix(modrinth): handle missing project gracefully
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>refactor(gradle-plugin): simplify provider discovery
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>docs: fix architecture diagram in README
-</code></pre></div>
-<h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
-<p>Mark with <code>!</code> suffix or <code>BREAKING CHANGE</code> footer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>feat(core)!: remove deprecated API
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>feat(core): new API for version management
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>BREAKING CHANGE: Old API removed
-</code></pre></div>
-<h2 id="pull-request-requirements">Pull Request Requirements<a class="headerlink" href="#pull-request-requirements" title="Permanent link">&para;</a></h2>
-<p>See the <a href="../../how-to-guides/contributing/">Contributing how-to guide</a> for the PR checklist and process.</p>
-<h2 id="python-style">Python Style<a class="headerlink" href="#python-style" title="Permanent link">&para;</a></h2>
-<p><strong>No formal formatter enforced</strong>, but scripts should:</p>
+<h3 id="serialization-annotations">Serialization annotations<a class="headerlink" href="#serialization-annotations" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Follow PEP 8 style guide</li>
-<li>Use descriptive names</li>
-<li>Include type hints</li>
-<li>Be consistent with existing code</li>
+<li>Use <code>@Serializable</code> from Kotlinx Serialization for data models.</li>
+<li>Use <code>@SerialName</code> for explicit JSON property names.</li>
 </ul>
-<h2 id="documentation-style">Documentation Style<a class="headerlink" href="#documentation-style" title="Permanent link">&para;</a></h2>
+<h2 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<p>No formatter is enforced for scripts. Keep them consistent with the existing style:</p>
 <ul>
-<li>Follow the <a href="../../../navigating-docs/">Documentation Framework</a> for content organization</li>
-<li>Each page belongs to exactly one type (Tutorial, How-to, Reference, Explanation)</li>
-<li>Use markdown headers for structure</li>
-<li>Include code examples where helpful</li>
-<li>Link to related content</li>
+<li>Follow PEP 8.</li>
+<li>Use descriptive names.</li>
+<li>Include type hints.</li>
+<li>Run scripts with <code>uv run</code>.</li>
+</ul>
+<h2 id="related-references">Related references<a class="headerlink" href="#related-references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../commit-conventions/">Commit Conventions</a>: Conventional Commits format and scopes.</li>
+<li><a href="../documentation-style/">Documentation Style</a>: How to write docs that match the site conventions.</li>
 </ul>
 
 
@@ -4393,7 +4543,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../configuration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Configuration">
+          <a href="../project-files/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Project Files">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4403,20 +4553,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Configuration
+                Project Files
               </div>
             </div>
           </a>
         
         
           
-          <a href="../changelog-guidelines/" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog Guidelines">
+          <a href="../commit-conventions/" class="md-footer__link md-footer__link--next" aria-label="Next: Commit Conventions">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Changelog Guidelines
+                Commit Conventions
               </div>
             </div>
             <div class="md-footer__button md-icon">
