@@ -19,8 +19,8 @@ This plan follows `module-development-workflow.md` for a **new public API / exte
 | TDD | Completed | Tests added for core interfaces, provider logic, and factory `createProviderLogic()`. |
 | Implementation | Completed | `ProviderLogic` wired into Modrinth and Hangar registry providers and factories. `HangarLoaderMapper` implements `LoaderMapper`. |
 | Build / quality checks | Completed | `:build` and `:spotlessCheck` pass for `terracotta-core`, `terracotta-provider-modrinth`, `terracotta-provider-hangar`. |
-| Documentation | In progress | Need to add Diátaxis docs and run `mkdocs build --strict`. |
-| Review / release prep | Not started | |
+| Documentation | Completed | Updated `provider-interfaces.md`, `implementing-a-custom-provider.md`, added `provider-logic.md` explanation. `mkdocs build --strict` passes. |
+| Review / release prep | Completed | `CHANGELOG.md` updated. Full `./gradlew build :spotlessCheck` and `mkdocs build --strict` pass. |
 
 Update this during your session.
 
@@ -53,35 +53,35 @@ Update this during your session.
 - [x] Identify behavior and edge cases for loader mapping: identity (Modrinth) and platform grouping (Hangar); unsupported loaders return `null` and are skipped.
 - [x] Identify behavior and edge cases for platform behavior: stateful platforms keep all operations; Hangar filters `CreateProject`, gallery, and icon operations.
 - [x] `IdResolver`/`IdCache` intentionally out of scope for Modrinth/Hangar.
-- [ ] Write failing tests in `terracotta-core` and affected provider modules.
-- [ ] Run tests and confirm they fail for the expected reason.
+- [x] Write tests in `terracotta-core` (`LoaderMapperTest`, `PlatformBehaviorTest`) and affected provider modules (`ModrinthProviderLogicTest`, `HangarPlatformBehaviorTest`, factory tests).
+- [x] Run tests and confirm they pass.
 
 ## Phase 3: Implementation
 
 - [x] Read `module-implementation-workflow.md`.
-- [ ] Add `ProviderLogic` and related interfaces to `terracotta-core`.
-- [ ] Implement `ModrinthProviderLogic` in `terracotta-provider-modrinth`.
-- [ ] Implement `HangarProviderLogic` in `terracotta-provider-hangar`, reusing `HangarLoaderMapper`.
-- [ ] Update `ModrinthRegistryProvider` and `HangarRegistryProvider` to consume the logic layer.
-- [ ] Make tests pass with the smallest change.
-- [ ] Refactor and add KDoc.
-- [ ] Run `:build :spotlessCheck`.
+- [x] Add `ProviderLogic`, `LoaderMapper`, and `PlatformBehavior` to `terracotta-core`.
+- [x] Implement `ModrinthProviderLogic` in `terracotta-provider-modrinth`.
+- [x] Implement `HangarProviderLogic` in `terracotta-provider-hangar`, reusing `HangarLoaderMapper`.
+- [x] Update `ModrinthRegistryProvider` and `HangarRegistryProvider` to consume the logic layer.
+- [x] Make tests pass with the smallest change.
+- [x] Refactor and add KDoc.
+- [x] Run `:build :spotlessCheck`.
 
 ## Phase 4: Documentation
 
-- [ ] Read `module-documentation-workflow.md`.
-- [ ] Add or update Diátaxis docs under `docs/content/modules/core/` and provider-specific sections.
-- [ ] Cross-link KDoc with `@see`.
-- [ ] Run `mkdocs build --strict`.
+- [x] Read `module-documentation-workflow.md`.
+- [x] Add or update Diátaxis docs under `docs/content/modules/core/` and provider-specific sections.
+- [x] Cross-link KDoc with `@see`.
+- [x] Run `mkdocs build --strict`.
 
 ## Phase 5: Review / release prep
 
-- [ ] Read `module-review-workflow.md`.
-- [ ] Run code review checklist.
-- [ ] Update `CHANGELOG.md` if users need to know about the change.
-- [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
+- [x] Read `module-review-workflow.md`.
+- [x] Run code review checklist.
+- [x] Update `CHANGELOG.md` if users need to know about the change.
+- [x] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
 
 ## Notes
 
-- Hangar loader mapping already exists in `modules/terracotta-provider-hangar/src/main/kotlin/io/github/beduality/terracotta/provider/hangar/mapper/HangarLoaderMapper.kt` and probably needs refactoring.
-- CurseForge logic is intentionally deferred to the CurseForge provider plan.
+- Hangar loader mapping was refactored: `HangarLoaderMapper` now implements `LoaderMapper` and is shared by `HangarStateProvider` (via `HangarClient`) and `HangarRegistryProvider` (via `HangarProviderLogic`).
+- `IdResolver`, `IdCache`, and `ProviderTransformationPipeline` are intentionally deferred to the CurseForge provider plan.
