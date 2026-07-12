@@ -1,6 +1,7 @@
 # TODO
 
-- Restructure docs
+- Add to Github module docs to not confuse with GHA module (not yet available)
+
 - Add [Authentication Workflows](./proposals/2025-07-authentication-workflows.md)
 - Read saved issues at smoke release tests, then fix and mitigate for next one
 - Release 0.3
