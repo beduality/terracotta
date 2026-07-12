@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.model.metadata
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import java.util.Objects
 
@@ -30,6 +31,8 @@ abstract class AbstractProjectMetadata(
     override val environment: TerracottaEnvironment? = null,
     /** Release type. */
     override val releaseType: TerracottaReleaseType? = null,
+    /** Canonical project links. */
+    override val links: TerracottaProjectLinks? = null,
 ) : ProjectMetadata {
     /** Merges this metadata with [other], preferring local values. */
     override fun merge(other: ProjectMetadata): ProjectMetadata =
@@ -43,6 +46,7 @@ abstract class AbstractProjectMetadata(
             loaders = combineLists(this.loaders, other.loaders)?.distinct(),
             environment = this.environment ?: other.environment,
             releaseType = this.releaseType ?: other.releaseType,
+            links = this.links ?: other.links,
         )
 
     private fun <T> combineLists(
@@ -66,7 +70,8 @@ abstract class AbstractProjectMetadata(
             gameVersions == other.gameVersions &&
             loaders == other.loaders &&
             environment == other.environment &&
-            releaseType == other.releaseType
+            releaseType == other.releaseType &&
+            links == other.links
     }
 
     override fun hashCode(): Int =
@@ -80,6 +85,7 @@ abstract class AbstractProjectMetadata(
             loaders,
             environment,
             releaseType,
+            links,
         )
 
     override fun toString(): String =
@@ -92,6 +98,7 @@ abstract class AbstractProjectMetadata(
             "gameVersions=$gameVersions, " +
             "loaders=$loaders, " +
             "environment=$environment, " +
-            "releaseType=$releaseType" +
+            "releaseType=$releaseType, " +
+            "links=$links" +
             ")"
 }

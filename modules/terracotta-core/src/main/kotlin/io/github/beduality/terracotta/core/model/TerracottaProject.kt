@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.model
 
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
@@ -28,4 +29,6 @@ data class TerracottaProject(
     val icon: String? = null,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem> = emptyList(),
+    /** Canonical project links. */
+    val links: TerracottaProjectLinks = TerracottaProjectLinks(),
 )

@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.provider.hangar
 
+import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
@@ -33,6 +35,15 @@ class HangarStateProvider(private val client: HangarClient) : StateProvider {
             versions = versions,
             tags = project.tags,
             license = project.license ?: "UNLICENSED",
+            links =
+                TerracottaProjectLinks(
+                    homepage = project.homepage,
+                    source = project.source,
+                    issues = project.issues,
+                    wiki = project.wiki,
+                    community = project.discord,
+                    donations = project.donations.map { TerracottaDonationLink(it.platform, it.url) },
+                ),
         )
     }
 

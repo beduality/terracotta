@@ -17,4 +17,16 @@ data class HangarProject(
     val tags: List<String> = emptyList(),
     /** License identifier. */
     val license: String? = null,
+    /** Project homepage URL. */
+    val homepage: String? = null,
+    /** Source code repository URL. */
+    val source: String? = null,
+    /** Issue tracker URL. */
+    val issues: String? = null,
+    /** Wiki or documentation URL. */
+    val wiki: String? = null,
+    /** Discord invite URL. */
+    val discord: String? = null,
+    /** Donation links. */
+    val donations: List<HangarDonationLink> = emptyList(),
 )

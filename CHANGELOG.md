@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Core**
+
+- Added canonical project links (`homepage`, `source`, `issues`, `wiki`, `community`, `donations`, `other`) via `TerracottaProjectLinks` and `TerracottaDonationLink`. The `links` field is available on `TerracottaProject`, `TerracottaConfig`, `ProjectMetadata`, and `ResolvedProjectMetadata`. Link changes are detected by `DiffEngine` and emitted as `Operation.UpdateMetadata` with `linksChanged` and `newLinks`.
+
+**Gradle Plugin**
+
+- Added nested `terracotta.links { ... }` DSL extension (`TerracottaLinksExtension`) for configuring links in `build.gradle.kts`. DSL values override `terracotta.yml` values and are wired into `terracottaPlan` and `terracottaApply` tasks.
+
+**Modrinth**
+
+- `ModrinthStateProvider.fetchProject` now maps remote `issues_url`, `source_url`, `wiki_url`, `discord_url`, and `donation_urls` to canonical links.
+- `ModrinthRegistryProvider` patches Modrinth project link fields during `UpdateMetadata` and includes link fields when creating draft projects.
+
+**Hangar**
+
+- `HangarStateProvider.fetchProject` now maps remote `homepage`, `source`, `issues`, `wiki`, `discord`, and `donations` to canonical links.
+- `HangarRegistryProvider` updates Hangar project link fields during `UpdateMetadata`.
+
 ## [0.5.0] - 2026-07-12
 
 ### Added

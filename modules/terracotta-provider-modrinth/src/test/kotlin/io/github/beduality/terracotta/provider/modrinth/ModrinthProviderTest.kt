@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.provider.modrinth
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
@@ -258,10 +260,12 @@ class ModrinthProviderTest {
                         summaryChanged = true,
                         licenseChanged = true,
                         licenseUrlChanged = false,
+                        linksChanged = false,
                         newName = "New Name",
                         newSummary = "New summary",
                         newLicense = "Apache-2.0",
                         newLicenseUrl = null,
+                        newLinks = TerracottaProjectLinks(),
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
                     Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
@@ -817,10 +821,12 @@ class ModrinthProviderTest {
                         summaryChanged = false,
                         licenseChanged = false,
                         licenseUrlChanged = true,
+                        linksChanged = false,
                         newName = "Name",
                         newSummary = "Summary",
                         newLicense = "MIT",
                         newLicenseUrl = "https://example.com/LICENSE",
+                        newLinks = TerracottaProjectLinks(),
                     ),
                 )
 
@@ -976,5 +982,145 @@ class ModrinthProviderTest {
             )
 
             assertEquals(listOf("/project/my-mod/icon"), uploadedPaths)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider patches link fields`() =
+        runTest {
+            val capturedPatches = mutableListOf<Pair<String, String>>()
+            val client =
+                HttpClient(
+                    MockEngine { request ->
+                        if (request.method == HttpMethod.Patch && request.url.encodedPath == "/project/my-mod") {
+                            val body = (request.body as TextContent).text
+                            capturedPatches.add(request.url.encodedPath to body)
+                        }
+                        respond("OK", HttpStatusCode.OK, headersOf(HttpHeaders.ContentType, "application/json"))
+                    },
+                ) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
+
+            val links =
+                TerracottaProjectLinks(
+                    issues = "https://github.com/dsl/issues",
+                    source = "https://github.com/dsl/project",
+                    wiki = "https://wiki.example.com",
+                    community = "https://discord.gg/dsl",
+                    donations = listOf(TerracottaDonationLink("ko-fi", "https://ko-fi.com/dsl")),
+                )
+
+            registryProvider.apply(
+                "my-mod",
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = false,
+                        summaryChanged = false,
+                        licenseChanged = false,
+                        licenseUrlChanged = false,
+                        linksChanged = true,
+                        newName = "",
+                        newSummary = "",
+                        newLicense = "",
+                        newLicenseUrl = null,
+                        newLinks = links,
+                    ),
+                ),
+            )
+
+            assertEquals(1, capturedPatches.size)
+            val metadataBody = json.parseToJsonElement(capturedPatches[0].second).jsonObject
+            assertEquals("https://github.com/dsl/issues", metadataBody["issues_url"]?.jsonPrimitive?.content)
+            assertEquals("https://github.com/dsl/project", metadataBody["source_url"]?.jsonPrimitive?.content)
+            assertEquals("https://wiki.example.com", metadataBody["wiki_url"]?.jsonPrimitive?.content)
+            assertEquals("https://discord.gg/dsl", metadataBody["discord_url"]?.jsonPrimitive?.content)
+            val donationUrls = metadataBody["donation_urls"]?.jsonArray
+            assertNotNull(donationUrls)
+            assertEquals(1, donationUrls?.size)
+            val donation = donationUrls?.firstOrNull()?.jsonObject
+            assertEquals("ko-fi", donation?.get("id")?.jsonPrimitive?.content)
+            assertEquals("ko-fi", donation?.get("platform")?.jsonPrimitive?.content)
+            assertEquals("https://ko-fi.com/dsl", donation?.get("url")?.jsonPrimitive?.content)
+        }
+
+    @Test
+    fun `test ModrinthStateProvider maps links`() =
+        runTest {
+            val project =
+                ModrinthProject(
+                    id = "my-mod-id",
+                    slug = "my-mod",
+                    title = "My Mod",
+                    summary = "A mod",
+                    body = "Description",
+                    categories = emptyList(),
+                    license = ModrinthLicense(id = "MIT", url = null),
+                    issuesUrl = "https://github.com/dsl/issues",
+                    sourceUrl = "https://github.com/dsl/project",
+                    wikiUrl = "https://wiki.example.com",
+                    discordUrl = "https://discord.gg/dsl",
+                    donationUrls =
+                        listOf(
+                            io.github.beduality.terracotta.provider.modrinth.model.ModrinthDonationUrl(
+                                id = "ko-fi",
+                                platform = "ko-fi",
+                                url = "https://ko-fi.com/dsl",
+                            ),
+                        ),
+                )
+            val client =
+                HttpClient(
+                    MockEngine { request ->
+                        when {
+                            request.url.encodedPath.contains("project/my-mod") &&
+                                !request.url.encodedPath.contains("version") -> {
+                                respond(
+                                    content = ByteReadChannel(json.encodeToString(project)),
+                                    status = HttpStatusCode.OK,
+                                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                                )
+                            }
+                            request.url.encodedPath.contains("project/my-mod/version") -> {
+                                respond(
+                                    content = ByteReadChannel("[]"),
+                                    status = HttpStatusCode.OK,
+                                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                                )
+                            }
+                            else -> respond("", status = HttpStatusCode.NotFound)
+                        }
+                    },
+                ) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val stateProvider = ModrinthStateProvider(ModrinthClient(token = null, baseUrl = "http://localhost", client = client))
+            val terracottaProject = stateProvider.fetchProject("my-mod")
+
+            assertNotNull(terracottaProject)
+            assertEquals("https://github.com/dsl/issues", terracottaProject?.links?.issues)
+            assertEquals("https://github.com/dsl/project", terracottaProject?.links?.source)
+            assertEquals("https://wiki.example.com", terracottaProject?.links?.wiki)
+            assertEquals("https://discord.gg/dsl", terracottaProject?.links?.community)
+            assertEquals(1, terracottaProject?.links?.donations?.size)
+            assertEquals("ko-fi", terracottaProject?.links?.donations?.firstOrNull()?.platform)
+            assertEquals("https://ko-fi.com/dsl", terracottaProject?.links?.donations?.firstOrNull()?.url)
         }
 }

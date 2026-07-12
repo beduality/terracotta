@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.provider.hangar.client
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.logic.LoaderMapper
@@ -31,6 +32,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.add
+import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -151,6 +153,7 @@ class HangarClient(
         description: String,
         license: String,
         tags: List<String>,
+        links: TerracottaProjectLinks? = null,
     ) {
         val body: JsonObject =
             buildJsonObject {
@@ -159,6 +162,24 @@ class HangarClient(
                 put("body", description)
                 put("license", license)
                 put("tags", buildJsonArray { tags.forEach { add(it) } })
+                links?.homepage?.let { put("homepage", it) }
+                links?.source?.let { put("source", it) }
+                links?.issues?.let { put("issues", it) }
+                links?.wiki?.let { put("wiki", it) }
+                links?.community?.let { put("discord", it) }
+                if (links?.donations?.isNotEmpty() == true) {
+                    put(
+                        "donations",
+                        buildJsonArray {
+                            links.donations.forEach { donation ->
+                                addJsonObject {
+                                    put("platform", donation.platform)
+                                    put("url", donation.url)
+                                }
+                            }
+                        },
+                    )
+                }
             }
 
         val response =

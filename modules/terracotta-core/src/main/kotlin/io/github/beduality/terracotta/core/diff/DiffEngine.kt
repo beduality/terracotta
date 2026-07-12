@@ -34,18 +34,21 @@ object DiffEngine {
         val summaryChanged = local.summary != remote.summary
         val licenseChanged = local.license.uppercase() != remote.license.uppercase()
         val licenseUrlChanged = local.licenseUrl != remote.licenseUrl
+        val linksChanged = local.links != remote.links
 
-        if (nameChanged || summaryChanged || licenseChanged || licenseUrlChanged) {
+        if (nameChanged || summaryChanged || licenseChanged || licenseUrlChanged || linksChanged) {
             operations.add(
                 Operation.UpdateMetadata(
                     nameChanged = nameChanged,
                     summaryChanged = summaryChanged,
                     licenseChanged = licenseChanged,
                     licenseUrlChanged = licenseUrlChanged,
+                    linksChanged = linksChanged,
                     newName = local.name,
                     newSummary = local.summary,
                     newLicense = local.license,
                     newLicenseUrl = local.licenseUrl,
+                    newLinks = local.links,
                 ),
             )
         }

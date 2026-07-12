@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
@@ -53,6 +55,14 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
                         ordering = it.ordering,
                     )
                 },
+            links =
+                TerracottaProjectLinks(
+                    issues = project.issuesUrl,
+                    source = project.sourceUrl,
+                    wiki = project.wikiUrl,
+                    community = project.discordUrl,
+                    donations = project.donationUrls.map { TerracottaDonationLink(it.platform, it.url) },
+                ),
         )
     }
 }

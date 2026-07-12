@@ -19,6 +19,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `releaseType` | string | No | `release`, `beta`, or `alpha`. |
 | `changelog` | string | No | Release notes for the current version. |
 | `gallery` | list | No | Gallery images for the project. See [Gallery block](#gallery-block). |
+| `links` | map | No | Canonical project links. See [Links block](#links-block). |
 | `convention` | map | No | `readme` and `changelog` convention identifiers. |
 | `providers` | map | No | Provider-specific configuration keyed by provider ID. |
 
@@ -53,6 +54,27 @@ Each entry under `gallery:` describes an image to associate with the project.
 Identity matching uses the normalized title (trimmed and lowercased). When a title
 is not provided, items are matched by `ordering`.
 
+## Links block
+
+Each entry under `links:` is optional. Unknown keys are preserved in the `other` map.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `homepage` | string | No | Project homepage URL. |
+| `source` | string | No | Source code repository URL. |
+| `issues` | string | No | Issue tracker URL. |
+| `wiki` | string | No | Wiki or documentation URL. |
+| `community` | string | No | Community invite URL (e.g. Discord). |
+| `donations` | list | No | Donation links. See [Donation link](#donation-link). |
+| `other` | map | No | Arbitrary label-to-URL entries. |
+
+### Donation link
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `platform` | string | Yes | Donation platform name or identifier. |
+| `url` | string | Yes | URL to the donation page. |
+
 ## Example
 
 ```yaml
@@ -80,6 +102,18 @@ gallery:
     description: "Shows the new GUI"
     featured: true
     ordering: 0
+
+links:
+  homepage: "https://example.com/my-plugin"
+  source: "https://github.com/example/my-plugin"
+  issues: "https://github.com/example/my-plugin/issues"
+  wiki: "https://github.com/example/my-plugin/wiki"
+  community: "https://discord.gg/example"
+  donations:
+    - platform: "ko-fi"
+      url: "https://ko-fi.com/example"
+  other:
+    twitter: "https://twitter.com/example"
 
 convention:
   readme: terracotta

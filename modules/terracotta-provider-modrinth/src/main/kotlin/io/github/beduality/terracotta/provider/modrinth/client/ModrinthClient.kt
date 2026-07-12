@@ -30,8 +30,13 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonArrayBuilder
+import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonObjectBuilder
 import kotlinx.serialization.json.add
+import kotlinx.serialization.json.addJsonArray
+import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -115,20 +120,55 @@ class ModrinthClient(
     /** Patches the Modrinth project with the given [patchData]. */
     suspend fun patchProject(
         projectIdOrSlug: String,
-        patchData: Map<String, Any>,
+        patchData: Map<String, Any?>,
     ) {
+        val body = patchData.toJsonObject()
         val response =
             client.patch("$baseUrl/project/$projectIdOrSlug") {
                 if (!token.isNullOrBlank()) {
                     header(HttpHeaders.Authorization, token)
                 }
                 contentType(ContentType.Application.Json)
-                setBody(patchData)
+                setBody(body)
             }
         if (response.status.value !in 200..299) {
             throw IOException("Failed to patch project: ${response.status.value} ${response.bodyAsText()}")
         }
         logger.info("Successfully updated project metadata on Modrinth.")
+    }
+
+    private fun Map<String, Any?>.toJsonObject(): JsonObject =
+        buildJsonObject {
+            forEach { (key, value) -> putJsonElement(key, value) }
+        }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun JsonArrayBuilder.addJsonElement(value: Any?) {
+        when (value) {
+            null -> add(JsonNull)
+            is String -> add(value)
+            is Number -> add(value)
+            is Boolean -> add(value)
+            is List<*> -> addJsonArray { value.forEach { addJsonElement(it) } }
+            is Map<*, *> -> addJsonObject { (value as? Map<String, Any?>)?.forEach { (k, v) -> putJsonElement(k, v) } }
+            else -> add(value.toString())
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun JsonObjectBuilder.putJsonElement(
+        key: String,
+        value: Any?,
+    ) {
+        when (value) {
+            null -> put(key, JsonNull)
+            is String -> put(key, value)
+            is Number -> put(key, value)
+            is Boolean -> put(key, value)
+            is List<*> -> put(key, buildJsonArray { value.forEach { addJsonElement(it) } })
+            is Map<*, *> -> put(key, buildJsonObject { (value as? Map<String, Any?>)?.forEach { (k, v) -> putJsonElement(k, v) } })
+            else -> put(key, value.toString())
+        }
     }
 
     /** Uploads [version] to the Modrinth project identified by [projectId]. */
@@ -225,6 +265,24 @@ class ModrinthClient(
                 put("project_type", "mod")
                 put("license_id", project.license)
                 project.licenseUrl?.let { put("license_url", it) }
+                project.links.issues?.let { put("issues_url", it) }
+                project.links.source?.let { put("source_url", it) }
+                project.links.wiki?.let { put("wiki_url", it) }
+                project.links.community?.let { put("discord_url", it) }
+                if (project.links.donations.isNotEmpty()) {
+                    put(
+                        "donation_urls",
+                        buildJsonArray {
+                            project.links.donations.forEach { donation ->
+                                addJsonObject {
+                                    put("id", donation.platform)
+                                    put("platform", donation.platform)
+                                    put("url", donation.url)
+                                }
+                            }
+                        },
+                    )
+                }
                 put("is_draft", true)
                 // initial_versions is deprecated but the API still requires the field to be present
                 put("initial_versions", JsonArray(emptyList()))

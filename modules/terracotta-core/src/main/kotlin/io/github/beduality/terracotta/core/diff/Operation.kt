@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
@@ -27,10 +28,12 @@ sealed interface Operation {
      * @property summaryChanged whether the project summary changed.
      * @property licenseChanged whether the project license changed.
      * @property licenseUrlChanged whether the project license URL changed.
+     * @property linksChanged whether the project links changed.
      * @property newName the new project name.
      * @property newSummary the new project summary.
      * @property newLicense the new SPDX license identifier.
      * @property newLicenseUrl the new optional URL to the full license text.
+     * @property newLinks the new canonical project links.
      */
     data class UpdateMetadata(
         /** Whether the project name changed. */
@@ -41,6 +44,8 @@ sealed interface Operation {
         val licenseChanged: Boolean,
         /** Whether the project license URL changed. */
         val licenseUrlChanged: Boolean,
+        /** Whether the project links changed. */
+        val linksChanged: Boolean,
         /** New project name. */
         val newName: String,
         /** New project summary. */
@@ -49,6 +54,8 @@ sealed interface Operation {
         val newLicense: String,
         /** New optional URL to the full license text. */
         val newLicenseUrl: String?,
+        /** New canonical project links. */
+        val newLinks: TerracottaProjectLinks,
     ) : Operation {
         override val description: String
             get() {
@@ -57,6 +64,7 @@ sealed interface Operation {
                 if (summaryChanged) changes.add("summary")
                 if (licenseChanged) changes.add("license")
                 if (licenseUrlChanged) changes.add("licenseUrl")
+                if (linksChanged) changes.add("links")
                 return "~ Update project metadata (${changes.joinToString(", ")})"
             }
     }

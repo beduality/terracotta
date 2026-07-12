@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -94,10 +95,12 @@ class OperationPreprocessorTest {
                 summaryChanged = true,
                 licenseChanged = false,
                 licenseUrlChanged = false,
+                linksChanged = false,
                 newName = "Updated Plugin",
                 newSummary = "New summary",
                 newLicense = "",
                 newLicenseUrl = null,
+                newLinks = TerracottaProjectLinks(),
             )
 
         val result = OperationPreprocessor.process(listOf(operation))

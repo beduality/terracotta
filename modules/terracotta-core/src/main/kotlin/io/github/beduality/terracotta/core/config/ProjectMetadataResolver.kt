@@ -78,6 +78,7 @@ class ProjectMetadataResolver(
             changelog = changelog,
             icon = config.icon,
             gallery = config.gallery ?: emptyList(),
+            links = config.links ?: detected.links,
             readmeConvention = config.convention.readme ?: "terracotta",
             changelogConvention = config.convention.changelog ?: "keep-a-changelog",
         )

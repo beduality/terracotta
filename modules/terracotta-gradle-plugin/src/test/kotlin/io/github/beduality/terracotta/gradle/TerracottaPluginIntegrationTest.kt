@@ -476,4 +476,89 @@ class TerracottaPluginIntegrationTest {
 
         assertTrue("ICON=dsl-icon.png" in result.output, "Expected DSL to override YAML icon")
     }
+
+    @Test
+    fun `loads links from terracotta yml and dsl`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            links:
+              homepage: "https://yaml.example.com"
+              source: "https://github.com/yaml/project"
+              donations:
+                - platform: patreon
+                  url: "https://patreon.com/yaml"
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                links {
+                    issues.set("https://github.com/dsl/project/issues")
+                    donation("ko-fi", "https://ko-fi.com/dsl")
+                    other("twitter", "https://twitter.com/dsl")
+                }
+            }
+
+            tasks.register("printLinks") {
+                doLast {
+                    println("HOMEPAGE=" + terracotta.links.homepage.orNull)
+                    println("SOURCE=" + terracotta.links.source.orNull)
+                    println("ISSUES=" + terracotta.links.issues.orNull)
+                    println("DONATIONS=" + terracotta.links.donations.get().joinToString { it.platform + ":" + it.url })
+                    println("OTHER=" + terracotta.links.other.get().map { it.key + ":" + it.value }.joinToString())
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printLinks")
+                .build()
+
+        assertTrue("HOMEPAGE=https://yaml.example.com" in result.output, "Expected homepage from YAML")
+        assertTrue("SOURCE=https://github.com/yaml/project" in result.output, "Expected source from YAML")
+        assertTrue("ISSUES=https://github.com/dsl/project/issues" in result.output, "Expected issues from DSL")
+        assertTrue("patreon:https://patreon.com/yaml" in result.output, "Expected YAML donation")
+        assertTrue("ko-fi:https://ko-fi.com/dsl" in result.output, "Expected DSL donation")
+        assertTrue("OTHER=twitter:https://twitter.com/dsl" in result.output, "Expected other from DSL")
+    }
+
+    @Test
+    fun `links defaults to empty when absent`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("printLinks") {
+                doLast {
+                    println("EMPTY=" + terracotta.links.toModel().isEmpty())
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printLinks")
+                .build()
+
+        assertTrue("EMPTY=true" in result.output, "Expected empty links by default")
+    }
 }

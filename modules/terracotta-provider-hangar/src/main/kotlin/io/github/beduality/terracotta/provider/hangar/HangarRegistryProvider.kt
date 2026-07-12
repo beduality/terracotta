@@ -66,6 +66,7 @@ class HangarRegistryProvider(
         val license = metadataOps.lastOrNull { it.licenseChanged }?.newLicense ?: current?.license ?: ""
         val description = descriptionOps.lastOrNull()?.newDescription ?: current?.body ?: ""
         val tags = tagsOps.lastOrNull()?.newTags ?: current?.tags ?: emptyList()
+        val links = metadataOps.lastOrNull { it.linksChanged }?.newLinks
 
         client.updateProject(
             slug = slug,
@@ -74,6 +75,7 @@ class HangarRegistryProvider(
             description = description,
             license = license,
             tags = tags,
+            links = links,
         )
     }
 }

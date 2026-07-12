@@ -31,6 +31,16 @@ terracotta {
         }
     }
 
+    links {
+        homepage.set("https://example.com/my-plugin")
+        source.set("https://github.com/example/my-plugin")
+        issues.set("https://github.com/example/my-plugin/issues")
+        wiki.set("https://github.com/example/my-plugin/wiki")
+        community.set("https://discord.gg/example")
+        donation("ko-fi", "https://ko-fi.com/example")
+        other("twitter", "https://twitter.com/example")
+    }
+
     providers {
         create("modrinth") {
             projectId.set("my-modrinth-project-id")
@@ -91,6 +101,26 @@ terracotta {
 ```
 
 The `title` is used as the stable identity key: if you rename an image, Terracotta will delete the old image and upload a new one.
+
+## Links configuration
+
+You can configure canonical project links in the DSL. Values set here override links from `terracotta.yml`, and donations or `other` entries are merged with YAML entries.
+
+```kotlin
+terracotta {
+    links {
+        homepage.set("https://example.com/my-plugin")
+        source.set("https://github.com/example/my-plugin")
+        issues.set("https://github.com/example/my-plugin/issues")
+        wiki.set("https://github.com/example/my-plugin/wiki")
+        community.set("https://discord.gg/example")
+        donation("ko-fi", "https://ko-fi.com/example")
+        other("twitter", "https://twitter.com/example")
+    }
+}
+```
+
+`homepage`, `source`, `issues`, `wiki`, and `community` accept `Property<String>`. `donation(platform, url)` appends a donation link, and `other(label, url)` appends an arbitrary label-to-URL entry.
 
 ---
 

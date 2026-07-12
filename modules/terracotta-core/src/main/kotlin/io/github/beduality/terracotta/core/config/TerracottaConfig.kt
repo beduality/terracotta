@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 
 /**
  * In-memory representation of a `terracotta.yml` file.
@@ -37,6 +38,8 @@ data class TerracottaConfig(
     val changelog: String? = null,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem>? = null,
+    /** Canonical project links. */
+    val links: TerracottaProjectLinks? = null,
     /** README and changelog convention identifiers. */
     val convention: TerracottaConventionConfig = TerracottaConventionConfig(),
     /** Per-provider configuration keyed by provider ID. */

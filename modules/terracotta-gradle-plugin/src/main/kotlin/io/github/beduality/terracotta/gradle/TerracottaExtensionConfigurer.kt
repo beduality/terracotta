@@ -22,7 +22,7 @@ internal object TerracottaExtensionConfigurer {
         val source =
             ProjectMetadataSource(
                 name = project.name,
-                summary = project.description?.toString(),
+                summary = project.description,
                 version = resolveVersion(project),
             )
         val resolved = ProjectMetadataResolver(project.projectDir, config, source).resolve()
@@ -41,6 +41,15 @@ internal object TerracottaExtensionConfigurer {
         extension.conventions.readme.convention(resolved.readmeConvention)
         extension.conventions.changelog.convention(resolved.changelogConvention)
         extension.changelog.convention(resolved.changelog)
+        resolved.links?.let { links ->
+            links.homepage?.let { extension.links.homepage.convention(it) }
+            links.source?.let { extension.links.source.convention(it) }
+            links.issues?.let { extension.links.issues.convention(it) }
+            links.wiki?.let { extension.links.wiki.convention(it) }
+            links.community?.let { extension.links.community.convention(it) }
+            links.donations.forEach { extension.links.donation(it.platform, it.url) }
+            links.other.forEach { (key, value) -> extension.links.other(key, value) }
+        }
         resolved.gallery.forEachIndexed { index, item ->
             extension.gallery.create("galleryItem$index") { galleryItem: TerracottaGalleryExtension ->
                 galleryItem.imageFile.set(project.file(item.imagePath))

@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.config
 
+import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 
@@ -47,6 +49,7 @@ object TerracottaConfigLoader {
             releaseType = map.readString("releaseType"),
             changelog = map.readString("changelog"),
             gallery = parseGallery(map["gallery"]),
+            links = parseLinks(map["links"]),
             convention = parseConvention(conventionMap),
             providers = parseProviders(providersMap),
         )
@@ -56,9 +59,7 @@ object TerracottaConfigLoader {
         @Suppress("UNCHECKED_CAST")
         val list = value as? List<Map<String, Any?>> ?: return null
 
-        return list.map { item ->
-            @Suppress("UNCHECKED_CAST")
-            val map = item as? Map<String, Any?> ?: emptyMap()
+        return list.map { map ->
             TerracottaGalleryItem(
                 imagePath = map.readString("path") ?: "",
                 title = map.readString("title") ?: "",
@@ -82,6 +83,32 @@ object TerracottaConfigLoader {
             is Number -> value.toInt()
             else -> null
         }
+    }
+
+    private fun parseLinks(value: Any?): TerracottaProjectLinks? {
+        @Suppress("UNCHECKED_CAST")
+        val map = value as? Map<String, Any?> ?: return null
+
+        @Suppress("UNCHECKED_CAST")
+        val donations =
+            (map["donations"] as? List<Map<String, Any?>>)?.mapNotNull { donation ->
+                val platform = donation.readString("platform") ?: return@mapNotNull null
+                val url = donation.readString("url") ?: return@mapNotNull null
+                TerracottaDonationLink(platform, url)
+            } ?: emptyList()
+
+        @Suppress("UNCHECKED_CAST")
+        val other = (map["other"] as? Map<String, Any?>)?.mapValues { it.value.toString() } ?: emptyMap()
+
+        return TerracottaProjectLinks(
+            homepage = map.readString("homepage"),
+            source = map.readString("source"),
+            issues = map.readString("issues"),
+            wiki = map.readString("wiki"),
+            community = map.readString("community"),
+            donations = donations,
+            other = other,
+        )
     }
 
     private fun parseConvention(map: Map<String, Any?>?): TerracottaConventionConfig {

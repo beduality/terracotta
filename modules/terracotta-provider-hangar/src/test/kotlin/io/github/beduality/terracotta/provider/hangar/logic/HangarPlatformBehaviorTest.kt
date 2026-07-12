@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.provider.hangar.logic
 import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -31,10 +32,12 @@ class HangarPlatformBehaviorTest {
                     summaryChanged = false,
                     licenseChanged = false,
                     licenseUrlChanged = false,
+                    linksChanged = false,
                     newName = "New",
                     newSummary = "",
                     newLicense = "",
                     newLicenseUrl = null,
+                    newLinks = TerracottaProjectLinks(),
                 ),
                 Operation.UpdateDescription("old", "new"),
                 Operation.UpdateTags(emptyList(), listOf("tag")),

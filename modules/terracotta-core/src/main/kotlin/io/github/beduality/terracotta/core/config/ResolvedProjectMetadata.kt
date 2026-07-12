@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
@@ -37,6 +38,8 @@ data class ResolvedProjectMetadata(
     val icon: String?,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem>,
+    /** Canonical project links. */
+    val links: TerracottaProjectLinks?,
     /** Identifier of the README convention used. */
     val readmeConvention: String,
     /** Identifier of the changelog convention used. */

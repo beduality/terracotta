@@ -5,6 +5,7 @@ import io.github.beduality.terracotta.core.diff.OperationPreprocessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.ProviderFactory
@@ -83,6 +84,10 @@ abstract class TerracottaPlanTask : DefaultTask() {
     abstract val changelog: Property<String>
 
     @get:Input
+    /** Canonical project links. */
+    abstract val links: Property<TerracottaProjectLinks>
+
+    @get:Input
     /** Provider identifier. */
     abstract val provider: Property<String>
 
@@ -152,6 +157,7 @@ abstract class TerracottaPlanTask : DefaultTask() {
             licenseUrl = licenseUrl.orNull,
             icon = icon.orNull?.asFile?.absolutePath,
             gallery = gallery.get(),
+            links = links.get(),
         )
     }
 

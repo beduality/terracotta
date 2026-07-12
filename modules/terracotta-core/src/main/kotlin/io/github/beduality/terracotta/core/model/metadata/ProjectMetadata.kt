@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.model.metadata
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
@@ -40,6 +41,9 @@ interface ProjectMetadata {
 
     /** Release type (alpha/beta/release). */
     val releaseType: TerracottaReleaseType?
+
+    /** Canonical project links. */
+    val links: TerracottaProjectLinks?
 
     /**
      * Merges this metadata with [other], preferring values from this instance

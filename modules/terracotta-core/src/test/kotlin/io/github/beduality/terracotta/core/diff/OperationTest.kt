@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -64,10 +65,12 @@ class OperationTest {
                 summaryChanged = false,
                 licenseChanged = false,
                 licenseUrlChanged = false,
+                linksChanged = false,
                 newName = "New Name",
                 newSummary = "",
                 newLicense = "",
                 newLicenseUrl = null,
+                newLinks = TerracottaProjectLinks(),
             )
 
         assertTrue(op.description.contains("name"))
@@ -83,10 +86,12 @@ class OperationTest {
                 summaryChanged = true,
                 licenseChanged = true,
                 licenseUrlChanged = false,
+                linksChanged = false,
                 newName = "New Name",
                 newSummary = "New Summary",
                 newLicense = "Apache-2.0",
                 newLicenseUrl = null,
+                newLinks = TerracottaProjectLinks(),
             )
 
         assertTrue(op.description.contains("name"))
@@ -102,10 +107,12 @@ class OperationTest {
                 summaryChanged = true,
                 licenseChanged = false,
                 licenseUrlChanged = false,
+                linksChanged = false,
                 newName = "",
                 newSummary = "New Summary",
                 newLicense = "",
                 newLicenseUrl = null,
+                newLinks = TerracottaProjectLinks(),
             )
 
         assertTrue(op.description.contains("summary"))

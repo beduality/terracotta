@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
@@ -57,6 +58,15 @@ abstract class TerracottaExtension {
     @get:Nested
     /** README and changelog convention identifiers. */
     abstract val conventions: TerracottaConventionExtension
+
+    @get:Nested
+    /** Canonical project links. */
+    abstract val links: TerracottaLinksExtension
+
+    /** Configures the canonical project links. */
+    fun links(action: Action<in TerracottaLinksExtension>) {
+        action.execute(links)
+    }
 
     /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty

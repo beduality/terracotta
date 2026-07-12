@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.model.metadata
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
@@ -18,6 +19,7 @@ class TerracottaProjectMetadata(
     loaders: List<String>? = null,
     environment: TerracottaEnvironment? = null,
     releaseType: TerracottaReleaseType? = null,
+    links: TerracottaProjectLinks? = null,
 ) : AbstractProjectMetadata(
         name = name,
         summary = summary,
@@ -28,6 +30,7 @@ class TerracottaProjectMetadata(
         loaders = loaders,
         environment = environment,
         releaseType = releaseType,
+        links = links,
     ) {
     /** Merges this metadata with [other], preferring local values. */
     override fun merge(other: ProjectMetadata): TerracottaProjectMetadata = super.merge(other) as TerracottaProjectMetadata

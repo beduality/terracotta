@@ -1,8 +1,10 @@
 package io.github.beduality.terracotta.provider.hangar
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
@@ -280,10 +282,12 @@ class HangarProviderTest {
                         summaryChanged = true,
                         licenseChanged = false,
                         licenseUrlChanged = false,
+                        linksChanged = false,
                         newName = "New Name",
                         newSummary = "New summary",
                         newLicense = "",
                         newLicenseUrl = null,
+                        newLinks = TerracottaProjectLinks(),
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
                     Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
@@ -987,10 +991,12 @@ class HangarProviderTest {
                         summaryChanged = false,
                         licenseChanged = false,
                         licenseUrlChanged = true,
+                        linksChanged = false,
                         newName = "New Name",
                         newSummary = "",
                         newLicense = "",
                         newLicenseUrl = "https://example.com/LICENSE",
+                        newLinks = TerracottaProjectLinks(),
                     ),
                 ),
             )
@@ -1037,5 +1043,158 @@ class HangarProviderTest {
             )
 
             assertEquals(false, networkCalled)
+        }
+
+    @Test
+    fun `test HangarRegistryProvider patches link fields`() =
+        runTest {
+            val currentProject =
+                HangarProject(
+                    name = "Old Name",
+                    description = "Old summary",
+                    body = "Old body",
+                    tags = listOf("old"),
+                    license = "MIT",
+                )
+
+            var patchBody: String? = null
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Get -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(currentProject)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Patch -> {
+                            patchBody = (request.body as TextContent).text
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
+
+            val links =
+                TerracottaProjectLinks(
+                    homepage = "https://example.com",
+                    source = "https://github.com/dsl/project",
+                    issues = "https://github.com/dsl/issues",
+                    wiki = "https://wiki.example.com",
+                    community = "https://discord.gg/dsl",
+                    donations = listOf(TerracottaDonationLink("ko-fi", "https://ko-fi.com/dsl")),
+                )
+
+            registryProvider.apply(
+                "my-plugin",
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = false,
+                        summaryChanged = false,
+                        licenseChanged = false,
+                        licenseUrlChanged = false,
+                        linksChanged = true,
+                        newName = "",
+                        newSummary = "",
+                        newLicense = "",
+                        newLicenseUrl = null,
+                        newLinks = links,
+                    ),
+                ),
+            )
+
+            assertNotNull(patchBody)
+            val body = json.parseToJsonElement(patchBody!!).jsonObject
+            assertEquals("https://example.com", body["homepage"]?.jsonPrimitive?.content)
+            assertEquals("https://github.com/dsl/project", body["source"]?.jsonPrimitive?.content)
+            assertEquals("https://github.com/dsl/issues", body["issues"]?.jsonPrimitive?.content)
+            assertEquals("https://wiki.example.com", body["wiki"]?.jsonPrimitive?.content)
+            assertEquals("https://discord.gg/dsl", body["discord"]?.jsonPrimitive?.content)
+            val donations = body["donations"]?.jsonArray
+            assertNotNull(donations)
+            assertEquals(1, donations?.size)
+            val donation = donations?.firstOrNull()?.jsonObject
+            assertEquals("ko-fi", donation?.get("platform")?.jsonPrimitive?.content)
+            assertEquals("https://ko-fi.com/dsl", donation?.get("url")?.jsonPrimitive?.content)
+        }
+
+    @Test
+    fun `test HangarStateProvider maps links`() =
+        runTest {
+            val project =
+                HangarProject(
+                    name = "My Plugin",
+                    description = "A plugin",
+                    body = "Description",
+                    tags = emptyList(),
+                    license = "MIT",
+                    homepage = "https://example.com",
+                    source = "https://github.com/dsl/project",
+                    issues = "https://github.com/dsl/issues",
+                    wiki = "https://wiki.example.com",
+                    discord = "https://discord.gg/dsl",
+                    donations =
+                        listOf(
+                            io.github.beduality.terracotta.provider.hangar.model.HangarDonationLink(
+                                platform = "ko-fi",
+                                url = "https://ko-fi.com/dsl",
+                            ),
+                        ),
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    if (request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Get) {
+                        respond(
+                            content = ByteReadChannel(json.encodeToString(project)),
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                        )
+                    } else {
+                        respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val stateProvider = HangarStateProvider(HangarClient(apiKey = null, baseUrl = "http://localhost", client = client))
+            val terracottaProject = stateProvider.fetchProject("my-plugin")
+
+            assertNotNull(terracottaProject)
+            assertEquals("https://example.com", terracottaProject?.links?.homepage)
+            assertEquals("https://github.com/dsl/project", terracottaProject?.links?.source)
+            assertEquals("https://github.com/dsl/issues", terracottaProject?.links?.issues)
+            assertEquals("https://wiki.example.com", terracottaProject?.links?.wiki)
+            assertEquals("https://discord.gg/dsl", terracottaProject?.links?.community)
+            assertEquals(1, terracottaProject?.links?.donations?.size)
+            assertEquals("ko-fi", terracottaProject?.links?.donations?.firstOrNull()?.platform)
+            assertEquals("https://ko-fi.com/dsl", terracottaProject?.links?.donations?.firstOrNull()?.url)
         }
 }

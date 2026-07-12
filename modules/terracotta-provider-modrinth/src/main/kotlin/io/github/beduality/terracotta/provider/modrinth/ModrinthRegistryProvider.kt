@@ -40,6 +40,23 @@ class ModrinthRegistryProvider(
                     if (op.licenseChanged) patches["license_id"] = op.newLicense
                     val newLicenseUrl = op.newLicenseUrl
                     if (op.licenseUrlChanged && newLicenseUrl != null) patches["license_url"] = newLicenseUrl
+                    if (op.linksChanged) {
+                        val links = op.newLinks
+                        links.issues?.let { patches["issues_url"] = it }
+                        links.source?.let { patches["source_url"] = it }
+                        links.wiki?.let { patches["wiki_url"] = it }
+                        links.community?.let { patches["discord_url"] = it }
+                        if (links.donations.isNotEmpty()) {
+                            patches["donation_urls"] =
+                                links.donations.map { donation ->
+                                    mapOf(
+                                        "id" to donation.platform,
+                                        "platform" to donation.platform,
+                                        "url" to donation.url,
+                                    )
+                                }
+                        }
+                    }
                     client.patchProject(resolvedProjectId, patches)
                 }
                 is Operation.UpdateDescription -> {
