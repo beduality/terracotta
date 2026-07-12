@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-12
+
 ### Added
 
 **Docs**
@@ -49,7 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Repo**
 
 - Updated `.gitignore` to ignore the generated `docs/LICENSE` file instead of `docs/LICENSE.md`.
-
 ## [0.2.0] - 2026-07-11
 
 ### Added
