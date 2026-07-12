@@ -89,8 +89,7 @@ abstract class TerracottaExtension {
      * @see [Kotlin DSL Configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
      */
     @Deprecated(
-        message = "Use stateSource with 'filesystem' and stateSourceSettings['path'] instead.",
-        replaceWith = ReplaceWith("stateSource = \"filesystem\"; stateSourceSettings = mapOf(\"path\" to file)"),
+        message = "Use stateSource.set(\"filesystem\") and stateSourceSettings.put(\"path\", ...) instead.",
     )
     abstract val stateFile: RegularFileProperty
 

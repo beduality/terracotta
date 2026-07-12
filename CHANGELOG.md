@@ -22,8 +22,8 @@ This release introduces pluggable state management and canonical project links. 
 
 **Gradle Plugin**
 
-- Added `terracotta.stateSource` (`Property<String>`) and `terracotta.stateSourceSettings` (`MapProperty<String, String>`) DSL properties for selecting and configuring a state backend. Defaults to `"filesystem"` and an empty settings map.
-- Deprecated `terracotta.stateFile`; it still works and internally maps to `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`.
+- Added `terracotta.stateSource` (`Property<String>`) and `terracotta.stateSourceSettings` (`MapProperty<String, String>`) DSL properties for selecting and configuring a state backend. `stateSource` defaults to `"filesystem"`; `stateSourceSettings` defaults to `mapOf("path" to <projectDir>/.terracotta-state.yml)`.
+- Deprecated `terracotta.stateFile`; it still works and internally maps to `stateSource.set("filesystem")` with `stateSourceSettings.put("path", <file>)`.
 - Added nested `terracotta.links { ... }` DSL extension (`TerracottaLinksExtension`) for configuring links in `build.gradle.kts`. DSL values override `terracotta.yml` values and are wired into `terracottaPlan` and `terracottaApply` tasks.
 
 ### Changed

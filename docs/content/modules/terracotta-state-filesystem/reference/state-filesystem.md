@@ -26,8 +26,8 @@ By default, the backend reads and writes `.terracotta-state.yml` in the project 
 
     ```kotlin
     terracotta {
-        stateSource = "filesystem"
-        stateSourceSettings["path"] = "state/terracotta.yml"
+        stateSource.set("filesystem")
+        stateSourceSettings.put("path", "state/terracotta.yml")
     }
     ```
 

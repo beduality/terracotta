@@ -10,7 +10,7 @@ import java.util.Date
 /**
  * Encodes and decodes [TerracottaState] snapshots to and from YAML.
  *
- * This codec is intentionally internal to `terracotta-core`; the public API for
+ * This codec is internal to `terracotta-state-filesystem`; the public API for
  * persistence is [StateSource].
  */
 internal object YamlStateCodec {

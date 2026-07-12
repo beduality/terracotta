@@ -42,8 +42,8 @@ Add the module to your classpath and select the `"filesystem"` backend through y
     }
 
     terracotta {
-        stateSource = "filesystem"
-        stateSourceSettings["path"] = "state/terracotta.yml"
+        stateSource.set("filesystem")
+        stateSourceSettings.put("path", "state/terracotta.yml")
     }
     ```
 

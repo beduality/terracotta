@@ -150,7 +150,7 @@ buildscript {
 
 ### Deprecated `stateFile`
 
-The older `stateFile` property is deprecated but continues to work. Setting `stateFile` is equivalent to `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`. Prefer `stateSource` and `stateSourceSettings` for new configuration.
+The older `stateFile` property is deprecated but continues to work. Setting `stateFile` is equivalent to `stateSource.set("filesystem")` with `stateSourceSettings.put("path", <file>)`. Prefer `stateSource` and `stateSourceSettings` for new configuration.
 
 ---
 

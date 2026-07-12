@@ -41,8 +41,9 @@ internal object StateSourceResolver {
                 "Make sure the backend module is on the classpath."
         return if (id == "filesystem") {
             message +
-                " For the default filesystem backend, add:\n" +
-                "  implementation(\"io.github.beduality:terracotta-state-filesystem:<version>\")"
+                " For the default filesystem backend, add one of the following:\n" +
+                "  Gradle plugin buildscript: classpath(\"io.github.beduality:terracotta-state-filesystem:<version>\")\n" +
+                "  Regular dependency: implementation(\"io.github.beduality:terracotta-state-filesystem:<version>\")"
         } else {
             message
         }

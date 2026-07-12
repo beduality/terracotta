@@ -44,8 +44,8 @@ The backend writes state to `.terracotta-state.yml` in the project directory by 
 
     ```kotlin
     terracotta {
-        stateSource = "filesystem"
-        stateSourceSettings["path"] = "state/terracotta.yml"
+        stateSource.set("filesystem")
+        stateSourceSettings.put("path", "state/terracotta.yml")
     }
     ```
 
