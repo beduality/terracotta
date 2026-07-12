@@ -30,6 +30,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `HangarProviderLogic` and `HangarPlatformBehavior`, which filters out unsupported operations (`CreateProject`, gallery, and icon) before `HangarRegistryProvider` processes them. `HangarLoaderMapper` now implements the core `LoaderMapper` interface and is shared by the state and registry providers.
 - `HangarRegistryProvider` now warns when unsupported operations are skipped, including `CreateProject`, gallery, and icon operations.
 
+### Changed
+
+**Core**
+
+- Moved `ProjectMetadataDetector`, `ProjectMetadataLoader`, and built-in adapters into `io.github.beduality.terracotta.core.model.metadata.detector` (renamed from `io.github.beduality.terracotta.core.detect`). Service files and custom detector implementations must update package names and imports.
+
+**Gradle Plugin**
+
+- Renamed Gradle metadata detector package from `io.github.beduality.terracotta.gradle.detect` to `io.github.beduality.terracotta.gradle.detector`.
+
 ## [0.4.1] - 2026-07-12
 
 ### Fixed

@@ -1,6 +1,6 @@
 package io.github.beduality.terracotta.core.config
 
-import io.github.beduality.terracotta.core.detect.ProjectMetadataLoader
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataLoader
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource

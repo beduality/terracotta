@@ -12,12 +12,12 @@ By the end you will be able to resolve metadata from a directory containing `pro
 
 ## Step 1: Create the detector
 
-Create `modules/terracotta-core/src/main/kotlin/io/github/beduality/terracotta/core/detect/adapters/ProjectTomlDetector.kt`:
+Create `modules/terracotta-core/src/main/kotlin/io/github/beduality/terracotta/core/model/metadata/detector/adapters/ProjectTomlDetector.kt`:
 
 ```kotlin
-package io.github.beduality.terracotta.core.detect.adapters
+package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
-import io.github.beduality.terracotta.core.detect.ProjectMetadataDetector
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetadata
 
@@ -46,23 +46,23 @@ class ProjectTomlDetector : ProjectMetadataDetector {
 Create the service file:
 
 ```
-modules/terracotta-core/src/main/resources/META-INF/services/io.github.beduality.terracotta.core.detect.ProjectMetadataDetector
+modules/terracotta-core/src/main/resources/META-INF/services/io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 ```
 
 Add the fully qualified class name:
 
 ```
-io.github.beduality.terracotta.core.detect.adapters.ProjectTomlDetector
+io.github.beduality.terracotta.core.model.metadata.detector.adapters.ProjectTomlDetector
 ```
 
 ## Step 3: Write a test
 
-Create `modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/core/detect/adapters/ProjectTomlDetectorTest.kt`:
+Create `modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/core/model/metadata/detector/adapters/ProjectTomlDetectorTest.kt`:
 
 ```kotlin
-package io.github.beduality.terracotta.core.detect.adapters
+package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
-import io.github.beduality.terracotta.core.detect.ProjectMetadataLoader
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataLoader
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
 import io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -94,7 +94,7 @@ class ProjectTomlDetectorTest {
 ## Step 4: Run the test
 
 ```bash
-./gradlew :terracotta-core:test --tests "io.github.beduality.terracotta.core.detect.adapters.ProjectTomlDetectorTest"
+./gradlew :terracotta-core:test --tests "io.github.beduality.terracotta.core.model.metadata.detector.adapters.ProjectTomlDetectorTest"
 ```
 
 The test should pass.

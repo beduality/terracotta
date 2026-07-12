@@ -1,4 +1,4 @@
-package io.github.beduality.terracotta.core.detect
+package io.github.beduality.terracotta.core.model.metadata.detector
 
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadata
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext

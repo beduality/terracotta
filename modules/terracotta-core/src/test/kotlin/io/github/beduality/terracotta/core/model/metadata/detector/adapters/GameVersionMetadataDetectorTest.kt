@@ -1,4 +1,4 @@
-package io.github.beduality.terracotta.core.detect.adapters
+package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
 import io.github.beduality.terracotta.core.config.ProjectMetadataResolver
 import io.github.beduality.terracotta.core.config.TerracottaConfig

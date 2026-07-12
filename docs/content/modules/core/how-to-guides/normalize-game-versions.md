@@ -39,7 +39,7 @@ You have a canonical lowercase version identifier suitable for use in `Terracott
 - To normalize a larger block of text and extract all valid versions, use `GameVersionNormalizer`.
 
 ```kotlin
-import io.github.beduality.terracotta.core.detect.adapters.GameVersionNormalizer
+import io.github.beduality.terracotta.core.model.metadata.detector.adapters.GameVersionNormalizer
 
 val versions = GameVersionNormalizer.normalize("[1.20.1, 1.21.1]")
 ```

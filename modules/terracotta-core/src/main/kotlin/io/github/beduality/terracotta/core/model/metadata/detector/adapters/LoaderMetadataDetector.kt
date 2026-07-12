@@ -1,6 +1,6 @@
-package io.github.beduality.terracotta.core.detect.adapters
+package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
-import io.github.beduality.terracotta.core.detect.ProjectMetadataDetector
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaLoader
 import io.github.beduality.terracotta.core.model.TerracottaLoaderRegistry

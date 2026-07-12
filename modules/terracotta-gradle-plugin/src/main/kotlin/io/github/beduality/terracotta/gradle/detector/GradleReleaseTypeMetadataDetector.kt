@@ -1,6 +1,6 @@
-package io.github.beduality.terracotta.gradle.detect
+package io.github.beduality.terracotta.gradle.detector
 
-import io.github.beduality.terracotta.core.detect.ProjectMetadataDetector
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetadata
 import io.github.beduality.terracotta.core.model.releasetype.detectReleaseType

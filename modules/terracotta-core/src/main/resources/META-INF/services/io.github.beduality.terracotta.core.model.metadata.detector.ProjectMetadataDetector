@@ -1,0 +1,4 @@
+io.github.beduality.terracotta.core.model.metadata.detector.adapters.LicenseFileDetector
+io.github.beduality.terracotta.core.model.metadata.detector.adapters.LoaderMetadataDetector
+io.github.beduality.terracotta.core.model.metadata.detector.adapters.ReadmeMetadataDetector
+io.github.beduality.terracotta.core.model.metadata.detector.adapters.GameVersionMetadataDetector

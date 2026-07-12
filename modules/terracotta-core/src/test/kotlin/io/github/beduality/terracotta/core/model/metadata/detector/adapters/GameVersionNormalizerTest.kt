@@ -1,4 +1,4 @@
-package io.github.beduality.terracotta.core.detect.adapters
+package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
