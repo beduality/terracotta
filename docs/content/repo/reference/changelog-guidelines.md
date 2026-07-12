@@ -24,6 +24,23 @@ Do not include:
 - Formatting, lint, or style-only changes
 - Dependency updates that change nothing observable
 - Commit messages or implementation details
+- Class, method, import, or file names that are not part of the public API
+- Descriptions of how code was reorganized, inlined, or decoupled unless the reorganization itself creates a consumer-visible change
+
+If the only way to describe a change is by naming internal code, it probably does not belong in the changelog.
+
+## Source of truth: diff since the last release
+
+Changelog entries must be derived from the git diff since the last release tag. Review only the changes that are new relative to that tag; do not copy entries from older releases or describe work already shipped.
+
+When writing an entry:
+
+1. Run `git diff <last-release-tag>..HEAD -- <paths>` for the changed source and documentation files.
+2. Identify what a consumer can observe or must do differently.
+3. Describe that observable change, not the implementation that produced it.
+4. If the diff shows only internal refactoring with no observable effect, skip it.
+
+The changelog is a changes log for consumers, not a development log for contributors.
 
 ## Release summary
 

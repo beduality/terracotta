@@ -36,6 +36,8 @@ Summaries are required. If the release only contains one small fix, a single sen
 - **Start each entry with a past-tense verb.** Use `Added`, `Fixed`, `Updated`, `Removed`, `Changed`, `Configured`, etc.
 - **Be specific.** Say what changed in concrete terms, not "improved" or "refactored".
 - **Focus on impact, not implementation.** A consumer should understand the change without reading the code.
+- **No implementation details.** Do not mention imports, internal classes, method names, file renames, or how code was decoupled unless that detail is itself part of the public API or contract.
+- **Derive entries from the git diff since the last release tag.** Review only what is new relative to that tag and describe the observable change, not the diff lines.
 - **Inline the reason.** Use `so`, `because`, or similar to make the consumer-visible benefit part of the entry instead of a separate `**Why**:` line.
 - **Use bold module headings.** Write `**Module**` on its own line; do not use `####` headings.
 - **Group related changes.** Put multiple bullets under the same module when they belong together.
@@ -64,6 +66,16 @@ Summaries are required. If the release only contains one small fix, a single sen
 ```
 
 This describes implementation, not impact.
+
+```md
+### Changed
+
+**Gradle Plugin**
+
+- The Gradle plugin no longer imports `FileSystemStateSource` directly. The default state filename is now a local plugin constant, and `StateSourceResolver` collects discovered factory IDs.
+```
+
+This names internal classes, imports, and implementation mechanics. A consumer-facing version would describe the clearer missing-backend error and the reduced coupling to a specific backend.
 
 ## Breaking changes
 
