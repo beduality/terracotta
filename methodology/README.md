@@ -16,6 +16,7 @@ Each workflow packages an established practice:
 |---|---|
 | `module-development-workflow.md` | Phase-gated development, design-first / API-first planning |
 | `module-system-design-workflow.md` | Modular design, ports-and-adapters / clean architecture |
+| `module-contract-workflow.md` | Interface-first / API contract writing with KDoc |
 | `module-testing-workflow.md` | Test-driven development (TDD), behavior-driven testing |
 | `module-implementation-workflow.md` | Refactoring, composability, type safety |
 | `module-documentation-workflow.md` | Diátaxis documentation framework |
@@ -26,9 +27,11 @@ Each workflow packages an established practice:
 ## What is distinctive here
 
 - **Features and bug fixes have different sequences.** New work flows through
-  design, tests, implementation, review, and docs; bugs start with investigation.
+  design, contract, tests, implementation, review, and docs; bugs start with investigation.
 - **Investigation is a first-class phase for bug fixes.** Reproduce, isolate the
   root cause, validate the hypothesis, and add a regression test *before* fixing.
+- **Contract is explicit.** Public interfaces are written with KDoc before tests
+  and implementation, making the API surface reviewable early.
 - **Review is a mandatory gate**, not an optional checklist.
 - **Shared conventions are centralized** here so child workflows stay focused.
 

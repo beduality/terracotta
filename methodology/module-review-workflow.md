@@ -9,6 +9,9 @@ module development workflow or toward release.
 
 Run the relevant checklist before merging or releasing.
 
+By default, **auto-review** (automated tests, formatting checks, and CI) is sufficient.
+Require human review when a change touches public API, build configuration, security-sensitive code, or spans multiple modules.
+
 ## 1. Design review
 
 Before approving a design proposal:

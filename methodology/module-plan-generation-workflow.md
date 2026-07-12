@@ -20,10 +20,12 @@ sequence:
 
 | Change type | Plan phases |
 |---|---|
-| New module / major feature / new public API | Design → Tests → Implementation → Review → Docs |
-| Bug fix | Investigation → Tests → Implementation → Review |
-| Refactoring | Tests → Implementation → Review |
-| Documentation-only | Docs → Review |
+| New module / major feature / new public API | Design → Contract → Tests → Implementation → Review → Docs → Push |
+| Bug fix | Investigation → Tests → Implementation → Review (→ Docs → Push if behavior changes) |
+| Refactoring | Tests → Implementation → Review (→ Docs → Push if shared) |
+| Documentation-only | Docs → Review → Push |
+
+Insert **Contract** before Tests for bug fixes or refactorings that introduce a new public API surface or extension point.
 
 ## 3. Generate the plan file
 

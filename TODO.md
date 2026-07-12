@@ -25,6 +25,8 @@
 
 - Try migrate ClockTime to this project
 
+- Ask for friend feedback on the project
+
 - Add Provider feature support table to integration docs
 
 ---
