@@ -4311,7 +4311,7 @@
 <h2 id="partial-files">Partial files<a class="headerlink" href="#partial-files" title="Permanent link">&para;</a></h2>
 <p>All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults. Values set in the Kotlin DSL always override values from <code>terracotta.yml</code>.</p>
 <h2 id="auto-detection">Auto-detection<a class="headerlink" href="#auto-detection" title="Permanent link">&para;</a></h2>
-<p>Terracotta can infer several fields from standard project files when they are not configured explicitly. Detection runs after reading <code>terracotta.yml</code> but before applying Kotlin DSL overrides.</p>
+<p>Terracotta can infer several fields from standard project files and Gradle metadata when they are not configured explicitly. Detection runs after reading <code>terracotta.yml</code> but before applying Kotlin DSL overrides.</p>
 <table>
 <thead>
 <tr>
@@ -4322,9 +4322,29 @@
 </thead>
 <tbody>
 <tr>
+<td><code>name</code></td>
+<td>Gradle <code>project.name</code></td>
+<td>Used when no display name is configured.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>README.md</code></td>
+<td>First non-heading paragraph.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>README.md</code></td>
+<td>Full file content.</td>
+</tr>
+<tr>
 <td><code>loaders</code></td>
 <td><code>fabric.mod.json</code>, <code>META-INF/mods.toml</code>, <code>paper-plugin.yml</code>, <code>plugin.yml</code>, <code>bungee.yml</code>, <code>velocity-plugin.json</code>, <code>mods.toml</code> (Sponge), etc.</td>
 <td>Loader forks are resolved automatically; Paper also implies Spigot and Bukkit.</td>
+</tr>
+<tr>
+<td><code>gameVersions</code></td>
+<td>Loader-specific descriptors</td>
+<td>Extracted from platform metadata such as Fabric's <code>depends.minecraft</code>.</td>
 </tr>
 <tr>
 <td><code>environment</code></td>
@@ -4335,16 +4355,6 @@
 <td><code>license</code></td>
 <td><code>LICENSE</code> or <code>LICENSE.txt</code></td>
 <td>Only common SPDX identifiers are recognized.</td>
-</tr>
-<tr>
-<td><code>description</code></td>
-<td><code>README.md</code></td>
-<td>Full file content.</td>
-</tr>
-<tr>
-<td><code>summary</code></td>
-<td><code>README.md</code></td>
-<td>First non-heading paragraph.</td>
 </tr>
 <tr>
 <td><code>releaseType</code></td>
