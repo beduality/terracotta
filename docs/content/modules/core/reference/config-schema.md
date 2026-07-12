@@ -71,15 +71,17 @@ All top-level fields are optional. Missing values are resolved from detected pro
 
 ## Auto-detection
 
-Terracotta can infer several fields from standard project files when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying Kotlin DSL overrides.
+Terracotta can infer several fields from standard project files and Gradle metadata when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying Kotlin DSL overrides.
 
 | Field | Source | Notes |
 |-------|--------|-------|
+| `name` | Gradle `project.name` | Used when no display name is configured. |
+| `summary` | `README.md` | First non-heading paragraph. |
+| `description` | `README.md` | Full file content. |
 | `loaders` | `fabric.mod.json`, `META-INF/mods.toml`, `paper-plugin.yml`, `plugin.yml`, `bungee.yml`, `velocity-plugin.json`, `mods.toml` (Sponge), etc. | Loader forks are resolved automatically; Paper also implies Spigot and Bukkit. |
+| `gameVersions` | Loader-specific descriptors | Extracted from platform metadata such as Fabric's `depends.minecraft`. |
 | `environment` | Loader-specific descriptors | Defaults to `server_only` when not detected. |
 | `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers are recognized. |
-| `description` | `README.md` | Full file content. |
-| `summary` | `README.md` | First non-heading paragraph. |
 | `releaseType` | Gradle project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
 | `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
 

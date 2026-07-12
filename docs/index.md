@@ -82,16 +82,6 @@ Example plan output:
 ## A minimal `terracotta.yml`
 
 ```yaml
-name: "My Plugin"
-summary: "Lightweight Paper plugin"
-tags:
-  - paper
-  - utility
-gameVersions:
-  - "1.21.8"
-  - "1.21.7"
-releaseType: release
-
 providers:
   modrinth:
     projectId: "my-modrinth-project-id"
@@ -99,7 +89,7 @@ providers:
     projectId: "my-hangar-project-slug"
 ```
 
-`loaders`, `environment`, `license`, `description`, `summary`, and `changelog` can be automatically detected from files such as `fabric.mod.json`, `paper-plugin.yml`, `README.md`, `LICENSE`, and `CHANGELOG.md`. See the [Config Schema reference](content/modules/core/reference/config-schema.md) for every available field.
+For most projects, this is enough. Terracotta detects `name`, `summary`, `description`, `gameVersions`, `loaders`, `environment`, `license`, `releaseType`, and `changelog` from files such as `README.md`, `fabric.mod.json`, `paper-plugin.yml`, `LICENSE`, `CHANGELOG.md`, and your Gradle project metadata. Only `providers` is required to tell Terracotta where to publish. See the [Config Schema reference](content/modules/core/reference/config-schema.md) for every available field.
 
 ## Common tasks
 
