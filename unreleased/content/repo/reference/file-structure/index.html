@@ -4572,25 +4572,27 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>.
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── .agent/                 # Agent rules and guidelines
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── .devin/                 # Devin hooks and configuration
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── .github/                # GitHub Actions workflows and templates
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── .vscode/                # VSCode workspace settings and extensions
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── docs/                   # Documentation (MkDocs)
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── content/            # Content organized by topic (modules, integration, repo)
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   └── hooks/              # Build hooks for copying generated docs
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── gradle/                 # Gradle wrapper and version catalogs
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── modules/                # Gradle modules
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── project/                # Project management
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── scripts/                # Utility scripts (release, deployment)
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── build.gradle.kts        # Root build configuration
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── settings.gradle.kts     # Gradle settings
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── gradle.properties       # Gradle properties (version, etc.)
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── mkdocs.yml              # Documentation configuration
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── pyproject.toml          # Python dependencies (uv)
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── README.md               # Project overview
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── CHANGELOG.md            # Release notes
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── CONTRIBUTING.md         # Contribution guidelines
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── SECURITY.md             # Security policy
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>└── LICENSE                 # License
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── hooks/              # Post-tool-use automation hooks
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   └── slash-commands/     # Custom Devin slash commands (e.g. /proposal)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── .github/                # GitHub Actions workflows and templates
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── .vscode/                # VSCode workspace settings and extensions
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── docs/                   # Documentation (MkDocs)
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── content/            # Content organized by topic (modules, integration, repo)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   └── hooks/              # Build hooks for copying generated docs
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── gradle/                 # Gradle wrapper and version catalogs
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── modules/                # Gradle modules
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── project/                # Project management
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── scripts/                # Utility scripts (release, deployment)
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── build.gradle.kts        # Root build configuration
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── settings.gradle.kts     # Gradle settings
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── gradle.properties       # Gradle properties (version, etc.)
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── mkdocs.yml              # Documentation configuration
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── pyproject.toml          # Python dependencies (uv)
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── README.md               # Project overview
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── CHANGELOG.md            # Release notes
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── CONTRIBUTING.md         # Contribution guidelines
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── SECURITY.md             # Security policy
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>└── LICENSE                 # License
 </code></pre></div>
 <h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
 <ul>
