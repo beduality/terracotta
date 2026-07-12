@@ -23,26 +23,30 @@ This is **too permissive** and doesn't match what all platforms can represent:
 
 | Platform | Tag/Category Support | Lowest Common Denominator |
 |----------|---------------------|--------------------------|
-| Modrinth | Free-form category strings | Category strings (structured) |
-| CurseForge | Hierarchical categories (3 levels) | Categories (structured) |
-| Hangar | No tag system - channels/categories only | Platform categories |
+| Modrinth | Controlled category list + up to 3 featured tags | Category strings (structured) |
+| CurseForge | Category graph with numeric IDs | Categories (structured) |
+| Hangar | Platform categories + optional tags | Platform categories + tags |
 
 ## Research Findings
 
-### Modrinth (Labrinth API v2)
-- **Tags**: Free-form category strings (no strict allowed list)
-- Source: [Modrinth API Documentation](https://docs.modrinth.com/api)
+### Modrinth (Labrinth API v3/v2)
+- **Categories**: Controlled vocabulary chosen from checkboxes in the project settings UI
+  - Users can select any number of applicable categories from the allowed list
+  - Up to 3 selected categories can be marked as **featured tags**
+  - Remaining selected categories are still stored as additional tags
+- Source: [Modrinth API - Get a list of categories](https://docs.modrinth.com/api/operations/categorylist/)
 
-### CurseForge (Upload API v1)
-- **Tags**: Uses hierarchical **categories** system with 3 levels:
-  - Class → Category → Subcategory
-  - Example: `["mods", "mobs", "animals"]`
+### CurseForge (Core API v1)
+- **Categories**: Category graph with numeric IDs
+  - Each category has `id`, `classId` (top-level class), `parentCategoryId`, and `isClass`
+  - Projects expose `classId`, `primaryCategoryId`, and a `categories` array
+  - The "Class → Category → Subcategory" string-path model is inaccurate; mappings must use numeric IDs
 - Source: [CurseForge REST API](https://docs.curseforge.com/rest-api)
 
-### Hangar (REST API v1)
-- **Tags**: No tag system - uses channels/categories only
-- Projects are organized by platform groups (PAPER, VELOCITY, WATERFALL)
-- Source: [Hangar API](https://hangar.papermc.io)
+### Hangar (REST API v1/v2)
+- **Categories**: Platform groups such as `PAPER`, `VELOCITY`, and `WATERFALL`
+- **Tags**: Optional flags including `addon`, `library`, and `folia` compatible
+- Source: [Hangar API Docs](https://hangar.papermc.io/api-docs)
 
 ## Proposed Changes
 
@@ -76,13 +80,18 @@ val categories: TerracottaProjectCategories,
 ## Provider-Specific Mapping
 
 ### Modrinth Provider
-- Tags: Map `categories.primary.id` + `categories.additional.map { it.id }`
+- Map `categories.primary.id` plus up to 2 of the first `additional` IDs to the featured `categories` array (max 3)
+- Map the remaining selected categories to `additional_categories`
+- Validate all IDs against the platform category list
 
 ### CurseForge Provider
-- Tags: Map to hierarchical category system (class → category → subcategory)
+- Map canonical category IDs to CurseForge numeric category IDs via provider-specific mapping
+- Set `primaryCategoryId` from `categories.primary`
+- Populate `classId` and the `categories` array
 
 ### Hangar Provider
-- Tags: Map to platform categories (PAPER, VELOCITY, WATERFALL, etc.)
+- Map `categories.primary.id` to the platform category (PAPER, VELOCITY, WATERFALL)
+- Map recognized additional category IDs to Hangar tags (addon, library, folia)
 
 ## Migration Path
 
@@ -100,8 +109,8 @@ val categories: TerracottaProjectCategories,
 
 ## Risks & Considerations
 
-1. **Category Structure**: CurseForge's 3-level hierarchy may be overkill
-   - **Mitigation**: Start simple (primary + additional), extend if needed
+1. **Category Structure**: CurseForge's numeric category graph and Modrinth's controlled vocabulary require provider-specific mappings
+   - **Mitigation**: Keep the canonical model simple (primary + additional); let each provider resolve IDs to its native representation
 
 2. **Backward Compatibility**: Breaking change for existing configurations
    - **Mitigation**: Major version bump (v0.2.0), provide migration guide
@@ -118,6 +127,7 @@ val categories: TerracottaProjectCategories,
 
 ## References
 
-- [Modrinth API Projects](https://docs.modrinth.com/api/projects)
+- [Modrinth API - Categories](https://docs.modrinth.com/api/operations/categorylist/)
+- [Modrinth API - Projects](https://docs.modrinth.com/api/projects)
 - [CurseForge REST API](https://docs.curseforge.com/rest-api)
-- [Hangar API](https://hangar.papermc.io)
+- [Hangar API Docs](https://hangar.papermc.io/api-docs)
