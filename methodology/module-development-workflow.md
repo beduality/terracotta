@@ -8,42 +8,29 @@ A high-level workflow for building or significantly changing any `terracotta-*`
 module. It coordinates focused child workflows and defines the order in which they
 run.
 
-For shared conventions (placeholders, commit/release guidance, related file
-patterns), see `README.md` in this directory.
+For shared conventions, see `README.md` in this directory.
 
-Main sequence:
+Main sequence: `System design → Tests → Implementation → Review → Documentation`
 
-```
-System design → Test-driven development → Implementation → Review → Documentation
-```
+Bug-fix sequence: `Investigation → Tests → Implementation → Review`
 
-Bug-fix sequence:
-
-```
-Investigation → Test-driven development → Implementation → Review
-```
-
-Every change should pass through **Review** before release.
-
-Each child workflow has its own plan. This document describes when to move
-between them and what to carry forward at each hand-off.
+Every change passes through **Review** before release.
 
 ---
 
 ## Phase 1: System design
 
-**Goal**: decide what the module does, what its public API looks like, and how it
-fits into the rest of the system.
+**Goal**: define responsibilities, public API, and system fit.
 
 **Read**: `project/methodology/module-system-design-workflow.md`
 
 **Output before proceeding**:
 
-- A written design proposal in `project/proposals/<module>-design.md`.
-- A defined scope: responsibilities, inputs, outputs, and side effects.
-- A public API contract with Kotlin signatures or pseudo-code.
+- Design proposal in `project/proposals/<module>-design.md`.
+- Scope: responsibilities, inputs, outputs, and side effects.
+- Public API contract with Kotlin signatures or pseudo-code.
 - Internal component boundaries and dependency rules.
-- An error-handling and configuration strategy.
+- Error-handling and configuration strategy.
 
 **Stop if**: the proposal has not been reviewed, or the module's responsibilities
 overlap with an existing module.
@@ -52,8 +39,7 @@ overlap with an existing module.
 
 ## Phase 2: Test-driven development
 
-**Goal**: write executable specifications that encode the desired behavior before
-any production code exists.
+**Goal**: write executable specifications before production code exists.
 
 **Read**: `project/methodology/module-testing-workflow.md`
 
@@ -75,7 +61,7 @@ that the design needs to change. In that case, return to Phase 1.
 
 ## Phase 3: Implementation
 
-**Goal**: make the failing tests pass with a production-ready implementation.
+**Goal**: make failing tests pass with a production-ready implementation.
 
 **Read**: `project/methodology/module-implementation-workflow.md`
 
@@ -86,9 +72,9 @@ that the design needs to change. In that case, return to Phase 1.
 
 **Work**:
 
-- Write the smallest implementation that turns the tests green.
+- Write the smallest implementation that turns tests green.
 - Refactor for composability, modularity, extensibility, abstraction, and type safety.
-- Document every public API element with KDoc for Dokka.
+- Document public API with KDoc for Dokka.
 - Verify the full module build and quality checks.
 
 **Output before proceeding**:
@@ -104,7 +90,7 @@ the design. Return to Phase 1, then Phase 2.
 
 ## Phase 4: Documentation
 
-**Goal**: publish user-facing guides and cross-linked API reference docs.
+**Goal**: publish user-facing guides and cross-linked API reference.
 
 **Read**: `project/methodology/module-documentation-workflow.md`
 
@@ -116,7 +102,7 @@ the design. Return to Phase 1, then Phase 2.
 **Work**:
 
 - Write Diátaxis docs under `docs/content/<module>/`.
-- Wire the docs into `mkdocs.yml`.
+- Wire docs into `mkdocs.yml`.
 - Cross-link KDoc to user docs with `@see` tags.
 - Deduplicate content from SDK or shared reference pages.
 - Verify docs build and links work.
@@ -131,12 +117,10 @@ the design. Return to Phase 1, then Phase 2.
 
 ## Hand-off checklist
 
-Use this checklist when moving from one phase to the next:
-
 | From | To | Required artifact |
 |------|----|-------------------|
 | Design | Tests | Approved design proposal with public API sketch |
-| Tests | Implementation | Failing tests that exercise the public API contract |
+| Tests | Implementation | Failing tests exercising the public API contract |
 | Implementation | Review | Passing tests and KDoc-covered public API |
 | Investigation | Tests | Reproduced bug and regression test |
 | Review | Docs | Approved change |
@@ -161,30 +145,11 @@ Not every module change needs every phase.
 
 ## Review gates
 
-Run `project/methodology/module-review-workflow.md` before moving a change
-forward:
+Run `module-review-workflow.md` before moving forward:
 
-- **Design review** before starting implementation.
-- **Code review** before writing docs or merging.
+- **Design review** before implementation.
+- **Code review** before docs or merge.
 - **Documentation review** before release.
 - **Merge / release review** before tagging or deploying.
 
-A change may loop back to an earlier phase based on review feedback.
-
----
-
-## Module placeholders
-
-For shared placeholders, see `project/methodology/README.md`.
-
----
-
-## Related files
-
-- `project/methodology/module-system-design-workflow.md` — Phase 1.
-- `project/methodology/module-testing-workflow.md` — Phase 2.
-- `project/methodology/module-implementation-workflow.md` — Phase 3.
-- `project/methodology/module-documentation-workflow.md` — Phase 4.
-- `project/methodology/module-bugfix-workflow.md` — Investigation path for bug fixes.
-- `project/methodology/module-review-workflow.md` — Review checkpoints.
-- `project/methodology/README.md` — shared placeholders and commit/release guidance.
+Review feedback can loop a change back to an earlier phase.

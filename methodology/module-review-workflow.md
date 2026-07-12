@@ -50,9 +50,3 @@ Before merging or releasing:
 - `CHANGELOG.md` is updated if users need to know about the change.
 - CI is green.
 
----
-
-## Related files
-
-- `module-development-workflow.md` — scope guidance and phase ordering.
-- `README.md` — shared placeholders and commit/release guidance.

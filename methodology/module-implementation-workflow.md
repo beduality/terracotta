@@ -5,138 +5,80 @@ description: Reusable workflow for implementing a production-ready Terracotta mo
 # Module Implementation Workflow
 
 A repeatable workflow for turning a failing test suite into a production-ready
-implementation in any `terracotta-*` module. It is designed to run after the TDD
-workflow has established the required behavior, and focuses on building
-maintainable, composable, well-documented code.
+implementation in any `terracotta-*` module. Runs after the TDD workflow and
+focuses on maintainable, composable, well-documented code.
 
 This is Phase 3 of the module development workflow. Start with
 `module-development-workflow.md` if you have not read it.
 
 ## 1. Start from the failing tests
 
-The implementation phase begins once there are tests describing the desired
-behavior. If the tests are not yet written, follow the module TDD workflow first.
+Begin once tests describe the desired behavior. If tests are not written, follow
+the testing workflow first.
 
-Run the tests to confirm the current failure mode:
+Run the tests to confirm the current failure:
 
 ```bash
 ./gradlew :<module>:test --tests "<fully.qualified.TestClass>"
 ```
 
-Use the failure message as the guide for the first implementation step.
-
 ## 2. Satisfy the tests with the smallest change
 
-Write the smallest amount of code that makes the new tests pass. Do not:
-
-- Add unrelated features.
-- Prematurely extract frameworks or abstractions.
-- Optimize for performance without a measured reason.
-- Leak implementation details into public APIs.
-
-Keep implementation close to the tested behavior. It is acceptable for the first
-pass to be simple or even naive; refactoring comes next.
+Write the smallest amount of code that makes the new tests pass. Avoid unrelated
+features, premature abstractions, unmeasured optimizations, and leaking
+implementation details into public APIs. The first pass can be simple; refactoring
+comes next.
 
 ## 3. Refactor toward production quality
 
-Once tests pass, refactor the implementation. Verify the test suite stays green
-after every change. Apply the following principles:
+Once tests pass, refactor. Verify the suite stays green after every change.
 
-### Composability
-
-- Build behavior from small, single-purpose units that can be combined.
-- Prefer constructor injection and function parameters over global or mutable state.
-- Favor immutable data structures and pure functions where side effects are not required.
-
-### Modularity
-
-- Keep each public class or function focused on one responsibility.
-- Place internal helpers in `internal` packages or mark them `internal` so they do
-  not become accidental public API.
-- Avoid tight coupling to external libraries; introduce thin adapters at module
-  boundaries.
-
-### Extensibility
-
-- Design for new variants through interfaces, sealed classes, or strategy objects
-  rather than `if` chains over hard-coded values.
-- Expose extension points (e.g., listeners, custom detectors, provider adapters) only
-  when there is a concrete use case.
-- Avoid requiring consumers to subclass framework types.
-
-### Abstraction
-
-- Abstract only after you have at least two concrete examples or a clear seam.
-- Keep public APIs stable; hide unstable details behind `internal` or private members.
-- Do not over-generalize one-off behavior into reusable machinery.
-
-### Type safety
-
-- Use Kotlin's type system to make invalid states unrepresentable.
-- Prefer value classes, sealed classes, and non-nullable types over primitive `String`
-  or `Boolean` flags when a concept has meaning.
-- Avoid `Any` or unchecked casts in public APIs.
+- **Composability**: build behavior from small, single-purpose units; prefer
+  constructor injection, immutable data, and pure functions.
+- **Modularity**: one responsibility per public class or function; mark helpers
+  `internal`; use thin adapters at module boundaries.
+- **Extensibility**: favor interfaces, sealed classes, and strategy objects over
+  hard-coded `if` chains; expose extension points only for concrete use cases.
+- **Abstraction**: abstract only after two concrete examples or a clear seam;
+  keep public APIs stable and hide unstable details.
+- **Type safety**: use value classes, sealed classes, and non-null types; avoid
+  `Any` and unchecked casts in public APIs.
 
 ## 4. Stabilize the public API
 
-The module's public API is what consumers see and what Dokka documents. Before
-moving on:
+The public API is what consumers see and Dokka documents. Before moving on:
 
 - Review every public class, interface, object, enum, and top-level function.
-- Remove accidental public members that were only needed internally.
-- Keep parameter lists short; group related options into data classes when needed.
-- Ensure binary compatibility is intentional. Mark experimental APIs with
-  `@RequiresOptIn` if necessary.
+- Remove accidental public members.
+- Keep parameter lists short; group related options into data classes.
+- Mark experimental APIs with `@RequiresOptIn` if necessary.
 
 ## 5. Document with KDoc for Dokka
 
-Every public API element must have useful KDoc so Dokka produces complete
-reference documentation.
+Every public API element needs useful KDoc. Add KDoc to classes, interfaces,
+objects, enums, constructors, functions, properties, and thrown exceptions.
+Cross-link to user-facing guides with `@see` where appropriate.
 
-Add KDoc to:
-
-- Public classes, interfaces, objects, and enums.
-- Public constructors.
-- Public functions and their parameters (`@param`) and return value (`@return`).
-- Public properties, including data-class properties.
-- Thrown exceptions (`@throws`).
-
-Cross-link to user-facing guides where appropriate:
-
-```kotlin
-/**
- * Detects the release type from project metadata.
- *
- * @param metadata The local project metadata.
- * @return The detected release type, or `null` if no type could be inferred.
- * @see [Release types explanation](https://beduality.github.io/terracotta/content/core/explanation/release-types.html)
- */
-```
-
-Internal members should have enough KDoc to explain intent, but they do not need
-Dokka-quality prose.
+Internal members need only enough KDoc to explain intent.
 
 ## 6. Add configuration and wiring
 
-Update the module's `build.gradle.kts` if the implementation needs new
-dependencies, source sets, or Gradle tasks.
+Update `modules/<module>/build.gradle.kts` if the implementation needs new
+dependencies, source sets, or tasks:
 
-Guidelines:
-
-- Declare dependencies with the smallest scope needed (`implementation` preferred
-  over `api`).
-- Avoid exposing implementation dependencies as part of the public API.
-- Use version catalogs (`libs.xxx`) for dependency versions.
+- Prefer `implementation` over `api`.
+- Do not expose implementation dependencies as public API.
+- Use version catalogs (`libs.xxx`).
 
 ## 7. Run the full verification suite
 
-Verify the module builds, tests pass, and code quality checks succeed:
+Verify the module builds and quality checks pass:
 
 ```bash
 ./gradlew :<module>:build :<module>:spotlessCheck
 ```
 
-If `spotlessCheck` fails, run `:spotlessApply` to auto-fix formatting, then review the diff.
+If `spotlessCheck` fails, run `:spotlessApply`, then review the diff.
 
 If the module publishes API docs:
 
@@ -144,36 +86,15 @@ If the module publishes API docs:
 ./gradlew :<module>:dokkaHtml
 ```
 
-Review the generated Dokka output to confirm public API documentation is
-complete and links work.
+Review Dokka output to confirm public API docs are complete and links work.
 
 ## 8. Review before committing
 
-Check the implementation against the project's standards:
+Check the implementation against project standards:
 
-- **Readable**: names reveal intent; complex logic is split into helper functions.
-- **Tested**: every new behavior is covered by the TDD tests; edge cases are present.
-- **Documented**: public API has KDoc; internal code is self-explanatory, with comments reserved for non-obvious intent or external constraints.
-- **Consistent**: code follows the existing style enforced by Spotless.
-- **Secure**: inputs are validated; secrets and tokens are not logged or exposed.
+- **Readable**: names reveal intent; complex logic is split into helpers.
+- **Tested**: every new behavior is covered; edge cases are present.
+- **Documented**: public API has KDoc; internal code is self-explanatory.
+- **Consistent**: follows the style enforced by Spotless.
+- **Secure**: inputs are validated; secrets are not logged or exposed.
 
-## Module placeholders
-
-For shared placeholders, see `README.md` in this directory.
-
-Phase-specific placeholders:
-
-| Placeholder | Example value |
-|-------------|---------------|
-| Dokka output | `modules/<module>/build/dokka/html/` |
-
----
-
-## Related files
-
-- `README.md` — shared placeholders and commit/release guidance.
-- `modules/<module>/src/main/kotlin/` — module source code.
-- `modules/<module>/src/test/kotlin/` — tests that drive the implementation.
-- `modules/<module>/build.gradle.kts` — module dependencies and build configuration.
-- `gradle/libs.versions.toml` — shared dependency versions.
-- `mkdocs.yml` — user-facing documentation navigation, if docs are part of the change.
