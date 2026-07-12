@@ -4655,7 +4655,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    1 min read
+    2 min read
   </p>
 
 <h1 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h1>
@@ -4700,6 +4700,18 @@
 <tr>
 <td><code>DeleteGalleryItem(item)</code></td>
 <td>Remove a gallery image from the remote project.</td>
+</tr>
+<tr>
+<td><code>UploadIcon(iconPath)</code></td>
+<td>Upload a project icon.</td>
+</tr>
+<tr>
+<td><code>UpdateIcon(oldIconUrl, iconPath)</code></td>
+<td>Replace the project icon.</td>
+</tr>
+<tr>
+<td><code>DeleteIcon(iconUrl)</code></td>
+<td>Delete the project icon.</td>
 </tr>
 </tbody>
 </table>
@@ -4751,6 +4763,18 @@
 <tr>
 <td>Remote gallery item not present locally</td>
 <td><code>DeleteGalleryItem</code>.</td>
+</tr>
+<tr>
+<td>Local icon configured but remote has none</td>
+<td><code>UploadIcon</code>.</td>
+</tr>
+<tr>
+<td>Local icon differs from remote icon</td>
+<td><code>UpdateIcon</code>.</td>
+</tr>
+<tr>
+<td>Remote icon present but local has none</td>
+<td><code>DeleteIcon</code>.</td>
 </tr>
 </tbody>
 </table>
