@@ -9,8 +9,8 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 
 ## Source of truth
 
-- TODO item: None; the proposal is the source of truth.
-- Design proposal: `project/proposals/26-07-12-add-module-integration.md`
+- TODO item: None; the design is the source of truth.
+- Design proposal: `project/designs/26-07-12-add-module-integration.md`
 
 ## Progress summary
 
@@ -37,7 +37,7 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 ## Phase 2: System design
 
 - [ ] Read `project/methodology/module-system-design-workflow.md`.
-- [ ] Read `project/proposals/26-07-12-add-module-integration.md`.
+- [ ] Read `project/designs/26-07-12-add-module-integration.md`.
 - [ ] Confirm the module is non-published and has no `src/main/kotlin` source set.
 - [ ] Confirm the initial test scope is the two Gradle TestKit suites in `terracotta-gradle-plugin`.
 - [ ] Classify existing tests in `terracotta-gradle-plugin`, `terracotta-provider-modrinth`, `terracotta-provider-hangar`, and `terracotta-core` as unit vs integration.
@@ -106,9 +106,9 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 
 - [ ] Archive project artifacts used for this work:
   - Move this plan to `project/plans/archived/2026-07-terracotta-integration-module-plan.md`.
-  - Move the design proposal to `project/proposals/archived/26-07-12-add-module-integration.md` if it is no longer needed.
+  - Move the design proposal to `project/designs/archived/26-07-12-add-module-integration.md` if it is no longer needed.
   - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
-- [ ] Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 
 ## Notes
 

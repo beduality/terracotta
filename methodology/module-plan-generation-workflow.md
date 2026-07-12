@@ -70,8 +70,8 @@ reviewers see.
 When all checkboxes are done and the change is merged or released:
 
 - Observe CD and confirm the deployment succeeds.
-- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
-- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
+- Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 - Link the merged PR or release tag in the release report and any final notes.
 - Move the source TODO item to a done section or remove it.
 

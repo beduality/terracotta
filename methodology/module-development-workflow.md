@@ -47,7 +47,7 @@ Every change passes through **Review** and is pushed to **remote** before releas
 
 **Output before proceeding**:
 
-- Design proposal in `project/proposals/<module>-design.md`.
+- Design proposal in `project/designs/<module>-design.md`.
 - Scope: responsibilities, inputs, outputs, and side effects.
 - Public API contract with Kotlin signatures or pseudo-code.
 - Internal component boundaries and dependency rules.
@@ -230,8 +230,8 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 **Work**:
 
-- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
-- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out with the released version links and verification results.
+- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
+- Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out with the released version links and verification results.
 
 **Output before considering the module complete**:
 

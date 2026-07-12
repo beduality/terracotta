@@ -71,13 +71,13 @@ When applying any workflow, replace these placeholders consistently:
 | Smoke test source set | `modules/<module>/src/smokeTest/kotlin/` |
 | Build file | `modules/<module>/build.gradle.kts` |
 | Docs directory | `docs/content/<module>/` |
-| Design proposal | `project/proposals/<module>-design.md` |
+| Design proposal | `project/designs/<module>-design.md` |
 | Plan file | `project/plans/YYYY-MM-<short-name>-plan.md` |
 | Brainstorm note | `project/brainstorm/<datetime>-<title>.md` |
 | Release report | `project/reports/release/<datetime>-<title>.md` |
-| Release report template | `reports/release/TEMPLATE.md` |
+| Release report template | `project/reports/TEMPLATE.md` |
 | Archived plans | `project/plans/archived/<plan>.md` |
-| Archived proposals | `project/proposals/archived/<proposal>.md` |
+| Archived designs | `project/designs/archived/<design>.md` |
 | Archived brainstorm notes | `project/brainstorm/archived/<note>.md` |
 | KDoc base URL | `https://beduality.github.io/terracotta/<module>/` |
 
@@ -98,5 +98,5 @@ Choose the release path:
 - Push directly to `main` for small, low-risk, documentation-only changes.
 - Open a pull request, review it, and merge once CI is green for changes that affect public API, build configuration, or multiple modules.
 - Observe CD after merge and confirm the deployment succeeds.
-- Archive the plan, proposal, and brainstorm note used for the work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
+- Archive the plan, design, and brainstorm note used for the work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
 - Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.

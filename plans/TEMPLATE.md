@@ -10,7 +10,7 @@ touches `<modules>`.
 ## Source of truth
 
 - TODO item: `<text>` (`project/TODO.md`)
-- Design proposal: `project/proposals/<proposal>.md` (if needed)
+- Design proposal: `project/designs/<design>.md` (if needed)
 
 ## Progress summary
 
@@ -88,9 +88,9 @@ touches `<modules>`.
 
 - [ ] Archive project artifacts used for this work:
   - Move this plan to `project/plans/archived/<plan>.md`.
-  - Move the design proposal to `project/proposals/archived/<proposal>.md` if it is no longer needed.
+  - Move the design proposal to `project/designs/archived/<design>.md` if it is no longer needed.
   - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
-- [ ] Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 
 ## Notes
 
