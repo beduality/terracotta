@@ -128,4 +128,4 @@ Terracotta docs are organized by what you are trying to do:
 
 - [:fontawesome-brands-github: GitHub](https://github.com/beduality/terracotta)
 - [:fontawesome-brands-discord: Discord](https://discord.gg/D5meCv2Wnd)
-- [License](LICENSE)
+- [License](LICENSE.md)

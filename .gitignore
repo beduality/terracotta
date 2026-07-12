@@ -12,7 +12,7 @@ bin
 site/
 .venv/
 docs/changes.md
-docs/LICENSE
+docs/LICENSE.md
 docs/apidocs/
 
 **/__pycache__

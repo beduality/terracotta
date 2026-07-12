@@ -34,6 +34,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hangar registry provider now warns when `licenseUrl` is configured, since Hangar does not support publishing a license URL.
 - Hangar registry provider now skips gallery operations with a warning, since Hangar does not expose a gallery API.
 
+### Changed
+
+**Core**
+
+- Split `TerracottaConfig`, `TerracottaConventionConfig`, and `TerracottaProviderConfig` into separate source files under `io.github.beduality.terracotta.core.config` for better maintainability. No API or behavior changes.
+
+### Fixed
+
+**Docs**
+
+- Fixed the docs License page by copying the root `LICENSE` to `docs/LICENSE.md`, adding it to the Quick Start navigation, and updating the index link so the page is reachable and rendered correctly.
+
 ## [0.3.0] - 2026-07-12
 
 ### Added
