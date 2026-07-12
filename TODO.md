@@ -8,6 +8,7 @@
 - Add to Github module docs to not confuse with GHA module (not yet available)
 - Add [Narrow License](./proposals/2025-07-narrow-license.md)
 - Add [Narrow Tags](./proposals/2025-07-narrow-tags.md)
+- Add [Canonical Project Links](./proposals/2026-07-canonical-project-links.md)
 - Try migrate ClockTime to this project
 
 ---
@@ -20,17 +21,6 @@
 
 - Add "create" task
 
-- Add [Staging Environments](./proposals/2025-07-staging-environments.md) like Modrinth Staging
-
-- Add [YAML Schema for IDEs](./proposals/2026-07-yaml-schema-for-ides.md)
-
-- Add [Provider Toposort](./proposals/2025-07-provider-toposort.md)
-- Add [Git Provider](./proposals/2025-07-git-provider.md)
-- Add [GitHub Release Provider](./proposals/2025-07-github-release-provider.md)
-- Add [CurseForge Provider](./proposals/2025-07-curseforge-provider.md)
-
-- Add AI Skills
-
 - Add support for multiple Terracotta files
     - Import mode
     - `platform/` convention
@@ -39,3 +29,14 @@
     - Add [Cloud Preview Service](./proposals/2025-07-cloud-preview-service.md) (paid Cloud plan, web UI + CLI)
     - Add [Terracotta Registry Gateway](./proposals/2026-07-terracotta-registry-gateway.md)
 - [gha] Add GHA integration
+
+---
+
+- Add [Staging Environments](./proposals/2025-07-staging-environments.md) like Modrinth Staging
+
+- Add [YAML Schema for IDEs](./proposals/2026-07-yaml-schema-for-ides.md)
+
+- Add [Provider Toposort](./proposals/2025-07-provider-toposort.md)
+- Add [Git Provider](./proposals/2025-07-git-provider.md)
+- Add [GitHub Release Provider](./proposals/2025-07-github-release-provider.md)
+- Add [CurseForge Provider](./proposals/2025-07-curseforge-provider.md)

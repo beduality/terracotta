@@ -25,7 +25,7 @@ This is **too permissive** and doesn't match what all platforms can represent:
 |----------|---------------------|--------------------------|
 | Modrinth | Controlled category list + up to 3 featured tags | Category strings (structured) |
 | CurseForge | Category graph with numeric IDs | Categories (structured) |
-| Hangar | Platform categories + optional tags | Platform categories + tags |
+| Hangar | Single category + optional tags | Single category + tags |
 
 ## Research Findings
 
@@ -44,8 +44,9 @@ This is **too permissive** and doesn't match what all platforms can represent:
 - Source: [CurseForge REST API](https://docs.curseforge.com/rest-api)
 
 ### Hangar (REST API v1/v2)
-- **Categories**: Platform groups such as `PAPER`, `VELOCITY`, and `WATERFALL`
-- **Tags**: Optional flags including `addon`, `library`, and `folia` compatible
+- **Platform**: The runtime platform is derived from loaders/artifacts (`PAPER`, `VELOCITY`, `WATERFALL`, `FOLIA`). It is separate from categorization.
+- **Category**: A single project category chosen from a controlled list (e.g., `gameplay`). The UI describes this as "one of 10 categories".
+- **Tags**: Optional flags including `addon`, `library`, and `folia` compatible.
 - Source: [Hangar API Docs](https://hangar.papermc.io/api-docs)
 
 ## Proposed Changes
@@ -84,21 +85,24 @@ val categories: TerracottaProjectCategories,
 - Map the remaining selected categories to `additional_categories`
 - Validate all IDs against the platform category list
 
-### CurseForge Provider
+### CurseForge Provider (design only for this phase)
 - Map canonical category IDs to CurseForge numeric category IDs via provider-specific mapping
 - Set `primaryCategoryId` from `categories.primary`
 - Populate `classId` and the `categories` array
+- **Note**: CurseForge mapping is out of scope for the initial execution of this proposal; it is included in the design so the canonical model remains extensible.
 
 ### Hangar Provider
-- Map `categories.primary.id` to the platform category (PAPER, VELOCITY, WATERFALL)
-- Map recognized additional category IDs to Hangar tags (addon, library, folia)
+- Map `categories.primary.id` to Hangar's single project category (e.g., `gameplay`)
+- Map recognized `additional` category IDs to Hangar tags (`addon`, `library`, `folia`)
+- Derive the runtime platform (`PAPER`, `VELOCITY`, `WATERFALL`, `FOLIA`) from `loaders`, not from categories
 
 ## Migration Path
 
 1. Create `TerracottaCategory` and `TerracottaProjectCategories`
 2. Change `tags: List<String>` → `categories: TerracottaProjectCategories`
 3. Update Gradle plugin DSL to accept narrowed category types
-4. Implement provider-specific category mappings
+4. Implement provider-specific category mappings for Modrinth and Hangar
+5. Keep CurseForge mapping in the canonical design but defer implementation to a later phase
 
 ## Benefits
 
@@ -109,8 +113,8 @@ val categories: TerracottaProjectCategories,
 
 ## Risks & Considerations
 
-1. **Category Structure**: CurseForge's numeric category graph and Modrinth's controlled vocabulary require provider-specific mappings
-   - **Mitigation**: Keep the canonical model simple (primary + additional); let each provider resolve IDs to its native representation
+1. **Category Structure**: CurseForge's numeric category graph, Modrinth's controlled vocabulary, and Hangar's single category + tags require provider-specific mappings
+   - **Mitigation**: Keep the canonical model simple (primary + additional); let each provider resolve IDs to its native representation. Hangar's runtime platform stays derived from `loaders`.
 
 2. **Backward Compatibility**: Breaking change for existing configurations
    - **Mitigation**: Major version bump (v0.2.0), provide migration guide
@@ -121,9 +125,10 @@ val categories: TerracottaProjectCategories,
 2. 🔄 Create `TerracottaCategory` and `TerracottaProjectCategories`
 3. 🔄 Update `TerracottaProject` tags field
 4. 🔄 Update Gradle plugin DSL
-5. 🔄 Implement provider category mappings
-6. 🔄 Add comprehensive tests
-7. 🔄 Update documentation
+5. 🔄 Implement provider category mappings for Modrinth and Hangar
+6. 🔄 Defer CurseForge mapping implementation to a later phase
+7. 🔄 Add comprehensive tests
+8. 🔄 Update documentation
 
 ## References
 

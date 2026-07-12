@@ -51,7 +51,10 @@ When a phase reveals new work:
 
 ## 5. Update progress
 
-After every meaningful session, update the plan:
+Update the plan checkboxes while the session is in progress, as soon as an item
+is completed or its status changes. Do not wait until the end of the session.
+
+After every meaningful session, also review the plan as a whole:
 
 - Check off completed items.
 - Add new items discovered during work.

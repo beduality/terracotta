@@ -10,6 +10,8 @@
 
 - Add term color library
 
+- Add AI Skills
+
 - Move `release` script to its own repo
 - Move docs setup to its own repo
 - Look for a better way to load Pulumi secrets
