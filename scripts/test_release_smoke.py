@@ -303,10 +303,12 @@ def test_docs_sub_pages(release_version):
 
     MkDocs Material + mike deploys content under the version directory with a
     `content/` prefix because the repo keeps source docs under `docs/content/`.
+    Since v0.3.0 the published structure groups module docs under
+    `content/modules/<module>/...`.
     """
     paths = [
-        f"https://beduality.github.io/terracotta/{release_version}/content/sdk/reference/installation/",
-        f"https://beduality.github.io/terracotta/{release_version}/content/gradle-plugin/tutorials/getting-started/",
+        f"https://beduality.github.io/terracotta/{release_version}/content/modules/core/tutorials/installation/",
+        f"https://beduality.github.io/terracotta/{release_version}/content/modules/gradle-plugin/tutorials/getting-started/",
         f"https://beduality.github.io/terracotta/{release_version}/content/repo/how-to-guides/releasing/",
     ]
     failures = []
@@ -330,15 +332,23 @@ def test_docs_version_reflected(release_version):
 
 
 @pytest.mark.skipif("not config.getoption('--build-from-tag')")
-def test_build_from_tag(release_version, tag):
-    repo_root = Path(__file__).resolve().parents[1]
-    _run(["git", "fetch", "origin", "tag", tag], cwd=repo_root, check=False)
-    _run(["git", "checkout", tag], cwd=repo_root)
-    try:
-        result = _run(["./gradlew", "spotlessCheck", "build", "--no-daemon"], cwd=repo_root, timeout=300)
-        assert result.returncode == 0, f"Build from tag failed:\n{result.stdout}\n{result.stderr}"
-    finally:
-        _run(["git", "checkout", "-"], cwd=repo_root, check=False)
+def test_build_from_tag(release_version, tag, tmp_path_factory):
+    """Clone the release tag into a temp directory and build it there.
+
+    This avoids mutating the current working tree or branches.
+    """
+    tmp = tmp_path_factory.mktemp("terracotta-build-from-tag")
+    _run(
+        ["git", "clone", "--depth", "1", "--branch", tag, f"https://github.com/{REPO}.git", str(tmp)],
+        timeout=120,
+    )
+    result = _run(
+        ["./gradlew", "spotlessCheck", "build", "--no-daemon"],
+        cwd=tmp,
+        timeout=300,
+        check=False,
+    )
+    assert result.returncode == 0, f"Build from tag {tag} failed:\n{result.stdout}\n{result.stderr}"
 
 
 @pytest.mark.skipif("not config.getoption('--gradle-e2e')")
