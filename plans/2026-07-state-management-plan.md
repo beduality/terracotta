@@ -1,0 +1,63 @@
+---
+description: Implementation plan for a pluggable state-management layer in terracotta-core, starting with a file-backed implementation.
+---
+
+# State Management Implementation Plan
+
+This plan follows `module-development-workflow.md` for a **feature** that
+touches `terracotta-core`, `terracotta-gradle-plugin`.
+
+## Source of truth
+
+- TODO item: `<text>` (`project/TODO.md`)
+- Design proposal: `project/proposals/2026-07-state-management.md`
+
+## Progress summary
+
+| Phase | Status | Notes |
+|-------|--------|-------|
+| System design | Not started | |
+| TDD | Not started | |
+| Implementation | Not started | |
+| Build / quality checks | Not started | |
+| Documentation | Not started | |
+| Review / release prep | Not started | |
+
+## Phase 1: System design
+
+- [ ] Read `module-system-design-workflow.md`.
+- [ ] Read or write the design proposal.
+- [ ] Complete design review checklist from `module-review-workflow.md`.
+- [ ] Update this plan with decisions that affect later phases.
+
+## Phase 2: Test-driven development
+
+- [ ] Read `module-testing-workflow.md`.
+- [ ] Identify behavior and edge cases.
+- [ ] Write failing tests.
+- [ ] Run tests and confirm they fail for the expected reason.
+
+## Phase 3: Implementation
+
+- [ ] Read `module-implementation-workflow.md`.
+- [ ] Make tests pass with the smallest change.
+- [ ] Refactor and add KDoc.
+- [ ] Run `:build :spotlessCheck`.
+
+## Phase 4: Documentation
+
+- [ ] Read `module-documentation-workflow.md`.
+- [ ] Add or update Diátaxis docs.
+- [ ] Cross-link KDoc with `@see`.
+- [ ] Run `mkdocs build --strict`.
+
+## Phase 5: Review / release prep
+
+- [ ] Read `module-review-workflow.md`.
+- [ ] Run code review checklist.
+- [ ] Update `CHANGELOG.md` if users need to know about the change.
+- [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
+
+## Notes
+
+<!-- Decisions, blockers, and discoveries go here as work progresses. -->

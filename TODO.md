@@ -24,6 +24,9 @@
 
 - Add [YAML Schema for IDEs](./proposals/2026-07-yaml-schema-for-ides.md)
 
+- Add [Provider Toposort](./proposals/2025-07-provider-toposort.md)
+- Add [Git Provider](./proposals/2025-07-git-provider.md)
+- Add [GitHub Release Provider](./proposals/2025-07-github-release-provider.md)
 - Add [CurseForge Provider](./proposals/2025-07-curseforge-provider.md)
 
 - Add AI Skills
