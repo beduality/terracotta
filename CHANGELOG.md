@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-12
+
 ### Added
 
 **Core**
@@ -45,7 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Docs**
 
 - Fixed the docs License page by copying the root `LICENSE` to `docs/LICENSE.md`, adding it to the Quick Start navigation, and updating the index link so the page is reachable and rendered correctly.
-
 ## [0.3.0] - 2026-07-12
 
 ### Added

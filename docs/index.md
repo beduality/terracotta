@@ -57,7 +57,7 @@ Example plan output:
 
     ```kotlin
     plugins {
-        id("io.github.beduality.terracotta") version "0.3.0"
+        id("io.github.beduality.terracotta") version "0.4.0"
     }
     ```
 
