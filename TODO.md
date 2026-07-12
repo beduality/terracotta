@@ -5,6 +5,7 @@
 - Add [Pluggable State Backends](./proposals/26-07-12-add-state-pluggable-backends.md) (extract filesystem backend, add StateSourceFactory SPI)
 - Add [Narrow License](./proposals/26-07-12-narrow-license-hangar.md)
 - Add [Narrow Tags](./proposals/25-07-10-narrow-tags-canonical.md)
+- Add Visibility canonical field
 
 - Add [Override Pattern](./proposals/25-07-10-add-config-override-pattern.md)
 - Add [Import Task](./proposals/26-07-12-add-task-import.md)
