@@ -484,17 +484,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -680,14 +669,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../content/integration/tutorials/publishing-to-multiple-providers/" class="md-nav__link">
+      <a href="../content/integration/tutorials/publishing-to-modrinth/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Publishing to Multiple Providers
+    Publishing to Modrinth
   
 
     
@@ -5028,17 +5017,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -5071,59 +5049,15 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    3 min read
+    1 min read
   </p>
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<p>This release introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.</p>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
-<p><strong>Core</strong></p>
-<ul>
-<li>Added pluggable state-management SPI in <code>io.github.beduality.terracotta.core.state</code>: <code>StateSource</code>, <code>StateSourceFactory</code>, and <code>StateSourceConfig</code>. Backends are discovered at runtime via <code>ServiceLoader</code>.</li>
-<li>Added canonical project links (<code>homepage</code>, <code>source</code>, <code>issues</code>, <code>wiki</code>, <code>community</code>, <code>donations</code>, <code>other</code>) via <code>TerracottaProjectLinks</code> and <code>TerracottaDonationLink</code>. The <code>links</code> field is available on <code>TerracottaProject</code>, <code>TerracottaConfig</code>, <code>ProjectMetadata</code>, and <code>ResolvedProjectMetadata</code>. Link changes are detected by <code>DiffEngine</code> and emitted as <code>Operation.UpdateMetadata</code> with <code>linksChanged</code> and <code>newLinks</code>.</li>
-</ul>
-<p><strong>State Filesystem</strong></p>
-<ul>
-<li>Added new <code>terracotta-state-filesystem</code> module with <code>FileSystemStateSource</code>, <code>YamlStateCodec</code>, and <code>FileSystemStateSourceFactory</code> (id <code>"filesystem"</code>). The factory is registered via <code>META-INF/services/io.github.beduality.terracotta.core.state.StateSourceFactory</code> and uses the <code>path</code> setting, defaulting to <code>.terracotta-state.yml</code> in the project directory.</li>
-</ul>
-<p><strong>Gradle Plugin</strong></p>
-<ul>
-<li>Added <code>terracotta.stateSource</code> (<code>Property&lt;String&gt;</code>) and <code>terracotta.stateSourceSettings</code> (<code>MapProperty&lt;String, String&gt;</code>) DSL properties for selecting and configuring a state backend. <code>stateSource</code> defaults to <code>"filesystem"</code>; <code>stateSourceSettings</code> defaults to <code>mapOf("path" to &lt;projectDir&gt;/.terracotta-state.yml)</code>.</li>
-<li>Deprecated <code>terracotta.stateFile</code>; it still works and internally maps to <code>stateSource.set("filesystem")</code> with <code>stateSourceSettings.put("path", &lt;file&gt;)</code>.</li>
-<li>Added nested <code>terracotta.links { ... }</code> DSL extension (<code>TerracottaLinksExtension</code>) for configuring links in <code>build.gradle.kts</code>. DSL values override <code>terracotta.yml</code> values and are wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
-</ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
-<p><strong>Gradle Plugin</strong></p>
-<ul>
-<li>Improved the error when the configured state backend is missing so it lists available backends and, for the default <code>filesystem</code> backend, includes the dependency coordinates needed to restore it.</li>
-<li>The Gradle plugin no longer bundles <code>terracotta-state-filesystem</code>. Add it to the buildscript classpath to use the default filesystem backend, or use a custom <code>StateSourceFactory</code> implementation.</li>
-</ul>
-<p><strong>Core / State Filesystem</strong></p>
-<ul>
-<li>Moved <code>FileSystemStateSource</code> and <code>YamlStateCodec</code> from <code>terracotta-core</code> to the new <code>terracotta-state-filesystem</code> module. The package name <code>io.github.beduality.terracotta.core.state</code> is preserved, so existing imports continue to work when the new module is on the classpath.</li>
-</ul>
-<p><strong>Modrinth</strong></p>
-<ul>
-<li><code>ModrinthStateProvider.fetchProject</code> now maps remote <code>issues_url</code>, <code>source_url</code>, <code>wiki_url</code>, <code>discord_url</code>, and <code>donation_urls</code> to canonical links.</li>
-<li><code>ModrinthRegistryProvider</code> patches Modrinth project link fields during <code>UpdateMetadata</code> and includes link fields when creating draft projects.</li>
-</ul>
-<p><strong>Hangar</strong></p>
-<ul>
-<li><code>HangarStateProvider.fetchProject</code> now maps remote <code>homepage</code>, <code>source</code>, <code>issues</code>, <code>wiki</code>, <code>discord</code>, and <code>donations</code> to canonical links.</li>
-<li><code>HangarRegistryProvider</code> updates Hangar project link fields during <code>UpdateMetadata</code>.</li>
-</ul>
-<p><strong>Repo</strong></p>
-<ul>
-<li>Added a required release summary paragraph to the changelog standard. Every release section, including <code>[Unreleased]</code>, must now start with a summary before the first category heading. Updated the changelog guidelines, writing guide, design explanation, and <code>scripts/release.py</code> validation.</li>
-</ul>
 <p><strong>Docs</strong></p>
 <ul>
-<li>Decoupled Core documentation from Gradle plugin and state-management implementation details. Core docs now describe the generic state SPI and metadata resolution, and link to the Gradle plugin and <code>terracotta-state-filesystem</code> docs for frontend-specific examples.</li>
-<li>Removed Gradle DSL and build-tool assumptions from core KDoc (<code>StateSourceConfig</code>, <code>StateSourceFactory</code>, <code>TerracottaConfig</code>, <code>ProjectMetadataSource</code>).</li>
-<li>Tightened module focus in the <code>terracotta-state-filesystem</code> reference and the Gradle plugin Kotlin DSL guide so each page owns its own responsibilities and links across modules.</li>
-<li>Expanded the <code>terracotta-state-filesystem</code> documentation with a rewritten README, an expanded reference page, a how-to guide for replacing the filesystem backend, and an explanation of why YAML and file-backed persistence are the defaults.</li>
-<li>Generalized the Modrinth provider tutorial so registry-specific docs no longer depend on Gradle DSL syntax.</li>
+<li>Simplified homepage, integration tutorial, and getting-started docs to feature Modrinth as the default single provider, moving Hangar coverage to a follow-up how-to guide.</li>
 </ul>
 
 

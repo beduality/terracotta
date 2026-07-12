@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/integration/tutorials/publishing-to-multiple-providers/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/integration/tutorials/publishing-to-modrinth/">
       
       
         <link rel="prev" href="../../">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Publishing to Multiple Providers - Terracotta</title>
+        <title>Publishing to Modrinth - Terracotta</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#publishing-to-multiple-providers" class="md-skip">
+        <a href="#publishing-to-modrinth" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Publishing to Multiple Providers
+              Publishing to Modrinth
             
           </span>
         </div>
@@ -612,7 +612,7 @@
   <span class="md-ellipsis">
     
   
-    Publishing to Multiple Providers
+    Publishing to Modrinth
   
 
     
@@ -630,7 +630,7 @@
   <span class="md-ellipsis">
     
   
-    Publishing to Multiple Providers
+    Publishing to Modrinth
   
 
     
@@ -678,10 +678,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-configure-providers" class="md-nav__link">
+  <a href="#1-configure-the-modrinth-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure providers
+        1. Configure the Modrinth provider
       
     </span>
   </a>
@@ -689,10 +689,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-set-tokens" class="md-nav__link">
+  <a href="#2-set-the-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set tokens
+        2. Set the token
       
     </span>
   </a>
@@ -5068,10 +5068,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-configure-providers" class="md-nav__link">
+  <a href="#1-configure-the-modrinth-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure providers
+        1. Configure the Modrinth provider
       
     </span>
   </a>
@@ -5079,10 +5079,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-set-tokens" class="md-nav__link">
+  <a href="#2-set-the-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set tokens
+        2. Set the token
       
     </span>
   </a>
@@ -5139,7 +5139,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/integration/tutorials/publishing-to-multiple-providers.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/integration/tutorials/publishing-to-modrinth.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5152,54 +5152,48 @@
     1 min read
   </p>
 
-<h1 id="publishing-to-multiple-providers">Publishing to Multiple Providers<a class="headerlink" href="#publishing-to-multiple-providers" title="Permanent link">&para;</a></h1>
-<p>This tutorial walks you through publishing a Minecraft plugin to both Modrinth and Hangar in a single Terracotta run.</p>
+<h1 id="publishing-to-modrinth">Publishing to Modrinth<a class="headerlink" href="#publishing-to-modrinth" title="Permanent link">&para;</a></h1>
+<p>This tutorial walks you through publishing a Minecraft plugin to Modrinth with Terracotta.</p>
 <h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
 <ul>
-<li>How to configure multiple providers in <code>terracotta.yml</code>.</li>
-<li>How to authenticate with Modrinth and Hangar tokens.</li>
-<li>How to plan and apply changes across both providers.</li>
+<li>How to configure the Modrinth provider in <code>terracotta.yml</code>.</li>
+<li>How to authenticate with a Modrinth token.</li>
+<li>How to plan and apply changes to Modrinth.</li>
 </ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The Terracotta Gradle plugin installed. See <a href="../../../modules/gradle-plugin/tutorials/installation/">Installing the Gradle plugin</a>.</li>
 <li>A Modrinth account and API token.</li>
-<li>A Hangar account and API key.</li>
-<li>A Minecraft plugin project with a JAR artifact.</li>
+<li>A Gradle-based Minecraft plugin project with a JAR artifact.</li>
 </ul>
-<h2 id="1-configure-providers">1. Configure providers<a class="headerlink" href="#1-configure-providers" title="Permanent link">&para;</a></h2>
+<h2 id="1-configure-the-modrinth-provider">1. Configure the Modrinth provider<a class="headerlink" href="#1-configure-the-modrinth-provider" title="Permanent link">&para;</a></h2>
 <p>Create or edit <code>terracotta.yml</code> in your project root:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">providers</span><span class="p">:</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
 </code></pre></div>
-<p>Use the same slug if it is available on both platforms, or use different values if your project slugs differ.</p>
-<h2 id="2-set-tokens">2. Set tokens<a class="headerlink" href="#2-set-tokens" title="Permanent link">&para;</a></h2>
-<p>Export both tokens in your shell:</p>
+<p>Use your Modrinth project slug or ID.</p>
+<h2 id="2-set-the-token">2. Set the token<a class="headerlink" href="#2-set-the-token" title="Permanent link">&para;</a></h2>
+<p>Export the token in your shell:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HANGAR_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
 </code></pre></div>
 <p>On Windows PowerShell:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">$env:MODRINTH_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">$env:HANGAR_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
 </code></pre></div>
-<p>Terracotta reads tokens from <code>&lt;PROVIDER&gt;_TOKEN</code> environment variables by default.</p>
+<p>Terracotta reads the token from the <code>MODRINTH_TOKEN</code> environment variable by default.</p>
 <h2 id="3-plan-the-release">3. Plan the release<a class="headerlink" href="#3-plan-the-release" title="Permanent link">&para;</a></h2>
-<p>Run the aggregate plan task to see what Terracotta will do on both providers:</p>
+<p>Run the plan task to see what Terracotta will do:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./gradlew<span class="w"> </span>terracottaPlan
 </code></pre></div>
-<p>The output shows operations for each provider separately. Review the project metadata, version, supported loaders, and game versions.</p>
+<p>Review the project metadata, version, supported loaders, and game versions.</p>
 <h2 id="4-apply-the-release">4. Apply the release<a class="headerlink" href="#4-apply-the-release" title="Permanent link">&para;</a></h2>
 <p>When the plan looks correct, apply it:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>terracottaApply
 </code></pre></div>
-<p>Terracotta creates or updates the project on each provider and uploads the version. If one provider fails, the other provider's operations are not rolled back automatically — check the output and fix the failing provider before re-running.</p>
+<p>Terracotta creates or updates the project on Modrinth and uploads the version.</p>
 <h2 id="whats-next">What's next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../how-to-guides/adding-modrinth-to-gradle-plugin/">Add Modrinth to the Gradle plugin</a></li>
-<li><a href="../../how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar to the Gradle plugin</a></li>
+<li><a href="../../how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar to the Gradle plugin</a> to publish to multiple registries.</li>
 <li><a href="../../reference/provider-configuration/">Provider configuration</a></li>
 <li><a href="../../how-to-guides/troubleshooting/">Troubleshoot provider integration</a></li>
 </ul>

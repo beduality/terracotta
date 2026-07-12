@@ -716,14 +716,14 @@
   
   
     <li class="md-nav__item">
-      <a href="content/integration/tutorials/publishing-to-multiple-providers/" class="md-nav__link">
+      <a href="content/integration/tutorials/publishing-to-modrinth/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Publishing to Multiple Providers
+    Publishing to Modrinth
   
 
     
@@ -5149,7 +5149,7 @@
   </p>
 
 <h1 id="terracotta">Terracotta<a class="headerlink" href="#terracotta" title="Permanent link">&para;</a></h1>
-<p>Declarative publishing for Minecraft projects. Define your metadata once in <code>terracotta.yml</code> or in your build configuration like <a href="https://gradle.org/">Gradle</a>, then automatically sync to providers like <a href="https://modrinth.com/">Modrinth</a> and <a href="https://hangar.papermc.io/">Hangar</a>.</p>
+<p>Declarative publishing for Minecraft projects. Define your metadata once in <code>terracotta.yml</code> or in your build configuration like <a href="https://gradle.org/">Gradle</a>, then sync with the <a href="https://modrinth.com/">Modrinth</a> registry. Add <a href="https://hangar.papermc.io/">Hangar</a> later using the same workflow.</p>
 <hr />
 <div class="grid cards">
 <ul>
@@ -5161,12 +5161,12 @@
 <li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0 9.821 9.821 0 0 0-17.64 0"/></svg></span> <strong>Plan Before You Publish</strong></p>
 <hr />
-<p>Run <code>./gradlew terracottaPlan</code> to see exactly what will change on every registry before any upload happens.</p>
+<p>Run <code>./gradlew terracottaPlan</code> to see exactly what will change on Modrinth before any upload happens.</p>
 </li>
 <li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 4v2h14V4zm0 10h4v6h6v-6h4l-7-7z"/></svg></span> <strong>Publish Everywhere</strong></p>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 4v2h14V4zm0 10h4v6h6v-6h4l-7-7z"/></svg></span> <strong>Publish to Modrinth</strong></p>
 <hr />
-<p>Run <code>./gradlew terracottaApply</code> to create projects, upload versions, update metadata, and synchronize tags across Modrinth and Hangar in one step.</p>
+<p>Run <code>./gradlew terracottaApply</code> to create or update your Modrinth project, upload versions, update metadata, and synchronize tags in one step. <a href="content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar</a> when you are ready for a second registry.</p>
 </li>
 <li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5A2.5 2.5 0 0 0 10.5 1 2.5 2.5 0 0 0 8 3.5V5H4a2 2 0 0 0-2 2v3.8h1.5c1.5 0 2.7 1.2 2.7 2.7S5 16.2 3.5 16.2H2V20a2 2 0 0 0 2 2h3.8v-1.5c0-1.5 1.2-2.7 2.7-2.7s2.7 1.2 2.7 2.7V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg></span> <strong>Pluggable by Design</strong></p>
@@ -5176,10 +5176,10 @@
 </ul>
 </div>
 <h2 id="what-terracotta-does">What Terracotta does<a class="headerlink" href="#what-terracotta-does" title="Permanent link">&para;</a></h2>
-<p>Terracotta compares the state you want with the state that exists on each registry, then computes and applies the smallest set of changes needed:</p>
+<p>Terracotta compares the state you want with the state that exists on the configured registry, then computes and applies the smallest set of changes needed:</p>
 <ol>
 <li><strong>Read local state</strong> from <code>terracotta.yml</code>, build configuration files like <code>build.gradle.kts</code>, and detected project files.</li>
-<li><strong>Fetch remote state</strong> from each configured provider.</li>
+<li><strong>Fetch remote state</strong> from the configured provider.</li>
 <li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateTags</code>, and <code>UploadVersion</code>.</li>
 <li><strong>Apply the operations</strong> or print a human-readable plan first.</li>
 </ol>
@@ -5194,14 +5194,14 @@
 <div class="tabbed-block">
 <p>Add the plugin to your <code>build.gradle.kts</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;io.github.beduality.terracotta&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;0.5.0&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;io.github.beduality.terracotta&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;0.6.0&quot;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
 </code></pre></div>
-<p>Then add a provider:</p>
+<p>Then add Modrinth:</p>
 <ul>
 <li><a href="content/integration/how-to-guides/adding-modrinth-to-gradle-plugin/">Adding Modrinth to the Gradle plugin</a></li>
-<li><a href="content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">Adding Hangar to the Gradle plugin</a></li>
 </ul>
+<p>To publish to Hangar as well, see <a href="content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">Adding Hangar to the Gradle plugin</a>.</p>
 </div>
 <div class="tabbed-block">
 <p>Add the core and provider dependencies directly:</p>
@@ -5210,7 +5210,7 @@
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-provider-modrinth:0.2.0&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
 </code></pre></div>
-<p>See the <a href="content/modules/core/tutorials/installation/">Core installation guide</a> and the <a href="content/modules/provider-modrinth/tutorials/using-modrinth/">Modrinth provider tutorial</a> for a complete walkthrough.</p>
+<p>To add Hangar, include <code>io.github.beduality:terracotta-provider-hangar:0.2.0</code> as well. See the <a href="content/modules/core/tutorials/installation/">Core installation guide</a> and the <a href="content/modules/provider-modrinth/tutorials/using-modrinth/">Modrinth provider tutorial</a> for a complete walkthrough.</p>
 </div>
 </div>
 </div>
@@ -5218,8 +5218,6 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">providers</span><span class="p">:</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-modrinth-project-id&quot;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-hangar-project-slug&quot;</span>
 </code></pre></div>
 <p>For most projects, this is enough. Terracotta detects <code>name</code>, <code>summary</code>, <code>description</code>, <code>gameVersions</code>, <code>loaders</code>, <code>environment</code>, <code>license</code>, <code>releaseType</code>, and <code>changelog</code> from files such as <code>README.md</code>, <code>fabric.mod.json</code>, <code>paper-plugin.yml</code>, <code>LICENSE</code>, <code>CHANGELOG.md</code>, and your Gradle project metadata. Only <code>providers</code> is required to tell Terracotta where to publish. See the <a href="content/modules/core/reference/config-schema/">Config Schema reference</a> for every available field.</p>
 <h2 id="common-tasks">Common tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
@@ -5232,11 +5230,11 @@
 </thead>
 <tbody>
 <tr>
-<td>Plan changes across all providers</td>
+<td>Plan changes</td>
 <td><code>./gradlew terracottaPlan</code></td>
 </tr>
 <tr>
-<td>Apply changes across all providers</td>
+<td>Apply changes</td>
 <td><code>./gradlew terracottaApply</code></td>
 </tr>
 <tr>
@@ -5255,7 +5253,7 @@
 <ul>
 <li><strong><a href="content/modules/gradle-plugin/tutorials/getting-started/">Quick Start</a></strong>: Publish your first release with the Gradle plugin.</li>
 <li><strong><a href="content/navigating-docs/">Navigating the Docs</a></strong>: Learn how the docs are organized and where to look next.</li>
-<li><strong><a href="content/integration/">Integration</a></strong>: Add Modrinth or Hangar to the Gradle plugin.</li>
+<li><strong><a href="content/integration/">Integration</a></strong>: Add a provider to the Gradle plugin, starting with Modrinth.</li>
 <li><strong><a href="content/modules/overview/">Modules</a></strong></li>
 <li><a href="content/modules/core/">Core</a>: Domain models, diff engine, and provider SPI.</li>
 <li><a href="content/modules/gradle-plugin/">Gradle Plugin</a>: DSL, tasks, and build integration.</li>
@@ -5281,8 +5279,8 @@
 <td>8.0+</td>
 </tr>
 <tr>
-<td>Target registries</td>
-<td>Modrinth, Hangar</td>
+<td>Target registry</td>
+<td>Modrinth (Hangar support available)</td>
 </tr>
 </tbody>
 </table>
