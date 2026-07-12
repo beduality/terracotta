@@ -62,7 +62,7 @@ mkdocs.yml                          # Site configuration & navigation
 pyproject.toml                      # Python dependencies (uv)
 ```
 
-The content follows the [Documentation Framework](../explanation/documentation-framework.md) structure. Each page must belong to exactly one type:
+The content follows the [Diátaxis](https://diataxis.fr/) framework. Each page must belong to exactly one type:
 
 - **Tutorial**: Learning by doing (beginner-focused)
 - **How-to guide**: Solving specific tasks
@@ -110,7 +110,7 @@ uv run mike list
 
 ### Follow Documentation Framework
 
-See the [Documentation Framework](../explanation/documentation-framework.md) for detailed guidance on each type.
+See [Navigating the Docs](../../navigating-docs.md) for how readers experience the four types.
 
 ### Page Checklist
 

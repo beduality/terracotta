@@ -107,6 +107,7 @@ See the [Gradle tasks reference](content/modules/gradle-plugin/reference/tasks.m
 Terracotta docs are organized by what you are trying to do:
 
 - **[Quick Start](content/modules/gradle-plugin/tutorials/getting-started.md)**: Publish your first release with the Gradle plugin.
+- **[Navigating the Docs](content/navigating-docs.md)**: Learn how the docs are organized and where to look next.
 - **[Integration](content/integration/README.md)**: Add Modrinth or Hangar to the Gradle plugin.
 - **[Modules](content/modules/overview.md)**
   - [Core](content/modules/core/README.md): Domain models, diff engine, and provider SPI.

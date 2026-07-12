@@ -82,6 +82,8 @@ nav:
   - Quick Start:
     - Introduction: index.md
     - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
+    - Navigating the Docs: content/navigating-docs.md
+    - Release Changes: changes.md
   - Integration:
     - Overview: content/integration/README.md
     - How-To Guides:
@@ -176,5 +178,3 @@ nav:
         - Changelog Guidelines: content/repo/reference/changelog-guidelines.md
       - Explanation:
         - Project Management: content/repo/explanation/project-management.md
-        - Documentation Framework: content/repo/explanation/documentation-framework.md
-  - Changes: changes.md

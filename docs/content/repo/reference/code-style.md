@@ -103,7 +103,7 @@ See the [Contributing how-to guide](../how-to-guides/contributing.md) for the PR
 
 ## Documentation Style
 
-- Follow the [Documentation Framework](../explanation/documentation-framework.md) for content organization
+- Follow the [Documentation Framework](../../navigating-docs.md) for content organization
 - Each page belongs to exactly one type (Tutorial, How-to, Reference, Explanation)
 - Use markdown headers for structure
 - Include code examples where helpful

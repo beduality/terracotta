@@ -1,3 +1,12 @@
+/**
+ * Pulumi program that provisions the Terracotta GitHub repository and its
+ * GitHub Actions secrets.
+ *
+ * This module is internal infrastructure and is not published as a library.
+ * See the repo documentation for architecture and release context:
+ * - [Architecture](https://beduality.github.io/terracotta/content/modules/core/explanation/architecture/)
+ * - [Releasing](https://beduality.github.io/terracotta/content/repo/how-to-guides/releasing/)
+ */
 package io.github.beduality.terracotta.github
 
 import com.pulumi.Pulumi

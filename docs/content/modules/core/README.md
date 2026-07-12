@@ -2,7 +2,7 @@
 
 `terracotta-core` is the platform-agnostic Kotlin library that powers Terracotta. It contains the canonical domain models, metadata resolution, diff engine, and provider interfaces used by the Gradle plugin and SDK consumers.
 
-This documentation follows the [Documentation Framework](https://beduality.github.io/terracotta/content/repo/explanation/documentation-framework.md), which organizes content by user intent.
+This documentation follows the [Documentation Framework](../../navigating-docs.md), which organizes content by user intent.
 
 ## Tutorials
 
