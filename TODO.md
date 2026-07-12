@@ -2,7 +2,6 @@
 
 - Add support to load any Terracotta config value from file just using `<field>Path` convention, e.g. `descriptionPath`
 - Stabilize gallery item identity via persisted state
-- Add [Pluggable State Backends](./proposals/26-07-12-add-state-pluggable-backends.md) (extract filesystem backend, add StateSourceFactory SPI)
 - Add [Narrow License](./proposals/26-07-12-narrow-license-hangar.md)
 - Add [Narrow Tags](./proposals/25-07-10-narrow-tags-canonical.md)
 - Add Visibility canonical field

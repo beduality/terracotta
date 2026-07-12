@@ -20,10 +20,10 @@ sequence:
 
 | Change type | Plan phases |
 |---|---|
-| New module / major feature / new public API | Design → Contract → Tests → Implementation → Review → Docs → Push |
-| Bug fix | Investigation → Tests → Implementation → Review (→ Docs → Push if behavior changes) |
-| Refactoring | Tests → Implementation → Review (→ Docs → Push if shared) |
-| Documentation-only | Docs → Review → Push |
+| New module / major feature / new public API | Brainstorm? → Design → Contract → Tests → Implementation → Review → Docs → Push and merge → Release report |
+| Bug fix | Investigation → Tests → Implementation → Review (→ Docs → Push and merge → Release report if behavior changes) |
+| Refactoring | Tests → Implementation → Review (→ Docs → Push and merge → Release report if shared) |
+| Documentation-only | Docs → Review → Push and merge → Release report |
 
 Insert **Contract** before Tests for bug fixes or refactorings that introduce a new public API surface or extension point.
 
@@ -69,8 +69,10 @@ reviewers see.
 
 When all checkboxes are done and the change is merged or released:
 
-- Add a final note with the outcome.
-- Link the merged PR or release tag.
+- Observe CD and confirm the deployment succeeds.
+- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
+- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- Link the merged PR or release tag in the release report and any final notes.
 - Move the source TODO item to a done section or remove it.
 
 Do not keep finished plans open as living documents.

@@ -10,15 +10,36 @@ run.
 
 For shared conventions, see `README.md` in this directory.
 
-Main sequence: `System design → Contract → Tests → Implementation → Review → Documentation → Push to remote`
+Main sequence: `Brainstorm (optional) → System design → Contract → Tests → Implementation → Review → Documentation → Push and merge → Release report`
 
-Bug-fix sequence: `Investigation → Tests → Implementation → Review → Documentation → Push`
+Bug-fix sequence: `Investigation → Tests → Implementation → Review → Documentation → Push and merge → Release report`
 
 Every change passes through **Review** and is pushed to **remote** before release.
 
 ---
 
-## Phase 1: System design
+## Phase 1: Brainstorm (optional)
+
+**Goal**: explore alternatives, creative angles, and out-of-the-box ideas before committing to a design direction.
+
+**When to skip**: the change is small, well-understood, or has a clear precedent.
+
+**Work**:
+
+- Open a fresh `project/brainstorm/<datetime>-<title>.md` file.
+- Spend a short, time-boxed session generating ideas and trade-offs.
+- Capture the best ideas, alternatives, and open questions succinctly.
+- If the brainstorm produces a better direction, update the design proposal and plan before continuing.
+
+**Output before proceeding**:
+
+- A succinct brainstorm note, or a conscious decision to skip this phase.
+
+**Stop if**: the brainstorm reveals the change is larger than expected. Return to planning or split the work.
+
+---
+
+## Phase 2: System design
 
 **Goal**: define responsibilities, public API, and system fit.
 
@@ -37,7 +58,7 @@ overlap with an existing module.
 
 ---
 
-## Phase 2: Contract
+## Phase 3: Contract
 
 **Goal**: turn the approved design into a stable, KDoc-covered public interface before tests and implementation.
 
@@ -65,7 +86,7 @@ overlap with an existing module.
 
 ---
 
-## Phase 3: Test-driven development
+## Phase 4: Test-driven development
 
 **Goal**: write executable specifications before production code exists.
 
@@ -87,7 +108,7 @@ that the design needs to change. In that case, return to Phase 1 or Phase 2.
 
 ---
 
-## Phase 4: Implementation
+## Phase 5: Implementation
 
 **Goal**: make failing tests pass with a production-ready implementation.
 
@@ -116,7 +137,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 ---
 
-## Phase 5: Review
+## Phase 6: Review
 
 **Goal**: validate the change against the review checklists.
 
@@ -131,7 +152,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 - Run the relevant automated review checks (tests, spotless, build, docs build).
 - By default, **auto-review** is sufficient when all automated checks pass.
-- Require human review when the change touches public API, build configuration, security-sensitive code, or spans multiple modules.
+- Optionally escalate to human review only when blocked on taste, direction, or high-stakes decisions (e.g., public API, build configuration, security-sensitive code, or multi-module changes).
 - Address feedback and re-run the relevant checks.
 
 **Output before proceeding**:
@@ -143,7 +164,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 ---
 
-## Phase 6: Documentation
+## Phase 7: Documentation
 
 **Goal**: publish user-facing guides and cross-linked API reference.
 
@@ -171,7 +192,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 ---
 
-## Phase 7: Push to remote
+## Phase 8: Push and merge
 
 **Goal**: share the approved change on the remote repository.
 
@@ -183,17 +204,39 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 **Work**:
 
-- Push the branch or merge the pull request to `main`.
+- Push the branch and open a pull request to `main`.
+- Review the PR; address feedback and re-run checks.
 - For small, low-risk, documentation-only changes, push directly to `main`.
-- For changes that affect public API, build configuration, or multiple modules, open and merge a pull request.
-- Verify the remote build passes after the push or merge.
+- Once CI is green, merge the pull request.
+- Observe CD and confirm the deployment succeeds.
+
+**Output before proceeding**:
+
+- Change available on remote `main`.
+- Remote CI/CD green.
+
+**Stop if**: remote CI or CD fails. Revert or fix-forward before continuing.
+
+---
+
+## Phase 9: Release report
+
+**Goal**: clean up project artifacts and record the release outcome.
+
+**Input from push and merge phase**:
+
+- Change available on remote `main`.
+- Green CI/CD.
+
+**Work**:
+
+- Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
+- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out with the released version links and verification results.
 
 **Output before considering the module complete**:
 
-- Change available on remote `main`.
-- Remote CI green.
-
-**Stop if**: remote CI fails. Revert or fix-forward before continuing.
+- Project artifacts archived.
+- Release report written.
 
 ---
 
@@ -207,8 +250,9 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 | Implementation | Review | Passing tests and KDoc-covered public API |
 | Investigation | Tests | Reproduced bug and regression test |
 | Review | Docs | Approved change and green CI |
-| Docs | Push | Built docs and green module checks |
-| Push | Release | Change available on remote `main` and remote CI green |
+| Docs | Push and merge | Built docs and green module checks |
+| Push and merge | Release report | Change available on remote `main` and green CI/CD |
+| Release report | Archive | Project artifacts archived and release report written |
 
 ---
 
@@ -218,12 +262,12 @@ Not every module change needs every phase.
 
 | Change type | Phases needed |
 |-------------|---------------|
-| New module | Design → Contract → Tests → Implementation → Review → Docs → Push |
-| Major feature | Design → Contract → Tests → Implementation → Review → Docs → Push |
-| New public API or extension point | Design → Contract → Tests → Implementation → Review → Docs → Push |
-| Bug fix | Investigation → Tests → Implementation → Review (→ Docs → Push if behavior changes) |
-| Refactoring | Tests → Implementation → Review (→ Docs → Push if shared) |
-| Documentation-only | Docs → Review → Push |
+| New module | Brainstorm? → Design → Contract → Tests → Implementation → Review → Docs → Push and merge → Release report |
+| Major feature | Brainstorm? → Design → Contract → Tests → Implementation → Review → Docs → Push and merge → Release report |
+| New public API or extension point | Brainstorm? → Design → Contract → Tests → Implementation → Review → Docs → Push and merge → Release report |
+| Bug fix | Investigation → Tests → Implementation → Review (→ Docs → Push and merge → Release report if behavior changes) |
+| Refactoring | Tests → Implementation → Review (→ Docs → Push and merge → Release report if shared) |
+| Documentation-only | Docs → Review → Push and merge → Release report |
 
 Insert **Contract** before Tests for bug fixes or refactorings that introduce a new public API surface or extension point.
 
@@ -231,7 +275,7 @@ Insert **Contract** before Tests for bug fixes or refactorings that introduce a 
 
 ## Review gates
 
-Run `module-review-workflow.md` before moving forward. By default, **auto-review** is sufficient; escalate to human review for public API, build configuration, security-sensitive, or multi-module changes.
+Run `module-review-workflow.md` before moving forward. By default, **auto-review** is sufficient; escalate to human review only when blocked on taste, direction, or high-stakes decisions (e.g., public API, build configuration, security-sensitive, or multi-module changes).
 
 - **Design review** before contract.
 - **Contract review** before tests.

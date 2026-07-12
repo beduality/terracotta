@@ -27,12 +27,14 @@ Each workflow packages an established practice:
 ## What is distinctive here
 
 - **Features and bug fixes have different sequences.** New work flows through
-  design, contract, tests, implementation, review, and docs; bugs start with investigation.
+  optional brainstorm, design, contract, tests, implementation, review, docs, push and merge, and release report; bugs start with investigation.
 - **Investigation is a first-class phase for bug fixes.** Reproduce, isolate the
   root cause, validate the hypothesis, and add a regression test *before* fixing.
 - **Contract is explicit.** Public interfaces are written with KDoc before tests
   and implementation, making the API surface reviewable early.
-- **Review is a mandatory gate**, not an optional checklist.
+- **Review is a mandatory gate**, not an optional checklist, but human review is optional and used only when blocked on taste, direction, or high-stakes decisions.
+- **Brainstorm is optional** and happens before System design when the direction is unclear.
+- **Push and merge plus a release report** close out every change that is released.
 - **Shared conventions are centralized** here so child workflows stay focused.
 
 ## What is missing
@@ -71,6 +73,12 @@ When applying any workflow, replace these placeholders consistently:
 | Docs directory | `docs/content/<module>/` |
 | Design proposal | `project/proposals/<module>-design.md` |
 | Plan file | `project/plans/YYYY-MM-<short-name>-plan.md` |
+| Brainstorm note | `project/brainstorm/<datetime>-<title>.md` |
+| Release report | `project/reports/release/<datetime>-<title>.md` |
+| Release report template | `reports/release/TEMPLATE.md` |
+| Archived plans | `project/plans/archived/<plan>.md` |
+| Archived proposals | `project/proposals/archived/<proposal>.md` |
+| Archived brainstorm notes | `project/brainstorm/archived/<note>.md` |
 | KDoc base URL | `https://beduality.github.io/terracotta/<module>/` |
 
 Some workflows extend this list with phase-specific placeholders.
@@ -88,4 +96,7 @@ docs(<module>): add KDoc for public API
 Choose the release path:
 
 - Push directly to `main` for small, low-risk, documentation-only changes.
-- Open a pull request for changes that affect public API, build configuration, or multiple modules.
+- Open a pull request, review it, and merge once CI is green for changes that affect public API, build configuration, or multiple modules.
+- Observe CD after merge and confirm the deployment succeeds.
+- Archive the plan, proposal, and brainstorm note used for the work by moving them into `project/plans/archived/`, `project/proposals/archived/`, and `project/brainstorm/archived/` respectively.
+- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
