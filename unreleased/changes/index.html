@@ -4577,6 +4577,7 @@
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <p><strong>Core</strong></p>
 <ul>
+<li>Added optional <code>licenseUrl</code> field to <code>TerracottaProject</code>, project metadata interfaces, <code>TerracottaConfig</code>, <code>ResolvedProjectMetadata</code>, and <code>Operation.UpdateMetadata</code>. URLs are compared exactly and trigger metadata updates when changed.</li>
 <li>Added <code>TerracottaGalleryItem</code> model and <code>gallery</code> field on <code>TerracottaProject</code>.</li>
 <li>Added <code>UploadGalleryItem</code>, <code>UpdateGalleryItem</code>, and <code>DeleteGalleryItem</code> operations and diff logic that matches images by normalized title or ordering.</li>
 <li>Added <code>AssetProcessor</code> SPI with <code>ProcessedAsset</code> and <code>IdentityAssetProcessor</code> default implementation, loaded via <code>AssetProcessorLoader</code>.</li>
@@ -4586,14 +4587,17 @@
 </ul>
 <p><strong>Gradle Plugin</strong></p>
 <ul>
+<li>Added <code>terracotta.licenseUrl</code> DSL property, populated from <code>terracotta.yml</code> and wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
 <li>Added <code>terracotta { gallery { ... } }</code> DSL with <code>TerracottaGalleryExtension</code>, populated from <code>terracotta.yml</code> and wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
 </ul>
 <p><strong>Modrinth</strong></p>
 <ul>
+<li>Added <code>license_url</code> mapping: <code>ModrinthStateProvider.fetchProject</code> reads <code>license.url</code> into the canonical <code>licenseUrl</code>, and <code>ModrinthClient.createProject</code> / <code>ModrinthRegistryProvider</code> emit <code>license_url</code> when it is set.</li>
 <li>Added gallery image support via <code>ModrinthClient.uploadGalleryItem</code>, <code>updateGalleryItem</code>, and <code>deleteGalleryItem</code>, using the core <code>GalleryValidator</code> (5 MiB limit, PNG/JPEG/WebP/GIF/BMP) and the configured <code>AssetProcessor</code>.</li>
 </ul>
 <p><strong>Hangar</strong></p>
 <ul>
+<li>Hangar registry provider now warns when <code>licenseUrl</code> is configured, since Hangar does not support publishing a license URL.</li>
 <li>Hangar registry provider now skips gallery operations with a warning, since Hangar does not expose a gallery API.</li>
 </ul>
 
