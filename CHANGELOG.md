@@ -7,19 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-This release introduces pluggable state management and canonical project links. State is persisted to `.terracotta-state.yml` so future operations can track identity across runs, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
+This release introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
 
 ### Added
 
 **Core**
 
-- Added pluggable state-management layer in `io.github.beduality.terracotta.core.state` with the `StateSource` interface, `TerracottaState` model, and a `FileSystemStateSource` implementation that persists to `.terracotta-state.yml`.
+- Added pluggable state-management SPI in `io.github.beduality.terracotta.core.state`: `StateSource`, `StateSourceFactory`, and `StateSourceConfig`. Backends are discovered at runtime via `ServiceLoader`.
 - Added canonical project links (`homepage`, `source`, `issues`, `wiki`, `community`, `donations`, `other`) via `TerracottaProjectLinks` and `TerracottaDonationLink`. The `links` field is available on `TerracottaProject`, `TerracottaConfig`, `ProjectMetadata`, and `ResolvedProjectMetadata`. Link changes are detected by `DiffEngine` and emitted as `Operation.UpdateMetadata` with `linksChanged` and `newLinks`.
+
+**State Filesystem**
+
+- Added new `terracotta-state-filesystem` module with `FileSystemStateSource`, `YamlStateCodec`, and `FileSystemStateSourceFactory` (id `"filesystem"`). The factory is registered via `META-INF/services/io.github.beduality.terracotta.core.state.StateSourceFactory` and uses the `path` setting, defaulting to `.terracotta-state.yml` in the project directory.
 
 **Gradle Plugin**
 
-- Added `terracotta.stateFile` DSL property as a `RegularFileProperty`. It defaults to `.terracotta-state.yml` in the project directory and can be overridden in `build.gradle.kts`.
+- Added `terracotta.stateSource` (`Property<String>`) and `terracotta.stateSourceSettings` (`MapProperty<String, String>`) DSL properties for selecting and configuring a state backend. Defaults to `"filesystem"` and an empty settings map.
+- Deprecated `terracotta.stateFile`; it still works and internally maps to `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`.
 - Added nested `terracotta.links { ... }` DSL extension (`TerracottaLinksExtension`) for configuring links in `build.gradle.kts`. DSL values override `terracotta.yml` values and are wired into `terracottaPlan` and `terracottaApply` tasks.
+
+### Changed
+
+**Core / State Filesystem**
+
+- Moved `FileSystemStateSource` and `YamlStateCodec` from `terracotta-core` to the new `terracotta-state-filesystem` module. The package name `io.github.beduality.terracotta.core.state` is preserved, so existing imports continue to work when the new module is on the classpath.
 
 **Modrinth**
 

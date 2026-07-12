@@ -150,6 +150,10 @@ nav:
         - Architecture: content/modules/gradle-plugin/explanation/architecture.md
         - DSL Design: content/modules/gradle-plugin/explanation/dsl-design.md
         - Task Lifecycle: content/modules/gradle-plugin/explanation/task-lifecycle.md
+    - State Filesystem:
+      - Introduction: content/modules/terracotta-state-filesystem/README.md
+      - Reference:
+        - State Filesystem: content/modules/terracotta-state-filesystem/reference/state-filesystem.md
     - Modrinth Provider:
       - Introduction: content/modules/provider-modrinth/README.md
       - Tutorials:

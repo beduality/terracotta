@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     implementation(project(":terracotta-core"))
+    implementation(project(":terracotta-state-filesystem"))
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.slf4j.api)

@@ -122,17 +122,25 @@ terracotta {
 
 `homepage`, `source`, `issues`, `wiki`, and `community` accept `Property<String>`. `donation(platform, url)` appends a donation link, and `other(label, url)` appends an arbitrary label-to-URL entry.
 
-## State file
+## State backend
 
-You can override the file used to persist Terracotta run state:
+The Gradle plugin persists run state through a pluggable backend. The default backend is `"filesystem"`, which writes to `.terracotta-state.yml` in the project directory.
 
 ```kotlin
 terracotta {
-    stateFile.set(file("custom-state.yml"))
+    stateSource.set("filesystem")
+    stateSourceSettings.put("path", "custom-state.yml")
 }
 ```
 
-The default path is `.terracotta-state.yml` in the project directory. State files are generated at build time and should not be committed; see [State Management](../../core/explanation/state-management.md) for details.
+- `stateSource` selects the backend by its factory `id` (default: `"filesystem"`).
+- `stateSourceSettings` is a `MapProperty<String, String>` with backend-specific settings. The filesystem backend recognizes `path`.
+
+State files are generated at build time and should not be committed; see [State Management](../../core/explanation/state-management.md) for details.
+
+### Deprecated `stateFile`
+
+The older `stateFile` property is deprecated but continues to work. Setting `stateFile` is equivalent to `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`. Prefer `stateSource` and `stateSourceSettings` for new configuration.
 
 ---
 

@@ -6,6 +6,7 @@ import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Nested
 
@@ -82,7 +83,28 @@ abstract class TerracottaExtension {
      *
      * Defaults to `.terracotta-state.yml` in the project directory.
      *
+     * **Deprecated:** Use [stateSource] with `stateSource.set("filesystem")` and
+     * [stateSourceSettings] with `stateSourceSettings.put("path", ...)` instead.
+     *
      * @see [Kotlin DSL Configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
      */
+    @Deprecated(
+        message = "Use stateSource with 'filesystem' and stateSourceSettings['path'] instead.",
+        replaceWith = ReplaceWith("stateSource = \"filesystem\"; stateSourceSettings = mapOf(\"path\" to file)"),
+    )
     abstract val stateFile: RegularFileProperty
+
+    /**
+     * State backend identifier.
+     *
+     * Defaults to `"filesystem"`.
+     */
+    abstract val stateSource: Property<String>
+
+    /**
+     * Backend-specific settings.
+     *
+     * The filesystem backend recognizes the `"path"` setting.
+     */
+    abstract val stateSourceSettings: MapProperty<String, String>
 }

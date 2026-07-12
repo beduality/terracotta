@@ -596,6 +596,137 @@ class TerracottaPluginIntegrationTest {
     }
 
     @Test
+    fun `state source defaults to filesystem backend`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("printStateSource") {
+                doLast {
+                    println("STATE_SOURCE=" + terracotta.stateSource.get())
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printStateSource")
+                .build()
+
+        assertTrue("STATE_SOURCE=filesystem" in result.output, "Expected default state source to be filesystem")
+    }
+
+    @Test
+    fun `state source settings can override filesystem path`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                stateSourceSettings.put("path", "custom-state.yml")
+            }
+
+            tasks.register("printStatePath") {
+                doLast {
+                    println("STATE_PATH=" + terracotta.stateSourceSettings.get()["path"])
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printStatePath")
+                .build()
+
+        assertTrue("STATE_PATH=custom-state.yml" in result.output, "Expected state source path override")
+    }
+
+    @Test
+    fun `unknown state source fails with descriptive message`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                stateSource.set("unknown")
+            }
+
+            tasks.register("useState") {
+                doLast { }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("useState")
+                .buildAndFail()
+
+        assertTrue("unknown" in result.output, "Expected error message to mention unknown backend")
+    }
+
+    @Test
+    fun `state file convenience behaves like filesystem backend`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                stateFile.set(file("custom-state.yml"))
+            }
+
+            tasks.register("printStateSource") {
+                doLast {
+                    println("STATE_SOURCE=" + terracotta.stateSource.orNull)
+                    println("STATE_PATH=" + terracotta.stateSourceSettings.get()["path"])
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printStateSource")
+                .build()
+
+        assertTrue("STATE_SOURCE=filesystem" in result.output, "Expected stateFile to set filesystem backend")
+        assertTrue(
+            "STATE_PATH=" + File(projectDir, "custom-state.yml").absolutePath in result.output,
+            "Expected stateFile to set path setting",
+        )
+    }
+
+    @Test
     fun `links defaults to empty when absent`(
         @TempDir projectDir: File,
     ) {

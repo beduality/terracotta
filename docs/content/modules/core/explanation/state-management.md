@@ -13,13 +13,16 @@ The state file stores a snapshot of the most recent `terracottaApply` run:
 
 ## The state file
 
-By default the Gradle plugin writes state to `.terracotta-state.yml` in the project directory. You can override the location with the DSL:
+By default the Gradle plugin writes state to `.terracotta-state.yml` in the project directory using the `"filesystem"` backend. You can override the location with the DSL:
 
 ```kotlin
 terracotta {
-    stateFile.set(file("custom-state.yml"))
+    stateSource.set("filesystem")
+    stateSourceSettings.put("path", "custom-state.yml")
 }
 ```
+
+The older `stateFile` property is still supported but deprecated; it behaves like setting `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`.
 
 ## Do not commit the state file
 
@@ -27,8 +30,27 @@ terracotta {
 
 The Terracotta `.gitignore` already excludes the default filename. If you change `stateFile`, add your custom path to `.gitignore` as well.
 
-## Pluggable backend
+## Pluggable backends
 
-`terracotta-core` exposes a small `StateSource` interface. The Gradle plugin ships with a file-backed implementation today; cloud or remote backends can be added later without changing the public API.
+`terracotta-core` exposes a small SPI for state backends:
 
-See the [provider interfaces](../reference/provider-interfaces.md) and the [Dokka API Docs](../../../../apidocs/terracotta-core/index.html) for the full `io.github.beduality.terracotta.core.state` package.
+- `StateSource` — loads and saves `TerracottaState`.
+- `StateSourceFactory` — creates a `StateSource` from a `StateSourceConfig` and is identified by a stable `id`.
+- `StateSourceConfig` — carries the project directory and backend-specific settings.
+
+Backend implementations register a `StateSourceFactory` service in `META-INF/services/io.github.beduality.terracotta.core.state.StateSourceFactory`. The Gradle plugin discovers them with `java.util.ServiceLoader` and selects the factory whose `id` matches `terracotta.stateSource`.
+
+### The filesystem backend
+
+The Gradle plugin depends on `terracotta-state-filesystem` by default, so the `"filesystem"` backend is always available. It reads the `path` setting and falls back to `.terracotta-state.yml` in the project directory.
+
+```kotlin
+terracotta {
+    stateSource.set("filesystem")
+    stateSourceSettings.put("path", "custom-state.yml")
+}
+```
+
+Future backends (for example, a cloud or CI-provided store) only need to implement the SPI, publish a module, and add it to the plugin classpath.
+
+See the [provider interfaces](../reference/provider-interfaces.md), the [State Filesystem reference](../../terracotta-state-filesystem/reference/state-filesystem.md), and the [Dokka API Docs](../../../../apidocs/terracotta-core/index.html) for the full `io.github.beduality.terracotta.core.state` package.

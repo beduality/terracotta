@@ -26,8 +26,24 @@ class TerracottaPlugin : Plugin<Project> {
         extension.stateFile.convention(
             project.layout.projectDirectory.file(FileSystemStateSource.DEFAULT_FILE_NAME),
         )
+        extension.stateSource.convention("filesystem")
+        extension.stateSourceSettings.convention(
+            extension.stateFile.map { file ->
+                mapOf("path" to file.asFile.absolutePath)
+            },
+        )
 
         TerracottaExtensionConfigurer.configure(extension, config, project)
         TerracottaTaskRegistrar.registerTasks(extension, config, project)
+
+        // Resolve the configured state backend after the build script has configured
+        // the extension so unknown or missing backends fail fast.
+        project.afterEvaluate {
+            StateSourceResolver.resolve(
+                id = extension.stateSource.get(),
+                projectDir = project.projectDir,
+                settings = extension.stateSourceSettings.get(),
+            )
+        }
     }
 }
