@@ -2,7 +2,7 @@
 
 The `terracotta-state-filesystem` module provides the default `"filesystem"` backend for Terracotta's pluggable state management SPI. It persists run state to a single YAML file on the local filesystem.
 
-The Terracotta Gradle plugin depends on this module by default today, so the `"filesystem"` backend is available out of the box. It is still a pluggable dependency, and future versions may make it optional. If it is excluded from the plugin classpath, the plugin fails fast with a clear error that lists available factories and includes the dependency coordinates needed to restore the file backend.
+Add this module to your classpath to make the `"filesystem"` backend available. If it is missing and a frontend selects `"filesystem"`, the frontend fails fast with a clear error that lists available factories and includes the dependency coordinates needed to restore the backend.
 
 ## Factory id
 
@@ -22,26 +22,26 @@ By default, the backend reads and writes `.terracotta-state.yml` in the project 
 
 ## Usage examples
 
-### Gradle Kotlin DSL
+=== "Gradle Plugin"
 
-```kotlin
-terracotta {
-    stateSource = "filesystem"
-    stateSourceSettings["path"] = "state/terracotta.yml"
-}
-```
+    ```kotlin
+    terracotta {
+        stateSource = "filesystem"
+        stateSourceSettings["path"] = "state/terracotta.yml"
+    }
+    ```
 
-### Core SPI
+=== "Core SPI"
 
-```kotlin
-import io.github.beduality.terracotta.core.state.StateSourceConfig
+    ```kotlin
+    import io.github.beduality.terracotta.core.state.StateSourceConfig
 
-val config = StateSourceConfig(
-    projectDir = projectDir,
-    settings = mapOf("path" to "custom-state.yml"),
-)
-val source = factory.create(config)
-```
+    val config = StateSourceConfig(
+        projectDir = projectDir,
+        settings = mapOf("path" to "custom-state.yml"),
+    )
+    val source = factory.create(config)
+    ```
 
 ## Behavior
 
@@ -58,7 +58,7 @@ val source = factory.create(config)
 ## See also
 
 - [State Filesystem Design](../explanation/state-filesystem.md) — why YAML and why file-backed by default.
-- [Replace the Filesystem Backend](../how-to-guides/replace-filesystem-backend.md) — how to exclude or replace the backend.
+- [Configure the Filesystem Backend](../how-to-guides/configure-filesystem-backend.md) — how to install, configure, or replace the backend.
 - [State Management explanation](../../core/explanation/state-management.md) — the core state SPI.
 - [Kotlin DSL configuration guide](../../gradle-plugin/how-to-guides/kotlin-dsl-configuration.md) — Gradle-specific state backend configuration.
 - [Dokka API Docs](../../../../apidocs/terracotta-core/index.html) for the full `io.github.beduality.terracotta.core.state` package.

@@ -39,7 +39,7 @@ private fun File.writeSettings() {
     )
 }
 
-private fun pluginClasspathWithoutFileSystem(): List<File> {
+internal fun pluginClasspath(): List<File> {
     val properties = Properties()
     val resource =
         TerracottaPluginIntegrationTest::class.java.classLoader
@@ -53,8 +53,36 @@ private fun pluginClasspathWithoutFileSystem(): List<File> {
         .split(File.pathSeparatorChar)
         .map { File(it) }
         .filter { it.exists() }
-        .filterNot { "terracotta-state-filesystem" in it.name }
 }
+
+internal fun fileSystemBackendClasspath(): List<File> {
+    val classLoader = TerracottaPluginIntegrationTest::class.java.classLoader
+    val classResource =
+        classLoader.getResource("io/github/beduality/terracotta/core/state/FileSystemStateSourceFactory.class")
+            ?: error("terracotta-state-filesystem classes not found on test classpath")
+    val serviceResource =
+        classLoader.getResource("META-INF/services/io.github.beduality.terracotta.core.state.StateSourceFactory")
+            ?: error("terracotta-state-filesystem service file not found on test classpath")
+
+    val roots = mutableSetOf<File>()
+    listOf(classResource, serviceResource).forEach { resource ->
+        val url = resource.toString()
+        when {
+            url.startsWith("jar:file:") -> {
+                roots += File(url.substringAfter("jar:file:").substringBefore("!"))
+            }
+            url.startsWith("file:") -> {
+                val file = File(resource.toURI())
+                val root = generateSequence(file) { it.parentFile }.drop(1).first { it.name == "main" }
+                roots += root
+            }
+            else -> error("Unsupported classpath URL: $url")
+        }
+    }
+    return roots.toList()
+}
+
+internal fun pluginClasspathWithFileSystem(): List<File> = pluginClasspath() + fileSystemBackendClasspath()
 
 class TerracottaPluginIntegrationTest {
     @Test
@@ -79,7 +107,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printName")
                 .build()
 
@@ -118,7 +146,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printDescription")
                 .build()
 
@@ -167,7 +195,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printChangelog")
                 .build()
 
@@ -209,7 +237,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printMetadata")
                 .build()
 
@@ -259,7 +287,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("tasks", "--all", "--stacktrace")
                 .build()
 
@@ -292,7 +320,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printName")
                 .build()
 
@@ -326,7 +354,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printName")
                 .build()
 
@@ -361,7 +389,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printLicenseUrl")
                 .build()
 
@@ -400,7 +428,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printLicenseUrl")
                 .build()
 
@@ -449,7 +477,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printGallery")
                 .build()
 
@@ -488,7 +516,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printIcon")
                 .build()
 
@@ -539,7 +567,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printLinks")
                 .build()
 
@@ -573,7 +601,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printStateFile")
                 .build()
 
@@ -606,7 +634,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printStateFile")
                 .build()
 
@@ -635,7 +663,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printStateSource")
                 .build()
 
@@ -668,7 +696,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printStatePath")
                 .build()
 
@@ -699,7 +727,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("useState")
                 .buildAndFail()
 
@@ -726,7 +754,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath(pluginClasspathWithoutFileSystem())
+                .withPluginClasspath(pluginClasspath())
                 .withArguments("useState")
                 .buildAndFail()
 
@@ -772,7 +800,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printStateSource")
                 .build()
 
@@ -805,7 +833,7 @@ class TerracottaPluginIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("printLinks")
                 .build()
 

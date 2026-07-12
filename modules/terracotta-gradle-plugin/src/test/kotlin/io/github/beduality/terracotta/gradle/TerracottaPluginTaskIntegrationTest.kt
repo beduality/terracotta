@@ -59,7 +59,7 @@ private fun runGradle(
 ): BuildResult {
     return GradleRunner.create()
         .withProjectDir(projectDir)
-        .withPluginClasspath()
+        .withPluginClasspath(pluginClasspathWithFileSystem())
         .withEnvironment(env)
         .withArguments(*args)
         .build()
@@ -270,7 +270,7 @@ class TerracottaPluginTaskIntegrationTest {
         val result =
             GradleRunner.create()
                 .withProjectDir(projectDir)
-                .withPluginClasspath()
+                .withPluginClasspath(pluginClasspathWithFileSystem())
                 .withArguments("terracottaPlanModrinth")
                 .buildAndFail()
 

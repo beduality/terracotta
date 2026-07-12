@@ -153,7 +153,7 @@ nav:
     - State Filesystem:
       - Introduction: content/modules/terracotta-state-filesystem/README.md
       - How-To Guides:
-        - Replace the Filesystem Backend: content/modules/terracotta-state-filesystem/how-to-guides/replace-filesystem-backend.md
+        - Configure the Filesystem Backend: content/modules/terracotta-state-filesystem/how-to-guides/configure-filesystem-backend.md
       - Reference:
         - State Filesystem: content/modules/terracotta-state-filesystem/reference/state-filesystem.md
         - API Docs: content/modules/terracotta-state-filesystem/reference/api.md

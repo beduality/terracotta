@@ -33,4 +33,4 @@ Consider a custom backend when:
 
 The SPI is intentionally small: implement `StateSourceFactory` and `StateSource`, register the factory with `ServiceLoader`, and set `terracotta.stateSource` to the new factory id.
 
-For the SPI details, see the [State Management explanation](../../core/explanation/state-management.md). For replacing the backend in a Gradle build, see the [Replace the Filesystem Backend how-to guide](../how-to-guides/replace-filesystem-backend.md).
+For the SPI details, see the [State Management explanation](../../core/explanation/state-management.md). For configuring or replacing the backend in a Gradle build, see the [Configure the Filesystem Backend how-to guide](../how-to-guides/configure-filesystem-backend.md).

@@ -31,7 +31,7 @@ This release introduces pluggable state management and canonical project links. 
 **Gradle Plugin**
 
 - Improved the error when the configured state backend is missing so it lists available backends and, for the default `filesystem` backend, includes the dependency coordinates needed to restore it.
-- The Gradle plugin can now load and fail cleanly when the default filesystem backend is excluded from the classpath, instead of failing with a class-loading error. The `filesystem` backend remains bundled by default for backward compatibility.
+- The Gradle plugin no longer bundles `terracotta-state-filesystem`. Add it to the buildscript classpath to use the default filesystem backend, or use a custom `StateSourceFactory` implementation.
 
 **Core / State Filesystem**
 
