@@ -1,29 +1,23 @@
 # Navigating the Codebase
 
-This tutorial walks you through cloning the repository, setting up the project worktree, and finding your way around the codebase.
+This tutorial walks you through orienting yourself in the repository and setting up the planning worktree. It assumes you already have a local clone and a successful build from [Quick Start](./quick-start.md).
 
 ## What you'll learn
 
-- How to clone the repository and add the upstream remote
+- How to add the upstream remote
 - How to check out the `project` worktree for planning files
 - Where the Gradle modules, tests, and documentation live
-- How to run a full local build
+- How to verify your local environment with a targeted build
 
 ## Prerequisites
 
-- Git 2.54.0 or later
-- JDK 21 for building
+- A local clone of your fork
+- JDK 21
+- A successful run of `./gradlew build` from Quick Start
 
-## 1. Clone and add upstream
+## 1. Add the upstream remote
 
-Fork the repository on GitHub, then clone your fork locally:
-
-```bash
-git clone https://github.com/<your-username>/terracotta.git
-cd terracotta
-```
-
-Add the upstream remote:
+If you cloned your own fork, add the upstream remote so you can pull in future changes:
 
 ```bash
 git remote add upstream https://github.com/beduality/terracotta.git
@@ -63,15 +57,15 @@ terracotta/
 
 For a detailed file map, see [File Structure](../reference/file-structure.md).
 
-## 4. Build the project
+## 4. Verify a module builds in isolation
 
-Run a full build to verify your environment:
+Run a targeted build on `terracotta-core` to confirm you can build a single module:
 
 ```bash
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew build
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk ./gradlew :terracotta-core:build
 ```
 
-This compiles every module, runs tests, checks formatting, and generates coverage reports. When it finishes successfully, you are ready to make changes.
+This is faster than a full build and confirms your local environment is ready to work on a specific module.
 
 ## What's next?
 

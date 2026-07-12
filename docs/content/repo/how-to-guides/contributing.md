@@ -1,26 +1,18 @@
 # Contributing
 
-This guide shows how to contribute to Terracotta.
+This guide shows how to take a task from the project board and land it in `main`.
 
-## Getting Started
+## Before you start
 
-1. **Fork the repository** on GitHub
-2. **Clone your fork** locally
-3. **Set up upstream** for fetching changes:
-   ```bash
-   git remote add upstream https://github.com/beduality/terracotta.git
-   ```
+You need a local clone of your fork with the upstream remote configured. If you have not done this yet, follow [Navigating the Codebase](../tutorials/navigating-the-codebase.md) first.
 
-## Making Changes
+## 1. Pick a task
 
-### 1. Choose a Task
+Open `project/TODO.md` and choose a task. If the task you want is not listed, propose it through the `project` branch first.
 
-- Check `project/TODO.md` for existing tasks
-- If not found, add it to TODO (with PR against `project` branch)
-- Open a PR against `project` branch removing the task from TODO
-- Wait for merge before starting implementation
+To claim a task, open a PR against `beduality/terracotta:project` that removes the task from `TODO.md`. Wait for that PR to merge before writing code.
 
-### 2. Create a Branch
+## 2. Create a branch from `main`
 
 ```bash
 git checkout main
@@ -28,60 +20,55 @@ git pull upstream main
 git checkout -b feature/your-feature-name
 ```
 
-### 3. Make Your Changes
+## 3. Make your changes
 
-Implement your changes following the [Code Style Reference](../reference/code-style.md).
+Implement the task. Follow the [Code Style Reference](../reference/code-style.md) and keep commits focused.
 
-### 4. Test Your Changes
+## 4. Verify locally
 
 ```bash
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 ./gradlew build
 ```
 
-This runs:
-- Compilation of all modules
-- All tests (unit, integration, smoke)
-- Code formatting verification (Spotless)
+This compiles every module, runs all tests, and checks formatting.
 
-### 5. Commit Your Changes
+## 5. Commit
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```bash
 git commit -m "feat(core): add new feature"
-git commit -m "fix(modrinth): handle edge case"
 ```
 
-### 6. Open a Pull Request
+Common scopes: `core`, `modrinth`, `hangar`, `gradle-plugin`, `github`, `docs`, `repo`, `ci`.
 
-- Push your branch to your fork
-- Open a PR against `main` branch
-- Fill in the PR template
-- Request review from maintainers
+## 6. Open a PR against `main`
 
-## PR Checklist
+Push your branch to your fork and open a pull request against `main`. Fill in the PR template and request review.
 
-Before merging, a PR must:
+## PR checklist
 
-- [ ] Build passes: `./gradlew build`
-- [ ] Tests pass: `./gradlew test`
-- [ ] Spotless passes: `./gradlew spotlessCheck`
-- [ ] Test coverage maintained or improved
-- [ ] Documentation updated (if applicable)
+Before requesting review, confirm:
 
-## After Approval
+- [ ] `./gradlew build` passes locally.
+- [ ] `./gradlew test` passes.
+- [ ] `./gradlew spotlessCheck` passes.
+- [ ] Test coverage is maintained or improved.
+- [ ] Documentation is updated if the change affects users or contributors.
+- [ ] The PR description explains what changed and why.
 
-1. **Merge** the PR (or have a maintainer merge it)
-2. **Delete** your branch
-3. **Update** your local main:
-   ```bash
-   git checkout main
-   git pull upstream main
-   ```
+## After merge
 
-## Questions?
+```bash
+git checkout main
+git pull upstream main
+git branch -d feature/your-feature-name
+```
 
-- Join the [Discord server](https://discord.gg/D5meCv2Wnd)
-- Check the [Architecture Overview](../../modules/core/explanation/architecture.md)
-- Review the [Tech Stack Reference](../reference/tech-stack.md)
+## Where to get help
+
+- [Code Style Reference](../reference/code-style.md)
+- [Testing Guide](../how-to-guides/testing.md)
+- [Architecture Overview](../../modules/core/explanation/architecture.md)
+- [Discord](https://discord.gg/D5meCv2Wnd)

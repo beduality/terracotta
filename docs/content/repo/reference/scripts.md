@@ -6,7 +6,7 @@ Terracotta uses Python scripts for release automation, infrastructure management
 
 ### `release.py`
 
-End-to-end release orchestration. Used locally and by the [Release](../reference/ci-cd.md#release) GitHub Actions workflow.
+End-to-end release orchestration. Used locally and by the [release.yml](ci-cd.md) GitHub Actions workflow.
 
 | Command | Purpose |
 |---|---|

@@ -108,9 +108,9 @@ uv run mike list
 
 ## Writing Documentation
 
-### Follow Documentation Framework
+### Follow the framework
 
-See [Navigating the Docs](../../navigating-docs.md) for how readers experience the four types.
+See [Navigating the Docs](../../navigating-docs.md) for how readers experience the four types, and [Documentation Style](../reference/documentation-style.md) for the site's conventions.
 
 ### Page Checklist
 

@@ -62,4 +62,6 @@ If a change spans modules, either split it into scoped entries or place it under
 - Use bold `**Module**` headings under each category; do not use `####` headings for modules.
 - Mark breaking changes explicitly with `**Breaking**:` and migration steps.
 
+For the reasoning behind these rules, see [Changelog Design](../explanation/changelog.md).
+
 For the mechanical writing rules and examples, see [How to Write Changelog Entries](../how-to-guides/writing-changelog.md).

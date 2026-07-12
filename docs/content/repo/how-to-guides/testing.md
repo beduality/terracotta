@@ -109,8 +109,8 @@ Reports are generated at:
 2. Check Modrinth API status
 3. Ensure project exists on Modrinth
 
-## Best Practices
+## Where to read more
 
-1. **Write tests first** for new behavior (TDD when appropriate)
-2. **Run tests after changes** to catch regressions
-3. **Add tests for edge cases** before implementing features
+- [Building](../how-to-guides/building.md): Compile and verify the project.
+- [Tech Stack](../reference/tech-stack.md): Testing tools and versions.
+- [CI/CD Reference](../reference/ci-cd.md): How tests run in CI.

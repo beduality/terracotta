@@ -1,6 +1,6 @@
 # Modules
 
-Terracotta is organized into focused modules. Each module has its own documentation section that follows the [Diátaxis](https://diataxis.fr/) framework.
+Terracotta is organized into focused modules.
 
 ## Available modules
 

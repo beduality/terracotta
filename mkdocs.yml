@@ -162,6 +162,7 @@ nav:
       - Tutorials:
         - Quick Start: content/repo/tutorials/quick-start.md
         - Navigating the Codebase: content/repo/tutorials/navigating-the-codebase.md
+        - First Contribution: content/repo/tutorials/first-contribution.md
       - How-To Guides:
         - Contributing: content/repo/how-to-guides/contributing.md
         - Building: content/repo/how-to-guides/building.md
@@ -169,12 +170,22 @@ nav:
         - Documentation: content/repo/how-to-guides/documentation.md
         - Releasing: content/repo/how-to-guides/releasing.md
         - Smoke Testing a Release: content/repo/how-to-guides/smoke-testing-a-release.md
-        - Writing Changelog: content/repo/how-to-guides/writing-changelog.md
+        - Writing Changelog Entries: content/repo/how-to-guides/writing-changelog.md
       - Reference:
         - Tech Stack: content/repo/reference/tech-stack.md
         - File Structure: content/repo/reference/file-structure.md
         - Configuration: content/repo/reference/configuration.md
+        - Scripts: content/repo/reference/scripts.md
+        - CI/CD: content/repo/reference/ci-cd.md
+        - Branches: content/repo/reference/branches.md
+        - Project Files: content/repo/reference/project-files.md
         - Code Style: content/repo/reference/code-style.md
+        - Commit Conventions: content/repo/reference/commit-conventions.md
+        - Documentation Style: content/repo/reference/documentation-style.md
         - Changelog Guidelines: content/repo/reference/changelog-guidelines.md
       - Explanation:
         - Project Management: content/repo/explanation/project-management.md
+        - Repo Architecture: content/repo/explanation/architecture.md
+        - Branch Strategy: content/repo/explanation/branch-strategy.md
+        - Release Design: content/repo/explanation/release-design.md
+        - Changelog Design: content/repo/explanation/changelog.md

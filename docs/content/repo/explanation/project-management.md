@@ -23,4 +23,6 @@ Keeping planning on a dedicated branch means:
 - **`BACKLOG.md`**: Ideas and tasks that need more investigation or prioritization.
 - **`project/proposals/`**: Larger changes that need discussion before implementation.
 
-For the mechanics of moving items between these files and opening planning PRs, see the [Contributing how-to guide](../how-to-guides/contributing.md).
+For the mechanics of moving items between these files and opening planning PRs, see the [Contributing how-to guide](../how-to-guides/contributing.md) and [Project Files Reference](../reference/project-files.md).
+
+For why planning lives on a separate branch, see [Branch Strategy](branch-strategy.md).

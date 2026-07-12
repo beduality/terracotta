@@ -1,8 +1,8 @@
 # Code Style Reference
 
-This reference documents the code style and formatting requirements for Terracotta.
+This reference documents Kotlin and Python code style for the Terracotta codebase.
 
-## Kotlin Style
+## Kotlin
 
 ### Basics
 
@@ -12,99 +12,51 @@ This reference documents the code style and formatting requirements for Terracot
 
 ### Formatting
 
-- **Tool**: ktlint via Spotless 6.25.0
-- **Run**: `./gradlew spotlessApply` (auto-fix)
-- **Check**: `./gradlew spotlessCheck` (CI requirement)
+Spotless runs ktlint. Auto-fix with:
 
-**Configuration**: Found in `build.gradle.kts` under `spotless` block.
-
-### Conventions
-
-1. **Imports**: No wildcard imports (`import package.*`)
-2. **Line Length**: Max 120 characters
-3. **Braces**: K&R style
-4. **Spacing**: 4 spaces, no tabs
-5. **Naming**:
-   - Classes: `PascalCase`
-   - Functions: `camelCase`
-   - Constants: `UPPER_SNAKE_CASE`
-   - Types: `PascalCase`
-
-### Annotations
-
-- Use `@Serializable` from Kotlinx Serialization for data models
-- Use `@SerialName` for explicit JSON property names
-
-## Commit Style
-
-### Conventional Commits
-
-Terracotta follows [Conventional Commits](https://www.conventionalcommits.org/).
-
-**Format**: `<type>(<scope>): <description>`
-
-**Types**:
-
-| Type | Purpose | Version Bump |
-|------|---------|--------------|
-| `feat` | New feature | Minor |
-| `fix` | Bug fix | Patch |
-| `docs` | Documentation | None |
-| `refactor` | Code refactoring | None |
-| `test` | Test additions/changes | None |
-| `chore` | Maintenance | None |
-
-**Scopes**:
-
-| Scope | Module |
-|-------|--------|
-| `core` | `terracotta-core` |
-| `modrinth` | `terracotta-provider-modrinth` |
-| `gradle-plugin` | `terracotta-gradle-plugin` |
-| `github` | `terracotta-github` |
-| `docs` | Documentation |
-| `ci` | CI/CD workflows |
-
-### Examples
-
-```
-feat(core): add TerracottaVersion.displayName field
-fix(modrinth): handle missing project gracefully
-refactor(gradle-plugin): simplify provider discovery
-docs: fix architecture diagram in README
+```bash
+./gradlew spotlessApply
 ```
 
-### Breaking Changes
+CI requires:
 
-Mark with `!` suffix or `BREAKING CHANGE` footer:
-
-```
-feat(core)!: remove deprecated API
+```bash
+./gradlew spotlessCheck
 ```
 
-```
-feat(core): new API for version management
+### Formatting rules
 
-BREAKING CHANGE: Old API removed
-```
+| Rule | Value |
+|---|---|
+| Wildcard imports | Not allowed |
+| Line length | 120 characters |
+| Braces | K&R style |
+| Indentation | 4 spaces, no tabs |
 
-## Pull Request Requirements
+### Naming
 
-See the [Contributing how-to guide](../how-to-guides/contributing.md) for the PR checklist and process.
+| Kind | Convention |
+|---|---|
+| Classes | `PascalCase` |
+| Functions | `camelCase` |
+| Constants | `UPPER_SNAKE_CASE` |
+| Types | `PascalCase` |
 
-## Python Style
+### Serialization annotations
 
-**No formal formatter enforced**, but scripts should:
+- Use `@Serializable` from Kotlinx Serialization for data models.
+- Use `@SerialName` for explicit JSON property names.
 
-- Follow PEP 8 style guide
-- Use descriptive names
-- Include type hints
-- Be consistent with existing code
+## Python
 
-## Documentation Style
+No formatter is enforced for scripts. Keep them consistent with the existing style:
 
-- Follow the [Documentation Framework](../../navigating-docs.md) for content organization
-- Each page belongs to exactly one type (Tutorial, How-to, Reference, Explanation)
-- Use markdown headers for structure
-- Include code examples where helpful
-- Link to related content
+- Follow PEP 8.
+- Use descriptive names.
+- Include type hints.
+- Run scripts with `uv run`.
+
+## Related references
+
+- [Commit Conventions](commit-conventions.md): Conventional Commits format and scopes.
+- [Documentation Style](documentation-style.md): How to write docs that match the site conventions.
