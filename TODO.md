@@ -6,10 +6,9 @@
 - Add [Narrow License](./proposals/26-07-12-narrow-license-hangar.md)
 - Add [Narrow Tags](./proposals/25-07-10-narrow-tags-canonical.md)
 
-- Add [Import Task](./proposals/26-07-12-add-task-import.md)
 - Add [Override Pattern](./proposals/25-07-10-add-config-override-pattern.md)
-
 - Add [Project Keywords](./proposals/26-07-12-add-project-keywords.md)
+- Add [Import Task](./proposals/26-07-12-add-task-import.md)
 
 - Finish [External YAML Configuration](./proposals/26-07-10-add-config-external-yaml.md)
 - Add support for multiple Terracotta files
@@ -18,16 +17,21 @@
 
 - Add "create" task
 
-- Add [Terracotta Cloud](./proposals/26-07-11-add-cloud-terracotta.md)
-    - Add [Cloud Preview Service](./proposals/25-07-12-add-cloud-preview-service.md) (paid Cloud plan, web UI + CLI)
-    - Add [Terracotta Registry Gateway](./proposals/26-07-11-add-cloud-registry-gateway.md)
-- [gha] Add [Terracotta GHA Module](./proposals/26-07-12-add-module-gha.md)
-
 - Try migrate ClockTime to this project
-
 - Ask for friend feedback on the project
 
+---
+
+- Add [Terracotta Cloud](./proposals/26-07-11-add-cloud-terracotta.md)  in a separate private repo
+    - Add website with auth, token management, billing (Stripe), etc
+- [gha] Add [Terracotta GHA Module](./proposals/26-07-12-add-module-gha.md)
+
+- Add standalone CLI
+
 - Add Provider feature support table to integration docs
+
+- Add [Cloud Preview Service](./proposals/25-07-12-add-cloud-preview-service.md) (paid Cloud plan, web UI + CLI)
+- Add [Terracotta Registry Gateway](./proposals/26-07-11-add-cloud-registry-gateway.md)
 
 ---
 
