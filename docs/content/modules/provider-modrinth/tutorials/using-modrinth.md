@@ -122,7 +122,7 @@ registryProvider.apply(projectId = "my-plugin-id", operations = operations)
 ## Gallery images
 
 The Modrinth provider supports uploading, updating metadata, and deleting gallery images.
-Images are declared in `terracotta.yml` or in the Gradle DSL and matched by their title.
+Images are declared in project configuration (for example, `terracotta.yml`) or through a build-tool DSL and matched by their title.
 
 ### Supported formats and limits
 
@@ -152,8 +152,7 @@ title no longer exists in the local configuration.
 
 ## Project icon
 
-The Modrinth provider can upload and update the project icon. The icon is declared
-with the `icon` field in `terracotta.yml` or with `icon.set(...)` in the Gradle DSL.
+The Modrinth provider can upload and update the project icon. The icon is declared with the `icon` field in project configuration (for example, `terracotta.yml`) or through a build-tool DSL.
 
 ### Supported formats and limits
 

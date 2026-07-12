@@ -8,7 +8,7 @@ The codebase is organized into four layers:
 
 - **Core (`terracotta-core`)**: Platform-agnostic domain logic: canonical models, metadata resolution, the diff engine, and the provider SPI.
 - **Providers (`terracotta-provider-*`)**: Registry-specific implementations that translate between core models and registry APIs.
-- **Gradle plugin (`terracotta-gradle-plugin`)**: User-facing build integration that discovers providers, loads configuration, and exposes `terracottaPlan` and `terracottaApply` tasks.
+- **Build-tool frontends (e.g. `terracotta-gradle-plugin`)**: User-facing integrations that discover providers, load configuration, and expose tasks or commands.
 - **Infrastructure (`terracotta-github`)**: Pulumi program that manages repository settings and GitHub Actions secrets.
 
 ## Why core knows nothing about registries
@@ -17,7 +17,7 @@ The codebase is organized into four layers:
 
 - A new registry can be supported by adding a module, not by editing core.
 - Core logic is tested without network access or external credentials.
-- The same core can be reused by a Maven plugin, a CLI, or a CI action later.
+- The same core can be reused by a Maven plugin, a CLI, a CI action, or any other frontend later.
 
 ## Why state is compared instead of overwritten
 
@@ -44,7 +44,7 @@ Providers are discovered at runtime through Java's `ServiceLoader`. A provider J
 META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory
 ```
 
-The Gradle plugin loads every available factory, then activates only the providers the user configured. Multiple providers can run in the same build.
+A frontend such as the Terracotta Gradle plugin loads every available factory, then activates only the providers the user configured. Multiple providers can run in the same invocation. See the [Gradle plugin architecture](../../gradle-plugin/explanation/architecture.md) for how the plugin wires discovery into a build.
 
 ## Versioning and releases
 

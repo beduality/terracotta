@@ -172,7 +172,7 @@ You now have a minimal provider that:
 - Uses `ProviderLogic` to map loaders and filter unsupported operations.
 - Extends `BaseRegistryProvider` so core handles logging and filtering automatically.
 - Receives operations computed by `DiffEngine`.
-- Can be discovered and wired into the Gradle plugin via `ServiceLoader`.
+- Can be discovered by any frontend that loads `ProviderFactory` services, such as the Terracotta Gradle plugin.
 
 ## Production checklist
 

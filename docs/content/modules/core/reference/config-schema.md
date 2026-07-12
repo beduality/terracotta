@@ -36,7 +36,7 @@ Each entry under `providers:` uses the provider ID (e.g. `modrinth`, `hangar`) a
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `projectId` | string | No | Project slug or ID on the provider. Required at runtime but can be supplied in the Kotlin DSL. |
+| `projectId` | string | No | Project slug or ID on the provider. Required at runtime; can also be supplied through caller-provided defaults (for example, a build-tool DSL). |
 | `token` | string | No | API token for the provider. Defaults to the `<PROVIDER>_TOKEN` environment variable. |
 
 ## Gallery block
@@ -128,15 +128,15 @@ providers:
 
 ## Partial files
 
-All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults. Values set in the Kotlin DSL always override values from `terracotta.yml`.
+All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults. Values supplied by the caller (for example, a build-tool DSL) always override values from `terracotta.yml`.
 
 ## Auto-detection
 
-Terracotta can infer several fields from standard project files and Gradle metadata when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying Kotlin DSL overrides.
+Terracotta can infer several fields from standard project files and caller-supplied build-system values when they are not configured explicitly. Detection runs after reading `terracotta.yml` but before applying caller-supplied overrides.
 
 | Field | Source | Notes |
 |-------|--------|-------|
-| `name` | Gradle `project.name` | Used when no display name is configured. |
+| `name` | Build-system project name | Used when no display name is configured. |
 | `summary` | `README.md` | First non-heading paragraph. |
 | `description` | `README.md` | Full file content. |
 | `loaders` | `fabric.mod.json`, `META-INF/mods.toml`, `paper-plugin.yml`, `plugin.yml`, `bungee.yml`, `velocity-plugin.json`, `mods.toml` (Sponge), etc. | Loader forks are resolved automatically; Paper also implies Spigot and Bukkit. |
@@ -144,12 +144,14 @@ Terracotta can infer several fields from standard project files and Gradle metad
 | `environment` | Loader-specific descriptors | Defaults to `server_only` when not detected. |
 | `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers are recognized. |
 | `licenseUrl` | None | Must be configured explicitly; not auto-detected. |
-| `releaseType` | Gradle project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
+| `releaseType` | Build-system project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
 | `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
+
+A build-tool frontend such as the Terracotta Gradle plugin supplies build-system values through a `ProjectMetadataSource`. See [Resolve Project Metadata](../how-to-guides/resolve-project-metadata.md) for the full resolution workflow.
 
 ## Loader IDs
 
-Use the lowercase loader ID in `terracotta.yml` and in the Kotlin DSL:
+Use the lowercase loader ID in `terracotta.yml` and in caller-supplied configuration:
 
 - `bukkit`
 - `bungeecord`

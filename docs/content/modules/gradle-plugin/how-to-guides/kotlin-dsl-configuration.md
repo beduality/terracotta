@@ -136,7 +136,7 @@ terracotta {
 - `stateSource` selects the backend by its factory `id` (default: `"filesystem"`).
 - `stateSourceSettings` is a `MapProperty<String, String>` with backend-specific settings. The filesystem backend recognizes `path`.
 
-State files are generated at build time and should not be committed; see [State Management](../../core/explanation/state-management.md) for details.
+For backend-specific settings such as the default filename and implementation details, see the [State Filesystem reference](../../terracotta-state-filesystem/reference/state-filesystem.md). For the core state SPI, see [State Management](../../core/explanation/state-management.md).
 
 ### Deprecated `stateFile`
 

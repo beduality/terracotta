@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This release introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
 
+### Documentation
+
+- Decoupled Core documentation from Gradle plugin and state-management implementation details. Core docs now describe the generic state SPI and metadata resolution, and link to the Gradle plugin and `terracotta-state-filesystem` docs for frontend-specific examples.
+- Removed Gradle DSL and build-tool assumptions from core KDoc (`StateSourceConfig`, `StateSourceFactory`, `TerracottaConfig`, `ProjectMetadataSource`).
+- Tightened module focus in the `terracotta-state-filesystem` reference and the Gradle plugin Kotlin DSL guide so each page owns its own responsibilities and links across modules.
+- Generalized the Modrinth provider tutorial so registry-specific docs no longer depend on Gradle DSL syntax.
+
 ### Added
 
 **Core**

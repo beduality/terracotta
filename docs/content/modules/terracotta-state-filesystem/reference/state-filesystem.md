@@ -14,14 +14,9 @@ filesystem
 |-----|----------|---------|-------------|
 | `path` | No | `.terracotta-state.yml` in the project directory | Absolute or relative path to the YAML state file. |
 
-## DSL example
+## Front-end configuration
 
-```kotlin
-terracotta {
-    stateSource.set("filesystem")
-    stateSourceSettings.put("path", "custom-state.yml")
-}
-```
+Frontends pass the `path` setting through `StateSourceConfig.settings`. The Terracotta Gradle plugin exposes this as `stateSourceSettings`; see the [Kotlin DSL configuration guide](../../gradle-plugin/how-to-guides/kotlin-dsl-configuration.md).
 
 ## Implementation notes
 

@@ -15,7 +15,7 @@ interface StateSourceFactory {
     /**
      * Unique identifier for this backend (e.g. `"filesystem"`).
      *
-     * This value matches the `stateSource` property in the Gradle DSL.
+     * Frontends select a backend by matching this value.
      */
     val id: String
 
@@ -23,7 +23,7 @@ interface StateSourceFactory {
      * Creates a [StateSource] configured with the given [config].
      *
      * @param config Backend-specific configuration, including the project
-     *   directory and any settings from the DSL.
+     *   directory and any settings from the caller.
      * @return A ready-to-use state source.
      * @throws IllegalArgumentException if the configuration is invalid for
      *   this backend.

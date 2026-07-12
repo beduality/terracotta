@@ -91,7 +91,7 @@ You now have a working custom loader that:
 
 - Detects projects containing `src/main/resources/example-mod.json`.
 - Appears in `TerracottaLoaderRegistry.detectAll(...)`.
-- Can be used by the metadata detectors and the Gradle plugin without further changes.
+- Can be used by any consumer that reads loader detections, such as the Terracotta Gradle plugin.
 
 ## Next steps
 
