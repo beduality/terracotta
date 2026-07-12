@@ -323,6 +323,28 @@ def run_command(cmd: list[str], env: dict = None):
     if result.returncode != 0:
         raise subprocess.CalledProcessError(result.returncode, cmd)
 
+
+def rebase_onto_origin(branch: str):
+    """Fetch the latest remote branch and rebase the current commit onto it.
+
+    This prevents a non-fast-forward push when other commits land on the
+    remote branch while the release build is running.
+    """
+    run_command(["git", "fetch", "origin"])
+    ancestor_check = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", f"origin/{branch}", "HEAD"],
+        capture_output=True,
+    )
+    if ancestor_check.returncode != 0:
+        console.print(
+            f"[yellow]origin/{branch} moved ahead during the build; rebasing the release commit...[/yellow]"
+        )
+        try:
+            run_command(["git", "rebase", f"origin/{branch}"])
+        except subprocess.CalledProcessError:
+            subprocess.run(["git", "rebase", "--abort"], check=False)
+            raise
+
 @app.command
 def rollback(release_version: str):
     """Rollback a release by deleting local and remote tags, and resetting the release commit.
@@ -717,6 +739,10 @@ def main(
 
             run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
             actions_taken.append("committed")
+
+            # Make sure we are still a fast-forward of the remote branch,
+            # rebasing the release commit on top if the remote moved ahead.
+            rebase_onto_origin(current_branch)
 
             run_command(["git", "tag", f"v{new_version}"])
             actions_taken.append("tagged")
