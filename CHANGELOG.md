@@ -31,7 +31,7 @@ This release introduces pluggable state management and canonical project links. 
 **Gradle Plugin**
 
 - Improved the error when the configured state backend is missing so it lists available backends and, for the default `filesystem` backend, includes the dependency coordinates needed to restore it.
-- The Gradle plugin can now load and fail cleanly when the default filesystem backend is excluded from the classpath, instead of failing with a class-loading error.
+- The Gradle plugin can now load and fail cleanly when the default filesystem backend is excluded from the classpath, instead of failing with a class-loading error. The `filesystem` backend remains bundled by default for backward compatibility.
 
 **Core / State Filesystem**
 
@@ -56,7 +56,7 @@ This release introduces pluggable state management and canonical project links. 
 - Decoupled Core documentation from Gradle plugin and state-management implementation details. Core docs now describe the generic state SPI and metadata resolution, and link to the Gradle plugin and `terracotta-state-filesystem` docs for frontend-specific examples.
 - Removed Gradle DSL and build-tool assumptions from core KDoc (`StateSourceConfig`, `StateSourceFactory`, `TerracottaConfig`, `ProjectMetadataSource`).
 - Tightened module focus in the `terracotta-state-filesystem` reference and the Gradle plugin Kotlin DSL guide so each page owns its own responsibilities and links across modules.
-- Documented the new missing-backend error and how to restore the filesystem backend if it is excluded from the classpath.
+- Expanded the `terracotta-state-filesystem` documentation with a rewritten README, an expanded reference page, a how-to guide for replacing the filesystem backend, and an explanation of why YAML and file-backed persistence are the defaults.
 - Generalized the Modrinth provider tutorial so registry-specific docs no longer depend on Gradle DSL syntax.
 
 ## [0.5.0] - 2026-07-12
