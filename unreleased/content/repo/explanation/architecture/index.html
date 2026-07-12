@@ -4826,7 +4826,7 @@
 <li>Review changes through PRs.</li>
 <li>Reproduce the repository configuration if needed.</li>
 </ul>
-<p>Secrets are loaded from a local <code>.env</code> file by <code>scripts/load-pulumi-secrets.py</code>, encrypted in Pulumi config, and provisioned as GitHub Actions secrets.</p>
+<p>Secrets are loaded from a local <code>.env</code> file by <code>scripts/load_pulumi_secrets.py</code>, encrypted in Pulumi config, and provisioned as GitHub Actions secrets.</p>
 <h2 id="documentation-as-a-first-class-concern">Documentation as a first-class concern<a class="headerlink" href="#documentation-as-a-first-class-concern" title="Permanent link">&para;</a></h2>
 <p>Docs live in <code>docs/</code> rather than inside each module because many pages cross module boundaries. The integration guides, for example, discuss both the Gradle plugin and providers. A dedicated docs tree makes the site structure explicit and lets the release pipeline deploy versioned documentation that matches the released code.</p>
 <h2 id="planning-outside-main">Planning outside <code>main</code><a class="headerlink" href="#planning-outside-main" title="Permanent link">&para;</a></h2>

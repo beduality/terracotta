@@ -4142,10 +4142,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#load-pulumi-secretspy" class="md-nav__link">
+  <a href="#load_pulumi_secretspy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        load-pulumi-secrets.py
+        load_pulumi_secrets.py
       
     </span>
   </a>
@@ -4741,10 +4741,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#load-pulumi-secretspy" class="md-nav__link">
+  <a href="#load_pulumi_secretspy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        load-pulumi-secrets.py
+        load_pulumi_secrets.py
       
     </span>
   </a>
@@ -4953,10 +4953,10 @@
 </tbody>
 </table>
 <h2 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h2>
-<h3 id="load-pulumi-secretspy"><code>load-pulumi-secrets.py</code><a class="headerlink" href="#load-pulumi-secretspy" title="Permanent link">&para;</a></h3>
+<h3 id="load_pulumi_secretspy"><code>load_pulumi_secrets.py</code><a class="headerlink" href="#load_pulumi_secretspy" title="Permanent link">&para;</a></h3>
 <p>Syncs secrets from a local <code>.env</code> file into Pulumi config for the <code>terracotta-github</code> module.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PULUMI_CONFIG_PASSPHRASE</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load-pulumi-secrets.py
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/load_pulumi_secrets.py
 </code></pre></div>
 <p>The script parses <code>modules/terracotta-github/src/.../App.kt</code> to detect which secrets are needed, so the secret list stays in one place.</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
@@ -4971,7 +4971,7 @@
 <h3 id="test_release_smokepy"><code>test_release_smoke.py</code><a class="headerlink" href="#test_release_smokepy" title="Permanent link">&para;</a></h3>
 <p>Pytest suite for smoke testing a release end-to-end. See <a href="../../how-to-guides/smoke-testing-a-release/">Smoke Testing a Release</a>.</p>
 <h3 id="test_load_pulumi_secretspy"><code>test_load_pulumi_secrets.py</code><a class="headerlink" href="#test_load_pulumi_secretspy" title="Permanent link">&para;</a></h3>
-<p>Unit tests for <code>load-pulumi-secrets.py</code>.</p>
+<p>Unit tests for <code>load_pulumi_secrets.py</code>.</p>
 <h3 id="redeploy_all_docstestpy"><code>redeploy_all_docs.test.py</code><a class="headerlink" href="#redeploy_all_docstestpy" title="Permanent link">&para;</a></h3>
 <p>Unit tests for <code>redeploy_all_docs.py</code>.</p>
 <h3 id="conftestpy"><code>conftest.py</code><a class="headerlink" href="#conftestpy" title="Permanent link">&para;</a></h3>
