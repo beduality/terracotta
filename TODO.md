@@ -13,7 +13,8 @@
 - Add [State Management](./proposals/2026-07-state-management.md)
 - Stabilize gallery item identity via persisted state
 
-- Add [Narrow License and Tags](./proposals/2025-07-narrow-license-tags.md)
+- Add [Narrow License](./proposals/2025-07-narrow-license.md)
+- Add [Narrow Tags](./proposals/2025-07-narrow-tags.md)
 - Add [Provider-Specific Logic Layer](./proposals/2025-07-provider-specific-logic.md)
 - Add [Override Pattern](./proposals/2025-07-override-pattern.md)
 
