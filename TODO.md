@@ -9,7 +9,7 @@
 - Add [Authentication Workflows](./proposals/2025-07-authentication-workflows.md)
 
 - Add support to staging environments like Modrinth Staging
-- Add "import" command/task
+- Add [Import Task](./proposals/2026-07-import-task.md)
 - Add [State Management](./proposals/2026-07-state-management.md)
 - Stabilize gallery item identity via persisted state
 
