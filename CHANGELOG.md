@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Docs**
+
+- Simplified homepage, integration tutorial, and getting-started docs to feature Modrinth as the default single provider, moving Hangar coverage to a follow-up how-to guide.
+
 ## [0.6.0] - 2026-07-12
 
 This release introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.

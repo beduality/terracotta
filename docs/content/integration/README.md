@@ -14,7 +14,7 @@ These Terracotta modules are used when wiring up integrations:
 
 ## Quick links
 
-- [Publish to Modrinth and Hangar](tutorials/publishing-to-multiple-providers.md)
+- [Publish to Modrinth](tutorials/publishing-to-modrinth.md)
 - [Add Modrinth to the Gradle plugin](how-to-guides/adding-modrinth-to-gradle-plugin.md)
 - [Add Hangar to the Gradle plugin](how-to-guides/adding-hangar-to-gradle-plugin.md)
 - [Troubleshoot provider integration](how-to-guides/troubleshooting.md)

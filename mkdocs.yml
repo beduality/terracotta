@@ -91,7 +91,7 @@ nav:
   - Integration:
     - Overview: content/integration/README.md
     - Tutorials:
-      - Publishing to Multiple Providers: content/integration/tutorials/publishing-to-multiple-providers.md
+      - Publishing to Modrinth: content/integration/tutorials/publishing-to-modrinth.md
     - How-To Guides:
       - Adding Modrinth to the Gradle Plugin: content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md
       - Adding Hangar to the Gradle Plugin: content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md
