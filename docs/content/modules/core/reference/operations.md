@@ -11,6 +11,9 @@
 | `UpdateDescription(old, new)` | Replace the project description. |
 | `UpdateTags(oldTags, newTags)` | Replace the project tags. |
 | `UploadVersion(version)` | Upload a new version artifact. |
+| `UploadGalleryItem(item)` | Upload a new gallery image. |
+| `UpdateGalleryItem(oldItem, newItem)` | Update metadata of an existing gallery image. |
+| `DeleteGalleryItem(item)` | Remove a gallery image from the remote project. |
 
 ## Diff behavior
 
@@ -23,6 +26,9 @@
 | Description changed | `UpdateDescription`. |
 | Tags changed | `UpdateTags`. |
 | Local version not present remotely | `UploadVersion`. |
+| Local gallery item not present remotely | `UploadGalleryItem`. |
+| Matched gallery item metadata changed | `UpdateGalleryItem`. |
+| Remote gallery item not present locally | `DeleteGalleryItem`. |
 
 ## License comparison
 

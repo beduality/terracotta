@@ -1,6 +1,10 @@
 package io.github.beduality.terracotta.provider.modrinth.client
 
+import io.github.beduality.terracotta.core.asset.AssetProcessor
+import io.github.beduality.terracotta.core.asset.GalleryValidator
+import io.github.beduality.terracotta.core.asset.IdentityAssetProcessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
@@ -14,6 +18,7 @@ import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.header
+import io.ktor.client.request.parameter
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -46,6 +51,8 @@ class ModrinthClient(
     private val baseUrl: String = "https://api.modrinth.com/v2",
     /** Underlying Ktor HTTP client. */
     private val client: HttpClient = defaultClient(),
+    /** Processor applied to asset files before upload. */
+    private val assetProcessor: AssetProcessor = IdentityAssetProcessor,
 ) {
     private val json =
         Json {
@@ -54,6 +61,9 @@ class ModrinthClient(
         }
 
     companion object {
+        private val SUPPORTED_GALLERY_EXTENSIONS = setOf("png", "jpg", "jpeg", "webp", "gif", "bmp")
+        private const val MAX_GALLERY_SIZE_BYTES = 5L * 1024 * 1024
+
         private fun defaultClient(): HttpClient {
             return HttpClient(Java) {
                 install(ContentNegotiation) {
@@ -251,4 +261,91 @@ class ModrinthClient(
             TerracottaEnvironment.SERVER_ONLY -> "required"
             TerracottaEnvironment.UNIVERSAL -> "required"
         }
+
+    /** Uploads [item] to the gallery of the project identified by [projectId]. */
+    suspend fun uploadGalleryItem(
+        projectId: String,
+        item: TerracottaGalleryItem,
+    ) {
+        val processed = assetProcessor.process(File(item.imagePath))
+        GalleryValidator.validate(
+            processed.path,
+            SUPPORTED_GALLERY_EXTENSIONS,
+            MAX_GALLERY_SIZE_BYTES,
+        )
+
+        val extension = processed.extension.ifBlank { File(item.imagePath).extension }
+        val file = File(processed.path)
+
+        val response =
+            client.post("$baseUrl/project/$projectId/gallery") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                parameter("ext", extension)
+                parameter("featured", item.featured)
+                parameter("title", item.title)
+                parameter("description", item.description)
+                parameter("ordering", item.ordering)
+                setBody(
+                    MultiPartFormDataContent(
+                        formData {
+                            append(
+                                "file",
+                                file.readBytes(),
+                                Headers.build {
+                                    append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
+                                    append(HttpHeaders.ContentType, processed.contentType)
+                                },
+                            )
+                        },
+                    ),
+                )
+            }
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to upload gallery image: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully uploaded gallery image '${item.title}' to Modrinth project $projectId.")
+    }
+
+    /** Updates the gallery image identified by [url] on the project [projectId]. */
+    suspend fun updateGalleryItem(
+        projectId: String,
+        url: String,
+        item: TerracottaGalleryItem,
+    ) {
+        val response =
+            client.patch("$baseUrl/project/$projectId/gallery") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                parameter("url", url)
+                parameter("title", item.title)
+                parameter("description", item.description)
+                parameter("featured", item.featured)
+                parameter("ordering", item.ordering)
+            }
+        if (response.status.value !in 200..299) {
+            throw IOException("Failed to update gallery image: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully updated gallery image '${item.title}' on Modrinth project $projectId.")
+    }
+
+    /** Deletes the gallery image identified by [url] from the project [projectId]. */
+    suspend fun deleteGalleryItem(
+        projectId: String,
+        url: String,
+    ) {
+        val response =
+            client.delete("$baseUrl/project/$projectId/gallery") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+                parameter("url", url)
+            }
+        if (response.status.value !in 200..299 && response.status.value != 404) {
+            throw IOException("Failed to delete gallery image: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully deleted gallery image from Modrinth project $projectId.")
+    }
 }

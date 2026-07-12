@@ -118,6 +118,37 @@ val registryProvider = ModrinthRegistryProvider(client)
 registryProvider.apply(projectId = "my-plugin-id", operations = operations)
 ```
 
+## Gallery images
+
+The Modrinth provider supports uploading, updating metadata, and deleting gallery images.
+Images are declared in `terracotta.yml` or in the Gradle DSL and matched by their title.
+
+### Supported formats and limits
+
+| Limit | Value |
+|-------|-------|
+| Maximum file size | 5 MiB |
+| Supported extensions | `png`, `jpg`, `jpeg`, `webp`, `gif`, `bmp` |
+| Identity key | Normalized title (trimmed and lowercased) |
+
+### Configuration example
+
+```yaml
+name: "My Plugin"
+# ... other fields ...
+
+gallery:
+  - path: "docs/assets/main.png"
+    title: "Main inventory screen"
+    description: "Shows the new GUI"
+    featured: true
+    ordering: 0
+```
+
+When `terracottaApply` runs, the provider uploads new images, updates metadata for
+images whose title/description/featured/ordering changed, and deletes images whose
+title no longer exists in the local configuration.
+
 ## Complete Example
 
 Here's a complete example showing how to use the Modrinth provider with the Terracotta core:

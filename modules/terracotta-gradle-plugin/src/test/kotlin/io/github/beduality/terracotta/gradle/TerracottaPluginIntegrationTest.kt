@@ -314,4 +314,54 @@ class TerracottaPluginIntegrationTest {
 
         assertTrue("NAME=DSL Name" in result.output, "Expected DSL to override terracotta.yml")
     }
+
+    @Test
+    fun `loads gallery from terracotta yml and dsl`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            gallery:
+              - path: docs/assets/yaml-image.png
+                title: YAML Image
+                ordering: 1
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                gallery {
+                    register("dslImage") {
+                        imageFile.set(file("docs/assets/dsl-image.png"))
+                        title.set("DSL Image")
+                        ordering.set(2)
+                    }
+                }
+            }
+
+            tasks.register("printGallery") {
+                doLast {
+                    terracotta.gallery.forEach { item ->
+                        println("GALLERY=" + item.title.get() + ":" + item.imageFile.get().asFile.name)
+                    }
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printGallery")
+                .build()
+
+        assertTrue("GALLERY=YAML Image:yaml-image.png" in result.output, "Expected YAML gallery item")
+        assertTrue("GALLERY=DSL Image:dsl-image.png" in result.output, "Expected DSL gallery item")
+    }
 }

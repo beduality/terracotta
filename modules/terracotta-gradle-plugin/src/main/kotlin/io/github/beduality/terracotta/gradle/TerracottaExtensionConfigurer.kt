@@ -39,6 +39,15 @@ internal object TerracottaExtensionConfigurer {
         extension.conventions.readme.convention(resolved.readmeConvention)
         extension.conventions.changelog.convention(resolved.changelogConvention)
         extension.changelog.convention(resolved.changelog)
+        resolved.gallery.forEachIndexed { index, item ->
+            extension.gallery.create("galleryItem$index") { galleryItem: TerracottaGalleryExtension ->
+                galleryItem.imageFile.set(project.file(item.imagePath))
+                galleryItem.title.set(item.title)
+                galleryItem.description.set(item.description)
+                galleryItem.featured.set(item.featured)
+                galleryItem.ordering.set(item.ordering)
+            }
+        }
 
         project.plugins.withType(JavaPlugin::class.java) {
             extension.artifactFile.convention(

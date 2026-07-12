@@ -16,6 +16,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `environment` | string | No | `client_only`, `server_only`, or `universal`. |
 | `releaseType` | string | No | `release`, `beta`, or `alpha`. |
 | `changelog` | string | No | Release notes for the current version. |
+| `gallery` | list | No | Gallery images for the project. See [Gallery block](#gallery-block). |
 | `convention` | map | No | `readme` and `changelog` convention identifiers. |
 | `providers` | map | No | Provider-specific configuration keyed by provider ID. |
 
@@ -35,6 +36,21 @@ Each entry under `providers:` uses the provider ID (e.g. `modrinth`, `hangar`) a
 | `projectId` | string | No | Project slug or ID on the provider. Required at runtime but can be supplied in the Kotlin DSL. |
 | `token` | string | No | API token for the provider. Defaults to the `<PROVIDER>_TOKEN` environment variable. |
 
+## Gallery block
+
+Each entry under `gallery:` describes an image to associate with the project.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `path` | string | Yes | Local file path to the image. |
+| `title` | string | No | Human-readable title used as the stable identity key. |
+| `description` | string | No | Optional longer description. |
+| `featured` | boolean | No | Whether the image should be highlighted by the provider. |
+| `ordering` | integer | No | Display order; lower values come first. |
+
+Identity matching uses the normalized title (trimmed and lowercased). When a title
+is not provided, items are matched by `ordering`.
+
 ## Example
 
 ```yaml
@@ -53,6 +69,13 @@ loaders:
 environment: server_only
 releaseType: release
 changelog: "Initial release"
+
+gallery:
+  - path: "docs/assets/screenshot.png"
+    title: "Main inventory screen"
+    description: "Shows the new GUI"
+    featured: true
+    ordering: 0
 
 convention:
   readme: terracotta

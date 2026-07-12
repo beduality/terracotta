@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
@@ -30,6 +31,8 @@ data class ResolvedProjectMetadata(
     val releaseType: TerracottaReleaseType,
     /** Release notes for the current version. */
     val changelog: String,
+    /** Gallery images for the project. */
+    val gallery: List<TerracottaGalleryItem>,
     /** Identifier of the README convention used. */
     val readmeConvention: String,
     /** Identifier of the changelog convention used. */

@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.gradle
 import io.github.beduality.terracotta.core.diff.DiffEngine
 import io.github.beduality.terracotta.core.diff.OperationPreprocessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -90,6 +91,10 @@ abstract class TerracottaPlanTask : DefaultTask() {
     /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty
 
+    @get:Input
+    /** Gallery images for the project. */
+    abstract val gallery: ListProperty<TerracottaGalleryItem>
+
     /** Computes and prints the operations that would be applied. */
     @TaskAction
     fun plan() =
@@ -133,6 +138,7 @@ abstract class TerracottaPlanTask : DefaultTask() {
             versions = listOf(version),
             tags = tags.get(),
             license = license.get(),
+            gallery = gallery.get(),
         )
     }
 

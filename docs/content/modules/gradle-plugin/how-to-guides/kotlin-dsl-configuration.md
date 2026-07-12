@@ -20,6 +20,16 @@ terracotta {
     releaseType.set(TerracottaReleaseType.RELEASE)
     changelog.set("Initial release")
 
+    gallery {
+        register("screenshot") {
+            imageFile.set(file("docs/assets/screenshot.png"))
+            title.set("Main inventory screen")
+            description.set("Shows the new GUI")
+            featured.set(true)
+            ordering.set(0)
+        }
+    }
+
     providers {
         create("modrinth") {
             projectId.set("my-modrinth-project-id")
@@ -60,6 +70,26 @@ terracotta {
 ```
 
 Values set in the Kotlin DSL always override values from `terracotta.yml`.
+
+## Gallery configuration
+
+You can declare gallery images in `terracotta.yml`, in `build.gradle.kts`, or both. Items from `terracotta.yml` are loaded first, and DSL registrations are added on top.
+
+```kotlin
+terracotta {
+    gallery {
+        register("screenshot") {
+            imageFile.set(file("docs/assets/screenshot.png"))
+            title.set("Main inventory screen")
+            description.set("Shows the new GUI")
+            featured.set(true)
+            ordering.set(0)
+        }
+    }
+}
+```
+
+The `title` is used as the stable identity key: if you rename an image, Terracotta will delete the old image and upload a new one.
 
 ---
 

@@ -44,6 +44,15 @@ class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryPro
                 is Operation.CreateProject -> {
                     resolvedProjectId = client.createProject(op.project)
                 }
+                is Operation.UploadGalleryItem -> {
+                    client.uploadGalleryItem(resolvedProjectId, op.item)
+                }
+                is Operation.UpdateGalleryItem -> {
+                    client.updateGalleryItem(resolvedProjectId, op.oldItem.imagePath, op.newItem)
+                }
+                is Operation.DeleteGalleryItem -> {
+                    client.deleteGalleryItem(resolvedProjectId, op.item.imagePath)
+                }
             }
         }
     }

@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+**Core**
+
+- Added `TerracottaGalleryItem` model and `gallery` field on `TerracottaProject`.
+- Added `UploadGalleryItem`, `UpdateGalleryItem`, and `DeleteGalleryItem` operations and diff logic that matches images by normalized title or ordering.
+- Added `AssetProcessor` SPI with `ProcessedAsset` and `IdentityAssetProcessor` default implementation, loaded via `AssetProcessorLoader`.
+- Added `GalleryValidator` for checking file existence, supported extensions, and size limits.
+- Added `gallery` section parsing to `TerracottaConfigLoader`.
+- Added `ResolvedProjectMetadata.gallery` resolved from `terracotta.yml`.
+
+**Gradle Plugin**
+
+- Added `terracotta { gallery { ... } }` DSL with `TerracottaGalleryExtension`, populated from `terracotta.yml` and wired into `terracottaPlan` and `terracottaApply` tasks.
+
+**Modrinth**
+
+- Added gallery image support via `ModrinthClient.uploadGalleryItem`, `updateGalleryItem`, and `deleteGalleryItem`, using the core `GalleryValidator` (5 MiB limit, PNG/JPEG/WebP/GIF/BMP) and the configured `AssetProcessor`.
+
+**Hangar**
+
+- Hangar registry provider now skips gallery operations with a warning, since Hangar does not expose a gallery API.
+
 ## [0.3.0] - 2026-07-12
 
 ### Added

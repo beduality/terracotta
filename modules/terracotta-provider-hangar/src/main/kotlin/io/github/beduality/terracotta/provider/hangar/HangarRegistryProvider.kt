@@ -27,6 +27,7 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
         val updateMetadataOps = mutableListOf<Operation.UpdateMetadata>()
         val updateDescriptionOps = mutableListOf<Operation.UpdateDescription>()
         val updateTagsOps = mutableListOf<Operation.UpdateTags>()
+        var galleryOpsSkipped = 0
 
         for (operation in operations) {
             when (operation) {
@@ -40,7 +41,15 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
                 is Operation.UpdateDescription -> updateDescriptionOps.add(operation)
                 is Operation.UpdateTags -> updateTagsOps.add(operation)
                 is Operation.UploadVersion -> client.uploadVersion(slug, operation.version)
+                is Operation.UploadGalleryItem,
+                is Operation.UpdateGalleryItem,
+                is Operation.DeleteGalleryItem,
+                -> galleryOpsSkipped++
             }
+        }
+
+        if (galleryOpsSkipped > 0) {
+            logger.warn("Hangar does not support gallery images; skipping $galleryOpsSkipped gallery operation(s).")
         }
 
         if (updateMetadataOps.isNotEmpty() || updateDescriptionOps.isNotEmpty() || updateTagsOps.isNotEmpty()) {

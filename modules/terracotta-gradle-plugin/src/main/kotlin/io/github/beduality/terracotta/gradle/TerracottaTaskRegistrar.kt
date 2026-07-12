@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.config.TerracottaConfig
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import org.gradle.api.Project
 
 /**
@@ -50,6 +51,7 @@ internal object TerracottaTaskRegistrar {
                     task.provider.set(providerId)
                     task.token.set(providerExt.token)
                     task.artifactFile.set(extension.artifactFile)
+                    task.gallery.convention(galleryItemsProvider(project, extension))
                 }
             allPlanTasks.add(providerPlanTask)
 
@@ -75,6 +77,7 @@ internal object TerracottaTaskRegistrar {
                     task.provider.set(providerId)
                     task.token.set(providerExt.token)
                     task.artifactFile.set(extension.artifactFile)
+                    task.gallery.convention(galleryItemsProvider(project, extension))
 
                     task.dependsOn(providerPlanTask)
                 }
@@ -121,6 +124,21 @@ internal object TerracottaTaskRegistrar {
             it.description = "Destroys the project on all configured providers"
             it.group = "terracotta"
             it.dependsOn(allDestroyTasks)
+        }
+    }
+
+    private fun galleryItemsProvider(
+        project: Project,
+        extension: TerracottaExtension,
+    ) = project.provider {
+        extension.gallery.map { item ->
+            TerracottaGalleryItem(
+                imagePath = item.imageFile.get().asFile.absolutePath,
+                title = item.title.orNull ?: "",
+                description = item.description.orNull ?: "",
+                featured = item.featured.orNull ?: false,
+                ordering = item.ordering.orNull ?: 0,
+            )
         }
     }
 }

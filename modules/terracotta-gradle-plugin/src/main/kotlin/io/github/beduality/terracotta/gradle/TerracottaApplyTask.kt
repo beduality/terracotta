@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.gradle
 import io.github.beduality.terracotta.core.diff.DiffEngine
 import io.github.beduality.terracotta.core.diff.OperationPreprocessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -91,6 +92,10 @@ abstract class TerracottaApplyTask : DefaultTask() {
     /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty
 
+    @get:Input
+    /** Gallery images for the project. */
+    abstract val gallery: ListProperty<TerracottaGalleryItem>
+
     /** Applies the computed operations to the remote registry. */
     @TaskAction
     fun apply() =
@@ -137,6 +142,7 @@ abstract class TerracottaApplyTask : DefaultTask() {
             versions = listOf(version),
             tags = tags.get(),
             license = license.get(),
+            gallery = gallery.get(),
         )
     }
 

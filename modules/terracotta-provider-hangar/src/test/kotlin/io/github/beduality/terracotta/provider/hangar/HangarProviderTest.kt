@@ -888,4 +888,43 @@ class HangarProviderTest {
         assertNotNull(provider)
         assertTrue(provider is HangarDestructiveRegistryProvider)
     }
+
+    @Test
+    fun `test HangarRegistryProvider skips gallery operations without failing`() =
+        runTest {
+            var networkCalled = false
+
+            val mockEngine =
+                MockEngine { _ ->
+                    networkCalled = true
+                    respond("", status = HttpStatusCode.OK)
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            val item = io.github.beduality.terracotta.core.model.TerracottaGalleryItem(imagePath = "image.png", title = "My Image")
+            registryProvider.apply(
+                "my-plugin",
+                listOf(
+                    Operation.UploadGalleryItem(item),
+                    Operation.UpdateGalleryItem(item, item),
+                    Operation.DeleteGalleryItem(item),
+                ),
+            )
+
+            assertEquals(false, networkCalled)
+        }
 }

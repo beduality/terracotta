@@ -16,6 +16,21 @@ Represents a project as it should appear on a registry.
 | `versions` | List of `TerracottaVersion` objects. |
 | `tags` | Search tags. |
 | `license` | SPDX license identifier. |
+| `gallery` | List of `TerracottaGalleryItem` objects. |
+
+## TerracottaGalleryItem
+
+Represents a single gallery image for a project. When the item is declared in
+`terracotta.yml`, `imagePath` is a local file path. When the item is fetched from a
+provider, `imagePath` holds the remote URL.
+
+| Field | Purpose | Default |
+|-------|---------|---------|
+| `imagePath` | Local file path or remote URL. | — |
+| `title` | Human-readable title used as the identity key. | `""` |
+| `description` | Optional longer description. | `""` |
+| `featured` | Whether the image is highlighted. | `false` |
+| `ordering` | Display order; lower values come first. | `0` |
 
 ## TerracottaVersion
 

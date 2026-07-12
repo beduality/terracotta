@@ -5,6 +5,7 @@ import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.model.ModrinthGalleryItem
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthLicense
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthVersion
@@ -553,4 +554,164 @@ class ModrinthProviderTest {
         assertNotNull(provider)
         assertTrue(provider is ModrinthDestructiveRegistryProvider)
     }
+
+    @Test
+    fun `test ModrinthStateProvider maps gallery items`() =
+        runTest {
+            val modrinthProject =
+                ModrinthProject(
+                    id = "my-mod-id",
+                    slug = "my-mod",
+                    title = "My Mod",
+                    summary = "A test mod",
+                    body = "Test description",
+                    categories = listOf("utility"),
+                    license = ModrinthLicense(id = "MIT"),
+                    gallery =
+                        listOf(
+                            ModrinthGalleryItem(
+                                url = "https://cdn.modrinth.com/data/image1.png",
+                                title = "Screenshot one",
+                                description = "First screenshot",
+                                featured = true,
+                                ordering = 0,
+                            ),
+                        ),
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.contains("project/my-mod-id") &&
+                            !request.url.encodedPath.contains("version") -> {
+                            val responseJson = json.encodeToString(modrinthProject)
+                            respond(
+                                content = ByteReadChannel(responseJson),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.contains("project/my-mod-id/version") -> {
+                            respond(
+                                content = ByteReadChannel("[]"),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val stateProvider = ModrinthStateProvider(modrinthClient)
+
+            val terracottaProject = stateProvider.fetchProject("my-mod-id")
+
+            assertEquals(1, terracottaProject?.gallery?.size)
+            val item = terracottaProject?.gallery?.first()
+            assertEquals("https://cdn.modrinth.com/data/image1.png", item?.imagePath)
+            assertEquals("Screenshot one", item?.title)
+            assertEquals("First screenshot", item?.description)
+            assertEquals(true, item?.featured)
+            assertEquals(0, item?.ordering)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider uploads gallery item`() =
+        runTest {
+            val uploadedPaths = mutableListOf<String>()
+            val imageFile = File.createTempFile("gallery", ".png")
+            imageFile.deleteOnExit()
+            imageFile.writeBytes(ByteArray(10))
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.method == HttpMethod.Post && request.url.encodedPath == "/project/my-mod/gallery" -> {
+                            uploadedPaths.add(request.url.encodedPath)
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+
+            val item =
+                io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
+                    imagePath = imageFile.absolutePath,
+                    title = "My Image",
+                )
+            registryProvider.apply("my-mod", listOf(Operation.UploadGalleryItem(item)))
+
+            assertEquals(listOf("/project/my-mod/gallery"), uploadedPaths)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider deletes gallery item by url`() =
+        runTest {
+            val deletedUrls = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/project/my-mod/gallery" -> {
+                            request.url.parameters["url"]?.let { deletedUrls.add(it) }
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+
+            val item =
+                io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
+                    imagePath = "https://cdn/image.png",
+                    title = "My Image",
+                )
+            registryProvider.apply("my-mod", listOf(Operation.DeleteGalleryItem(item)))
+
+            assertEquals(listOf("https://cdn/image.png"), deletedUrls)
+        }
 }

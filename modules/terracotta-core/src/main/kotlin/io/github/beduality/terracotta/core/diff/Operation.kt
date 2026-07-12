@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
@@ -61,5 +62,30 @@ sealed interface Operation {
     /** Creates the remote project described by [project]. */
     data class CreateProject(val project: io.github.beduality.terracotta.core.model.TerracottaProject) : Operation {
         override val description: String = "+ Create project ${project.name}"
+    }
+
+    /** Uploads [item] as a new gallery image. */
+    data class UploadGalleryItem(val item: TerracottaGalleryItem) : Operation {
+        override val description: String = "+ Upload gallery image '${item.title}'"
+    }
+
+    /**
+     * Updates an existing gallery image from [oldItem] to [newItem].
+     *
+     * Providers that cannot update in place may implement this as a delete followed
+     * by an upload.
+     */
+    data class UpdateGalleryItem(
+        /** Previous state of the gallery item. */
+        val oldItem: TerracottaGalleryItem,
+        /** Desired new state of the gallery item. */
+        val newItem: TerracottaGalleryItem,
+    ) : Operation {
+        override val description: String = "~ Update gallery image '${newItem.title}'"
+    }
+
+    /** Deletes the gallery image described by [item] from the remote project. */
+    data class DeleteGalleryItem(val item: TerracottaGalleryItem) : Operation {
+        override val description: String = "- Delete gallery image '${item.title}'"
     }
 }

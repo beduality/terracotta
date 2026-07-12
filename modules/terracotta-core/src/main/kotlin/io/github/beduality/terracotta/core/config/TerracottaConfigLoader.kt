@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.config
 
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 
@@ -43,9 +44,42 @@ object TerracottaConfigLoader {
             environment = map.readString("environment"),
             releaseType = map.readString("releaseType"),
             changelog = map.readString("changelog"),
+            gallery = parseGallery(map["gallery"]),
             convention = parseConvention(conventionMap),
             providers = parseProviders(providersMap),
         )
+    }
+
+    private fun parseGallery(value: Any?): List<TerracottaGalleryItem>? {
+        @Suppress("UNCHECKED_CAST")
+        val list = value as? List<Map<String, Any?>> ?: return null
+
+        return list.map { item ->
+            @Suppress("UNCHECKED_CAST")
+            val map = item as? Map<String, Any?> ?: emptyMap()
+            TerracottaGalleryItem(
+                imagePath = map.readString("path") ?: "",
+                title = map.readString("title") ?: "",
+                description = map.readString("description") ?: "",
+                featured = map.readBoolean("featured") ?: false,
+                ordering = map.readInt("ordering") ?: 0,
+            )
+        }
+    }
+
+    private fun Map<String, Any?>.readBoolean(key: String): Boolean? {
+        return when (val value = this[key]) {
+            is Boolean -> value
+            else -> null
+        }
+    }
+
+    private fun Map<String, Any?>.readInt(key: String): Int? {
+        return when (val value = this[key]) {
+            is Int -> value
+            is Number -> value.toInt()
+            else -> null
+        }
     }
 
     private fun parseConvention(map: Map<String, Any?>?): TerracottaConventionConfig {

@@ -55,6 +55,9 @@ abstract class TerracottaExtension {
     /** Compiled artifact to upload. */
     abstract val artifactFile: RegularFileProperty
 
+    /** Gallery images for the project. */
+    abstract val gallery: NamedDomainObjectContainer<TerracottaGalleryExtension>
+
     /** Per-provider configuration. */
     abstract val providers: NamedDomainObjectContainer<TerracottaProviderExtension>
 }

@@ -21,4 +21,6 @@ data class ModrinthProject(
     val categories: List<String>,
     /** License information. */
     val license: ModrinthLicense,
+    /** Gallery images for the project. */
+    val gallery: List<ModrinthGalleryItem> = emptyList(),
 )

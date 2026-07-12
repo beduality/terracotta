@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -40,6 +41,16 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
             versions = versions,
             tags = project.categories,
             license = project.license.id,
+            gallery =
+                project.gallery.map {
+                    TerracottaGalleryItem(
+                        imagePath = it.url,
+                        title = it.title,
+                        description = it.description,
+                        featured = it.featured,
+                        ordering = it.ordering,
+                    )
+                },
         )
     }
 }

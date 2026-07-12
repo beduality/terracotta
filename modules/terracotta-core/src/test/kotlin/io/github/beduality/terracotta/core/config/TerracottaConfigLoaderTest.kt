@@ -179,4 +179,56 @@ class TerracottaConfigLoaderTest {
         assertNull(config.tags)
         assertNull(config.loaders)
     }
+
+    @Test
+    fun `loads gallery section`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText(
+            """
+            gallery:
+              - path: docs/assets/main.png
+                title: Main inventory screen
+                description: Shows the new GUI
+                featured: true
+                ordering: 0
+              - path: docs/assets/config.png
+                title: Configuration UI
+                ordering: 1
+            """.trimIndent(),
+        )
+
+        val config = TerracottaConfigLoader.load(file)
+
+        assertEquals(2, config.gallery?.size)
+        val first = config.gallery?.firstOrNull()
+        assertEquals("docs/assets/main.png", first?.imagePath)
+        assertEquals("Main inventory screen", first?.title)
+        assertEquals("Shows the new GUI", first?.description)
+        assertEquals(true, first?.featured)
+        assertEquals(0, first?.ordering)
+    }
+
+    @Test
+    fun `gallery defaults optional fields`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText(
+            """
+            gallery:
+              - path: docs/assets/simple.png
+            """.trimIndent(),
+        )
+
+        val config = TerracottaConfigLoader.load(file)
+
+        val item = config.gallery?.single()
+        assertEquals("docs/assets/simple.png", item?.imagePath)
+        assertEquals("", item?.title)
+        assertEquals("", item?.description)
+        assertEquals(false, item?.featured)
+        assertEquals(0, item?.ordering)
+    }
 }

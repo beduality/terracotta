@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 
 /**
@@ -67,6 +68,55 @@ object DiffEngine {
             }
         }
 
+        // Compare gallery images
+        operations.addAll(diffGallery(local.gallery, remote.gallery))
+
         return operations
+    }
+
+    private fun diffGallery(
+        local: List<TerracottaGalleryItem>,
+        remote: List<TerracottaGalleryItem>,
+    ): List<Operation> {
+        val operations = mutableListOf<Operation>()
+
+        val remoteByKey = remote.associateBy { galleryKey(it) }
+        val localByKey = local.associateBy { galleryKey(it) }
+
+        // Delete remote items not present locally.
+        remote.forEach { remoteItem ->
+            val key = galleryKey(remoteItem)
+            if (key !in localByKey) {
+                operations.add(Operation.DeleteGalleryItem(remoteItem))
+            }
+        }
+
+        // Update or upload local items.
+        local.forEach { localItem ->
+            val key = galleryKey(localItem)
+            val remoteItem = remoteByKey[key]
+            if (remoteItem == null) {
+                operations.add(Operation.UploadGalleryItem(localItem))
+            } else if (hasMetadataChanged(localItem, remoteItem)) {
+                operations.add(Operation.UpdateGalleryItem(remoteItem, localItem))
+            }
+        }
+
+        return operations
+    }
+
+    private fun galleryKey(item: TerracottaGalleryItem): String {
+        val title = item.title.trim().lowercase()
+        return if (title.isNotEmpty()) title else "ordering:${item.ordering}"
+    }
+
+    private fun hasMetadataChanged(
+        local: TerracottaGalleryItem,
+        remote: TerracottaGalleryItem,
+    ): Boolean {
+        return local.title.trim().lowercase() != remote.title.trim().lowercase() ||
+            local.description.trim() != remote.description.trim() ||
+            local.featured != remote.featured ||
+            local.ordering != remote.ordering
     }
 }
