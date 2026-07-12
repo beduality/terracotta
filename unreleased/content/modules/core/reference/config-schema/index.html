@@ -1740,6 +1740,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#links-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Links block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donation-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Donation link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2149,6 +2177,34 @@
     
   
     Diff Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
   
 
     
@@ -4712,6 +4768,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#links-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Links block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donation-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Donation link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4815,7 +4899,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    4 min read
+    5 min read
   </p>
 
 <h1 id="config-schema">Config Schema<a class="headerlink" href="#config-schema" title="Permanent link">&para;</a></h1>
@@ -4908,6 +4992,12 @@
 <td>list</td>
 <td>No</td>
 <td>Gallery images for the project. See <a href="#gallery-block">Gallery block</a>.</td>
+</tr>
+<tr>
+<td><code>links</code></td>
+<td>map</td>
+<td>No</td>
+<td>Canonical project links. See <a href="#links-block">Links block</a>.</td>
 </tr>
 <tr>
 <td><code>convention</code></td>
@@ -5020,6 +5110,87 @@
 </table>
 <p>Identity matching uses the normalized title (trimmed and lowercased). When a title
 is not provided, items are matched by <code>ordering</code>.</p>
+<h2 id="links-block">Links block<a class="headerlink" href="#links-block" title="Permanent link">&para;</a></h2>
+<p>Each entry under <code>links:</code> is optional. Unknown keys are preserved in the <code>other</code> map.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>homepage</code></td>
+<td>string</td>
+<td>No</td>
+<td>Project homepage URL.</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>string</td>
+<td>No</td>
+<td>Source code repository URL.</td>
+</tr>
+<tr>
+<td><code>issues</code></td>
+<td>string</td>
+<td>No</td>
+<td>Issue tracker URL.</td>
+</tr>
+<tr>
+<td><code>wiki</code></td>
+<td>string</td>
+<td>No</td>
+<td>Wiki or documentation URL.</td>
+</tr>
+<tr>
+<td><code>community</code></td>
+<td>string</td>
+<td>No</td>
+<td>Community invite URL (e.g. Discord).</td>
+</tr>
+<tr>
+<td><code>donations</code></td>
+<td>list</td>
+<td>No</td>
+<td>Donation links. See <a href="#donation-link">Donation link</a>.</td>
+</tr>
+<tr>
+<td><code>other</code></td>
+<td>map</td>
+<td>No</td>
+<td>Arbitrary label-to-URL entries.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="donation-link">Donation link<a class="headerlink" href="#donation-link" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>platform</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Donation platform name or identifier.</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>URL to the donation page.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Plugin&quot;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lightweight</span><span class="nv"> </span><span class="s">Paper</span><span class="nv"> </span><span class="s">plugin&quot;</span>
@@ -5046,15 +5217,27 @@ is not provided, items are matched by <code>ordering</code>.</p>
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="nt">featured</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="nt">ordering</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nt">convention</span><span class="p">:</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="nt">readme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terracotta</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">changelog</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keep-a-changelog</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="nt">providers</span><span class="p">:</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nt">links</span><span class="p">:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="nt">homepage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://example.com/my-plugin&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/example/my-plugin&quot;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">  </span><span class="nt">issues</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/example/my-plugin/issues&quot;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">  </span><span class="nt">wiki</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/example/my-plugin/wiki&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">  </span><span class="nt">community</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://discord.gg/example&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">  </span><span class="nt">donations</span><span class="p">:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ko-fi&quot;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://ko-fi.com/example&quot;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">  </span><span class="nt">other</span><span class="p">:</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="nt">twitter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://twitter.com/example&quot;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="nt">convention</span><span class="p">:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="nt">readme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terracotta</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">  </span><span class="nt">changelog</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keep-a-changelog</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">  </span><span class="nt">hangar</span><span class="p">:</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
 </code></pre></div>
 <h2 id="partial-files">Partial files<a class="headerlink" href="#partial-files" title="Permanent link">&para;</a></h2>
 <p>All top-level fields are optional. Missing values are resolved from detected project files or caller-supplied defaults. Values set in the Kotlin DSL always override values from <code>terracotta.yml</code>.</p>

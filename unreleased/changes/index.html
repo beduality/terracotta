@@ -484,17 +484,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2063,6 +2052,34 @@
     
   
     Diff Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/modules/core/explanation/state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
   
 
     
@@ -4604,17 +4621,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4655,33 +4661,23 @@
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <p><strong>Core</strong></p>
 <ul>
-<li>Added provider-specific logic layer with <code>ProviderLogic</code>, <code>LoaderMapper</code>, and <code>PlatformBehavior</code> interfaces in <code>terracotta-core</code>. <code>ProviderFactory</code> now exposes <code>createProviderLogic()</code> so providers can share registry-specific loader mappings and operation filtering rules.</li>
-<li>Added <code>BaseRegistryProvider</code> in <code>terracotta-core</code>. It automatically filters operations using the injected <code>ProviderLogic</code>, logs warnings for skipped operations, and delegates the rest to provider-specific <code>applySupported</code> implementations.</li>
-<li>Added optional <code>icon</code> field to <code>TerracottaProject</code>, <code>TerracottaConfig</code>, <code>ResolvedProjectMetadata</code>, and project metadata resolution. The value is a local file path in configuration and a remote URL when read from provider state.</li>
-<li>Added <code>UploadIcon</code>, <code>UpdateIcon</code>, and <code>DeleteIcon</code> operations and diff logic that compares the local icon path against the remote icon URL.</li>
+<li>Added pluggable state-management layer in <code>io.github.beduality.terracotta.core.state</code> with the <code>StateSource</code> interface, <code>TerracottaState</code> model, and a <code>FileSystemStateSource</code> implementation that persists to <code>.terracotta-state.yml</code>.</li>
+<li>Added canonical project links (<code>homepage</code>, <code>source</code>, <code>issues</code>, <code>wiki</code>, <code>community</code>, <code>donations</code>, <code>other</code>) via <code>TerracottaProjectLinks</code> and <code>TerracottaDonationLink</code>. The <code>links</code> field is available on <code>TerracottaProject</code>, <code>TerracottaConfig</code>, <code>ProjectMetadata</code>, and <code>ResolvedProjectMetadata</code>. Link changes are detected by <code>DiffEngine</code> and emitted as <code>Operation.UpdateMetadata</code> with <code>linksChanged</code> and <code>newLinks</code>.</li>
 </ul>
 <p><strong>Gradle Plugin</strong></p>
 <ul>
-<li>Added <code>terracotta.icon</code> DSL property as a <code>RegularFileProperty</code>, populated from <code>terracotta.yml</code> and wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
+<li>Added <code>terracotta.stateFile</code> DSL property as a <code>RegularFileProperty</code>. It defaults to <code>.terracotta-state.yml</code> in the project directory and can be overridden in <code>build.gradle.kts</code>.</li>
+<li>Added nested <code>terracotta.links { ... }</code> DSL extension (<code>TerracottaLinksExtension</code>) for configuring links in <code>build.gradle.kts</code>. DSL values override <code>terracotta.yml</code> values and are wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
 </ul>
 <p><strong>Modrinth</strong></p>
 <ul>
-<li>Added <code>ModrinthProviderLogic</code> exposing identity loader mapping and stateful platform behavior. <code>ModrinthRegistryProvider</code> now consumes the logic layer to filter operations.</li>
-<li>Added project icon support via <code>ModrinthClient.uploadIcon</code>, which calls <code>PATCH /project/{id}/icon</code> with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). <code>ModrinthStateProvider.fetchProject</code> now reads <code>icon_url</code> into the canonical <code>icon</code> field.</li>
+<li><code>ModrinthStateProvider.fetchProject</code> now maps remote <code>issues_url</code>, <code>source_url</code>, <code>wiki_url</code>, <code>discord_url</code>, and <code>donation_urls</code> to canonical links.</li>
+<li><code>ModrinthRegistryProvider</code> patches Modrinth project link fields during <code>UpdateMetadata</code> and includes link fields when creating draft projects.</li>
 </ul>
 <p><strong>Hangar</strong></p>
 <ul>
-<li>Added <code>HangarProviderLogic</code> and <code>HangarPlatformBehavior</code>, which filters out unsupported operations (<code>CreateProject</code>, gallery, and icon) before <code>HangarRegistryProvider</code> processes them. <code>HangarLoaderMapper</code> now implements the core <code>LoaderMapper</code> interface and is shared by the state and registry providers.</li>
-<li><code>HangarRegistryProvider</code> now warns when unsupported operations are skipped, including <code>CreateProject</code>, gallery, and icon operations.</li>
-</ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
-<p><strong>Core</strong></p>
-<ul>
-<li>Moved <code>ProjectMetadataDetector</code>, <code>ProjectMetadataLoader</code>, and built-in adapters into <code>io.github.beduality.terracotta.core.model.metadata.detector</code> (renamed from <code>io.github.beduality.terracotta.core.detect</code>). Service files and custom detector implementations must update package names and imports.</li>
-</ul>
-<p><strong>Gradle Plugin</strong></p>
-<ul>
-<li>Renamed Gradle metadata detector package from <code>io.github.beduality.terracotta.gradle.detect</code> to <code>io.github.beduality.terracotta.gradle.detector</code>.</li>
+<li><code>HangarStateProvider.fetchProject</code> now maps remote <code>homepage</code>, <code>source</code>, <code>issues</code>, <code>wiki</code>, <code>discord</code>, and <code>donations</code> to canonical links.</li>
+<li><code>HangarRegistryProvider</code> updates Hangar project link fields during <code>UpdateMetadata</code>.</li>
 </ul>
 
 

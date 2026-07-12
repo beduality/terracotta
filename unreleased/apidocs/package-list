@@ -16,6 +16,7 @@ io.github.beduality.terracotta.core.model.releasetype
 io.github.beduality.terracotta.core.model.version
 io.github.beduality.terracotta.core.provider
 io.github.beduality.terracotta.core.provider.logic
+io.github.beduality.terracotta.core.state
 module:terracotta-gradle-plugin
 io.github.beduality.terracotta.gradle
 io.github.beduality.terracotta.gradle.detector
