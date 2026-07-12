@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Docs**
 
+- Added "Navigating the Docs" to the Quick Start section so readers can understand the Diátaxis structure and find the right section.
+- Added a complete set of repo documentation: reference pages for scripts, CI/CD, branches, project files, commit conventions, and documentation style; explanation pages for repo architecture, branch strategy, release design, and changelog design; and a first-contribution tutorial.
+- Added integration documentation covering multi-provider publishing, provider configuration, integration design, and troubleshooting.
 - Reorganized user documentation under `docs/content/modules/` and `docs/content/integration/` with Diátaxis sections for Core, Gradle Plugin, Modrinth Provider, and Hangar Provider; folded `docs/content/config/` into the Core reference.
 - Added `@see` links and member-level KDoc to all public APIs in `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modrinth`, and `terracotta-provider-hangar`, pointing to the new GitHub Pages docs.
 - Removed the separate `docs/content/sdk/` section and folded its remaining pages into module docs: installation moved to `modules/core/tutorials/installation.md`, custom-provider content merged into `modules/core/tutorials/implementing-a-custom-provider.md`, provider API reference merged into `modules/core/reference/provider-interfaces.md`, architecture explanation merged into `modules/core/explanation/architecture.md`, and the Modrinth quick-start merged into `modules/provider-modrinth/tutorials/using-modrinth.md`.
@@ -23,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed the pre-build hook destination so `LICENSE` is copied to `docs/LICENSE` instead of `docs/LICENSE.md`.
 - Removed the CI/CD setup with GitHub Actions guide from `docs/content/integration/` because the workflow is not currently supported.
 - Cleaned up `docs/content/repo/` by removing redundant pages, trimming the Diátaxis framework explanation, updating outdated navigation references, and removing remaining `SDK` terminology.
+- Simplified module READMEs by removing redundant inline Diátaxis explanations and linking readers to the shared "Navigating the Docs" page.
 - Enforced strict Diátaxis discipline in `docs/content/repo/`: moved architecture explanation to `docs/content/modules/core/explanation/architecture.md`, rewrote `project-management.md` to remove procedural steps, moved `changelog-guidelines.md` to `reference/`, and added a clear target-audience statement to the repo README.
 
 **Repo**
