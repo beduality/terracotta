@@ -1,6 +1,6 @@
 # Terracotta
 
-Declarative publishing for Minecraft projects. Define your metadata once in `terracotta.yml` or in your Gradle build, then sync releases to [Modrinth](https://modrinth.com/) and [Hangar](https://hangar.papermc.io/) from a single command.
+Declarative publishing for Minecraft projects. Define your metadata once in `terracotta.yml` or in your build configuration like [Gradle](https://gradle.org/), then automatically sync to providers like [Modrinth](https://modrinth.com/) and [Hangar](https://hangar.papermc.io/).
 
 ---
 
@@ -36,7 +36,7 @@ Declarative publishing for Minecraft projects. Define your metadata once in `ter
 
 Terracotta compares the state you want with the state that exists on each registry, then computes and applies the smallest set of changes needed:
 
-1. **Read local state** from `terracotta.yml`, `build.gradle.kts`, and detected project files.
+1. **Read local state** from `terracotta.yml`, build configuration files like `build.gradle.kts`, and detected project files.
 2. **Fetch remote state** from each configured provider.
 3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateTags`, and `UploadVersion`.
 4. **Apply the operations** or print a human-readable plan first.

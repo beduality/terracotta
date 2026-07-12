@@ -83,5 +83,5 @@ Before merging, a PR must:
 ## Questions?
 
 - Join the [Discord server](https://discord.gg/D5meCv2Wnd)
-- Check the [Architecture Overview](../explanation/architecture.md)
+- Check the [Architecture Overview](../../modules/core/explanation/architecture.md)
 - Review the [Tech Stack Reference](../reference/tech-stack.md)

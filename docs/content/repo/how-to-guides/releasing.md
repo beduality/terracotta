@@ -45,7 +45,7 @@ Before releasing, add all user-facing changes under `## [Unreleased]` in `CHANGE
 - Fixed issue with command ABC
 ```
 
-Follow the guidelines in `guidelines/changelog.md`:
+Follow the [Changelog Guidelines](../reference/changelog-guidelines.md):
 - Focus on user/developer/operator impact
 - Group by module (Docs, Repo, Core, Gradle Plugin, Modrinth, Hangar, etc.)
 

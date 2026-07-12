@@ -173,9 +173,8 @@ nav:
         - File Structure: content/repo/reference/file-structure.md
         - Configuration: content/repo/reference/configuration.md
         - Code Style: content/repo/reference/code-style.md
+        - Changelog Guidelines: content/repo/reference/changelog-guidelines.md
       - Explanation:
-        - Architecture: content/repo/explanation/architecture.md
         - Project Management: content/repo/explanation/project-management.md
         - Documentation Framework: content/repo/explanation/documentation-framework.md
-        - Changelog Guidelines: content/repo/explanation/changelog-guidelines.md
   - Changes: changes.md

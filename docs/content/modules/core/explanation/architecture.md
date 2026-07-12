@@ -1,87 +1,51 @@
-# Core Architecture
+# Architecture
 
-`terracotta-core` is a pure Kotlin library that contains the domain logic shared by every Terracotta integration.
+Terracotta is split into layers so that registry adapters and build-tool frontends can be added without changing the domain logic.
 
-## What belongs in core
+## Separation of concerns
 
-Core is responsible for:
+The codebase is organized into four layers:
 
-- Reading `terracotta.yml`.
-- Detecting loaders and project metadata from files.
-- Resolving effective metadata from explicit, detected, and default sources.
-- Comparing local and remote project states.
-- Defining the SPI that registry providers implement.
+- **Core (`terracotta-core`)**: Platform-agnostic domain logic: canonical models, metadata resolution, the diff engine, and the provider SPI.
+- **Providers (`terracotta-provider-*`)**: Registry-specific implementations that translate between core models and registry APIs.
+- **Gradle plugin (`terracotta-gradle-plugin`)**: User-facing build integration that discovers providers, loads configuration, and exposes `terracottaPlan` and `terracottaApply` tasks.
+- **Infrastructure (`terracotta-github`)**: Pulumi program that manages repository settings and GitHub Actions secrets.
 
-Core is explicitly **not** responsible for:
+## Why core knows nothing about registries
 
-- Gradle task wiring.
-- HTTP calls to specific registries.
-- Platform-specific artifact handling.
+`terracotta-core` defines only interfaces such as `ProviderFactory`, `StateProvider`, and `RegistryProvider`. It never imports a provider implementation. This means:
 
-## Why separate core from the Gradle plugin
+- A new registry can be supported by adding a module, not by editing core.
+- Core logic is tested without network access or external credentials.
+- The same core can be reused by a Maven plugin, a CLI, or a CI action later.
 
-Keeping core independent means the same logic can be reused by:
+## Why state is compared instead of overwritten
 
-- A Gradle plugin.
-- A Maven plugin.
-- A CLI tool.
-- An IDE plugin.
-- A CI/CD action.
+Registries such as Modrinth and Hangar store metadata and versions that may have been edited by humans or other tools. Overwriting the whole project would destroy those changes. Terracotta fetches the current remote state, computes a semantic diff, and produces targeted operations:
 
-If the domain logic lived inside the Gradle plugin, every new integration would need to reimplement detection, resolution, and diffing.
+- `UpdateMetadata` for project-level fields such as name, summary, and license.
+- `UpdateTags` for tag lists.
+- `UpdateDescription` for the project body.
+- `UploadVersion` for new versions.
 
-## Why separate providers from core
+This makes the tool safe to run repeatedly: only actual differences are applied.
 
-Registries such as Modrinth and Hangar have different authentication, rate limits, and API shapes. By defining only `StateProvider` and `RegistryProvider` interfaces, core remains stable while new registries are added as separate modules.
+## Why metadata is resolved from multiple sources
 
-## Module diagram
+Project metadata can come from `terracotta.yml`, the Gradle DSL, detected files such as `README.md`, or sensible defaults. Terracotta resolves them in a fixed precedence so users can override detected values explicitly, while still benefiting from auto-detection when they omit optional fields.
 
-```mermaid
-graph TD
-    subgraph terracotta-gradle-plugin["terracotta-gradle-plugin (Gradle Plugin)"]
-        Plugin["TerracottaPlugin"]
-        PlanTask["TerracottaPlanTask"]
-        ApplyTask["TerracottaApplyTask"]
-        ServiceLoaderLookup["ServiceLoader Discovery"]
-    end
+See [Metadata Resolution](metadata-resolution.md) for the precedence rules and [Loader Hierarchy](loader-hierarchy.md) for how loader detection works.
 
-    subgraph terracotta-provider-modrinth["terracotta-provider-* (Adapter)"]
-        Client["RegistryClient"]
-        State["StateProvider"]
-        Registry["RegistryProvider"]
-        ProviderFactoryImpl["ProviderFactory"]
-    end
+## Provider discovery
 
-    subgraph terracotta-core["terracotta-core (Core SDK)"]
-        DiffEngine["DiffEngine"]
-        StateProvider["StateProvider (Interface)"]
-        RegistryProvider["RegistryProvider (Interface)"]
-        ProviderFactory["ProviderFactory (Interface)"]
-        Models["TerracottaProject / TerracottaVersion"]
-        Operation["Operation"]
-    end
+Providers are discovered at runtime through Java's `ServiceLoader`. A provider JAR contains:
 
-    Plugin --> PlanTask
-    Plugin --> ApplyTask
-    PlanTask --> ServiceLoaderLookup
-    ApplyTask --> ServiceLoaderLookup
-    ServiceLoaderLookup --> ProviderFactoryImpl
-    ProviderFactoryImpl --> State
-    ProviderFactoryImpl --> Registry
-    PlanTask --> DiffEngine
-    ApplyTask --> DiffEngine
-    State --> Models
-    Registry --> Operation
+```
+META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory
 ```
 
-## Core abstractions
+The Gradle plugin loads every available factory, then activates only the providers the user configured. Multiple providers can run in the same build.
 
-- **Canonical model**: `TerracottaProject` and `TerracottaVersion` are the same regardless of build tool or registry.
-- **Diff engine**: `DiffEngine` turns state differences into registry-agnostic `Operation` objects.
-- **Provider SPI**: `ProviderFactory`, `StateProvider`, and `RegistryProvider` let registries plug in without modifying core.
+## Versioning and releases
 
-## See also
-
-- [Diff Engine](diff-engine.md)
-- [Loader Hierarchy](loader-hierarchy.md)
-- [Provider Interfaces](../reference/provider-interfaces.md)
+All modules share a single version tracked in `gradle/libs.versions.toml`. Core and provider artifacts are published to Maven Central; the Gradle plugin is published to the Gradle Plugin Portal. See [Releasing](../../../repo/how-to-guides/releasing.md) for the release process.

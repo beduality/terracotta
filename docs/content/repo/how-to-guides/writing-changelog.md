@@ -75,4 +75,4 @@ Ask:
 
 If all answers are "no", do not add an entry.
 
-For the reasoning behind these rules, see [Changelog Guidelines](../explanation/changelog-guidelines.md).
+For the reasoning behind these rules, see [Changelog Guidelines](../reference/changelog-guidelines.md).

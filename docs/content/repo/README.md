@@ -1,6 +1,13 @@
 # Repository Documentation
 
-This section documents the Terracotta repository itself - how it's organized, how to build it, test it, and contribute to it.
+This section is for people who work **on** Terracotta itself: contributors, maintainers, and release managers. If you use Terracotta in your own project, start with the [Core](../modules/core/README.md), [Gradle Plugin](../modules/gradle-plugin/README.md), or [Integration](../integration/README.md) docs instead.
+
+Repo docs follow the [Diátaxis framework](explanation/documentation-framework.md) strictly:
+
+- **Tutorials** teach by doing.
+- **How-to guides** solve a specific task.
+- **Reference** lists facts for lookup.
+- **Explanation** answers *why* something is the way it is and never includes step-by-step instructions.
 
 ## Documentation Structure
 
@@ -31,19 +38,20 @@ Information-oriented reference for looking up details.
 - **[Tech Stack](reference/tech-stack.md)**: Tools and versions used
 - **[File Structure](reference/file-structure.md)**: Repository directory structure
 - **[Configuration](reference/configuration.md)**: All configuration files
+- **[Changelog Guidelines](reference/changelog-guidelines.md)**: Rules and examples for changelog entries
 
 ### Explanation
 
 Understanding-oriented content that explains concepts and "why" decisions were made.
 
-- **[Architecture](explanation/architecture.md)**: How Terracotta is designed and why
-- **[Project Management](explanation/project-management.md)**: How planning and tracking work
+- **[Architecture](../modules/core/explanation/architecture.md)**: How Terracotta is designed and why
+- **[Project Management](explanation/project-management.md)**: Why planning happens through PRs against the `project` branch
 
 ## Getting Started
 
 **New contributor?** Start with the [Quick Start](tutorials/quick-start.md) tutorial.
 
-**Want to understand the project?** Read the [Architecture](explanation/architecture.md) explanation.
+**Want to understand the project?** Read the [Architecture](../modules/core/explanation/architecture.md) explanation.
 
 ## Links
 

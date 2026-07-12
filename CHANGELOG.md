@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed the pre-build hook destination so `LICENSE` is copied to `docs/LICENSE` instead of `docs/LICENSE.md`.
 - Removed the CI/CD setup with GitHub Actions guide from `docs/content/integration/` because the workflow is not currently supported.
 - Cleaned up `docs/content/repo/` by removing redundant pages, trimming the Diátaxis framework explanation, updating outdated navigation references, and removing remaining `SDK` terminology.
+- Enforced strict Diátaxis discipline in `docs/content/repo/`: moved architecture explanation to `docs/content/modules/core/explanation/architecture.md`, rewrote `project-management.md` to remove procedural steps, moved `changelog-guidelines.md` to `reference/`, and added a clear target-audience statement to the repo README.
 
 **Repo**
 

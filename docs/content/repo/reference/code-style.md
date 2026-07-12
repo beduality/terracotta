@@ -90,15 +90,7 @@ BREAKING CHANGE: Old API removed
 
 ## Pull Request Requirements
 
-Before a PR can be merged:
-
-- [ ] Build passes: `./gradlew build`
-- [ ] Tests pass: `./gradlew test`
-- [ ] Spotless passes: `./gradlew spotlessCheck`
-- [ ] Test coverage maintained or improved
-- [ ] Documentation updated (if applicable)
-
-See [Contributing How-To](../how-to-guides/contributing.md) for detailed PR process.
+See the [Contributing how-to guide](../how-to-guides/contributing.md) for the PR checklist and process.
 
 ## Python Style
 
