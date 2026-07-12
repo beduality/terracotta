@@ -4,6 +4,8 @@
 .
 ├── .agent/                 # Agent rules and guidelines
 ├── .devin/                 # Devin hooks and configuration
+│   ├── hooks/              # Post-tool-use automation hooks
+│   └── slash-commands/     # Custom Devin slash commands (e.g. /proposal)
 ├── .github/                # GitHub Actions workflows and templates
 ├── .vscode/                # VSCode workspace settings and extensions
 ├── docs/                   # Documentation (MkDocs)
