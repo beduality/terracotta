@@ -1324,10 +1324,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-create-the-registry-provider" class="md-nav__link">
+  <a href="#step-2-create-the-provider-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Create the registry provider
+        Step 2: Create the provider logic
       
     </span>
   </a>
@@ -1335,10 +1335,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-create-the-factory" class="md-nav__link">
+  <a href="#step-3-create-the-registry-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create the factory
+        Step 3: Create the registry provider
       
     </span>
   </a>
@@ -1346,10 +1346,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-write-a-test" class="md-nav__link">
+  <a href="#step-4-create-the-factory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Write a test
+        Step 4: Create the factory
       
     </span>
   </a>
@@ -1357,10 +1357,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-run-the-test" class="md-nav__link">
+  <a href="#step-5-write-a-test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Run the test
+        Step 5: Write a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-run-the-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run the test
       
     </span>
   </a>
@@ -2043,6 +2054,34 @@
     
   
     Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
   
 
     
@@ -4640,10 +4679,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-create-the-registry-provider" class="md-nav__link">
+  <a href="#step-2-create-the-provider-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Create the registry provider
+        Step 2: Create the provider logic
       
     </span>
   </a>
@@ -4651,10 +4690,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-create-the-factory" class="md-nav__link">
+  <a href="#step-3-create-the-registry-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create the factory
+        Step 3: Create the registry provider
       
     </span>
   </a>
@@ -4662,10 +4701,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-write-a-test" class="md-nav__link">
+  <a href="#step-4-create-the-factory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Write a test
+        Step 4: Create the factory
       
     </span>
   </a>
@@ -4673,10 +4712,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-run-the-test" class="md-nav__link">
+  <a href="#step-5-write-a-test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Run the test
+        Step 5: Write a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-run-the-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run the test
       
     </span>
   </a>
@@ -4743,7 +4793,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    3 min read
+    4 min read
   </p>
 
 <h1 id="implement-a-custom-provider">Implement a Custom Provider<a class="headerlink" href="#implement-a-custom-provider" title="Permanent link">&para;</a></h1>
@@ -4754,6 +4804,7 @@
 <li>A local copy of the Terracotta repository.</li>
 <li>JDK 17 or later.</li>
 <li>You have read <a href="../../how-to-guides/compute-a-diff/">Compute a Diff</a> or understand how <code>DiffEngine</code> works.</li>
+<li>You have read the <a href="../../explanation/provider-logic/">Provider Logic</a> explanation.</li>
 </ul>
 <h2 id="step-1-create-the-state-provider">Step 1: Create the state provider<a class="headerlink" href="#step-1-create-the-state-provider" title="Permanent link">&para;</a></h2>
 <p>Create <code>modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/core/provider/example/ExampleStateProvider.kt</code>:</p>
@@ -4772,91 +4823,124 @@
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchProject</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">TerracottaProject? </span><span class="o">=</span><span class="w"> </span><span class="n">projects</span><span class="o">[</span><span class="n">projectId</span><span class="o">]</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="step-2-create-the-registry-provider">Step 2: Create the registry provider<a class="headerlink" href="#step-2-create-the-registry-provider" title="Permanent link">&para;</a></h2>
-<p>Create <code>ExampleRegistryProvider.kt</code> in the same package:</p>
+<h2 id="step-2-create-the-provider-logic">Step 2: Create the provider logic<a class="headerlink" href="#step-2-create-the-provider-logic" title="Permanent link">&para;</a></h2>
+<p>Create <code>ExampleProviderLogic.kt</code> in the same package. The provider logic tells Terracotta how to map loaders and which operations the registry supports. For this in-memory example we use an identity loader mapper and a stateful platform behavior that accepts every operation.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.example</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.Operation</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.RegistryProvider</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleRegistryProvider</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="p">:</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="n">operations</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">log</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">description</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">applied</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.logic.LoaderMapper</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.logic.PlatformBehavior</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.logic.ProviderLogic</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kd">object</span><span class="w"> </span><span class="nc">ExampleLoaderMapper</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">LoaderMapper</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">mapToPlatform</span><span class="p">(</span><span class="n">loaderId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loaderId</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kd">object</span><span class="w"> </span><span class="nc">ExamplePlatformBehavior</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlatformBehavior</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">isStateful</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kd">object</span><span class="w"> </span><span class="nc">ExampleProviderLogic</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderLogic</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">loaderMapper</span><span class="p">:</span><span class="w"> </span><span class="n">LoaderMapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleLoaderMapper</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">platformBehavior</span><span class="p">:</span><span class="w"> </span><span class="n">PlatformBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExamplePlatformBehavior</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="step-3-create-the-factory">Step 3: Create the factory<a class="headerlink" href="#step-3-create-the-factory" title="Permanent link">&para;</a></h2>
-<p>Create <code>ExampleProviderFactory.kt</code>:</p>
+<h2 id="step-3-create-the-registry-provider">Step 3: Create the registry provider<a class="headerlink" href="#step-3-create-the-registry-provider" title="Permanent link">&para;</a></h2>
+<p>Create <code>ExampleRegistryProvider.kt</code> in the same package. Extend <code>BaseRegistryProvider</code> so core handles filtering, logging, and skipped-operation warnings for you.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.example</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.ProviderFactory</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.RegistryProvider</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.StateProvider</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.Operation</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.BaseRegistryProvider</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.logic.ProviderLogic</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleProviderFactory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example&quot;</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">()</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Use createStateProvider and ExampleRegistryProvider(state) directly in tests&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleRegistryProvider</span><span class="p">(</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="p">:</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">providerLogic</span><span class="p">:</span><span class="w"> </span><span class="n">ProviderLogic</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">BaseRegistryProvider</span><span class="p">(</span><span class="n">providerLogic</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">applySupported</span><span class="p">(</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="n">projectId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="n">operations</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="n">operations</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">log</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">description</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">applied</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="step-4-write-a-test">Step 4: Write a test<a class="headerlink" href="#step-4-write-a-test" title="Permanent link">&para;</a></h2>
-<p>Create <code>ExampleProviderIntegrationTest.kt</code>:</p>
+<h2 id="step-4-create-the-factory">Step 4: Create the factory<a class="headerlink" href="#step-4-create-the-factory" title="Permanent link">&para;</a></h2>
+<p>Create <code>ExampleProviderFactory.kt</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.example</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.DiffEngine</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaProject</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaVersion</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.runBlocking</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions.assertEquals</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleProviderIntegrationTest</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nd">@Test</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`creates project and uploads version`</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TerracottaProject</span><span class="p">(</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">            </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example-project&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example Project&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">            </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A test project&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">            </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A longer description&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">            </span><span class="n">versions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">                </span><span class="n">TerracottaVersion</span><span class="p">(</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                    </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">                    </span><span class="n">artifactPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/example.jar&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">                    </span><span class="n">gameVersions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;1.21.1&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">                </span><span class="p">),</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">            </span><span class="p">),</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">            </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">            </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MIT&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">        </span><span class="p">)</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">()</span>
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleRegistryProvider</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DiffEngine</span><span class="p">.</span><span class="na">diff</span><span class="p">(</span><span class="n">local</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="s">&quot;example-project&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>
-<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">().</span><span class="na">size</span><span class="p">)</span>
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;+ Create project Example Project&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">()</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="p">)</span>
-<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;+ Upload version 1.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">()</span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="p">)</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="p">}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.ProviderFactory</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.RegistryProvider</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.StateProvider</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.logic.ProviderLogic</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleProviderFactory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderFactory</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example&quot;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createProviderLogic</span><span class="p">():</span><span class="w"> </span><span class="n">ProviderLogic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleProviderLogic</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStateProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">StateProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">()</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRegistryProvider</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">):</span><span class="w"> </span><span class="n">RegistryProvider</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Use createStateProvider and ExampleRegistryProvider(state, logic) directly in tests&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="step-5-run-the-test">Step 5: Run the test<a class="headerlink" href="#step-5-run-the-test" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>:terracotta-core:test<span class="w"> </span>--tests<span class="w"> </span><span class="s2">&quot;io.github.beduality.terracotta.core.provider.example.ExampleProviderIntegrationTest&quot;</span>
+<h2 id="step-5-write-a-test">Step 5: Write a test<a class="headerlink" href="#step-5-write-a-test" title="Permanent link">&para;</a></h2>
+<p>Create <code>ExampleProviderIntegrationTest.kt</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.provider.example</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.diff.DiffEngine</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaProject</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.TerracottaVersion</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.runBlocking</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions.assertEquals</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="kd">class</span><span class="w"> </span><span class="nc">ExampleProviderIntegrationTest</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nd">@Test</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`creates project and uploads version`</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TerracottaProject</span><span class="p">(</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">            </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example-project&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Example Project&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">            </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A test project&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">            </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A longer description&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">            </span><span class="n">versions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">                </span><span class="n">TerracottaVersion</span><span class="p">(</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">                    </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">                    </span><span class="n">artifactPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/tmp/example.jar&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">                    </span><span class="n">gameVersions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;1.21.1&quot;</span><span class="p">),</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">                </span><span class="p">),</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">            </span><span class="p">),</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">),</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MIT&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="p">)</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleStateProvider</span><span class="p">()</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleRegistryProvider</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">ExampleProviderLogic</span><span class="p">)</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DiffEngine</span><span class="p">.</span><span class="na">diff</span><span class="p">(</span><span class="n">local</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="s">&quot;example-project&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">().</span><span class="na">size</span><span class="p">)</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;+ Create project Example Project&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">()</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="p">)</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;+ Upload version 1.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="na">applied</span><span class="p">()</span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="p">)</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="step-6-run-the-test">Step 6: Run the test<a class="headerlink" href="#step-6-run-the-test" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./gradlew<span class="w"> </span>:terracotta-core:test<span class="w"> </span>--tests<span class="w"> </span><span class="s2">&quot;io.github.beduality.terracotta.core.provider.example.ExampleProviderIntegrationTest&quot;</span>
 </code></pre></div>
 <p>The test should pass.</p>
 <h2 id="final-result">Final result<a class="headerlink" href="#final-result" title="Permanent link">&para;</a></h2>
 <p>You now have a minimal provider that:</p>
 <ul>
-<li>Implements the three core provider interfaces.</li>
+<li>Implements the four core provider interfaces (<code>ProviderFactory</code>, <code>ProviderLogic</code>, <code>StateProvider</code>, <code>RegistryProvider</code> via <code>BaseRegistryProvider</code>).</li>
+<li>Uses <code>ProviderLogic</code> to map loaders and filter unsupported operations.</li>
+<li>Extends <code>BaseRegistryProvider</code> so core handles logging and filtering automatically.</li>
 <li>Receives operations computed by <code>DiffEngine</code>.</li>
 <li>Can be discovered and wired into the Gradle plugin via <code>ServiceLoader</code>.</li>
 </ul>
@@ -4866,12 +4950,15 @@
 <li><strong>Authentication</strong>: accept the token in <code>ProviderFactory.createStateProvider</code> and <code>createRegistryProvider</code> and pass it to your HTTP client.</li>
 <li><strong>Error handling</strong>: throw descriptive exceptions for network, auth, and validation failures. Return <code>null</code> from <code>StateProvider.fetchProject</code> only when the project does not exist.</li>
 <li><strong>Rate limiting</strong>: add retries or back-off for registry rate limits.</li>
-<li><strong>Model mapping</strong>: translate registry-specific responses into <code>TerracottaProject</code> and <code>TerracottaVersion</code>, and handle each <code>Operation</code> subtype in <code>RegistryProvider.apply</code>.</li>
+<li><strong>Model mapping</strong>: translate registry-specific responses into <code>TerracottaProject</code> and <code>TerracottaVersion</code>, and handle each <code>Operation</code> subtype in <code>applySupported</code>.</li>
+<li><strong>Provider logic</strong>: decide how your registry maps loaders and which operations it supports. Inject the same <code>ProviderLogic</code> instance into both the state provider's loader mapping and the registry provider.</li>
+<li><strong>BaseRegistryProvider</strong>: extend <code>BaseRegistryProvider</code> so core handles filtering, logging, and skipped-operation warnings for you.</li>
 <li><strong>ServiceLoader registration</strong>: create <code>META-INF/services/io.github.beduality.terracotta.core.provider.ProviderFactory</code> containing the fully qualified name of your factory.</li>
 </ul>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Read the <a href="../../reference/provider-interfaces/">Provider Interfaces</a> reference for the interface signatures and discovery rules.</li>
+<li>Read the <a href="../../explanation/provider-logic/">Provider Logic</a> explanation for design rationale and examples.</li>
 <li>Review the <a href="../../explanation/architecture/">Architecture</a> explanation to understand why providers are decoupled from the Gradle plugin.</li>
 </ul>
 

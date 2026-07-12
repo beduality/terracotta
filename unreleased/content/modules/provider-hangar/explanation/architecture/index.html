@@ -1913,6 +1913,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../core/explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
         
   
@@ -4596,9 +4624,10 @@
 <p>The Hangar provider translates between Terracotta's generic operations and the Hangar API.</p>
 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>HangarProviderFactory</code> — creates state and registry providers for the <code>hangar</code> provider ID.</li>
+<li><code>HangarProviderFactory</code> — creates state and registry providers, plus the <code>HangarProviderLogic</code>, for the <code>hangar</code> provider ID.</li>
+<li><code>HangarProviderLogic</code> — provider-specific logic combining loader mapping and platform behavior; returned by <code>HangarProviderFactory.createProviderLogic()</code>.</li>
 <li><code>HangarStateProvider</code> — fetches project and version data from Hangar and converts it to <code>TerracottaProject</code>.</li>
-<li><code>HangarRegistryProvider</code> — applies <code>Operation</code> objects to Hangar by calling the appropriate API endpoints.</li>
+<li><code>HangarRegistryProvider</code> — extends <code>BaseRegistryProvider</code> and applies supported <code>Operation</code> objects to Hangar by calling the appropriate API endpoints. Core handles filtering and skipped-operation logging.</li>
 <li><code>HangarClient</code> — HTTP client that handles JWT authentication, project updates, channel management, and version uploads.</li>
 <li><code>HangarLoaderMapper</code> — maps Terracotta loader IDs to Hangar platform names.</li>
 </ul>

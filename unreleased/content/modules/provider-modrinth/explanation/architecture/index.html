@@ -1913,6 +1913,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../core/explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
         
   
@@ -4596,9 +4624,10 @@
 <p>The Modrinth provider translates between Terracotta's generic operations and the Modrinth API.</p>
 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>ModrinthProviderFactory</code> — creates state and registry providers for the <code>modrinth</code> provider ID.</li>
+<li><code>ModrinthProviderFactory</code> — creates state and registry providers, plus the <code>ModrinthProviderLogic</code>, for the <code>modrinth</code> provider ID.</li>
+<li><code>ModrinthProviderLogic</code> — provider-specific logic combining identity loader mapping and stateful platform behavior; returned by <code>ModrinthProviderFactory.createProviderLogic()</code>.</li>
 <li><code>ModrinthStateProvider</code> — fetches project and version data from Modrinth and converts it to <code>TerracottaProject</code>.</li>
-<li><code>ModrinthRegistryProvider</code> — applies <code>Operation</code> objects to Modrinth by calling the appropriate API endpoints.</li>
+<li><code>ModrinthRegistryProvider</code> — extends <code>BaseRegistryProvider</code> and applies supported <code>Operation</code> objects to Modrinth by calling the appropriate API endpoints. Core handles filtering and skipped-operation logging.</li>
 <li><code>ModrinthClient</code> — thin HTTP client over the Modrinth REST API.</li>
 <li>Model classes (<code>ModrinthProject</code>, <code>ModrinthVersion</code>, etc.) — serializable DTOs used by the client.</li>
 </ul>

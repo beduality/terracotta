@@ -1913,6 +1913,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../core/explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
         
   
@@ -4908,10 +4936,11 @@
 <p>The <code>HangarRegistryProvider</code> applies operations to Hangar. It also takes a <code>HangarClient</code> instance:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.hangar.HangarRegistryProvider</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.hangar.client.HangarClient</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HangarClient</span><span class="p">(</span><span class="n">apiKey</span><span class="p">)</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HangarRegistryProvider</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-slug&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.hangar.logic.HangarProviderLogic</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HangarClient</span><span class="p">(</span><span class="n">apiKey</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HangarRegistryProvider</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">HangarProviderLogic</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-slug&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h2>
 <p>Here's a complete example showing how to use the Hangar provider with the Terracotta core:</p>

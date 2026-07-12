@@ -16,7 +16,7 @@
         <link rel="prev" href="../../../../../apidocs/terracotta-core/">
       
       
-        <link rel="next" href="../metadata-resolution/">
+        <link rel="next" href="../provider-logic/">
       
       
         
@@ -2018,6 +2018,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4691,7 +4719,7 @@
 <li><strong>Infrastructure (<code>terracotta-github</code>)</strong>: Pulumi program that manages repository settings and GitHub Actions secrets.</li>
 </ul>
 <h2 id="why-core-knows-nothing-about-registries">Why core knows nothing about registries<a class="headerlink" href="#why-core-knows-nothing-about-registries" title="Permanent link">&para;</a></h2>
-<p><code>terracotta-core</code> defines only interfaces such as <code>ProviderFactory</code>, <code>StateProvider</code>, and <code>RegistryProvider</code>. It never imports a provider implementation. This means:</p>
+<p><code>terracotta-core</code> defines only interfaces and abstractions such as <code>ProviderFactory</code>, <code>StateProvider</code>, <code>RegistryProvider</code>, <code>ProviderLogic</code>, and <code>BaseRegistryProvider</code>. It never imports a provider implementation. This means:</p>
 <ul>
 <li>A new registry can be supported by adding a module, not by editing core.</li>
 <li>Core logic is tested without network access or external credentials.</li>
@@ -4773,13 +4801,13 @@
         
         
           
-          <a href="../metadata-resolution/" class="md-footer__link md-footer__link--next" aria-label="Next: Metadata Resolution">
+          <a href="../provider-logic/" class="md-footer__link md-footer__link--next" aria-label="Next: Provider Logic">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Metadata Resolution
+                Provider Logic
               </div>
             </div>
             <div class="md-footer__button md-icon">

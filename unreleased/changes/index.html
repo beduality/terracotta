@@ -1988,6 +1988,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../content/modules/core/explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../content/modules/core/explanation/metadata-resolution/" class="md-nav__link">
         
   
@@ -4605,6 +4633,8 @@
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <p><strong>Core</strong></p>
 <ul>
+<li>Added provider-specific logic layer with <code>ProviderLogic</code>, <code>LoaderMapper</code>, and <code>PlatformBehavior</code> interfaces in <code>terracotta-core</code>. <code>ProviderFactory</code> now exposes <code>createProviderLogic()</code> so providers can share registry-specific loader mappings and operation filtering rules.</li>
+<li>Added <code>BaseRegistryProvider</code> in <code>terracotta-core</code>. It automatically filters operations using the injected <code>ProviderLogic</code>, logs warnings for skipped operations, and delegates the rest to provider-specific <code>applySupported</code> implementations.</li>
 <li>Added optional <code>icon</code> field to <code>TerracottaProject</code>, <code>TerracottaConfig</code>, <code>ResolvedProjectMetadata</code>, and project metadata resolution. The value is a local file path in configuration and a remote URL when read from provider state.</li>
 <li>Added <code>UploadIcon</code>, <code>UpdateIcon</code>, and <code>DeleteIcon</code> operations and diff logic that compares the local icon path against the remote icon URL.</li>
 </ul>
@@ -4614,11 +4644,13 @@
 </ul>
 <p><strong>Modrinth</strong></p>
 <ul>
+<li>Added <code>ModrinthProviderLogic</code> exposing identity loader mapping and stateful platform behavior. <code>ModrinthRegistryProvider</code> now consumes the logic layer to filter operations.</li>
 <li>Added project icon support via <code>ModrinthClient.uploadIcon</code>, which calls <code>PATCH /project/{id}/icon</code> with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). <code>ModrinthStateProvider.fetchProject</code> now reads <code>icon_url</code> into the canonical <code>icon</code> field.</li>
 </ul>
 <p><strong>Hangar</strong></p>
 <ul>
-<li>Hangar registry provider now skips icon operations with a warning, since Hangar does not expose a public API for uploading or deleting project icons.</li>
+<li>Added <code>HangarProviderLogic</code> and <code>HangarPlatformBehavior</code>, which filters out unsupported operations (<code>CreateProject</code>, gallery, and icon) before <code>HangarRegistryProvider</code> processes them. <code>HangarLoaderMapper</code> now implements the core <code>LoaderMapper</code> interface and is shared by the state and registry providers.</li>
+<li><code>HangarRegistryProvider</code> now warns when unsupported operations are skipped, including <code>CreateProject</code>, gallery, and icon operations.</li>
 </ul>
 
 

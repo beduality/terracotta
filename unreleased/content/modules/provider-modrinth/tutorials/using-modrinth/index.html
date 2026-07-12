@@ -1913,6 +1913,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../core/explanation/provider-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../core/explanation/metadata-resolution/" class="md-nav__link">
         
   
@@ -5037,10 +5065,11 @@
 <p>The <code>ModrinthRegistryProvider</code> applies operations to Modrinth. It also takes a <code>ModrinthClient</code> instance:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthClient</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthRegistryProvider</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.provider.modrinth.logic.ModrinthProviderLogic</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthClient</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="kd">val</span><span class="w"> </span><span class="nv">registryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ModrinthRegistryProvider</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">ModrinthProviderLogic</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">registryProvider</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">projectId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-plugin-id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operations</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="gallery-images">Gallery images<a class="headerlink" href="#gallery-images" title="Permanent link">&para;</a></h2>
 <p>The Modrinth provider supports uploading, updating metadata, and deleting gallery images.
