@@ -5,6 +5,7 @@ import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.logic.ModrinthProviderLogic
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthGalleryItem
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthLicense
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
@@ -209,7 +210,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             registryProvider.apply("my-mod", listOf(Operation.UploadVersion(version)))
 
@@ -248,7 +249,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             val operations =
                 listOf(
@@ -329,7 +330,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             val project =
                 TerracottaProject(
@@ -365,7 +366,7 @@ class ModrinthProviderTest {
 
             val client = HttpClient(mockEngine)
             val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             registryProvider.apply("my-mod", emptyList())
 
@@ -664,7 +665,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             val item =
                 io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
@@ -705,7 +706,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             val item =
                 io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
@@ -807,7 +808,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             val operations =
                 listOf(
@@ -922,7 +923,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             registryProvider.apply("my-mod", listOf(Operation.UploadIcon(iconFile.absolutePath)))
 
@@ -962,7 +963,7 @@ class ModrinthProviderTest {
                 }
 
             val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
-            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
 
             registryProvider.apply(
                 "my-mod",

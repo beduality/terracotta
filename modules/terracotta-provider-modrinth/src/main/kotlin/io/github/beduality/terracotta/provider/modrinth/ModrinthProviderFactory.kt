@@ -5,7 +5,9 @@ import io.github.beduality.terracotta.core.provider.DestructiveRegistryProvider
 import io.github.beduality.terracotta.core.provider.ProviderFactory
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.core.provider.StateProvider
+import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.logic.ModrinthProviderLogic
 
 /**
  * Provider factory for Modrinth.
@@ -18,6 +20,11 @@ class ModrinthProviderFactory : ProviderFactory {
     /** Provider identifier (`modrinth`). */
     override val id: String = "modrinth"
 
+    private val logic = ModrinthProviderLogic
+
+    /** Creates the Modrinth provider logic. */
+    override fun createProviderLogic(): ProviderLogic = logic
+
     /** Creates a Modrinth state provider backed by [token]. */
     override fun createStateProvider(token: String?): StateProvider {
         return ModrinthStateProvider(ModrinthClient(token, assetProcessor = AssetProcessorLoader.load()))
@@ -25,7 +32,7 @@ class ModrinthProviderFactory : ProviderFactory {
 
     /** Creates a Modrinth registry provider backed by [token]. */
     override fun createRegistryProvider(token: String?): RegistryProvider {
-        return ModrinthRegistryProvider(ModrinthClient(token, assetProcessor = AssetProcessorLoader.load()))
+        return ModrinthRegistryProvider(ModrinthClient(token, assetProcessor = AssetProcessorLoader.load()), logic)
     }
 
     /** Creates a Modrinth destructive registry provider backed by [token]. */

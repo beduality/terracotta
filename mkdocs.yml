@@ -129,6 +129,7 @@ nav:
         - Dokka API Docs: apidocs/terracotta-core/index.html
       - Explanation:
         - Architecture: content/modules/core/explanation/architecture.md
+        - Provider Logic: content/modules/core/explanation/provider-logic.md
         - Metadata Resolution: content/modules/core/explanation/metadata-resolution.md
         - Diff Engine: content/modules/core/explanation/diff-engine.md
         - Loader Hierarchy: content/modules/core/explanation/loader-hierarchy.md

@@ -112,9 +112,10 @@ The `ModrinthRegistryProvider` applies operations to Modrinth. It also takes a `
 ```kotlin
 import io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.logic.ModrinthProviderLogic
 
 val client = ModrinthClient(token)
-val registryProvider = ModrinthRegistryProvider(client)
+val registryProvider = ModrinthRegistryProvider(client, ModrinthProviderLogic)
 registryProvider.apply(projectId = "my-plugin-id", operations = operations)
 ```
 

@@ -91,9 +91,10 @@ The `HangarRegistryProvider` applies operations to Hangar. It also takes a `Hang
 ```kotlin
 import io.github.beduality.terracotta.provider.hangar.HangarRegistryProvider
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
+import io.github.beduality.terracotta.provider.hangar.logic.HangarProviderLogic
 
 val client = HangarClient(apiKey)
-val registryProvider = HangarRegistryProvider(client)
+val registryProvider = HangarRegistryProvider(client, HangarProviderLogic)
 registryProvider.apply(projectId = "my-plugin-slug", operations = operations)
 ```
 

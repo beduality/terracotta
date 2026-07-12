@@ -9,6 +9,7 @@ Because the API is covered by KDoc in the source files, this page links directly
 ## Key entry points
 
 - `io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory`
+- `io.github.beduality.terracotta.provider.modrinth.logic.ModrinthProviderLogic`
 - `io.github.beduality.terracotta.provider.modrinth.ModrinthStateProvider`
 - `io.github.beduality.terracotta.provider.modrinth.ModrinthRegistryProvider`
 - `io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient`

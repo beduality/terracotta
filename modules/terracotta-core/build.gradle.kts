@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.snakeyaml)
     implementation(libs.semver)
+    implementation(libs.slf4j.api)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotlinx.coroutines.test)
     testRuntimeOnly(libs.junit.platform.launcher)

@@ -1,25 +1,30 @@
 package io.github.beduality.terracotta.provider.hangar
 
 import io.github.beduality.terracotta.core.diff.Operation
-import io.github.beduality.terracotta.core.provider.RegistryProvider
+import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
+import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
-import org.slf4j.LoggerFactory
 
 /**
  * Applies Terracotta operations to Hangar by translating them into Hangar API calls.
  *
+ * Unsupported operations are filtered out by the base class before the provider
+ * processes them.
+ *
  * @see [Hangar provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html)
  */
-class HangarRegistryProvider(private val client: HangarClient) : RegistryProvider {
-    private val logger = LoggerFactory.getLogger(HangarRegistryProvider::class.java)
-
+class HangarRegistryProvider(
+    private val client: HangarClient,
+    providerLogic: ProviderLogic,
+) : BaseRegistryProvider(providerLogic, "hangar") {
     /**
-     * Applies [operations] to the Hangar project identified by [projectId].
+     * Applies the supported [operations] to the Hangar project identified by
+     * [projectId].
      *
      * @param projectId Hangar project slug or ID.
      * @param operations changes to apply.
      */
-    override suspend fun apply(
+    override suspend fun applySupported(
         projectId: String,
         operations: List<Operation>,
     ) {
@@ -27,19 +32,9 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
         val updateMetadataOps = mutableListOf<Operation.UpdateMetadata>()
         val updateDescriptionOps = mutableListOf<Operation.UpdateDescription>()
         val updateTagsOps = mutableListOf<Operation.UpdateTags>()
-        var galleryOpsSkipped = 0
 
         for (operation in operations) {
             when (operation) {
-                is Operation.CreateProject -> {
-                    logger.warn(
-                        "Hangar does not expose a project creation API. " +
-                            "Please create project '${operation.project.name}' manually on Hangar first.",
-                    )
-                    if (!operation.project.licenseUrl.isNullOrBlank()) {
-                        logger.warn("Hangar does not support licenseUrl; the configured URL will not be published.")
-                    }
-                }
                 is Operation.UpdateMetadata -> {
                     updateMetadataOps.add(operation)
                     if (!operation.newLicenseUrl.isNullOrBlank()) {
@@ -49,19 +44,8 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
                 is Operation.UpdateDescription -> updateDescriptionOps.add(operation)
                 is Operation.UpdateTags -> updateTagsOps.add(operation)
                 is Operation.UploadVersion -> client.uploadVersion(slug, operation.version)
-                is Operation.UploadGalleryItem,
-                is Operation.UpdateGalleryItem,
-                is Operation.DeleteGalleryItem,
-                -> galleryOpsSkipped++
-                is Operation.UploadIcon,
-                is Operation.UpdateIcon,
-                is Operation.DeleteIcon,
-                -> logger.warn("Hangar does not support project icon uploads; skipping icon operation.")
+                else -> throw UnsupportedOperationException("Unexpected operation for Hangar: ${operation.description}")
             }
-        }
-
-        if (galleryOpsSkipped > 0) {
-            logger.warn("Hangar does not support gallery images; skipping $galleryOpsSkipped gallery operation(s).")
         }
 
         if (updateMetadataOps.isNotEmpty() || updateDescriptionOps.isNotEmpty() || updateTagsOps.isNotEmpty()) {

@@ -9,6 +9,7 @@ Because the API is covered by KDoc in the source files, this page links directly
 ## Key entry points
 
 - `io.github.beduality.terracotta.provider.hangar.HangarProviderFactory`
+- `io.github.beduality.terracotta.provider.hangar.logic.HangarProviderLogic`
 - `io.github.beduality.terracotta.provider.hangar.HangarStateProvider`
 - `io.github.beduality.terracotta.provider.hangar.HangarRegistryProvider`
 - `io.github.beduality.terracotta.provider.hangar.client.HangarClient`

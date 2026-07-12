@@ -1,25 +1,30 @@
 package io.github.beduality.terracotta.provider.modrinth
 
 import io.github.beduality.terracotta.core.diff.Operation
-import io.github.beduality.terracotta.core.provider.RegistryProvider
+import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
+import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
-import org.slf4j.LoggerFactory
 
 /**
  * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
  *
+ * Unsupported operations are filtered out by the base class before the provider
+ * processes them.
+ *
  * @see [Modrinth provider tutorial](https://beduality.github.io/terracotta/content/modules/provider-modrinth/tutorials/using-modrinth.html)
  */
-class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryProvider {
-    private val logger = LoggerFactory.getLogger(ModrinthRegistryProvider::class.java)
-
+class ModrinthRegistryProvider(
+    private val client: ModrinthClient,
+    providerLogic: ProviderLogic,
+) : BaseRegistryProvider(providerLogic, "modrinth") {
     /**
-     * Applies [operations] to the Modrinth project identified by [projectId].
+     * Applies the supported [operations] to the Modrinth project identified by
+     * [projectId].
      *
      * @param projectId Modrinth project slug or ID.
      * @param operations changes to apply.
      */
-    override suspend fun apply(
+    override suspend fun applySupported(
         projectId: String,
         operations: List<Operation>,
     ) {

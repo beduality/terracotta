@@ -6,6 +6,7 @@ import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
+import io.github.beduality.terracotta.provider.hangar.logic.HangarProviderLogic
 import io.github.beduality.terracotta.provider.hangar.model.HangarChannel
 import io.github.beduality.terracotta.provider.hangar.model.HangarProject
 import io.github.beduality.terracotta.provider.hangar.model.HangarVersion
@@ -206,7 +207,7 @@ class HangarProviderTest {
                 }
 
             val hangarClient = HangarClient(apiKey = "test-api-key", baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             val version =
                 TerracottaVersion(
@@ -270,7 +271,7 @@ class HangarProviderTest {
                 }
 
             val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             val operations =
                 listOf(
@@ -300,7 +301,7 @@ class HangarProviderTest {
         }
 
     @Test
-    fun `test HangarRegistryProvider warns on CreateProject and skips`() =
+    fun `test HangarRegistryProvider filters and warns on CreateProject`() =
         runTest {
             var requestCount = 0
             val mockEngine =
@@ -311,7 +312,7 @@ class HangarProviderTest {
 
             val client = HttpClient(mockEngine)
             val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             val project =
                 TerracottaProject(
@@ -342,7 +343,7 @@ class HangarProviderTest {
 
             val client = HttpClient(mockEngine)
             val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             registryProvider.apply("my-plugin", emptyList())
 
@@ -916,7 +917,7 @@ class HangarProviderTest {
                 }
 
             val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             val item = io.github.beduality.terracotta.core.model.TerracottaGalleryItem(imagePath = "image.png", title = "My Image")
             registryProvider.apply(
@@ -976,7 +977,7 @@ class HangarProviderTest {
                 }
 
             val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             registryProvider.apply(
                 "my-plugin",
@@ -1024,7 +1025,7 @@ class HangarProviderTest {
                 }
 
             val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
-            val registryProvider = HangarRegistryProvider(hangarClient)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
 
             registryProvider.apply(
                 "my-plugin",

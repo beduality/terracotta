@@ -1,8 +1,10 @@
 package io.github.beduality.terracotta.provider.hangar
 
 import io.github.beduality.terracotta.core.provider.ProviderFactory
+import io.github.beduality.terracotta.provider.hangar.logic.HangarProviderLogic
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
 import java.util.ServiceLoader
 
@@ -20,5 +22,15 @@ class HangarProviderFactoryTest {
         val factory = HangarProviderFactory()
         assertNotNull(factory.createStateProvider(null))
         assertNotNull(factory.createRegistryProvider("api-key"))
+    }
+
+    @Test
+    fun `HangarProviderFactory creates provider logic`() {
+        val factory = HangarProviderFactory()
+        val logic = factory.createProviderLogic()
+
+        assertNotNull(logic)
+        assertSame(HangarProviderLogic, logic)
+        assertEquals(true, logic.platformBehavior.isStateful)
     }
 }

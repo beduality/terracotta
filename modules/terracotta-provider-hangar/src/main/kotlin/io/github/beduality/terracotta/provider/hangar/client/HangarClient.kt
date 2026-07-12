@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.provider.hangar.client
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
+import io.github.beduality.terracotta.core.provider.logic.LoaderMapper
 import io.github.beduality.terracotta.provider.hangar.mapper.HangarLoaderMapper
 import io.github.beduality.terracotta.provider.hangar.model.HangarAuthenticateResponse
 import io.github.beduality.terracotta.provider.hangar.model.HangarChannel
@@ -50,6 +51,8 @@ class HangarClient(
     private val apiKey: String?,
     /** Base URL of the Hangar API. */
     private val baseUrl: String = "https://hangar.papermc.io/api/v1",
+    /** Loader mapper used to translate Terracotta loaders to Hangar platforms. */
+    private val loaderMapper: LoaderMapper = HangarLoaderMapper,
     /** Underlying Ktor HTTP client. */
     private val client: HttpClient = defaultClient(),
 ) {
@@ -206,7 +209,7 @@ class HangarClient(
             logger.warn("Hangar is implicitly server-only; ignoring CLIENT_ONLY environment for version ${version.version}.")
         }
 
-        val platforms = HangarLoaderMapper.mapToPlatforms(version.loaders)
+        val platforms = loaderMapper.mapToPlatforms(version.loaders)
         if (platforms.isEmpty()) {
             throw IOException("No supported Hangar platforms for version ${version.version}")
         }

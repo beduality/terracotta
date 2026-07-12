@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Core**
 
+- Added provider-specific logic layer with `ProviderLogic`, `LoaderMapper`, and `PlatformBehavior` interfaces in `terracotta-core`. `ProviderFactory` now exposes `createProviderLogic()` so providers can share registry-specific loader mappings and operation filtering rules.
+- Added `BaseRegistryProvider` in `terracotta-core`. It automatically filters operations using the injected `ProviderLogic`, logs warnings for skipped operations, and delegates the rest to provider-specific `applySupported` implementations.
 - Added optional `icon` field to `TerracottaProject`, `TerracottaConfig`, `ResolvedProjectMetadata`, and project metadata resolution. The value is a local file path in configuration and a remote URL when read from provider state.
 - Added `UploadIcon`, `UpdateIcon`, and `DeleteIcon` operations and diff logic that compares the local icon path against the remote icon URL.
 
@@ -20,11 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Modrinth**
 
+- Added `ModrinthProviderLogic` exposing identity loader mapping and stateful platform behavior. `ModrinthRegistryProvider` now consumes the logic layer to filter operations.
 - Added project icon support via `ModrinthClient.uploadIcon`, which calls `PATCH /project/{id}/icon` with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). `ModrinthStateProvider.fetchProject` now reads `icon_url` into the canonical `icon` field.
 
 **Hangar**
 
-- Hangar registry provider now skips icon operations with a warning, since Hangar does not expose a public API for uploading or deleting project icons.
+- Added `HangarProviderLogic` and `HangarPlatformBehavior`, which filters out unsupported operations (`CreateProject`, gallery, and icon) before `HangarRegistryProvider` processes them. `HangarLoaderMapper` now implements the core `LoaderMapper` interface and is shared by the state and registry providers.
+- `HangarRegistryProvider` now warns when unsupported operations are skipped, including `CreateProject`, gallery, and icon operations.
 
 ## [0.4.1] - 2026-07-12
 

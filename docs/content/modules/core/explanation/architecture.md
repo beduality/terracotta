@@ -13,7 +13,7 @@ The codebase is organized into four layers:
 
 ## Why core knows nothing about registries
 
-`terracotta-core` defines only interfaces such as `ProviderFactory`, `StateProvider`, and `RegistryProvider`. It never imports a provider implementation. This means:
+`terracotta-core` defines only interfaces and abstractions such as `ProviderFactory`, `StateProvider`, `RegistryProvider`, `ProviderLogic`, and `BaseRegistryProvider`. It never imports a provider implementation. This means:
 
 - A new registry can be supported by adding a module, not by editing core.
 - Core logic is tested without network access or external credentials.

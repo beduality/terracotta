@@ -1,22 +1,19 @@
 package io.github.beduality.terracotta.provider.hangar.mapper
 
+import io.github.beduality.terracotta.core.provider.logic.LoaderMapper
 import org.slf4j.LoggerFactory
 
 /**
  * Maps Terracotta loader identifiers to Hangar platform names and back.
  *
  * @see [Loader hierarchy explanation](https://beduality.github.io/terracotta/content/modules/core/explanation/loader-hierarchy.html)
+ * @see [io.github.beduality.terracotta.core.provider.logic.LoaderMapper]
  */
-object HangarLoaderMapper {
+object HangarLoaderMapper : LoaderMapper {
     private val logger = LoggerFactory.getLogger(HangarLoaderMapper::class.java)
 
-    /** Maps a list of loader IDs to supported Hangar platforms. */
-    fun mapToPlatforms(loaders: List<String>): Set<String> {
-        return loaders.mapNotNull { mapToPlatform(it) }.toSet()
-    }
-
     /** Maps a single loader ID to a Hangar platform, or `null` if unsupported. */
-    fun mapToPlatform(loaderId: String): String? {
+    override fun mapToPlatform(loaderId: String): String? {
         return when (loaderId.lowercase()) {
             "bukkit", "folia", "paper", "purpur", "spigot" -> "PAPER"
             "velocity" -> "VELOCITY"
