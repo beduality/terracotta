@@ -484,6 +484,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4593,6 +4604,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4651,6 +4673,15 @@
 <ul>
 <li>Added <code>HangarProviderLogic</code> and <code>HangarPlatformBehavior</code>, which filters out unsupported operations (<code>CreateProject</code>, gallery, and icon) before <code>HangarRegistryProvider</code> processes them. <code>HangarLoaderMapper</code> now implements the core <code>LoaderMapper</code> interface and is shared by the state and registry providers.</li>
 <li><code>HangarRegistryProvider</code> now warns when unsupported operations are skipped, including <code>CreateProject</code>, gallery, and icon operations.</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<p><strong>Core</strong></p>
+<ul>
+<li>Moved <code>ProjectMetadataDetector</code>, <code>ProjectMetadataLoader</code>, and built-in adapters into <code>io.github.beduality.terracotta.core.model.metadata.detector</code> (renamed from <code>io.github.beduality.terracotta.core.detect</code>). Service files and custom detector implementations must update package names and imports.</li>
+</ul>
+<p><strong>Gradle Plugin</strong></p>
+<ul>
+<li>Renamed Gradle metadata detector package from <code>io.github.beduality.terracotta.gradle.detect</code> to <code>io.github.beduality.terracotta.gradle.detector</code>.</li>
 </ul>
 
 

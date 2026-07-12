@@ -4,12 +4,12 @@ $dokka.linkExtension:html
 module:terracotta-core
 io.github.beduality.terracotta.core.asset
 io.github.beduality.terracotta.core.config
-io.github.beduality.terracotta.core.detect
-io.github.beduality.terracotta.core.detect.adapters
 io.github.beduality.terracotta.core.diff
 io.github.beduality.terracotta.core.model
 io.github.beduality.terracotta.core.model.loader
 io.github.beduality.terracotta.core.model.metadata
+io.github.beduality.terracotta.core.model.metadata.detector
+io.github.beduality.terracotta.core.model.metadata.detector.adapters
 io.github.beduality.terracotta.core.model.projectfile
 io.github.beduality.terracotta.core.model.projectfile.convention
 io.github.beduality.terracotta.core.model.releasetype
@@ -18,7 +18,7 @@ io.github.beduality.terracotta.core.provider
 io.github.beduality.terracotta.core.provider.logic
 module:terracotta-gradle-plugin
 io.github.beduality.terracotta.gradle
-io.github.beduality.terracotta.gradle.detect
+io.github.beduality.terracotta.gradle.detector
 module:terracotta-provider-hangar
 io.github.beduality.terracotta.provider.hangar
 io.github.beduality.terracotta.provider.hangar.client

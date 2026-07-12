@@ -4740,10 +4740,10 @@
 <li>You have read <a href="../implementing-a-custom-loader/">Implement a Custom Loader</a> or understand how <code>ProjectFileCache</code> works.</li>
 </ul>
 <h2 id="step-1-create-the-detector">Step 1: Create the detector<a class="headerlink" href="#step-1-create-the-detector" title="Permanent link">&para;</a></h2>
-<p>Create <code>modules/terracotta-core/src/main/kotlin/io/github/beduality/terracotta/core/detect/adapters/ProjectTomlDetector.kt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.detect.adapters</span>
+<p>Create <code>modules/terracotta-core/src/main/kotlin/io/github/beduality/terracotta/core/model/metadata/detector/adapters/ProjectTomlDetector.kt</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.detector.adapters</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.detect.ProjectMetadataDetector</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetadata</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
@@ -4768,16 +4768,16 @@
 </code></pre></div>
 <h2 id="step-2-register-the-detector-via-serviceloader">Step 2: Register the detector via ServiceLoader<a class="headerlink" href="#step-2-register-the-detector-via-serviceloader" title="Permanent link">&para;</a></h2>
 <p>Create the service file:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>modules/terracotta-core/src/main/resources/META-INF/services/io.github.beduality.terracotta.core.detect.ProjectMetadataDetector
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>modules/terracotta-core/src/main/resources/META-INF/services/io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 </code></pre></div>
 <p>Add the fully qualified class name:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>io.github.beduality.terracotta.core.detect.adapters.ProjectTomlDetector
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>io.github.beduality.terracotta.core.model.metadata.detector.adapters.ProjectTomlDetector
 </code></pre></div>
 <h2 id="step-3-write-a-test">Step 3: Write a test<a class="headerlink" href="#step-3-write-a-test" title="Permanent link">&para;</a></h2>
-<p>Create <code>modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/core/detect/adapters/ProjectTomlDetectorTest.kt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.detect.adapters</span>
+<p>Create <code>modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/core/model/metadata/detector/adapters/ProjectTomlDetectorTest.kt</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">package</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.detector.adapters</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.detect.ProjectMetadataLoader</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataLoader</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">io.github.beduality.terracotta.core.model.projectfile.ProjectFileCache</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions.assertEquals</span>
@@ -4806,7 +4806,7 @@
 <a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="step-4-run-the-test">Step 4: Run the test<a class="headerlink" href="#step-4-run-the-test" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>:terracotta-core:test<span class="w"> </span>--tests<span class="w"> </span><span class="s2">&quot;io.github.beduality.terracotta.core.detect.adapters.ProjectTomlDetectorTest&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>:terracotta-core:test<span class="w"> </span>--tests<span class="w"> </span><span class="s2">&quot;io.github.beduality.terracotta.core.model.metadata.detector.adapters.ProjectTomlDetectorTest&quot;</span>
 </code></pre></div>
 <p>The test should pass.</p>
 <h2 id="final-result">Final result<a class="headerlink" href="#final-result" title="Permanent link">&para;</a></h2>
