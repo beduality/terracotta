@@ -2,6 +2,8 @@
 
 ## DX
 
+- Organize and document AI agent configs using git worktree instead of putting all git agent configs at `main` branch
+
 - Make CI-CD granular for modules and DAG-based for dependency-based invalidation
 - Generate docs reference from source code
 - Generate `.github` at `terracotta-github` module (via Kotlin and Dagger with Java SDK)
