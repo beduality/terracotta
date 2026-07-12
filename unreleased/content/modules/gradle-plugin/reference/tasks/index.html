@@ -2435,6 +2435,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#terracottadestroy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terracottaDestroy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#per-provider-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4575,6 +4586,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#terracottadestroy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terracottaDestroy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#per-provider-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4617,7 +4639,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    1 min read
+    2 min read
   </p>
 
 <h1 id="gradle-tasks-reference">Gradle Tasks Reference<a class="headerlink" href="#gradle-tasks-reference" title="Permanent link">&para;</a></h1>
@@ -4642,17 +4664,61 @@
 <p><strong>Requirements:</strong>
 - Valid per-provider tokens configured (e.g., <code>MODRINTH_TOKEN</code> for Modrinth or <code>HANGAR_TOKEN</code> for Hangar).</p>
 <hr />
+<h3 id="terracottadestroy"><code>terracottaDestroy</code><a class="headerlink" href="#terracottadestroy" title="Permanent link">&para;</a></h3>
+<p>Deletes the remote project on all configured providers. This is a destructive operation that cannot be undone by Terracotta.</p>
+<p><strong>Usage:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Preview what would be deleted without making remote calls</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./gradlew<span class="w"> </span>terracottaDestroy<span class="w"> </span>--dry-run
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Delete the project on all providers after explicit confirmation</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>./gradlew<span class="w"> </span>terracottaDestroy<span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--force</code> / <code>-f</code></td>
+<td>Skip the confirmation prompt. Required in non-interactive environments such as CI.</td>
+</tr>
+<tr>
+<td><code>--versions-only</code></td>
+<td>Delete every published version while keeping the project page itself.</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>Print what would be destroyed and exit without making remote calls.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>terracottaDestroy</code> deletes remote data. Always run with <code>--dry-run</code> first, and never commit a CI step that runs <code>terracottaDestroy</code> without <code>--force</code> unless a human explicitly approves it.</p>
+</div>
+<hr />
 <h3 id="per-provider-tasks">Per-Provider Tasks<a class="headerlink" href="#per-provider-tasks" title="Permanent link">&para;</a></h3>
-<p>For each provider you configure (e.g., "modrinth", "hangar"), the plugin will register two tasks:
+<p>For each provider you configure (e.g., "modrinth", "hangar"), the plugin will register three tasks:
 - <code>terracottaPlan&lt;ProviderName&gt;</code> (e.g., <code>terracottaPlanModrinth</code>)
-- <code>terracottaApply&lt;ProviderName&gt;</code> (e.g., <code>terracottaApplyHangar</code>)</p>
+- <code>terracottaApply&lt;ProviderName&gt;</code> (e.g., <code>terracottaApplyHangar</code>)
+- <code>terracottaDestroy&lt;ProviderName&gt;</code> (e.g., <code>terracottaDestroyModrinth</code>)</p>
 <p>These work just like the aggregate tasks, but only operate on a single provider.</p>
 <p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Plan changes for Modrinth only</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./gradlew<span class="w"> </span>terracottaPlanModrinth
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Apply changes for Hangar only</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>./gradlew<span class="w"> </span>terracottaApplyHangar
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Plan changes for Modrinth only</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>./gradlew<span class="w"> </span>terracottaPlanModrinth
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Apply changes for Hangar only</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>./gradlew<span class="w"> </span>terracottaApplyHangar
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Destroy the project on Modrinth only</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>./gradlew<span class="w"> </span>terracottaDestroyModrinth<span class="w"> </span>--force
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Delete all versions on Hangar only, keeping the project page</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>./gradlew<span class="w"> </span>terracottaDestroyHangar<span class="w"> </span>--versions-only<span class="w"> </span>--force
 </code></pre></div></p>
 
 
