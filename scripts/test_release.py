@@ -70,18 +70,32 @@ class TestGetNextVersion(unittest.TestCase):
         self.assertEqual(version, "0.1.1")
 
     @patch("scripts.release.subprocess.run")
-    def test_breaking_bang_suggests_major(self, mock_run):
+    def test_breaking_bang_in_zero_major_suggests_minor(self, mock_run):
         self._mock_git(mock_run, 0, "v0.1.0\n", "feat(core)!: remove deprecated API\nfeat: something\n")
         bump, version = release.get_next_version("0.1.0")
-        self.assertEqual(bump, "major")
-        self.assertEqual(version, "1.0.0")
+        self.assertEqual(bump, "minor")
+        self.assertEqual(version, "0.2.0")
 
     @patch("scripts.release.subprocess.run")
-    def test_breaking_change_prefix_suggests_major(self, mock_run):
+    def test_breaking_change_prefix_in_zero_major_suggests_minor(self, mock_run):
         self._mock_git(mock_run, 0, "v0.1.0\n", "breaking change: removed X\n")
         bump, version = release.get_next_version("0.1.0")
+        self.assertEqual(bump, "minor")
+        self.assertEqual(version, "0.2.0")
+
+    @patch("scripts.release.subprocess.run")
+    def test_breaking_bang_at_major_one_or_higher_suggests_major(self, mock_run):
+        self._mock_git(mock_run, 0, "v1.2.3\n", "feat(core)!: remove deprecated API\n")
+        bump, version = release.get_next_version("1.2.3")
         self.assertEqual(bump, "major")
-        self.assertEqual(version, "1.0.0")
+        self.assertEqual(version, "2.0.0")
+
+    @patch("scripts.release.subprocess.run")
+    def test_breaking_change_prefix_at_major_one_or_higher_suggests_major(self, mock_run):
+        self._mock_git(mock_run, 0, "v1.2.3\n", "breaking change: removed X\n")
+        bump, version = release.get_next_version("1.2.3")
+        self.assertEqual(bump, "major")
+        self.assertEqual(version, "2.0.0")
 
     @patch("scripts.release.subprocess.run")
     def test_no_tags_uses_full_history(self, mock_run):
@@ -105,10 +119,16 @@ class TestGetNextVersion(unittest.TestCase):
         self.assertEqual(version, "0.1.1")
 
     @patch("scripts.release.subprocess.run")
-    def test_major_takes_precedence_over_feat(self, mock_run):
-        # A breaking change appears after a feat — major must win regardless of order
+    def test_breaking_takes_precedence_over_feat_in_zero_major(self, mock_run):
+        # A breaking change appears after a feat — it wins, but in 0.x it is downgraded to minor
         self._mock_git(mock_run, 0, "v0.1.0\n", "feat: new thing\nfeat(core)!: remove API\n")
         bump, _ = release.get_next_version("0.1.0")
+        self.assertEqual(bump, "minor")
+
+    @patch("scripts.release.subprocess.run")
+    def test_breaking_takes_precedence_over_feat_at_major_one_or_higher(self, mock_run):
+        self._mock_git(mock_run, 0, "v1.0.0\n", "feat: new thing\nfeat(core)!: remove API\n")
+        bump, _ = release.get_next_version("1.0.0")
         self.assertEqual(bump, "major")
 
     @patch("scripts.release.subprocess.run")

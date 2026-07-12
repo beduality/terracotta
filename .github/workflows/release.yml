@@ -1,6 +1,9 @@
 name: Release
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       bump:
@@ -25,6 +28,7 @@ permissions:
 
 jobs:
   release:
+    if: "github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore: release version')"
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -59,10 +63,11 @@ jobs:
       - name: Determine bump argument
         id: args
         run: |
-          if [ "${{ inputs.bump }}" = "custom" ]; then
+          BUMP="${{ inputs.bump || 'auto' }}"
+          if [ "$BUMP" = "custom" ]; then
             echo "bump=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
           else
-            echo "bump=${{ inputs.bump }}" >> "$GITHUB_OUTPUT"
+            echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Bump, build, publish, and tag

@@ -67,6 +67,12 @@ def get_next_version(current: str) -> tuple[str, str]:
         if re.match(r"^feat(\([^)]+\))?:", subject) and bump_type != "major":
             bump_type = "minor"
 
+    # In 0.x versions, breaking changes are treated as minor bumps.
+    if bump_type == "major":
+        major_match = re.match(r"^(\d+)\.", current)
+        if major_match and int(major_match.group(1)) == 0:
+            bump_type = "minor"
+
     return bump_type, bump_version(current, bump_type)
 
 
