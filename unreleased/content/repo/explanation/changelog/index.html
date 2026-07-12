@@ -4532,10 +4532,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-a-changelog-entry-answers" class="md-nav__link">
+  <a href="#what-a-release-section-answers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What a changelog entry answers
+        What a release section answers
       
     </span>
   </a>
@@ -4648,10 +4648,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-a-changelog-entry-answers" class="md-nav__link">
+  <a href="#what-a-release-section-answers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What a changelog entry answers
+        What a release section answers
       
     </span>
   </a>
@@ -4743,8 +4743,13 @@
 <li><strong>No coherent narrative.</strong> A list of commit subjects does not explain whether a set of changes is safe to adopt or what work an upgrade requires.</li>
 </ul>
 <p>Auto-generated notes save time for maintainers but push the cost onto readers. Terracotta prefers the opposite: maintainers spend a little more effort so users, operators, and integrators can scan a release and know immediately what matters.</p>
-<h2 id="what-a-changelog-entry-answers">What a changelog entry answers<a class="headerlink" href="#what-a-changelog-entry-answers" title="Permanent link">&para;</a></h2>
-<p>Every entry answers three questions:</p>
+<h2 id="what-a-release-section-answers">What a release section answers<a class="headerlink" href="#what-a-release-section-answers" title="Permanent link">&para;</a></h2>
+<p>A release section begins with a short summary paragraph that answers:</p>
+<ol>
+<li><strong>What is this release about?</strong> — the themes or high-level story.</li>
+<li><strong>Why should I care?</strong> — the main benefit, risk, or required action.</li>
+</ol>
+<p>After the summary, each entry answers three questions:</p>
 <ol>
 <li><strong>What changed?</strong> — the observable behavior, not the code.</li>
 <li><strong>Who is affected?</strong> — users of the Gradle plugin, SDK consumers, operators, contributors.</li>
@@ -4756,7 +4761,7 @@
 </blockquote>
 <p>The implementation detail (retry logic) is hidden. The user-visible outcome (publishing is more reliable) is front and center.</p>
 <h2 id="why-keep-a-changelog-categories">Why Keep a Changelog categories?<a class="headerlink" href="#why-keep-a-changelog-categories" title="Permanent link">&para;</a></h2>
-<p>Entries are grouped under <a href="https://keepachangelog.com/">Keep a Changelog</a> categories (<code>Added</code>, <code>Changed</code>, <code>Fixed</code>, etc.) and then by module. This structure makes two things obvious at a glance:</p>
+<p>A release starts with a summary for the high-level story, then entries are grouped under <a href="https://keepachangelog.com/">Keep a Changelog</a> categories (<code>Added</code>, <code>Changed</code>, <code>Fixed</code>, etc.) and then by module. This structure makes two things obvious at a glance:</p>
 <ul>
 <li><strong>Severity.</strong> <code>Fixed</code> suggests a safe upgrade; <code>Changed</code> suggests checking behavior; <code>Removed</code> or breaking markers signal required action.</li>
 <li><strong>Scope.</strong> A Gradle plugin user can skip entries under <code>Core</code> if they only use the plugin surface, and vice versa.</li>

@@ -4658,6 +4658,7 @@
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<p>This release introduces pluggable state management and canonical project links. State is persisted to <code>.terracotta-state.yml</code> so future operations can track identity across runs, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.</p>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <p><strong>Core</strong></p>
 <ul>
@@ -4678,6 +4679,10 @@
 <ul>
 <li><code>HangarStateProvider.fetchProject</code> now maps remote <code>homepage</code>, <code>source</code>, <code>issues</code>, <code>wiki</code>, <code>discord</code>, and <code>donations</code> to canonical links.</li>
 <li><code>HangarRegistryProvider</code> updates Hangar project link fields during <code>UpdateMetadata</code>.</li>
+</ul>
+<p><strong>Repo</strong></p>
+<ul>
+<li>Added a required release summary paragraph to the changelog standard. Every release section, including <code>[Unreleased]</code>, must now start with a summary before the first category heading. Updated the changelog guidelines, writing guide, design explanation, and <code>scripts/release.py</code> validation.</li>
 </ul>
 
 
