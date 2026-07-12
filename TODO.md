@@ -7,13 +7,9 @@
 - Add [Narrow Tags](./proposals/25-07-10-narrow-tags-canonical.md)
 
 - Add [Override Pattern](./proposals/25-07-10-add-config-override-pattern.md)
-- Add [Project Keywords](./proposals/26-07-12-add-project-keywords.md)
 - Add [Import Task](./proposals/26-07-12-add-task-import.md)
 
 - Finish [External YAML Configuration](./proposals/26-07-10-add-config-external-yaml.md)
-- Add support for multiple Terracotta files
-    - Import mode
-    - `platform/` convention
 
 - Add "create" task
 
@@ -21,6 +17,10 @@
 - Ask for friend feedback on the project
 
 ---
+
+- Add support for multiple Terracotta files
+    - Import mode
+    - `platform/` convention
 
 - Add [Terracotta Cloud](./proposals/26-07-11-add-cloud-terracotta.md)  in a separate private repo
     - Add website with auth, token management, billing (Stripe), etc
