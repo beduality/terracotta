@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-**Scripts**
+**Release Pipeline**
 
-- Fixed `scripts/release.py` to rebase the release commit onto the latest remote branch before tagging and publishing, preventing non-fast-forward push failures when `main` advances during the release build.
+- Republished as `0.4.1` to align Maven Central artifacts with the `v0.4.0` release tag. The initial `0.4.0` upload was published from a slightly earlier commit than the tagged release, so this patch ensures users receive the source reflected by the `v0.4.0` tag.
 
 ## [0.4.0] - 2026-07-12
 
