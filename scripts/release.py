@@ -185,6 +185,14 @@ def update_changelog(new_version: str):
         raise ValueError("Could not parse '## [Unreleased]' section in CHANGELOG.md")
 
     unreleased_body = match.group(2).rstrip()
+
+    # Enforce the release summary rule: a paragraph must precede the first category heading.
+    if re.match(r"\s*###", unreleased_body):
+        raise ValueError(
+            "CHANGELOG.md '[Unreleased]' section must start with a summary paragraph "
+            "before the first '###' category heading."
+        )
+
     new_header = f"## [{new_version}] - {today}"
 
     # Replace the Unreleased section with an empty one and place the new release

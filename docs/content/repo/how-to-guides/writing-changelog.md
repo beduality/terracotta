@@ -6,6 +6,20 @@ This guide covers the mechanical rules for adding an entry to `CHANGELOG.md`.
 
 Add entries under `## [Unreleased]` in `CHANGELOG.md`. Place them in the correct category section, grouped by module.
 
+## Release summary
+
+Every release section, including `## [Unreleased]`, must start with a summary paragraph before the first `###` category heading. The summary should capture the release's themes and impact in two to four sentences.
+
+```md
+## [Unreleased]
+
+This release adds project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
+
+### Added
+```
+
+Summaries are required. If the release only contains one small fix, a single sentence is still required.
+
 ## Format
 
 ```md
@@ -18,7 +32,8 @@ Add entries under `## [Unreleased]` in `CHANGELOG.md`. Place them in the correct
 
 ## Rules
 
-- **Start with a past-tense verb.** Use `Added`, `Fixed`, `Updated`, `Removed`, `Changed`, `Configured`, etc.
+- **Start every release section with a summary.** The summary goes immediately under the `## [Version]` heading, before the first `###` category. Keep it to two to four sentences that state the release's themes and impact.
+- **Start each entry with a past-tense verb.** Use `Added`, `Fixed`, `Updated`, `Removed`, `Changed`, `Configured`, etc.
 - **Be specific.** Say what changed in concrete terms, not "improved" or "refactored".
 - **Focus on impact, not implementation.** A consumer should understand the change without reading the code.
 - **Inline the reason.** Use `so`, `because`, or similar to make the consumer-visible benefit part of the entry instead of a separate `**Why**:` line.

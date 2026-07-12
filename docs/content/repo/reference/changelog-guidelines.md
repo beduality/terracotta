@@ -25,6 +25,12 @@ Do not include:
 - Dependency updates that change nothing observable
 - Commit messages or implementation details
 
+## Release summary
+
+Every release section must start with a short summary paragraph before the first category heading. The summary states the release's themes and why they matter, in two to four sentences. It is not a list of every change; readers should get the story at a glance and then use the categories for details.
+
+Summaries are required for every release, including `[Unreleased]`.
+
 ## How entries are grouped
 
 Entries are grouped by change category and then by module.
@@ -55,6 +61,7 @@ If a change spans modules, either split it into scoped entries or place it under
 
 ## Style principles
 
+- Start each release section with a **summary paragraph** that captures the release's themes and impact in two to four sentences.
 - Start each entry with a **past-tense verb** (`Added`, `Fixed`, `Updated`, `Removed`, `Changed`).
 - Be specific and concrete, not vague.
 - Focus on impact, not implementation.

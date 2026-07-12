@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+This release introduces pluggable state management and canonical project links. State is persisted to `.terracotta-state.yml` so future operations can track identity across runs, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
+
 ### Added
 
 **Core**
@@ -28,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `HangarStateProvider.fetchProject` now maps remote `homepage`, `source`, `issues`, `wiki`, `discord`, and `donations` to canonical links.
 - `HangarRegistryProvider` updates Hangar project link fields during `UpdateMetadata`.
+
+**Repo**
+
+- Added a required release summary paragraph to the changelog standard. Every release section, including `[Unreleased]`, must now start with a summary before the first category heading. Updated the changelog guidelines, writing guide, design explanation, and `scripts/release.py` validation.
 
 ## [0.5.0] - 2026-07-12
 

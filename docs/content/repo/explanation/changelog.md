@@ -13,9 +13,14 @@ Commit history is a record of what changed in the codebase, not a story for the 
 
 Auto-generated notes save time for maintainers but push the cost onto readers. Terracotta prefers the opposite: maintainers spend a little more effort so users, operators, and integrators can scan a release and know immediately what matters.
 
-## What a changelog entry answers
+## What a release section answers
 
-Every entry answers three questions:
+A release section begins with a short summary paragraph that answers:
+
+1. **What is this release about?** — the themes or high-level story.
+2. **Why should I care?** — the main benefit, risk, or required action.
+
+After the summary, each entry answers three questions:
 
 1. **What changed?** — the observable behavior, not the code.
 2. **Who is affected?** — users of the Gradle plugin, SDK consumers, operators, contributors.
@@ -29,7 +34,7 @@ The implementation detail (retry logic) is hidden. The user-visible outcome (pub
 
 ## Why Keep a Changelog categories?
 
-Entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.) and then by module. This structure makes two things obvious at a glance:
+A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.) and then by module. This structure makes two things obvious at a glance:
 
 - **Severity.** `Fixed` suggests a safe upgrade; `Changed` suggests checking behavior; `Removed` or breaking markers signal required action.
 - **Scope.** A Gradle plugin user can skip entries under `Core` if they only use the plugin surface, and vice versa.
