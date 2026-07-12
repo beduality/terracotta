@@ -138,6 +138,16 @@ terracotta {
 
 For backend-specific settings such as the default filename and implementation details, see the [State Filesystem reference](../../terracotta-state-filesystem/reference/state-filesystem.md). For the core state SPI, see [State Management](../../core/explanation/state-management.md).
 
+If the configured backend is missing from the plugin classpath, the build fails during configuration with a `GradleException` that lists the available factory IDs. For the default `filesystem` backend, the error includes the `terracotta-state-filesystem` dependency coordinates. Restore it by adding the module to the buildscript classpath:
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath("io.github.beduality:terracotta-state-filesystem:<version>")
+    }
+}
+```
+
 ### Deprecated `stateFile`
 
 The older `stateFile` property is deprecated but continues to work. Setting `stateFile` is equivalent to `stateSource = "filesystem"` with `stateSourceSettings["path"] = <file>`. Prefer `stateSource` and `stateSourceSettings` for new configuration.

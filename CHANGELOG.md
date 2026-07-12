@@ -28,6 +28,11 @@ This release introduces pluggable state management and canonical project links. 
 
 ### Changed
 
+**Gradle Plugin**
+
+- The Gradle plugin no longer imports `FileSystemStateSource` directly. The default state filename is now a local plugin constant, and the plugin can load even when `terracotta-state-filesystem` is not on the classpath.
+- Missing state backend failures now produce a clear `GradleException` that lists the available factory IDs and, when the `filesystem` backend is missing, points to the `terracotta-state-filesystem` dependency.
+
 **Core / State Filesystem**
 
 - Moved `FileSystemStateSource` and `YamlStateCodec` from `terracotta-core` to the new `terracotta-state-filesystem` module. The package name `io.github.beduality.terracotta.core.state` is preserved, so existing imports continue to work when the new module is on the classpath.
@@ -51,6 +56,7 @@ This release introduces pluggable state management and canonical project links. 
 - Decoupled Core documentation from Gradle plugin and state-management implementation details. Core docs now describe the generic state SPI and metadata resolution, and link to the Gradle plugin and `terracotta-state-filesystem` docs for frontend-specific examples.
 - Removed Gradle DSL and build-tool assumptions from core KDoc (`StateSourceConfig`, `StateSourceFactory`, `TerracottaConfig`, `ProjectMetadataSource`).
 - Tightened module focus in the `terracotta-state-filesystem` reference and the Gradle plugin Kotlin DSL guide so each page owns its own responsibilities and links across modules.
+- Documented the new missing-backend error in the `terracotta-state-filesystem` README, the state filesystem reference, and the Gradle plugin Kotlin DSL configuration guide, including how to restore the filesystem backend if it is excluded from the classpath.
 - Generalized the Modrinth provider tutorial so registry-specific docs no longer depend on Gradle DSL syntax.
 
 ## [0.5.0] - 2026-07-12

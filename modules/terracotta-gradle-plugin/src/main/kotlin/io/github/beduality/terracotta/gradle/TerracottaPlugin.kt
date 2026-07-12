@@ -1,10 +1,11 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.config.TerracottaConfigLoader
-import io.github.beduality.terracotta.core.state.FileSystemStateSource
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.io.File
+
+internal const val DEFAULT_STATE_FILE_NAME = ".terracotta-state.yml"
 
 /**
  * Entry point for the Terracotta Gradle plugin.
@@ -24,7 +25,7 @@ class TerracottaPlugin : Plugin<Project> {
         val config = TerracottaConfigLoader.load(File(project.projectDir, "terracotta.yml"))
 
         extension.stateFile.convention(
-            project.layout.projectDirectory.file(FileSystemStateSource.DEFAULT_FILE_NAME),
+            project.layout.projectDirectory.file(DEFAULT_STATE_FILE_NAME),
         )
         extension.stateSource.convention("filesystem")
         extension.stateSourceSettings.convention(

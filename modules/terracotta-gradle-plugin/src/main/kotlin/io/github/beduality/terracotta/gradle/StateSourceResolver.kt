@@ -23,13 +23,28 @@ internal object StateSourceResolver {
         settings: Map<String, String>,
     ): StateSource {
         val loader = StateSourceFactory::class.java.classLoader
-        val factories = ServiceLoader.load(StateSourceFactory::class.java, loader)
+        val factories = ServiceLoader.load(StateSourceFactory::class.java, loader).toList()
+        val availableIds = factories.map { it.id }.sorted()
         val factory =
             factories.find { it.id == id }
-                ?: throw GradleException(
-                    "No state source factory found with id '$id'. " +
-                        "Make sure the backend module is on the classpath.",
-                )
+                ?: throw GradleException(buildMissingBackendMessage(id, availableIds))
         return factory.create(StateSourceConfig(projectDir = projectDir, settings = settings))
+    }
+
+    private fun buildMissingBackendMessage(
+        id: String,
+        availableIds: List<String>,
+    ): String {
+        val message =
+            "No state source factory found with id '$id'. " +
+                "Available factories: $availableIds.\n" +
+                "Make sure the backend module is on the classpath."
+        return if (id == "filesystem") {
+            message +
+                " For the default filesystem backend, add:\n" +
+                "  implementation(\"io.github.beduality:terracotta-state-filesystem:<version>\")"
+        } else {
+            message
+        }
     }
 }

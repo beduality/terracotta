@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
+import java.util.Properties
 
 private fun File.writeTerracottaYml() {
     File(this, "terracotta.yml").writeText(
@@ -36,6 +37,23 @@ private fun File.writeSettings() {
         rootProject.name = "integration-test"
         """.trimIndent(),
     )
+}
+
+private fun pluginClasspathWithoutFileSystem(): List<File> {
+    val properties = Properties()
+    val resource =
+        TerracottaPluginIntegrationTest::class.java.classLoader
+            .getResource("plugin-under-test-metadata.properties")
+            ?: error("plugin-under-test-metadata.properties not found")
+    resource.openStream().use { properties.load(it) }
+    val classpath =
+        properties.getProperty("implementation-classpath")
+            ?: error("implementation-classpath not found")
+    return classpath
+        .split(File.pathSeparatorChar)
+        .map { File(it) }
+        .filter { it.exists() }
+        .filterNot { "terracotta-state-filesystem" in it.name }
 }
 
 class TerracottaPluginIntegrationTest {
@@ -686,6 +704,45 @@ class TerracottaPluginIntegrationTest {
                 .buildAndFail()
 
         assertTrue("unknown" in result.output, "Expected error message to mention unknown backend")
+    }
+
+    @Test
+    fun `fails cleanly when filesystem backend is missing from plugin classpath`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("useState") {
+                doLast { }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath(pluginClasspathWithoutFileSystem())
+                .withArguments("useState")
+                .buildAndFail()
+
+        val output = result.output
+        assertTrue(
+            "No state source factory found with id 'filesystem'" in output,
+            "Expected missing backend error, output was:\n$output",
+        )
+        assertTrue(
+            "terracotta-state-filesystem" in output,
+            "Expected dependency hint for filesystem backend, output was:\n$output",
+        )
+        assertTrue(
+            "NoClassDefFoundError" !in output,
+            "Expected a clean GradleException, not a class-loading failure, output was:\n$output",
+        )
     }
 
     @Test

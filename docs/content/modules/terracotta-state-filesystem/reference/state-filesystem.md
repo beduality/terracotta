@@ -2,6 +2,8 @@
 
 The `terracotta-state-filesystem` module provides the default `"filesystem"` backend for Terracotta's pluggable state management SPI.
 
+The Terracotta Gradle plugin depends on this module by default today, so the `"filesystem"` backend is available out of the box. It is still a pluggable dependency, and future versions may make it optional. If it is excluded from the plugin classpath, the plugin fails fast with a clear error that lists available factories and includes the dependency coordinates needed to restore the file backend.
+
 ## Factory id
 
 ```

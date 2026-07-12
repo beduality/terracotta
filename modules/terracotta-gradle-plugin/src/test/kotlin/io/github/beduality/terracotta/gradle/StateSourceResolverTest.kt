@@ -29,7 +29,27 @@ class StateSourceResolverTest {
                 StateSourceResolver.resolve("unknown", projectDir, emptyMap())
             }
 
-        assertTrue(exception.message!!.contains("unknown"), "Expected message to mention unknown backend id")
+        val message = exception.message!!
+        assertTrue(
+            "No state source factory found with id 'unknown'" in message,
+            "Expected message to mention unknown backend id",
+        )
+        assertTrue(
+            "Available factories:" in message,
+            "Expected message to list available factories",
+        )
+        assertTrue(
+            "filesystem" in message,
+            "Expected filesystem factory to be listed as available",
+        )
+        assertTrue(
+            "Make sure the backend module is on the classpath." in message,
+            "Expected message to advise checking the classpath",
+        )
+        assertTrue(
+            "terracotta-state-filesystem" !in message,
+            "Expected no filesystem-specific hint for an arbitrary unknown backend",
+        )
     }
 
     @Test
