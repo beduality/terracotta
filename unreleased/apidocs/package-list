@@ -31,5 +31,7 @@ io.github.beduality.terracotta.provider.modrinth
 io.github.beduality.terracotta.provider.modrinth.client
 io.github.beduality.terracotta.provider.modrinth.logic
 io.github.beduality.terracotta.provider.modrinth.model
+module:terracotta-state-filesystem
+io.github.beduality.terracotta.core.state
 module:terracotta-github
 io.github.beduality.terracotta.github
