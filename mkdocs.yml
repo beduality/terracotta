@@ -7,6 +7,7 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  custom_dir: docs/overrides
   logo: assets/images/logo.png
   favicon: assets/images/favicon.png
   palette:
@@ -68,6 +69,8 @@ hooks:
 
 plugins:
   - search
+  - macros:
+      module_name: macros
 
 extra:
   version:
