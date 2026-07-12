@@ -84,4 +84,5 @@ Update this during your session.
 ## Notes
 
 - Hangar loader mapping was refactored: `HangarLoaderMapper` now implements `LoaderMapper` and is shared by `HangarStateProvider` (via `HangarClient`) and `HangarRegistryProvider` (via `HangarProviderLogic`).
+- `BaseRegistryProvider` was added in `terracotta-core` to automate filtering, logging, and skipped-operation warnings for all registry providers. `ModrinthRegistryProvider` and `HangarRegistryProvider` now extend it.
 - `IdResolver`, `IdCache`, and `ProviderTransformationPipeline` are intentionally deferred to the CurseForge provider plan.
