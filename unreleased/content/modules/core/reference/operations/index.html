@@ -4661,6 +4661,18 @@
 <td><code>UploadVersion(version)</code></td>
 <td>Upload a new version artifact.</td>
 </tr>
+<tr>
+<td><code>UploadGalleryItem(item)</code></td>
+<td>Upload a new gallery image.</td>
+</tr>
+<tr>
+<td><code>UpdateGalleryItem(oldItem, newItem)</code></td>
+<td>Update metadata of an existing gallery image.</td>
+</tr>
+<tr>
+<td><code>DeleteGalleryItem(item)</code></td>
+<td>Remove a gallery image from the remote project.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="diff-behavior">Diff behavior<a class="headerlink" href="#diff-behavior" title="Permanent link">&para;</a></h2>
@@ -4699,6 +4711,18 @@
 <tr>
 <td>Local version not present remotely</td>
 <td><code>UploadVersion</code>.</td>
+</tr>
+<tr>
+<td>Local gallery item not present remotely</td>
+<td><code>UploadGalleryItem</code>.</td>
+</tr>
+<tr>
+<td>Matched gallery item metadata changed</td>
+<td><code>UpdateGalleryItem</code>.</td>
+</tr>
+<tr>
+<td>Remote gallery item not present locally</td>
+<td><code>DeleteGalleryItem</code>.</td>
 </tr>
 </tbody>
 </table>

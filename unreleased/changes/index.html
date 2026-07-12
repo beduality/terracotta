@@ -484,17 +484,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4548,17 +4537,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4591,51 +4569,32 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    2 min read
+    1 min read
   </p>
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
-<p><strong>Docs</strong></p>
-<ul>
-<li>Added "Navigating the Docs" to the Quick Start section so readers can understand the Diátaxis structure and find the right section.</li>
-<li>Added a complete set of repo documentation: reference pages for scripts, CI/CD, branches, project files, commit conventions, and documentation style; explanation pages for repo architecture, branch strategy, release design, and changelog design; and a first-contribution tutorial.</li>
-<li>Added integration documentation covering multi-provider publishing, provider configuration, integration design, and troubleshooting.</li>
-<li>Reorganized user documentation under <code>docs/content/modules/</code> and <code>docs/content/integration/</code> with Diátaxis sections for Core, Gradle Plugin, Modrinth Provider, and Hangar Provider; folded <code>docs/content/config/</code> into the Core reference.</li>
-<li>Added <code>@see</code> links and member-level KDoc to all public APIs in <code>terracotta-core</code>, <code>terracotta-gradle-plugin</code>, <code>terracotta-provider-modrinth</code>, and <code>terracotta-provider-hangar</code>, pointing to the new GitHub Pages docs.</li>
-<li>Removed the separate <code>docs/content/sdk/</code> section and folded its remaining pages into module docs: installation moved to <code>modules/core/tutorials/installation.md</code>, custom-provider content merged into <code>modules/core/tutorials/implementing-a-custom-provider.md</code>, provider API reference merged into <code>modules/core/reference/provider-interfaces.md</code>, architecture explanation merged into <code>modules/core/explanation/architecture.md</code>, and the Modrinth quick-start merged into <code>modules/provider-modrinth/tutorials/using-modrinth.md</code>.</li>
-<li>Added estimated reading time to every documentation page via <code>mkdocs-macros-plugin</code> and a custom Material content override.</li>
-</ul>
 <p><strong>Core</strong></p>
 <ul>
-<li>Added <code>DestructiveRegistryProvider</code> interface and an optional <code>createDestructiveRegistryProvider</code> factory method on <code>ProviderFactory</code> so providers can opt into project and version deletion.</li>
+<li>Added <code>TerracottaGalleryItem</code> model and <code>gallery</code> field on <code>TerracottaProject</code>.</li>
+<li>Added <code>UploadGalleryItem</code>, <code>UpdateGalleryItem</code>, and <code>DeleteGalleryItem</code> operations and diff logic that matches images by normalized title or ordering.</li>
+<li>Added <code>AssetProcessor</code> SPI with <code>ProcessedAsset</code> and <code>IdentityAssetProcessor</code> default implementation, loaded via <code>AssetProcessorLoader</code>.</li>
+<li>Added <code>GalleryValidator</code> for checking file existence, supported extensions, and size limits.</li>
+<li>Added <code>gallery</code> section parsing to <code>TerracottaConfigLoader</code>.</li>
+<li>Added <code>ResolvedProjectMetadata.gallery</code> resolved from <code>terracotta.yml</code>.</li>
 </ul>
 <p><strong>Gradle Plugin</strong></p>
 <ul>
-<li>Added <code>terracottaDestroy</code> aggregate task and per-provider <code>terracottaDestroy&lt;Provider&gt;</code> tasks (e.g. <code>terracottaDestroyModrinth</code>).</li>
-<li>Added <code>--force</code>, <code>--dry-run</code>, and <code>--versions-only</code> options so destructive operations require explicit confirmation and can preview impact before running.</li>
+<li>Added <code>terracotta { gallery { ... } }</code> DSL with <code>TerracottaGalleryExtension</code>, populated from <code>terracotta.yml</code> and wired into <code>terracottaPlan</code> and <code>terracottaApply</code> tasks.</li>
 </ul>
 <p><strong>Modrinth</strong></p>
 <ul>
-<li>Added <code>ModrinthDestructiveRegistryProvider</code> with DELETE endpoints for removing projects and versions from Modrinth.</li>
+<li>Added gallery image support via <code>ModrinthClient.uploadGalleryItem</code>, <code>updateGalleryItem</code>, and <code>deleteGalleryItem</code>, using the core <code>GalleryValidator</code> (5 MiB limit, PNG/JPEG/WebP/GIF/BMP) and the configured <code>AssetProcessor</code>.</li>
 </ul>
 <p><strong>Hangar</strong></p>
 <ul>
-<li>Added <code>HangarDestructiveRegistryProvider</code> with DELETE endpoints for removing projects and versions from Hangar.</li>
-</ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
-<p><strong>Docs</strong></p>
-<ul>
-<li>Fixed the pre-build hook destination so <code>LICENSE</code> is copied to <code>docs/LICENSE</code> instead of <code>docs/LICENSE.md</code>.</li>
-<li>Removed the CI/CD setup with GitHub Actions guide from <code>docs/content/integration/</code> because the workflow is not currently supported.</li>
-<li>Cleaned up <code>docs/content/repo/</code> by removing redundant pages, trimming the Diátaxis framework explanation, updating outdated navigation references, and removing remaining <code>SDK</code> terminology.</li>
-<li>Simplified module READMEs by removing redundant inline Diátaxis explanations and linking readers to the shared "Navigating the Docs" page.</li>
-<li>Enforced strict Diátaxis discipline in <code>docs/content/repo/</code>: moved architecture explanation to <code>docs/content/modules/core/explanation/architecture.md</code>, rewrote <code>project-management.md</code> to remove procedural steps, moved <code>changelog-guidelines.md</code> to <code>reference/</code>, and added a clear target-audience statement to the repo README.</li>
-</ul>
-<p><strong>Repo</strong></p>
-<ul>
-<li>Updated <code>.gitignore</code> to ignore the generated <code>docs/LICENSE</code> file instead of <code>docs/LICENSE.md</code>.</li>
+<li>Hangar registry provider now skips gallery operations with a warning, since Hangar does not expose a gallery API.</li>
 </ul>
 
 

@@ -1595,6 +1595,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#terracottagalleryitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaGalleryItem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#terracottaversion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4557,6 +4568,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#terracottagalleryitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TerracottaGalleryItem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#terracottaversion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4627,7 +4649,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    1 min read
+    2 min read
   </p>
 
 <h1 id="core-models">Core Models<a class="headerlink" href="#core-models" title="Permanent link">&para;</a></h1>
@@ -4673,6 +4695,50 @@
 <tr>
 <td><code>license</code></td>
 <td>SPDX license identifier.</td>
+</tr>
+<tr>
+<td><code>gallery</code></td>
+<td>List of <code>TerracottaGalleryItem</code> objects.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="terracottagalleryitem">TerracottaGalleryItem<a class="headerlink" href="#terracottagalleryitem" title="Permanent link">&para;</a></h2>
+<p>Represents a single gallery image for a project. When the item is declared in
+<code>terracotta.yml</code>, <code>imagePath</code> is a local file path. When the item is fetched from a
+provider, <code>imagePath</code> holds the remote URL.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>imagePath</code></td>
+<td>Local file path or remote URL.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Human-readable title used as the identity key.</td>
+<td><code>""</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Optional longer description.</td>
+<td><code>""</code></td>
+</tr>
+<tr>
+<td><code>featured</code></td>
+<td>Whether the image is highlighted.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>ordering</code></td>
+<td>Display order; lower values come first.</td>
+<td><code>0</code></td>
 </tr>
 </tbody>
 </table>
