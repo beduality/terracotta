@@ -70,7 +70,7 @@ hooks:
 plugins:
   - search
   - macros:
-      module_name: macros
+      module_name: docs/macros
 
 extra:
   version:
