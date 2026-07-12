@@ -3760,6 +3760,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content/repo/reference/changelog-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3824,34 +3852,6 @@
   
   
     <li class="md-nav__item">
-      <a href="content/repo/explanation/architecture/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="content/repo/explanation/project-management/" class="md-nav__link">
         
   
@@ -3888,34 +3888,6 @@
     
   
     Documentation Framework
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="content/repo/explanation/changelog-guidelines/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog Guidelines
   
 
     
@@ -4100,7 +4072,7 @@
 
 
 <h1 id="terracotta">Terracotta<a class="headerlink" href="#terracotta" title="Permanent link">&para;</a></h1>
-<p>Declarative publishing for Minecraft projects. Define your metadata once in <code>terracotta.yml</code> or in your Gradle build, then sync releases to <a href="https://modrinth.com/">Modrinth</a> and <a href="https://hangar.papermc.io/">Hangar</a> from a single command.</p>
+<p>Declarative publishing for Minecraft projects. Define your metadata once in <code>terracotta.yml</code> or in your build configuration like <a href="https://gradle.org/">Gradle</a>, then automatically sync to providers like <a href="https://modrinth.com/">Modrinth</a> and <a href="https://hangar.papermc.io/">Hangar</a>.</p>
 <hr />
 <div class="grid cards">
 <ul>
@@ -4129,7 +4101,7 @@
 <h2 id="what-terracotta-does">What Terracotta does<a class="headerlink" href="#what-terracotta-does" title="Permanent link">&para;</a></h2>
 <p>Terracotta compares the state you want with the state that exists on each registry, then computes and applies the smallest set of changes needed:</p>
 <ol>
-<li><strong>Read local state</strong> from <code>terracotta.yml</code>, <code>build.gradle.kts</code>, and detected project files.</li>
+<li><strong>Read local state</strong> from <code>terracotta.yml</code>, build configuration files like <code>build.gradle.kts</code>, and detected project files.</li>
 <li><strong>Fetch remote state</strong> from each configured provider.</li>
 <li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateTags</code>, and <code>UploadVersion</code>.</li>
 <li><strong>Apply the operations</strong> or print a human-readable plan first.</li>

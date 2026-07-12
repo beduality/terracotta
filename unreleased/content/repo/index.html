@@ -3768,6 +3768,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/changelog-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3832,34 +3860,6 @@
   
   
     <li class="md-nav__item">
-      <a href="explanation/architecture/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="explanation/project-management/" class="md-nav__link">
         
   
@@ -3896,34 +3896,6 @@
     
   
     Documentation Framework
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="explanation/changelog-guidelines/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog Guidelines
   
 
     
@@ -4114,7 +4086,14 @@
 
 
 <h1 id="repository-documentation">Repository Documentation<a class="headerlink" href="#repository-documentation" title="Permanent link">&para;</a></h1>
-<p>This section documents the Terracotta repository itself - how it's organized, how to build it, test it, and contribute to it.</p>
+<p>This section is for people who work <strong>on</strong> Terracotta itself: contributors, maintainers, and release managers. If you use Terracotta in your own project, start with the <a href="../modules/core/">Core</a>, <a href="../modules/gradle-plugin/">Gradle Plugin</a>, or <a href="../integration/">Integration</a> docs instead.</p>
+<p>Repo docs follow the <a href="explanation/documentation-framework/">Diátaxis framework</a> strictly:</p>
+<ul>
+<li><strong>Tutorials</strong> teach by doing.</li>
+<li><strong>How-to guides</strong> solve a specific task.</li>
+<li><strong>Reference</strong> lists facts for lookup.</li>
+<li><strong>Explanation</strong> answers <em>why</em> something is the way it is and never includes step-by-step instructions.</li>
+</ul>
 <h2 id="documentation-structure">Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">&para;</a></h2>
 <p>This documentation follows the <a href="explanation/documentation-framework/">Documentation Framework</a>, which organizes content by user intent:</p>
 <h3 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h3>
@@ -4139,16 +4118,17 @@
 <li><strong><a href="reference/tech-stack/">Tech Stack</a></strong>: Tools and versions used</li>
 <li><strong><a href="reference/file-structure/">File Structure</a></strong>: Repository directory structure</li>
 <li><strong><a href="reference/configuration/">Configuration</a></strong>: All configuration files</li>
+<li><strong><a href="reference/changelog-guidelines/">Changelog Guidelines</a></strong>: Rules and examples for changelog entries</li>
 </ul>
 <h3 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h3>
 <p>Understanding-oriented content that explains concepts and "why" decisions were made.</p>
 <ul>
-<li><strong><a href="explanation/architecture/">Architecture</a></strong>: How Terracotta is designed and why</li>
-<li><strong><a href="explanation/project-management/">Project Management</a></strong>: How planning and tracking work</li>
+<li><strong><a href="../modules/core/explanation/architecture/">Architecture</a></strong>: How Terracotta is designed and why</li>
+<li><strong><a href="explanation/project-management/">Project Management</a></strong>: Why planning happens through PRs against the <code>project</code> branch</li>
 </ul>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p><strong>New contributor?</strong> Start with the <a href="tutorials/quick-start/">Quick Start</a> tutorial.</p>
-<p><strong>Want to understand the project?</strong> Read the <a href="explanation/architecture/">Architecture</a> explanation.</p>
+<p><strong>Want to understand the project?</strong> Read the <a href="../modules/core/explanation/architecture/">Architecture</a> explanation.</p>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/beduality/terracotta/blob/main/README.md">Main README</a>: Project overview</li>

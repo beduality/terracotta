@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/explanation/architecture/">
+        <link rel="canonical" href="https://beduality.github.io/terracotta/unreleased/content/repo/reference/changelog-guidelines/">
       
       
-        <link rel="prev" href="../../reference/code-style/">
+        <link rel="prev" href="../code-style/">
       
       
-        <link rel="next" href="../project-management/">
+        <link rel="next" href="../../explanation/project-management/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Architecture - Terracotta</title>
+        <title>Changelog Guidelines - Terracotta</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#architecture" class="md-skip">
+        <a href="#changelog-guidelines" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Architecture
+              Changelog Guidelines
             
           </span>
         </div>
@@ -3481,6 +3481,8 @@
                 
   
   
+    
+  
   
   
     
@@ -3490,11 +3492,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
@@ -3515,7 +3517,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3533,7 +3535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/tech-stack/" class="md-nav__link">
+      <a href="../tech-stack/" class="md-nav__link">
         
   
   
@@ -3561,7 +3563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/file-structure/" class="md-nav__link">
+      <a href="../file-structure/" class="md-nav__link">
         
   
   
@@ -3589,7 +3591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../configuration/" class="md-nav__link">
         
   
   
@@ -3617,7 +3619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/code-style/" class="md-nav__link">
+      <a href="../code-style/" class="md-nav__link">
         
   
   
@@ -3637,65 +3639,6 @@
   
 
               
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Explanation
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Explanation
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -3720,7 +3663,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture
+    Changelog Guidelines
   
 
     
@@ -3738,7 +3681,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture
+    Changelog Guidelines
   
 
     
@@ -3764,10 +3707,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#core-principles" class="md-nav__link">
+  <a href="#why-this-matters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Principles
+        Why this matters
       
     </span>
   </a>
@@ -3775,10 +3718,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-diagram" class="md-nav__link">
+  <a href="#what-belongs-in-the-changelog" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Architecture Diagram
+        What belongs in the changelog
       
     </span>
   </a>
@@ -3786,22 +3729,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-domain-layer-terracotta-core" class="md-nav__link">
+  <a href="#how-entries-are-grouped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Domain Layer (terracotta-core)
+        How entries are grouped
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Domain Layer (terracotta-core)">
+    <nav class="md-nav" aria-label="How entries are grouped">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#canonical-data-models" class="md-nav__link">
+  <a href="#categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Canonical Data Models
+        Categories
       
     </span>
   </a>
@@ -3809,21 +3752,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#provider-interfaces" class="md-nav__link">
+  <a href="#modules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Provider Interfaces
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diff-engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Diff Engine
+        Modules
       
     </span>
   </a>
@@ -3836,171 +3768,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-provider-layer-terracotta-provider-modrinth" class="md-nav__link">
+  <a href="#style-principles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Provider Layer (terracotta-provider-modrinth)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Provider Layer (terracotta-provider-modrinth)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Strategy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modrinth-provider-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modrinth Provider Details
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-discovery" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider Discovery
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-gradle-plugin-terracotta-gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Gradle Plugin (terracotta-gradle-plugin)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Gradle Plugin (terracotta-gradle-plugin)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Concepts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#infrastructure-terracotta-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Infrastructure (terracotta-github)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why This Architecture?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Why This Architecture?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#separation-of-concerns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Separation of Concerns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testability
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extensibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Extensibility
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maintainability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maintainability
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#versioning-and-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Versioning and Releases
+        Style principles
       
     </span>
   </a>
@@ -4016,6 +3787,63 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explanation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explanation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -4023,7 +3851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../project-management/" class="md-nav__link">
+      <a href="../../explanation/project-management/" class="md-nav__link">
         
   
   
@@ -4051,7 +3879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../documentation-framework/" class="md-nav__link">
+      <a href="../../explanation/documentation-framework/" class="md-nav__link">
         
   
   
@@ -4059,34 +3887,6 @@
     
   
     Documentation Framework
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changelog-guidelines/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog Guidelines
   
 
     
@@ -4169,10 +3969,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#core-principles" class="md-nav__link">
+  <a href="#why-this-matters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Principles
+        Why this matters
       
     </span>
   </a>
@@ -4180,10 +3980,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-diagram" class="md-nav__link">
+  <a href="#what-belongs-in-the-changelog" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Architecture Diagram
+        What belongs in the changelog
       
     </span>
   </a>
@@ -4191,22 +3991,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-domain-layer-terracotta-core" class="md-nav__link">
+  <a href="#how-entries-are-grouped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Domain Layer (terracotta-core)
+        How entries are grouped
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Domain Layer (terracotta-core)">
+    <nav class="md-nav" aria-label="How entries are grouped">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#canonical-data-models" class="md-nav__link">
+  <a href="#categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Canonical Data Models
+        Categories
       
     </span>
   </a>
@@ -4214,21 +4014,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#provider-interfaces" class="md-nav__link">
+  <a href="#modules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Provider Interfaces
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diff-engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Diff Engine
+        Modules
       
     </span>
   </a>
@@ -4241,171 +4030,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-provider-layer-terracotta-provider-modrinth" class="md-nav__link">
+  <a href="#style-principles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Provider Layer (terracotta-provider-modrinth)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Provider Layer (terracotta-provider-modrinth)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Strategy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modrinth-provider-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modrinth Provider Details
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-discovery" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider Discovery
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-gradle-plugin-terracotta-gradle-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Gradle Plugin (terracotta-gradle-plugin)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Gradle Plugin (terracotta-gradle-plugin)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Concepts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#infrastructure-terracotta-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Infrastructure (terracotta-github)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why This Architecture?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Why This Architecture?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#separation-of-concerns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Separation of Concerns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testability
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extensibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Extensibility
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#maintainability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maintainability
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#versioning-and-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Versioning and Releases
+        Style principles
       
     </span>
   </a>
@@ -4429,7 +4057,7 @@
 
 
   
-    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/explanation/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/beduality/terracotta/edit/main/docs/content/repo/reference/changelog-guidelines.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4437,176 +4065,61 @@
   
 
 
-<h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
-<p>This document explains the internal architecture of Terracotta and the reasoning behind key design decisions.</p>
-<h2 id="core-principles">Core Principles<a class="headerlink" href="#core-principles" title="Permanent link">&para;</a></h2>
-<p>Terracotta follows a <strong>separation of concerns</strong> architecture:</p>
-<ol>
-<li><strong>Domain Logic</strong>: Pure, platform-agnostic business logic</li>
-<li><strong>Registry Providers</strong>: Registry-specific implementations</li>
-<li><strong>Build Tool Integration</strong>: Gradle plugin as the user-facing interface</li>
-<li><strong>Infrastructure</strong>: Code for managing project infrastructure</li>
-</ol>
-<p>This separation ensures that changes to one component don't require changes to others.</p>
-<h2 id="architecture-diagram">Architecture Diagram<a class="headerlink" href="#architecture-diagram" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TD
-    subgraph User["User (Developer)"]
-        U[Developer]
-    end
-
-    subgraph GradlePlugin["terracotta-gradle-plugin"]
-        GP[Terracotta Gradle Plugin]
-        Plan[TerracottaPlan Task]
-        Apply[TerracottaApply Task]
-    end
-
-    subgraph Core["terracotta-core (Domain Layer)"]
-        PF[ProviderFactory Interface]
-        DE[DiffEngine]
-        SP[StateProvider Interface]
-        RP[RegistryProvider Interface]
-    end
-
-    subgraph Modrinth["terracotta-provider-modrinth"]
-        MPF[ModrinthProviderFactory]
-        MSP[ModrinthStateProvider]
-        MRP[ModrinthRegistryProvider]
-    end
-
-    U --&gt;|Runs| GP
-    GP --&gt;|Creates| Plan
-    GP --&gt;|Creates| Apply
-    Plan --&gt;|Discovers| Core
-    Apply --&gt;|Discovers| Core
-    Core --&gt;|Uses| PF
-    Core --&gt;|Uses| DE
-    Core --&gt;|Uses| SP
-    Core --&gt;|Uses| RP
-    Modrinth --&gt;|Implements| SP
-    Modrinth --&gt;|Implements| RP
-    Modrinth --&gt;|Implements| PF
-    Modrinth -.-&gt;|Implementation| Core</code></pre>
-<h2 id="the-domain-layer-terracotta-core">The Domain Layer (<code>terracotta-core</code>)<a class="headerlink" href="#the-domain-layer-terracotta-core" title="Permanent link">&para;</a></h2>
-<p>The domain layer is the heart of Terracotta. It contains:</p>
-<h3 id="canonical-data-models">Canonical Data Models<a class="headerlink" href="#canonical-data-models" title="Permanent link">&para;</a></h3>
-<p>All project data structures live in <code>core.model</code>:</p>
+<h1 id="changelog-guidelines">Changelog Guidelines<a class="headerlink" href="#changelog-guidelines" title="Permanent link">&para;</a></h1>
+<p>Terracotta keeps a human-readable changelog because commit history is not a release note. The changelog answers one question for consumers: <strong>what changed that affects how the system is used, integrated, run, or depended on — and why it matters.</strong></p>
+<h2 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h2>
+<p>A changelog is a trust signal. It tells users, operators, and integrators whether they should upgrade, what behavior to expect, and whether they need to change their own code or configuration. It is not a commit log, implementation diary, or internal refactoring log.</p>
+<h2 id="what-belongs-in-the-changelog">What belongs in the changelog<a class="headerlink" href="#what-belongs-in-the-changelog" title="Permanent link">&para;</a></h2>
+<p>Include changes that are observable outside the codebase:</p>
 <ul>
-<li><code>TerracottaProject</code>: The canonical project representation</li>
-<li><code>TerracottaVersion</code>: Version metadata and files</li>
-<li><code>TerracottaEnvironment</code>: Runtime environment (CLIENT, SERVER, CLIENT_SERVER)</li>
+<li>New features or capabilities</li>
+<li>Behavior changes, including new defaults</li>
+<li>Bug fixes</li>
+<li>Deprecations and removals</li>
+<li>Breaking changes</li>
+<li>Deployment, packaging, or tooling changes that affect consumers</li>
+<li>Security fixes</li>
 </ul>
-<p><strong>Key principle</strong>: These models are platform-agnostic. They don't know about Modrinth, CurseForge, or any other registry.</p>
-<h3 id="provider-interfaces">Provider Interfaces<a class="headerlink" href="#provider-interfaces" title="Permanent link">&para;</a></h3>
-<p>Providers are defined as interfaces in <code>core.provider</code>:</p>
+<p>Do not include:</p>
 <ul>
-<li><code>ProviderFactory</code>: Factory for creating registry-specific providers</li>
-<li><code>StateProvider</code>: Fetches remote project state</li>
-<li><code>RegistryProvider</code>: Applies changes to a registry</li>
+<li>Internal refactors with no external effect</li>
+<li>Formatting, lint, or style-only changes</li>
+<li>Dependency updates that change nothing observable</li>
+<li>Commit messages or implementation details</li>
 </ul>
-<p><strong>Key principle</strong>: The core layer depends only on interfaces, not implementations. This allows multiple providers.</p>
-<h3 id="diff-engine">Diff Engine<a class="headerlink" href="#diff-engine" title="Permanent link">&para;</a></h3>
-<p>The <code>DiffEngine</code> computes the difference between local and remote project states.</p>
-<p><strong>Input</strong>: Local project (always exists), Remote project (may be null)</p>
-<p><strong>Output</strong>: List of <code>Operation</code> instances describing what needs to be done</p>
-<p><strong>Operations</strong>:
-- <code>CreateProject</code>: Create a new project
-- <code>UploadVersion</code>: Upload a new version
-- <code>UpdateMetadata</code>: Update project name/summary/license
-- <code>UpdateDescription</code>: Update project description
-- <code>UpdateTags</code>: Update project tags</p>
-<p><strong>Key principle</strong>: The diff engine is pure logic. It doesn't make network calls or depend on any registry.</p>
-<h2 id="the-provider-layer-terracotta-provider-modrinth">The Provider Layer (<code>terracotta-provider-modrinth</code>)<a class="headerlink" href="#the-provider-layer-terracotta-provider-modrinth" title="Permanent link">&para;</a></h2>
-<p>Each registry has its own provider implementation:</p>
-<h3 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Implement <code>ProviderFactory</code> with registry-specific initialization</li>
-<li>Implement <code>StateProvider</code> using the registry's API client</li>
-<li>Implement <code>RegistryProvider</code> to apply changes via the registry's API</li>
-</ol>
-<h3 id="modrinth-provider-details">Modrinth Provider Details<a class="headerlink" href="#modrinth-provider-details" title="Permanent link">&para;</a></h3>
-<p>The Modrinth provider uses:</p>
+<h2 id="how-entries-are-grouped">How entries are grouped<a class="headerlink" href="#how-entries-are-grouped" title="Permanent link">&para;</a></h2>
+<p>Entries are grouped by change category and then by module.</p>
+<h3 id="categories">Categories<a class="headerlink" href="#categories" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://keepachangelog.com/">Keep a Changelog</a> categories:</p>
 <ul>
-<li><strong>Ktor Client</strong>: HTTP client for API requests</li>
-<li><strong>Kotlinx Serialization</strong>: JSON serialization for requests/responses</li>
-<li><strong>API Documentation</strong>: <a href="https://docs.modrinth.com/">Modrinth API Docs</a></li>
+<li><strong>Added</strong> — new capabilities</li>
+<li><strong>Changed</strong> — behavior modifications</li>
+<li><strong>Fixed</strong> — bug fixes</li>
+<li><strong>Deprecated</strong> — features scheduled for removal</li>
+<li><strong>Removed</strong> — deleted features</li>
+<li><strong>Security</strong> — security-related fixes</li>
 </ul>
-<h3 id="provider-discovery">Provider Discovery<a class="headerlink" href="#provider-discovery" title="Permanent link">&para;</a></h3>
-<p>Providers are discovered via Java's <code>ServiceLoader</code> mechanism:</p>
-<ol>
-<li>Provider implementations register themselves via <code>META-INF/services</code></li>
-<li>The Gradle plugin loads all available providers at runtime</li>
-<li>Users select a provider by name in their Gradle configuration</li>
-</ol>
-<p><strong>Key principle</strong>: New providers can be added without modifying core code.</p>
-<h2 id="the-gradle-plugin-terracotta-gradle-plugin">The Gradle Plugin (<code>terracotta-gradle-plugin</code>)<a class="headerlink" href="#the-gradle-plugin-terracotta-gradle-plugin" title="Permanent link">&para;</a></h2>
-<p>The Gradle plugin provides the user-facing interface:</p>
-<h3 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h3>
-<p><strong>Tasks</strong>:
-- <code>terracottaPlan</code>: Compute what needs to be changed (read-only)
-- <code>terracottaApply</code>: Apply changes to registries</p>
-<p><strong>Provider Selection</strong>:
-- Users configure which providers to use
-- The plugin discovers available providers via ServiceLoader
-- Multiple providers can be used simultaneously</p>
-<p><strong>Environment Support</strong>:
-- <code>CLIENT_ONLY</code>: Only client-side content
-- <code>SERVER_ONLY</code>: Only server-side content<br />
-- <code>CLIENT_SERVER</code>: Both client and server content</p>
-<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
-<ol>
-<li>User runs <code>./gradlew terracottaPlan</code></li>
-<li>Plugin loads configured providers</li>
-<li>Plugin fetches remote state from each provider</li>
-<li>Plugin compares local vs remote state using <code>DiffEngine</code></li>
-<li>Plugin outputs list of operations</li>
-<li>User reviews plan, then runs <code>./gradlew terracottaApply</code></li>
-<li>Plugin applies operations to registries</li>
-</ol>
-<h2 id="infrastructure-terracotta-github">Infrastructure (<code>terracotta-github</code>)<a class="headerlink" href="#infrastructure-terracotta-github" title="Permanent link">&para;</a></h2>
-<p>Manages GitHub repository configuration using Pulumi:</p>
+<h3 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h3>
+<p>Use the module that contains the changed code:</p>
 <ul>
-<li>Repository settings (permissions, branches, rules)</li>
-<li>GitHub Actions secrets for CI/CD</li>
-<li>Webhook configuration</li>
+<li><strong>Docs</strong> — documentation, guides, release notes, and the public site</li>
+<li><strong>Repo</strong> — repository tooling, CI/CD, release scripts, and conventions</li>
+<li><strong>Core</strong> — <code>terracotta-core</code> module</li>
+<li><strong>Gradle Plugin</strong> — <code>terracotta-gradle-plugin</code> module</li>
+<li><strong>Modrinth</strong> — <code>terracotta-provider-modrinth</code> module</li>
+<li><strong>Hangar</strong> — <code>terracotta-provider-hangar</code> module</li>
 </ul>
-<h2 id="why-this-architecture">Why This Architecture?<a class="headerlink" href="#why-this-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="separation-of-concerns">Separation of Concerns<a class="headerlink" href="#separation-of-concerns" title="Permanent link">&para;</a></h3>
-<p>Each layer has a single, clear responsibility:</p>
+<p>If a change spans modules, either split it into scoped entries or place it under the most affected module.</p>
+<h2 id="style-principles">Style principles<a class="headerlink" href="#style-principles" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Core</strong>: Business logic, no external dependencies</li>
-<li><strong>Providers</strong>: Registry integration, no business logic</li>
-<li><strong>Gradle Plugin</strong>: Build tool integration, no logic</li>
-<li><strong>Infrastructure</strong>: Code management, no application logic</li>
+<li>Start each entry with a <strong>past-tense verb</strong> (<code>Added</code>, <code>Fixed</code>, <code>Updated</code>, <code>Removed</code>, <code>Changed</code>).</li>
+<li>Be specific and concrete, not vague.</li>
+<li>Focus on impact, not implementation.</li>
+<li>Inline the reason with <code>so</code>, <code>because</code>, or similar instead of using a separate <code>**Why**:</code> line.</li>
+<li>Use bold <code>**Module**</code> headings under each category; do not use <code>####</code> headings for modules.</li>
+<li>Mark breaking changes explicitly with <code>**Breaking**:</code> and migration steps.</li>
 </ul>
-<h3 id="testability">Testability<a class="headerlink" href="#testability" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Core logic can be tested without network calls</li>
-<li>Providers can be tested with mocks of the core interfaces</li>
-<li>Gradle plugin tests can mock provider discovery</li>
-</ul>
-<h3 id="extensibility">Extensibility<a class="headerlink" href="#extensibility" title="Permanent link">&para;</a></h3>
-<p>Adding a new registry provider requires:</p>
-<ol>
-<li>Create a new module</li>
-<li>Implement the three provider interfaces</li>
-<li>Register via ServiceLoader</li>
-<li>Add to build configuration</li>
-</ol>
-<p><strong>No changes to core, Gradle plugin, or other providers needed.</strong></p>
-<h3 id="maintainability">Maintainability<a class="headerlink" href="#maintainability" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Changes to Modrinth API only affect the Modrinth provider</li>
-<li>Changes to Gradle API only affect the Gradle plugin</li>
-<li>Core domain logic remains stable</li>
-</ul>
-<h2 id="versioning-and-releases">Versioning and Releases<a class="headerlink" href="#versioning-and-releases" title="Permanent link">&para;</a></h2>
-<p>Versions are managed consistently across all modules:</p>
-<ul>
-<li>Core modules published to Maven Central</li>
-<li>Gradle plugin published to Gradle Plugin Portal</li>
-<li>All versions tracked in <code>gradle/libs.versions.toml</code></li>
-</ul>
-<p>See <a href="../../how-to-guides/releasing/">Releasing</a> for the release process.</p>
+<p>For the mechanical writing rules and examples, see <a href="../../how-to-guides/writing-changelog/">How to Write Changelog Entries</a>.</p>
 
 
 
@@ -4644,7 +4157,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../reference/code-style/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Code Style">
+          <a href="../code-style/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Code Style">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4661,7 +4174,7 @@
         
         
           
-          <a href="../project-management/" class="md-footer__link md-footer__link--next" aria-label="Next: Project Management">
+          <a href="../../explanation/project-management/" class="md-footer__link md-footer__link--next" aria-label="Next: Project Management">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
