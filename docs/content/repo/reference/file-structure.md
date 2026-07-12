@@ -34,3 +34,13 @@
 - **terracotta-provider-hangar**: Hangar state and registry providers using Ktor Client and Kotlinx Serialization.
 - **terracotta-gradle-plugin**: Gradle plugin providing `terracottaPlan` and `terracottaApply` tasks with multi-provider support via ServiceLoader.
 - **terracotta-github**: Pulumi infrastructure (Kotlin + Pulumi Java SDK) for managing GitHub repository settings and Action secrets.
+
+## Project management
+
+The `project/` directory is a git worktree checked out from the `project` branch.
+It contains planning artifacts that evolve independently from `main`:
+
+- **`TODO.md`**: Concrete, actionable tasks ready for implementation.
+- **`BACKLOG.md`**: Ideas and tasks needing investigation or prioritization.
+- **`plans/`**: Implementation plans created from `plans/TEMPLATE.md`.
+- **`proposals/`**: Design proposals created from `proposals/TEMPLATE.md`.
