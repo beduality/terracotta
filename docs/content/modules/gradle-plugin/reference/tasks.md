@@ -36,11 +36,38 @@ Applies all planned operations, updating registry metadata and uploading missing
 
 ---
 
+### `terracottaDestroy`
+
+Deletes the remote project on all configured providers. This is a destructive operation that cannot be undone by Terracotta.
+
+**Usage:**
+```bash
+# Preview what would be deleted without making remote calls
+./gradlew terracottaDestroy --dry-run
+
+# Delete the project on all providers after explicit confirmation
+./gradlew terracottaDestroy --force
+```
+
+**Options:**
+
+| Option | Meaning |
+|--------|---------|
+| `--force` / `-f` | Skip the confirmation prompt. Required in non-interactive environments such as CI. |
+| `--versions-only` | Delete every published version while keeping the project page itself. |
+| `--dry-run` | Print what would be destroyed and exit without making remote calls. |
+
+!!! warning
+    `terracottaDestroy` deletes remote data. Always run with `--dry-run` first, and never commit a CI step that runs `terracottaDestroy` without `--force` unless a human explicitly approves it.
+
+---
+
 ### Per-Provider Tasks
 
-For each provider you configure (e.g., "modrinth", "hangar"), the plugin will register two tasks:
+For each provider you configure (e.g., "modrinth", "hangar"), the plugin will register three tasks:
 - `terracottaPlan<ProviderName>` (e.g., `terracottaPlanModrinth`)
 - `terracottaApply<ProviderName>` (e.g., `terracottaApplyHangar`)
+- `terracottaDestroy<ProviderName>` (e.g., `terracottaDestroyModrinth`)
 
 These work just like the aggregate tasks, but only operate on a single provider.
 
@@ -51,4 +78,10 @@ These work just like the aggregate tasks, but only operate on a single provider.
 
 # Apply changes for Hangar only
 ./gradlew terracottaApplyHangar
+
+# Destroy the project on Modrinth only
+./gradlew terracottaDestroyModrinth --force
+
+# Delete all versions on Hangar only, keeping the project page
+./gradlew terracottaDestroyHangar --versions-only --force
 ```

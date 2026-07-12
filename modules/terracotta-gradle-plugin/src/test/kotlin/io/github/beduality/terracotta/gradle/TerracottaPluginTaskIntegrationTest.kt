@@ -295,6 +295,43 @@ class TerracottaPluginTaskIntegrationTest {
     }
 
     @Test
+    fun `registers aggregate terracottaDestroy task and per-provider destroy tasks`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeMinimalProject(
+            providers =
+                mapOf(
+                    "modrinth" to mapOf("projectId" to "my-plugin"),
+                    "hangar" to mapOf("projectId" to "my-plugin"),
+                ),
+        )
+
+        val result = runGradle(projectDir, "tasks", "--all")
+
+        assertTrue("terracottaDestroy" in result.output, "Expected aggregate terracottaDestroy task")
+        assertTrue("terracottaDestroyModrinth" in result.output, "Expected terracottaDestroyModrinth task")
+        assertTrue("terracottaDestroyHangar" in result.output, "Expected terracottaDestroyHangar task")
+    }
+
+    @Test
+    fun `terracottaDestroy depends on all provider destroy tasks`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeMinimalProject(
+            providers =
+                mapOf(
+                    "modrinth" to mapOf("projectId" to "my-plugin"),
+                    "hangar" to mapOf("projectId" to "my-plugin"),
+                ),
+        )
+
+        val result = runGradle(projectDir, "terracottaDestroy", "--dry-run")
+
+        assertTrue("terracottaDestroyModrinth" in result.output, "Expected modrinth destroy task in aggregate graph")
+        assertTrue("terracottaDestroyHangar" in result.output, "Expected hangar destroy task in aggregate graph")
+    }
+
+    @Test
     fun `terracottaPlan depends on all provider plan tasks`(
         @TempDir projectDir: File,
     ) {

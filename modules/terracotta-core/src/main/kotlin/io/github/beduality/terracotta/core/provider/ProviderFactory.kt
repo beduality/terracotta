@@ -16,4 +16,11 @@ interface ProviderFactory {
 
     /** Creates a registry provider for this registry using the given auth token (may be null) */
     fun createRegistryProvider(token: String?): RegistryProvider
+
+    /**
+     * Creates a destructive registry provider for this registry using the given auth token (may be null).
+     *
+     * Returns null if this provider does not support deletion operations.
+     */
+    fun createDestructiveRegistryProvider(token: String?): DestructiveRegistryProvider? = null
 }

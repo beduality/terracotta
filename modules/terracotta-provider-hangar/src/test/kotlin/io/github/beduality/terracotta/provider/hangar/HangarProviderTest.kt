@@ -764,4 +764,128 @@ class HangarProviderTest {
 
             assertEquals(true, uploadCalled)
         }
+
+    @Test
+    fun `test HangarDestructiveRegistryProvider deleteProject sends DELETE request`() =
+        runTest {
+            val deletedPaths = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(mapOf("token" to "jwt-token"))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/projects/my-plugin" -> {
+                            deletedPaths.add(request.url.encodedPath)
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+            val destructiveProvider = HangarDestructiveRegistryProvider(hangarClient)
+
+            destructiveProvider.deleteProject("my-plugin")
+
+            assertEquals(listOf("/projects/my-plugin"), deletedPaths)
+        }
+
+    @Test
+    fun `test HangarDestructiveRegistryProvider deleteAllVersions deletes each version`() =
+        runTest {
+            val deletedVersionIds = mutableListOf<String>()
+
+            val versions =
+                listOf(
+                    HangarVersion(
+                        id = "version-a",
+                        version = "1.0.0",
+                        channel = "Release",
+                    ),
+                    HangarVersion(
+                        id = "version-b",
+                        version = "1.1.0",
+                        channel = "Release",
+                    ),
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/authenticate") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(mapOf("token" to "jwt-token"))),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath == "/projects/my-plugin/versions" && request.method == HttpMethod.Get -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(versions)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/projects/my-plugin/versions/version-a" -> {
+                            deletedVersionIds.add("version-a")
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/projects/my-plugin/versions/version-b" -> {
+                            deletedVersionIds.add("version-b")
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = "test-key", baseUrl = "http://localhost", client = client)
+            val destructiveProvider = HangarDestructiveRegistryProvider(hangarClient)
+
+            destructiveProvider.deleteAllVersions("my-plugin")
+
+            assertEquals(listOf("version-a", "version-b"), deletedVersionIds)
+        }
+
+    @Test
+    fun `test HangarProviderFactory creates destructive registry provider`() {
+        val factory = HangarProviderFactory()
+        val provider = factory.createDestructiveRegistryProvider("test-key")
+
+        assertNotNull(provider)
+        assertTrue(provider is HangarDestructiveRegistryProvider)
+    }
 }

@@ -19,6 +19,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the separate `docs/content/sdk/` section and folded its remaining pages into module docs: installation moved to `modules/core/tutorials/installation.md`, custom-provider content merged into `modules/core/tutorials/implementing-a-custom-provider.md`, provider API reference merged into `modules/core/reference/provider-interfaces.md`, architecture explanation merged into `modules/core/explanation/architecture.md`, and the Modrinth quick-start merged into `modules/provider-modrinth/tutorials/using-modrinth.md`.
 - Added estimated reading time to every documentation page via `mkdocs-macros-plugin` and a custom Material content override.
 
+**Core**
+
+- Added `DestructiveRegistryProvider` interface and an optional `createDestructiveRegistryProvider` factory method on `ProviderFactory` so providers can opt into project and version deletion.
+
+**Gradle Plugin**
+
+- Added `terracottaDestroy` aggregate task and per-provider `terracottaDestroy<Provider>` tasks (e.g. `terracottaDestroyModrinth`).
+- Added `--force`, `--dry-run`, and `--versions-only` options so destructive operations require explicit confirmation and can preview impact before running.
+
+**Modrinth**
+
+- Added `ModrinthDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Modrinth.
+
+**Hangar**
+
+- Added `HangarDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Hangar.
+
 ### Fixed
 
 **Docs**

@@ -8,6 +8,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ModrinthVersion(
+    /** Modrinth version identifier. */
+    val id: String = "",
     /** Version number string. */
     @SerialName("version_number") val versionNumber: String,
     /** Supported Minecraft game versions. */

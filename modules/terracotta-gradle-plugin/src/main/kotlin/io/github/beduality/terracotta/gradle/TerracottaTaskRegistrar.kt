@@ -17,6 +17,7 @@ internal object TerracottaTaskRegistrar {
     ) {
         val allPlanTasks = mutableListOf<Any>()
         val allApplyTasks = mutableListOf<Any>()
+        val allDestroyTasks = mutableListOf<Any>()
 
         extension.providers.all { providerExt ->
             val providerId = providerExt.name
@@ -78,6 +79,20 @@ internal object TerracottaTaskRegistrar {
                     task.dependsOn(providerPlanTask)
                 }
             allApplyTasks.add(providerApplyTask)
+
+            val providerDestroyTask =
+                project.tasks.register(
+                    "terracottaDestroy${providerId.replaceFirstChar(Char::titlecase)}",
+                    TerracottaDestroyTask::class.java,
+                ) { task ->
+                    task.setDescription("Destroys the project on $providerId")
+                    task.group = "terracotta"
+
+                    task.projectId.set(providerExt.projectId)
+                    task.provider.set(providerId)
+                    task.token.set(providerExt.token)
+                }
+            allDestroyTasks.add(providerDestroyTask)
         }
 
         // Create providers declared only in terracotta.yml after the build script has run,
@@ -100,6 +115,12 @@ internal object TerracottaTaskRegistrar {
             it.description = "Applies changes to all configured providers"
             it.group = "terracotta"
             it.dependsOn(allApplyTasks)
+        }
+
+        project.tasks.register("terracottaDestroy") {
+            it.description = "Destroys the project on all configured providers"
+            it.group = "terracotta"
+            it.dependsOn(allDestroyTasks)
         }
     }
 }

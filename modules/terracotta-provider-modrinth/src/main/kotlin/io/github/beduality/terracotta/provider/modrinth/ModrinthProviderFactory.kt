@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.provider.DestructiveRegistryProvider
 import io.github.beduality.terracotta.core.provider.ProviderFactory
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.core.provider.StateProvider
@@ -24,5 +25,10 @@ class ModrinthProviderFactory : ProviderFactory {
     /** Creates a Modrinth registry provider backed by [token]. */
     override fun createRegistryProvider(token: String?): RegistryProvider {
         return ModrinthRegistryProvider(ModrinthClient(token))
+    }
+
+    /** Creates a Modrinth destructive registry provider backed by [token]. */
+    override fun createDestructiveRegistryProvider(token: String?): DestructiveRegistryProvider {
+        return ModrinthDestructiveRegistryProvider(ModrinthClient(token))
     }
 }

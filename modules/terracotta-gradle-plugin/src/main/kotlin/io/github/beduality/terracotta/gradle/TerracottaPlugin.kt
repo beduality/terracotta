@@ -8,8 +8,8 @@ import java.io.File
 /**
  * Entry point for the Terracotta Gradle plugin.
  *
- * Registers the `terracotta` extension and the `terracottaPlan` / `terracottaApply`
- * tasks for each configured provider.
+ * Registers the `terracotta` extension and the `terracottaPlan`, `terracottaApply`,
+ * and `terracottaDestroy` tasks for each configured provider.
  *
  * @see [Getting started tutorial](https://beduality.github.io/terracotta/content/modules/gradle-plugin/tutorials/getting-started.html)
  * @see [Installation guide](https://beduality.github.io/terracotta/content/modules/gradle-plugin/tutorials/installation.html)

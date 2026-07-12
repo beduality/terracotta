@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class HangarVersion(
+    /** Hangar version identifier. */
+    val id: String = "",
     /** Version number string. */
     val version: String,
     /** Channel name (e.g. Release, Snapshot). */

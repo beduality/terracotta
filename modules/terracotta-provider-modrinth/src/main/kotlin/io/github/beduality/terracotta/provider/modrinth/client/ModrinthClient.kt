@@ -9,6 +9,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.java.Java
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.delete
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
@@ -167,6 +168,34 @@ class ModrinthClient(
             throw IOException("Failed to upload version: ${response.status.value} ${response.bodyAsText()}")
         }
         logger.info("Successfully uploaded version ${version.version} to Modrinth.")
+    }
+
+    /** Deletes the Modrinth project identified by [projectId]. */
+    suspend fun deleteProject(projectId: String) {
+        val response =
+            client.delete("$baseUrl/project/$projectId") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+            }
+        if (response.status.value !in 200..299 && response.status.value != 404) {
+            throw IOException("Failed to delete project: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully deleted project $projectId on Modrinth.")
+    }
+
+    /** Deletes the Modrinth version identified by [versionId]. */
+    suspend fun deleteVersion(versionId: String) {
+        val response =
+            client.delete("$baseUrl/version/$versionId") {
+                if (!token.isNullOrBlank()) {
+                    header(HttpHeaders.Authorization, token)
+                }
+            }
+        if (response.status.value !in 200..299 && response.status.value != 404) {
+            throw IOException("Failed to delete version: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully deleted version $versionId on Modrinth.")
     }
 
     /** Creates a new Modrinth draft project and returns its generated ID. */

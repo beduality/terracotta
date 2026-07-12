@@ -1,5 +1,6 @@
 package io.github.beduality.terracotta.provider.hangar
 
+import io.github.beduality.terracotta.core.provider.DestructiveRegistryProvider
 import io.github.beduality.terracotta.core.provider.ProviderFactory
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.core.provider.StateProvider
@@ -24,5 +25,10 @@ class HangarProviderFactory : ProviderFactory {
     /** Creates a Hangar registry provider backed by [token]. */
     override fun createRegistryProvider(token: String?): RegistryProvider {
         return HangarRegistryProvider(HangarClient(token))
+    }
+
+    /** Creates a Hangar destructive registry provider backed by [token]. */
+    override fun createDestructiveRegistryProvider(token: String?): DestructiveRegistryProvider {
+        return HangarDestructiveRegistryProvider(HangarClient(token))
     }
 }

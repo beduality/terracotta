@@ -442,4 +442,115 @@ class ModrinthProviderTest {
             assertEquals(TerracottaReleaseType.BETA, version?.releaseType)
             assertEquals("Beta notes", version?.changelog)
         }
+
+    @Test
+    fun `test ModrinthDestructiveRegistryProvider deleteProject sends DELETE request`() =
+        runTest {
+            val deletedPaths = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    if (request.method == HttpMethod.Delete && request.url.encodedPath == "/project/my-mod") {
+                        deletedPaths.add(request.url.encodedPath)
+                        respond("", status = HttpStatusCode.NoContent)
+                    } else {
+                        respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val destructiveProvider = ModrinthDestructiveRegistryProvider(modrinthClient)
+
+            destructiveProvider.deleteProject("my-mod")
+
+            assertEquals(listOf("/project/my-mod"), deletedPaths)
+        }
+
+    @Test
+    fun `test ModrinthDestructiveRegistryProvider deleteAllVersions deletes each version`() =
+        runTest {
+            val deletedVersionIds = mutableListOf<String>()
+
+            val versions =
+                listOf(
+                    ModrinthVersion(
+                        id = "version-a",
+                        versionNumber = "1.0.0",
+                        gameVersions = listOf("1.20"),
+                        loaders = listOf("fabric"),
+                        files = emptyList(),
+                    ),
+                    ModrinthVersion(
+                        id = "version-b",
+                        versionNumber = "1.1.0",
+                        gameVersions = listOf("1.20"),
+                        loaders = listOf("fabric"),
+                        files = emptyList(),
+                    ),
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath == "/project/my-mod/version" && request.method == HttpMethod.Get -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(versions)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/version/version-a" -> {
+                            deletedVersionIds.add("version-a")
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        request.method == HttpMethod.Delete && request.url.encodedPath == "/version/version-b" -> {
+                            deletedVersionIds.add("version-b")
+                            respond("", status = HttpStatusCode.NoContent)
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val destructiveProvider = ModrinthDestructiveRegistryProvider(modrinthClient)
+
+            destructiveProvider.deleteAllVersions("my-mod")
+
+            assertEquals(listOf("version-a", "version-b"), deletedVersionIds)
+        }
+
+    @Test
+    fun `test ModrinthProviderFactory creates destructive registry provider`() {
+        val factory = ModrinthProviderFactory()
+        val provider = factory.createDestructiveRegistryProvider("test-token")
+
+        assertNotNull(provider)
+        assertTrue(provider is ModrinthDestructiveRegistryProvider)
+    }
 }

@@ -11,6 +11,7 @@ dependencies {
     implementation(libs.snakeyaml)
     implementation(libs.semver)
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotlinx.coroutines.test)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 

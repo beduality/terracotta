@@ -12,6 +12,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.java.Java
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.delete
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
@@ -167,6 +168,33 @@ class HangarClient(
             throw IOException("Failed to update project: ${response.status.value} ${response.bodyAsText()}")
         }
         logger.info("Successfully updated project metadata on Hangar.")
+    }
+
+    /** Deletes the Hangar project identified by [slug]. */
+    suspend fun deleteProject(slug: String) {
+        val response =
+            client.delete("$baseUrl/projects/$slug") {
+                token()?.let { header(HttpHeaders.Authorization, it) }
+            }
+        if (response.status.value !in 200..299 && response.status.value != 404) {
+            throw IOException("Failed to delete project: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully deleted project $slug on Hangar.")
+    }
+
+    /** Deletes the Hangar version identified by [versionId] on the project [slug]. */
+    suspend fun deleteVersion(
+        slug: String,
+        versionId: String,
+    ) {
+        val response =
+            client.delete("$baseUrl/projects/$slug/versions/$versionId") {
+                token()?.let { header(HttpHeaders.Authorization, it) }
+            }
+        if (response.status.value !in 200..299 && response.status.value != 404) {
+            throw IOException("Failed to delete version: ${response.status.value} ${response.bodyAsText()}")
+        }
+        logger.info("Successfully deleted version $versionId of project $slug on Hangar.")
     }
 
     /** Uploads [version] to the Hangar project identified by [slug]. */
