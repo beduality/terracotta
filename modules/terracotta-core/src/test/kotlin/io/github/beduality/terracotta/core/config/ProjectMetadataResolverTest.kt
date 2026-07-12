@@ -28,6 +28,7 @@ class ProjectMetadataResolverTest {
                 name = "Config Name",
                 summary = "Config summary",
                 license = "Apache-2.0",
+                licenseUrl = "https://config.example.com/LICENSE",
             )
         val resolver = ProjectMetadataResolver(tempDir, config, ProjectMetadataSource())
 
@@ -36,6 +37,7 @@ class ProjectMetadataResolverTest {
         assertEquals("Config Name", result.name)
         assertEquals("Config summary", result.summary)
         assertEquals("Apache-2.0", result.license)
+        assertEquals("https://config.example.com/LICENSE", result.licenseUrl)
     }
 
     @Test

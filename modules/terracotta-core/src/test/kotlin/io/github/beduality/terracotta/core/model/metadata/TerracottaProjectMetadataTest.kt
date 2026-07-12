@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.core.model.metadata
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
@@ -91,5 +92,41 @@ class TerracottaProjectMetadataTest {
         val merged = first.merge(second)
 
         assertEquals(TerracottaEnvironment.SERVER_ONLY, merged.environment)
+    }
+
+    @Test
+    fun `merge prefers first non-null licenseUrl`() {
+        val first = TerracottaProjectMetadata(licenseUrl = "https://example.com/a")
+        val second = TerracottaProjectMetadata(licenseUrl = "https://example.com/b")
+
+        val merged = first.merge(second)
+
+        assertEquals("https://example.com/a", merged.licenseUrl)
+    }
+
+    @Test
+    fun `merge fills missing licenseUrl from second`() {
+        val first = TerracottaProjectMetadata()
+        val second = TerracottaProjectMetadata(licenseUrl = "https://example.com/b")
+
+        val merged = first.merge(second)
+
+        assertEquals("https://example.com/b", merged.licenseUrl)
+    }
+
+    @Test
+    fun `equals considers licenseUrl`() {
+        val a = TerracottaProjectMetadata(license = "MIT", licenseUrl = "https://example.com/a")
+        val b = TerracottaProjectMetadata(license = "MIT", licenseUrl = "https://example.com/b")
+
+        assertNotEquals(a, b)
+    }
+
+    @Test
+    fun `equals treats null and missing licenseUrl differently`() {
+        val a = TerracottaProjectMetadata(license = "MIT")
+        val b = TerracottaProjectMetadata(license = "MIT", licenseUrl = null)
+
+        assertEquals(a, b)
     }
 }

@@ -26,6 +26,9 @@ interface ProjectMetadata {
     /** SPDX license identifier. */
     val license: String?
 
+    /** Optional URL to the full license text. */
+    val licenseUrl: String?
+
     /** Supported game versions. */
     val gameVersions: List<String>?
 

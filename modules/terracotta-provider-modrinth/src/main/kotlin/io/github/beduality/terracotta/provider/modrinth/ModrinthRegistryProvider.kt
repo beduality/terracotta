@@ -30,6 +30,8 @@ class ModrinthRegistryProvider(private val client: ModrinthClient) : RegistryPro
                     if (op.nameChanged) patches["title"] = op.newName
                     if (op.summaryChanged) patches["description"] = op.newSummary
                     if (op.licenseChanged) patches["license_id"] = op.newLicense
+                    val newLicenseUrl = op.newLicenseUrl
+                    if (op.licenseUrlChanged && newLicenseUrl != null) patches["license_url"] = newLicenseUrl
                     client.patchProject(resolvedProjectId, patches)
                 }
                 is Operation.UpdateDescription -> {

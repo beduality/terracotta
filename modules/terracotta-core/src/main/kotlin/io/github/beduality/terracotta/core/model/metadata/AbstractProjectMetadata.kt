@@ -20,6 +20,8 @@ abstract class AbstractProjectMetadata(
     override val description: String? = null,
     /** SPDX license identifier. */
     override val license: String? = null,
+    /** Optional URL to the full license text. */
+    override val licenseUrl: String? = null,
     /** Supported Minecraft game versions. */
     override val gameVersions: List<String>? = null,
     /** Supported loader identifiers. */
@@ -36,6 +38,7 @@ abstract class AbstractProjectMetadata(
             summary = this.summary ?: other.summary,
             description = this.description ?: other.description,
             license = this.license ?: other.license,
+            licenseUrl = this.licenseUrl ?: other.licenseUrl,
             gameVersions = combineLists(this.gameVersions, other.gameVersions),
             loaders = combineLists(this.loaders, other.loaders)?.distinct(),
             environment = this.environment ?: other.environment,
@@ -59,6 +62,7 @@ abstract class AbstractProjectMetadata(
             summary == other.summary &&
             description == other.description &&
             license == other.license &&
+            licenseUrl == other.licenseUrl &&
             gameVersions == other.gameVersions &&
             loaders == other.loaders &&
             environment == other.environment &&
@@ -71,6 +75,7 @@ abstract class AbstractProjectMetadata(
             summary,
             description,
             license,
+            licenseUrl,
             gameVersions,
             loaders,
             environment,
@@ -83,6 +88,7 @@ abstract class AbstractProjectMetadata(
             "summary=$summary, " +
             "description=$description, " +
             "license=$license, " +
+            "licenseUrl=$licenseUrl, " +
             "gameVersions=$gameVersions, " +
             "loaders=$loaders, " +
             "environment=$environment, " +

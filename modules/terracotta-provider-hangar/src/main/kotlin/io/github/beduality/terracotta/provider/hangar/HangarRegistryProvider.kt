@@ -36,8 +36,16 @@ class HangarRegistryProvider(private val client: HangarClient) : RegistryProvide
                         "Hangar does not expose a project creation API. " +
                             "Please create project '${operation.project.name}' manually on Hangar first.",
                     )
+                    if (!operation.project.licenseUrl.isNullOrBlank()) {
+                        logger.warn("Hangar does not support licenseUrl; the configured URL will not be published.")
+                    }
                 }
-                is Operation.UpdateMetadata -> updateMetadataOps.add(operation)
+                is Operation.UpdateMetadata -> {
+                    updateMetadataOps.add(operation)
+                    if (!operation.newLicenseUrl.isNullOrBlank()) {
+                        logger.warn("Hangar does not support licenseUrl; the configured URL will not be published.")
+                    }
+                }
                 is Operation.UpdateDescription -> updateDescriptionOps.add(operation)
                 is Operation.UpdateTags -> updateTagsOps.add(operation)
                 is Operation.UploadVersion -> client.uploadVersion(slug, operation.version)

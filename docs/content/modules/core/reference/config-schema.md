@@ -11,6 +11,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `description` | string | No | Full description. |
 | `tags` | list of strings | No | Search tags. |
 | `license` | string | No | SPDX license identifier. |
+| `licenseUrl` | string | No | Optional URL to the full license text. Forwarded to Modrinth; ignored by Hangar. |
 | `gameVersions` | list of strings | No | Supported Minecraft versions. |
 | `loaders` | list of strings | No | Loader identifiers. |
 | `environment` | string | No | `client_only`, `server_only`, or `universal`. |
@@ -61,6 +62,7 @@ tags:
   - paper
   - utility
 license: "MIT"
+licenseUrl: "https://github.com/example/my-plugin/blob/main/LICENSE"
 gameVersions:
   - "1.21.8"
   - "1.21.7"
@@ -105,6 +107,7 @@ Terracotta can infer several fields from standard project files and Gradle metad
 | `gameVersions` | Loader-specific descriptors | Extracted from platform metadata such as Fabric's `depends.minecraft`. |
 | `environment` | Loader-specific descriptors | Defaults to `server_only` when not detected. |
 | `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers are recognized. |
+| `licenseUrl` | None | Must be configured explicitly; not auto-detected. |
 | `releaseType` | Gradle project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
 | `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
 

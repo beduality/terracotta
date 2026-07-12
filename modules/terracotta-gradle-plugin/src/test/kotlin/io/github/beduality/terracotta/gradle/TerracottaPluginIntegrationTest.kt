@@ -316,6 +316,80 @@ class TerracottaPluginIntegrationTest {
     }
 
     @Test
+    fun `loads licenseUrl from terracotta yml`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            license: MIT
+            licenseUrl: https://yaml.example.com/LICENSE
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("printLicenseUrl") {
+                doLast {
+                    println("LICENSE_URL=" + terracotta.licenseUrl.orNull)
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printLicenseUrl")
+                .build()
+
+        assertTrue("LICENSE_URL=https://yaml.example.com/LICENSE" in result.output, "Expected licenseUrl from terracotta.yml")
+    }
+
+    @Test
+    fun `kotlin dsl overrides licenseUrl from terracotta yml`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            license: MIT
+            licenseUrl: https://yaml.example.com/LICENSE
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                licenseUrl.set("https://dsl.example.com/LICENSE")
+            }
+
+            tasks.register("printLicenseUrl") {
+                doLast {
+                    println("LICENSE_URL=" + terracotta.licenseUrl.orNull)
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath()
+                .withArguments("printLicenseUrl")
+                .build()
+
+        assertTrue("LICENSE_URL=https://dsl.example.com/LICENSE" in result.output, "Expected DSL to override terracotta.yml licenseUrl")
+    }
+
+    @Test
     fun `loads gallery from terracotta yml and dsl`(
         @TempDir projectDir: File,
     ) {

@@ -33,6 +33,9 @@ abstract class TerracottaExtension {
     /** SPDX license identifier. */
     abstract val license: Property<String>
 
+    /** Optional URL to the full license text. */
+    abstract val licenseUrl: Property<String>
+
     /** Supported Minecraft game versions. */
     abstract val gameVersions: ListProperty<String>
 

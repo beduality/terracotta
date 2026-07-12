@@ -64,6 +64,7 @@ class ProjectMetadataResolver(
             description = config.description ?: detected.description ?: "",
             tags = config.tags ?: emptyList(),
             license = config.license ?: detected.license ?: "",
+            licenseUrl = config.licenseUrl ?: detected.licenseUrl,
             gameVersions = config.gameVersions ?: detected.gameVersions ?: emptyList(),
             loaders = config.loaders ?: detected.loaders ?: emptyList(),
             environment =

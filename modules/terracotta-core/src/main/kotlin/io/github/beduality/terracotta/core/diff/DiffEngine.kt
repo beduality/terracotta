@@ -33,16 +33,19 @@ object DiffEngine {
         val nameChanged = local.name != remote.name
         val summaryChanged = local.summary != remote.summary
         val licenseChanged = local.license.uppercase() != remote.license.uppercase()
+        val licenseUrlChanged = local.licenseUrl != remote.licenseUrl
 
-        if (nameChanged || summaryChanged || licenseChanged) {
+        if (nameChanged || summaryChanged || licenseChanged || licenseUrlChanged) {
             operations.add(
                 Operation.UpdateMetadata(
                     nameChanged = nameChanged,
                     summaryChanged = summaryChanged,
                     licenseChanged = licenseChanged,
+                    licenseUrlChanged = licenseUrlChanged,
                     newName = local.name,
                     newSummary = local.summary,
                     newLicense = local.license,
+                    newLicenseUrl = local.licenseUrl,
                 ),
             )
         }

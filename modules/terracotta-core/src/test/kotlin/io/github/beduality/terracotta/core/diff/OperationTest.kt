@@ -63,9 +63,11 @@ class OperationTest {
                 nameChanged = true,
                 summaryChanged = false,
                 licenseChanged = false,
+                licenseUrlChanged = false,
                 newName = "New Name",
                 newSummary = "",
                 newLicense = "",
+                newLicenseUrl = null,
             )
 
         assertTrue(op.description.contains("name"))
@@ -80,9 +82,11 @@ class OperationTest {
                 nameChanged = true,
                 summaryChanged = true,
                 licenseChanged = true,
+                licenseUrlChanged = false,
                 newName = "New Name",
                 newSummary = "New Summary",
                 newLicense = "Apache-2.0",
+                newLicenseUrl = null,
             )
 
         assertTrue(op.description.contains("name"))
@@ -97,9 +101,11 @@ class OperationTest {
                 nameChanged = false,
                 summaryChanged = true,
                 licenseChanged = false,
+                licenseUrlChanged = false,
                 newName = "",
                 newSummary = "New Summary",
                 newLicense = "",
+                newLicenseUrl = null,
             )
 
         assertTrue(op.description.contains("summary"))

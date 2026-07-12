@@ -143,9 +143,11 @@ class OperationPreprocessorPropertyTest {
                             nameChanged = true,
                             summaryChanged = false,
                             licenseChanged = false,
+                            licenseUrlChanged = false,
                             newName = "New Name",
                             newSummary = "",
                             newLicense = "",
+                            newLicenseUrl = null,
                         ),
                     ),
                 "single UpdateDescription" to
@@ -160,7 +162,7 @@ class OperationPreprocessorPropertyTest {
                     listOf(
                         Operation.CreateProject(sampleProject(sampleVersions.take(1))),
                         Operation.UploadVersion(sampleVersions[1]),
-                        Operation.UpdateMetadata(true, true, false, "n", "s", ""),
+                        Operation.UpdateMetadata(true, true, false, false, "n", "s", "", null),
                         Operation.UpdateDescription("old", "new"),
                         Operation.UpdateTags(listOf("x"), listOf("y", "z")),
                     ),
@@ -199,18 +201,22 @@ class OperationPreprocessorPropertyTest {
                         nameChanged = true,
                         summaryChanged = false,
                         licenseChanged = false,
+                        licenseUrlChanged = false,
                         newName = "Updated Plugin",
                         newSummary = "",
                         newLicense = "",
+                        newLicenseUrl = null,
                     ),
                 "UpdateMetadata(all fields)" to
                     Operation.UpdateMetadata(
                         nameChanged = true,
                         summaryChanged = true,
                         licenseChanged = true,
+                        licenseUrlChanged = false,
                         newName = "New Name",
                         newSummary = "New Summary",
                         newLicense = "Apache-2.0",
+                        newLicenseUrl = null,
                     ),
                 "UpdateDescription(short)" to
                     Operation.UpdateDescription(

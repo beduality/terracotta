@@ -278,9 +278,11 @@ class HangarProviderTest {
                         nameChanged = true,
                         summaryChanged = true,
                         licenseChanged = false,
+                        licenseUrlChanged = false,
                         newName = "New Name",
                         newSummary = "New summary",
                         newLicense = "",
+                        newLicenseUrl = null,
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
                     Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
@@ -320,6 +322,7 @@ class HangarProviderTest {
                     versions = emptyList(),
                     tags = emptyList(),
                     license = "MIT",
+                    licenseUrl = "https://example.com/LICENSE",
                 )
 
             registryProvider.apply("my-plugin", listOf(Operation.CreateProject(project)))
@@ -926,5 +929,74 @@ class HangarProviderTest {
             )
 
             assertEquals(false, networkCalled)
+        }
+
+    @Test
+    fun `test HangarRegistryProvider ignores licenseUrl in UpdateMetadata`() =
+        runTest {
+            val currentProject =
+                HangarProject(
+                    name = "Old Name",
+                    description = "Old summary",
+                    body = "Old body",
+                    tags = listOf("old"),
+                    license = "MIT",
+                )
+
+            var patchBody: String? = null
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Get -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(currentProject)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Patch -> {
+                            patchBody = (request.body as TextContent).text
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient)
+
+            registryProvider.apply(
+                "my-plugin",
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = true,
+                        summaryChanged = false,
+                        licenseChanged = false,
+                        licenseUrlChanged = true,
+                        newName = "New Name",
+                        newSummary = "",
+                        newLicense = "",
+                        newLicenseUrl = "https://example.com/LICENSE",
+                    ),
+                ),
+            )
+
+            assertNotNull(patchBody)
+            val body = json.parseToJsonElement(patchBody!!).jsonObject
+            assertEquals("New Name", body["name"]?.jsonPrimitive?.content)
+            assertNull(body["licenseUrl"])
         }
 }

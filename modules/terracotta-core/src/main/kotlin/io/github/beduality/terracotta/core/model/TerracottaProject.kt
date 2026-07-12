@@ -22,6 +22,8 @@ data class TerracottaProject(
     val tags: List<String>,
     /** SPDX license identifier. */
     val license: String,
+    /** Optional URL to the full license text. */
+    val licenseUrl: String? = null,
     /** Gallery images for the project. */
     val gallery: List<TerracottaGalleryItem> = emptyList(),
 )

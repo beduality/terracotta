@@ -3,6 +3,8 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -244,6 +246,105 @@ class DiffEngineTest {
                 versions = emptyList(),
                 tags = emptyList(),
                 license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+        assertTrue(ops.isEmpty())
+    }
+
+    @Test
+    fun `test diff with only licenseUrl changed`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                licenseUrl = "https://example.com/LICENSE",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.licenseUrlChanged)
+        assertEquals("https://example.com/LICENSE", metaOp.newLicenseUrl)
+        assertFalse(metaOp.nameChanged)
+        assertFalse(metaOp.summaryChanged)
+        assertFalse(metaOp.licenseChanged)
+    }
+
+    @Test
+    fun `test diff with only licenseUrl removed should trigger update`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                licenseUrl = "https://example.com/old",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.licenseUrlChanged)
+        assertNull(metaOp.newLicenseUrl)
+    }
+
+    @Test
+    fun `test diff with same licenseUrl should not trigger update`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                licenseUrl = "https://example.com/LICENSE",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                tags = emptyList(),
+                license = "MIT",
+                licenseUrl = "https://example.com/LICENSE",
             )
 
         val ops = DiffEngine.diff(local, remote)

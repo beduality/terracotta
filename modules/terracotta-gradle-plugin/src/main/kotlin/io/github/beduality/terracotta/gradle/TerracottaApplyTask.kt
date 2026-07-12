@@ -59,6 +59,11 @@ abstract class TerracottaApplyTask : DefaultTask() {
     abstract val license: Property<String>
 
     @get:Input
+    @get:Optional
+    /** Optional URL to the full license text. */
+    abstract val licenseUrl: Property<String>
+
+    @get:Input
     /** Supported Minecraft game versions. */
     abstract val gameVersions: ListProperty<String>
 
@@ -142,6 +147,7 @@ abstract class TerracottaApplyTask : DefaultTask() {
             versions = listOf(version),
             tags = tags.get(),
             license = license.get(),
+            licenseUrl = licenseUrl.orNull,
             gallery = gallery.get(),
         )
     }

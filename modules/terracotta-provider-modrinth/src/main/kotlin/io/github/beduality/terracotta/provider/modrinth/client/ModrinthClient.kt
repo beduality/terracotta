@@ -222,6 +222,7 @@ class ModrinthClient(
                 put("server_side", environment.toModrinthServerSide())
                 put("project_type", "mod")
                 put("license_id", project.license)
+                project.licenseUrl?.let { put("license_url", it) }
                 put("is_draft", true)
                 // initial_versions is deprecated but the API still requires the field to be present
                 put("initial_versions", JsonArray(emptyList()))

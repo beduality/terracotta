@@ -21,6 +21,8 @@ data class TerracottaConfig(
     val tags: List<String>? = null,
     /** SPDX license identifier. */
     val license: String? = null,
+    /** Optional URL to the full license text. */
+    val licenseUrl: String? = null,
     /** Supported Minecraft game versions. */
     val gameVersions: List<String>? = null,
     /** Supported loader identifiers. */

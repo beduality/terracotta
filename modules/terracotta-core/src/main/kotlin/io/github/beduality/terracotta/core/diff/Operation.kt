@@ -26,9 +26,11 @@ sealed interface Operation {
      * @property nameChanged whether the project name changed.
      * @property summaryChanged whether the project summary changed.
      * @property licenseChanged whether the project license changed.
+     * @property licenseUrlChanged whether the project license URL changed.
      * @property newName the new project name.
      * @property newSummary the new project summary.
      * @property newLicense the new SPDX license identifier.
+     * @property newLicenseUrl the new optional URL to the full license text.
      */
     data class UpdateMetadata(
         /** Whether the project name changed. */
@@ -37,12 +39,16 @@ sealed interface Operation {
         val summaryChanged: Boolean,
         /** Whether the project license changed. */
         val licenseChanged: Boolean,
+        /** Whether the project license URL changed. */
+        val licenseUrlChanged: Boolean,
         /** New project name. */
         val newName: String,
         /** New project summary. */
         val newSummary: String,
         /** New SPDX license identifier. */
         val newLicense: String,
+        /** New optional URL to the full license text. */
+        val newLicenseUrl: String?,
     ) : Operation {
         override val description: String
             get() {
@@ -50,6 +56,7 @@ sealed interface Operation {
                 if (nameChanged) changes.add("name")
                 if (summaryChanged) changes.add("summary")
                 if (licenseChanged) changes.add("license")
+                if (licenseUrlChanged) changes.add("licenseUrl")
                 return "~ Update project metadata (${changes.joinToString(", ")})"
             }
     }

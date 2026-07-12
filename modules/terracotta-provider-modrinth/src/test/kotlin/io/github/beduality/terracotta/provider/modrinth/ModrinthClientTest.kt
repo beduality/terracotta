@@ -323,7 +323,7 @@ class ModrinthClientTest {
                 assertEquals("created-id", id)
                 assertNotNull(capturedBody)
                 assertTrue(capturedBody!!.contains("""client_side":"$expectedClientSide"""))
-                assertTrue(capturedBody!!.contains("""server_side":"$expectedServerSide"""))
+                assertTrue(capturedBody.contains("""server_side":"$expectedServerSide"""))
             }
         }
 
@@ -351,5 +351,59 @@ class ModrinthClientTest {
                 }
             assertNotNull(exception)
             assertTrue(exception!!.message!!.contains("Failed to create project"))
+        }
+
+    @Test
+    fun `createProject emits license_url when licenseUrl is set`() =
+        runTest {
+            val version =
+                TerracottaVersion(
+                    version = "1.0.0",
+                    artifactPath = "",
+                    gameVersions = listOf("1.20"),
+                    loaders = listOf("fabric"),
+                    environment = TerracottaEnvironment.SERVER_ONLY,
+                )
+            val project =
+                TerracottaProject(
+                    id = "my-mod",
+                    name = "My Mod",
+                    summary = "Summary",
+                    description = "Body",
+                    versions = listOf(version),
+                    tags = listOf("utility"),
+                    license = "MIT",
+                    licenseUrl = "https://example.com/LICENSE",
+                )
+            val createdProject =
+                ModrinthProject(
+                    id = "created-id",
+                    slug = "my-mod",
+                    title = "My Mod",
+                    summary = "Summary",
+                    body = "Body",
+                    categories = listOf("utility"),
+                    license = ModrinthLicense("MIT"),
+                )
+            var capturedBody: String? = null
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath == "/project" && request.method == HttpMethod.Post -> {
+                            capturedBody = String(request.body.toByteArray())
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(createdProject)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> respond("", HttpStatusCode.OK)
+                    }
+                }
+            val client = ModrinthClient(token = "my-token", baseUrl = "http://localhost", client = createClient(mockEngine))
+            val id = client.createProject(project)
+            assertEquals("created-id", id)
+            assertNotNull(capturedBody)
+            assertTrue(capturedBody!!.contains("""license_url":"https://example.com/LICENSE"""))
         }
 }

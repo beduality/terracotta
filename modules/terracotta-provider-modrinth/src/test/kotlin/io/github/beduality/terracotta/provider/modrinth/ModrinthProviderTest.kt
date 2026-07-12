@@ -256,9 +256,11 @@ class ModrinthProviderTest {
                         nameChanged = true,
                         summaryChanged = true,
                         licenseChanged = true,
+                        licenseUrlChanged = false,
                         newName = "New Name",
                         newSummary = "New summary",
                         newLicense = "Apache-2.0",
+                        newLicenseUrl = null,
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
                     Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
@@ -713,5 +715,118 @@ class ModrinthProviderTest {
             registryProvider.apply("my-mod", listOf(Operation.DeleteGalleryItem(item)))
 
             assertEquals(listOf("https://cdn/image.png"), deletedUrls)
+        }
+
+    @Test
+    fun `test ModrinthStateProvider maps licenseUrl`() =
+        runTest {
+            val modrinthProject =
+                ModrinthProject(
+                    id = "my-mod-id",
+                    slug = "my-mod",
+                    title = "My Mod",
+                    summary = "A test mod",
+                    body = "Test description",
+                    categories = listOf("utility"),
+                    license = ModrinthLicense(id = "MIT", url = "https://example.com/LICENSE"),
+                )
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.contains("project/my-mod-id") &&
+                            !request.url.encodedPath.contains("version") -> {
+                            respond(
+                                content = ByteReadChannel(json.encodeToString(modrinthProject)),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.contains("project/my-mod-id/version") -> {
+                            respond(
+                                content = ByteReadChannel("[]"),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.NotFound)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val stateProvider = ModrinthStateProvider(modrinthClient)
+
+            val terracottaProject = stateProvider.fetchProject("my-mod-id")
+
+            assertEquals("https://example.com/LICENSE", terracottaProject?.licenseUrl)
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider apply licenseUrl update sends license_url patch`() =
+        runTest {
+            val capturedPatches = mutableListOf<Pair<String, String>>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath == "/project/my-mod" && request.method == HttpMethod.Patch -> {
+                            val body = (request.body as TextContent).text
+                            capturedPatches.add(request.url.encodedPath to body)
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient)
+
+            val operations =
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = false,
+                        summaryChanged = false,
+                        licenseChanged = false,
+                        licenseUrlChanged = true,
+                        newName = "Name",
+                        newSummary = "Summary",
+                        newLicense = "MIT",
+                        newLicenseUrl = "https://example.com/LICENSE",
+                    ),
+                )
+
+            registryProvider.apply("my-mod", operations)
+
+            assertEquals(1, capturedPatches.size)
+            val metadataBody = json.parseToJsonElement(capturedPatches[0].second).jsonObject
+            assertEquals("https://example.com/LICENSE", metadataBody["license_url"]?.jsonPrimitive?.content)
         }
 }

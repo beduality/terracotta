@@ -21,6 +21,8 @@ data class ResolvedProjectMetadata(
     val tags: List<String>,
     /** SPDX license identifier. */
     val license: String,
+    /** Optional URL to the full license text. */
+    val licenseUrl: String?,
     /** Supported Minecraft game versions. */
     val gameVersions: List<String>,
     /** Supported loader identifiers. */

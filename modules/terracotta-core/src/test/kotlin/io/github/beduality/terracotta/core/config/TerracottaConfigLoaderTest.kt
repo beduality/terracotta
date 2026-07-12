@@ -33,6 +33,7 @@ class TerracottaConfigLoaderTest {
               - paper
               - utility
             license: MIT
+            licenseUrl: https://github.com/example/my-plugin/blob/main/LICENSE
             gameVersions:
               - 1.21.8
               - 1.21.7
@@ -58,6 +59,7 @@ class TerracottaConfigLoaderTest {
         assertEquals("A useful plugin", config.description)
         assertEquals(listOf("paper", "utility"), config.tags)
         assertEquals("MIT", config.license)
+        assertEquals("https://github.com/example/my-plugin/blob/main/LICENSE", config.licenseUrl)
         assertEquals(listOf("1.21.8", "1.21.7"), config.gameVersions)
         assertEquals(listOf("paper"), config.loaders)
         assertEquals("server_only", config.environment)

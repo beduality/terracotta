@@ -93,9 +93,11 @@ class OperationPreprocessorTest {
                 nameChanged = true,
                 summaryChanged = true,
                 licenseChanged = false,
+                licenseUrlChanged = false,
                 newName = "Updated Plugin",
                 newSummary = "New summary",
                 newLicense = "",
+                newLicenseUrl = null,
             )
 
         val result = OperationPreprocessor.process(listOf(operation))
