@@ -1,9 +1,9 @@
 package io.github.beduality.terracotta.core.model.metadata.detector.adapters
 
-import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 import io.github.beduality.terracotta.core.model.TerracottaLoaderRegistry
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.TerracottaProjectMetadata
+import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataDetector
 
 /**
  * @see [Metadata resolution reference](https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html)
