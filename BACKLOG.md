@@ -20,3 +20,4 @@
 ## Features
 
 - Publish relevant package managers to our target users (Minecraft modders); update docs and README
+- Add [ViaVersion/Geyser Detection](./proposals/2026-07-viaversion-geyser-detection.md)
