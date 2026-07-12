@@ -10,41 +10,41 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 ## Source of truth
 
 - TODO item: `Add [Narrow Tags](./proposals/25-07-10-narrow-tags-canonical.md)` (`project/TODO.md`)
-- Design proposal: `project/proposals/25-07-10-narrow-tags-canonical.md`
+- Design proposal: `project/designs/25-07-10-narrow-tags-canonical.md`
 
 ## Progress summary
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| System design | Not started | |
-| Contract | Not started | |
-| Test-driven development | Not started | |
-| Implementation | Not started | |
+| System design | Completed | See Notes section for decisions |
+| Contract | Completed | Core models, config, resolver, Gradle DSL, providers |
+| Test-driven development | In progress | |
+| Implementation | Completed | Category mapping implemented alongside contract |
 | Review | Not started | |
 | Documentation | Not started | |
 | Push to remote | Not started | |
 
 ## Phase 1: System design
 
-- [ ] Read `module-system-design-workflow.md`.
-- [ ] Read `project/proposals/25-07-10-narrow-tags-canonical.md`.
-- [ ] Decide whether `TerracottaCategory` carries provider-agnostic IDs only or also platform-specific aliases.
-- [ ] Decide how the Gradle DSL exposes `categories` (nested block vs. direct assignment).
-- [ ] Decide how unknown / unsupported category IDs are handled (fail fast vs. warn and drop).
-- [ ] Confirm CurseForge mapping remains out of scope for this phase.
-- [ ] Complete design review checklist from `module-review-workflow.md`.
-- [ ] Update this plan with decisions that affect later phases.
+- [x] Read `module-system-design-workflow.md`.
+- [x] Read `project/designs/25-07-10-narrow-tags-canonical.md`.
+- [x] Decide whether `TerracottaCategory` carries provider-agnostic IDs only or also platform-specific aliases.
+- [x] Decide how the Gradle DSL exposes `categories` (nested block vs. direct assignment).
+- [x] Decide how unknown / unsupported category IDs are handled (fail fast vs. warn and drop).
+- [x] Confirm CurseForge mapping remains out of scope for this phase.
+- [x] Complete design review checklist from `module-review-workflow.md`.
+- [x] Update this plan with decisions that affect later phases.
 
 ## Phase 2: Contract
 
-- [ ] Read `module-contract-workflow.md`.
-- [ ] Add `TerracottaCategory` and `TerracottaProjectCategories` to `terracotta-core` with `@Serializable` and KDoc.
-- [ ] Replace `TerracottaProject.tags: List<String>` with `TerracottaProject.categories: TerracottaProjectCategories`.
-- [ ] Update `TerracottaConfig.tags` to `TerracottaConfig.categories`.
-- [ ] Update `ResolvedProjectMetadata.tags` to `ResolvedProjectMetadata.categories`.
-- [ ] Update the Gradle plugin `TerracottaExtension.tags` to a structured categories DSL.
-- [ ] Add KDoc for every new public symbol intended for Dokka.
-- [ ] Run `:<module>:compileKotlin` for affected modules.
+- [x] Read `module-contract-workflow.md`.
+- [x] Add `TerracottaCategory` and `TerracottaProjectCategories` to `terracotta-core` with `@Serializable` and KDoc.
+- [x] Replace `TerracottaProject.tags: List<String>` with `TerracottaProject.categories: TerracottaProjectCategories`.
+- [x] Update `TerracottaConfig.tags` to `TerracottaConfig.categories`.
+- [x] Update `ResolvedProjectMetadata.tags` to `ResolvedProjectMetadata.categories`.
+- [x] Update the Gradle plugin `TerracottaExtension.tags` to a structured categories DSL.
+- [x] Add KDoc for every new public symbol intended for Dokka.
+- [x] Run `:<module>:compileKotlin` for affected modules.
 
 ## Phase 3: Test-driven development
 
@@ -64,14 +64,14 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 
 ## Phase 4: Implementation
 
-- [ ] Read `module-implementation-workflow.md`.
-- [ ] Implement `TerracottaCategory` and `TerracottaProjectCategories` in `terracotta-core`.
-- [ ] Migrate `TerracottaProject`, `TerracottaConfig`, and `ResolvedProjectMetadata` from `tags` to `categories`.
-- [ ] Update `ProjectMetadataResolver` to map config categories into resolved metadata.
-- [ ] Update the Gradle plugin DSL to accept structured categories.
-- [ ] Implement Modrinth provider mapping (featured + additional categories).
-- [ ] Implement Hangar provider mapping (single category + optional tags).
-- [ ] Keep CurseForge mapping in design only; defer implementation to a later phase.
+- [x] Read `module-implementation-workflow.md`.
+- [x] Implement `TerracottaCategory` and `TerracottaProjectCategories` in `terracotta-core`.
+- [x] Migrate `TerracottaProject`, `TerracottaConfig`, and `ResolvedProjectMetadata` from `tags` to `categories`.
+- [x] Update `ProjectMetadataResolver` to map config categories into resolved metadata.
+- [x] Update the Gradle plugin DSL to accept structured categories.
+- [x] Implement Modrinth provider mapping (featured + additional categories).
+- [x] Implement Hangar provider mapping (single category + optional tags).
+- [x] Keep CurseForge mapping in design only; defer implementation to a later phase.
 - [ ] Run `:build :spotlessCheck`.
 - [ ] Refactor and add KDoc.
 
@@ -100,4 +100,10 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 
 ## Notes
 
-<!-- Decisions, blockers, and discoveries go here as work progresses. -->
+### Phase 1 decisions
+
+- `TerracottaCategory` uses provider-agnostic IDs only; platform-specific aliases live in provider mapping code.
+- Gradle DSL exposes `categories` as a nested block (patterned after `links`) with `primary { ... }` and `additional { ... }` containers.
+- Unknown / unsupported category IDs fail fast with a clear error message at resolution or provider-mapping time.
+- CurseForge mapping stays out of scope for this phase; the canonical model is designed so it can be added later.
+- `TerracottaProject` will use `categories: TerracottaProjectCategories`; free-form `tags` is removed.

@@ -75,7 +75,7 @@ When applying any workflow, replace these placeholders consistently:
 | Plan file | `project/plans/YYYY-MM-<short-name>-plan.md` |
 | Brainstorm note | `project/brainstorm/<datetime>-<title>.md` |
 | Release report | `project/reports/release/<datetime>-<title>.md` |
-| Release report template | `project/reports/TEMPLATE.md` |
+| Release report template | `project/methodology/templates/report.md` |
 | Archived plans | `project/plans/archived/<plan>.md` |
 | Archived designs | `project/designs/archived/<design>.md` |
 | Archived brainstorm notes | `project/brainstorm/archived/<note>.md` |
