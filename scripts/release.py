@@ -440,6 +440,18 @@ def trigger(
             f"[yellow]Warning: you are on branch '{current_branch}', not 'main'.[/yellow]"
         )
 
+    if strategy == "custom":
+        next_version = custom_version
+    elif strategy == "auto":
+        _, next_version = get_next_version(current_version)
+    else:
+        next_version = bump_version(current_version, strategy)
+
+    console.print(
+        f"Selected version: [bold green]{next_version}[/bold green] "
+        f"(bump strategy: [bold cyan]{strategy}[/bold cyan])"
+    )
+
     cmd = [
         "gh", "workflow", "run", "release.yml",
         "--ref", current_branch,
@@ -449,7 +461,7 @@ def trigger(
         cmd.extend(["-f", f"version={custom_version}"])
 
     proceed = yes or questionary.confirm(
-        f"Trigger Release workflow on '{current_branch}' with bump '{strategy}'?"
+        f"Trigger Release workflow on '{current_branch}' with bump '{strategy}' -> v{next_version}?"
     ).ask()
     if not proceed:
         console.print("[yellow]Release aborted.[/yellow]")
