@@ -89,9 +89,16 @@ nav:
     - Release Changes: changes.md
   - Integration:
     - Overview: content/integration/README.md
+    - Tutorials:
+      - Publishing to Multiple Providers: content/integration/tutorials/publishing-to-multiple-providers.md
     - How-To Guides:
       - Adding Modrinth to the Gradle Plugin: content/integration/how-to-guides/adding-modrinth-to-gradle-plugin.md
       - Adding Hangar to the Gradle Plugin: content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md
+      - Troubleshooting: content/integration/how-to-guides/troubleshooting.md
+    - Reference:
+      - Provider Configuration: content/integration/reference/provider-configuration.md
+    - Explanation:
+      - Integration Design: content/integration/explanation/design.md
   - Modules:
     - Overview: content/modules/overview.md
     - Core:

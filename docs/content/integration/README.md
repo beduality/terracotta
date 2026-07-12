@@ -1,10 +1,14 @@
 # Integration
 
-Integration guides explain how to combine Terracotta modules and external tools to accomplish real-world tasks.
+Integration guides explain how to wire Terracotta modules and external tools together to publish real projects.
 
-These pages are intentionally separate from module-specific docs so that each module's documentation stays focused on its own API and concepts, while integration docs cover the wiring between modules.
+These pages are separate from module-specific docs so that module docs stay focused on APIs and concepts, while integration docs cover end-to-end workflows.
 
 ## Quick links
 
-- [Adding Modrinth to the Gradle plugin](how-to-guides/adding-modrinth-to-gradle-plugin.md)
-- [Adding Hangar to the Gradle plugin](how-to-guides/adding-hangar-to-gradle-plugin.md)
+- [Publish to Modrinth and Hangar](tutorials/publishing-to-multiple-providers.md)
+- [Add Modrinth to the Gradle plugin](how-to-guides/adding-modrinth-to-gradle-plugin.md)
+- [Add Hangar to the Gradle plugin](how-to-guides/adding-hangar-to-gradle-plugin.md)
+- [Troubleshoot provider integration](how-to-guides/troubleshooting.md)
+- [Provider configuration](reference/provider-configuration.md)
+- [Integration design](explanation/design.md)
