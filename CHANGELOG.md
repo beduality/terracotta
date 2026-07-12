@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-12
+
 ### Added
 
 **Core**
@@ -39,7 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Gradle Plugin**
 
 - Renamed Gradle metadata detector package from `io.github.beduality.terracotta.gradle.detect` to `io.github.beduality.terracotta.gradle.detector`.
-
 ## [0.4.1] - 2026-07-12
 
 ### Fixed
