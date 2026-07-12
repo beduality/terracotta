@@ -143,11 +143,9 @@ import java.nio.file.Path
  * The default filename is `.terracotta-state.yml`. It is written atomically: a
  * temporary file is created next to the target, then moved into place.
  */
-class FileSystemStateSource(
+class FileSystemStateSource private constructor(
     private val file: Path,
 ) : StateSource {
-
-    constructor(directory: Path) : this(directory.resolve(DEFAULT_FILE_NAME))
 
     override fun load(): TerracottaState {
         if (!file.exists()) return TerracottaState()
@@ -164,6 +162,11 @@ class FileSystemStateSource(
 
     companion object {
         const val DEFAULT_FILE_NAME = ".terracotta-state.yml"
+
+        fun forFile(file: Path): FileSystemStateSource = FileSystemStateSource(file)
+
+        fun forDirectory(directory: Path): FileSystemStateSource =
+            FileSystemStateSource(directory.resolve(DEFAULT_FILE_NAME))
     }
 }
 ```

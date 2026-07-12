@@ -9,55 +9,61 @@ touches `terracotta-core`, `terracotta-gradle-plugin`.
 
 ## Source of truth
 
-- TODO item: `<text>` (`project/TODO.md`)
+- TODO item: Add [State Management](./proposals/2026-07-state-management.md) (`project/TODO.md`)
 - Design proposal: `project/proposals/2026-07-state-management.md`
 
 ## Progress summary
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| System design | Not started | |
-| TDD | Not started | |
-| Implementation | Not started | |
-| Build / quality checks | Not started | |
-| Documentation | Not started | |
-| Review / release prep | Not started | |
+| System design | Completed | Design proposal reviewed against checklist |
+| TDD | Completed | 5 tests in FileSystemStateSourceTest |
+| Implementation | Completed | Core + Gradle DSL wiring |
+| Review / release prep | Completed | CHANGELOG updated, green build |
+| Documentation | Completed | Explanation + DSL guide + cross-links |
 
 ## Phase 1: System design
 
-- [ ] Read `module-system-design-workflow.md`.
-- [ ] Read or write the design proposal.
-- [ ] Complete design review checklist from `module-review-workflow.md`.
-- [ ] Update this plan with decisions that affect later phases.
+- [x] Read `module-system-design-workflow.md`.
+- [x] Read or write the design proposal.
+- [x] Complete design review checklist from `module-review-workflow.md`.
+- [x] Update this plan with decisions that affect later phases.
 
 ## Phase 2: Test-driven development
 
-- [ ] Read `module-testing-workflow.md`.
-- [ ] Identify behavior and edge cases.
-- [ ] Write failing tests.
-- [ ] Run tests and confirm they fail for the expected reason.
+- [x] Read `module-testing-workflow.md`.
+- [x] Identify behavior and edge cases, including `java.time.Instant` serialization.
+- [x] Write failing tests.
+- [x] Run tests and confirm they fail for the expected reason.
 
 ## Phase 3: Implementation
 
-- [ ] Read `module-implementation-workflow.md`.
-- [ ] Make tests pass with the smallest change.
-- [ ] Refactor and add KDoc.
-- [ ] Run `:build :spotlessCheck`.
+- [x] Read `module-implementation-workflow.md`.
+- [x] Make tests pass with the smallest change.
+- [x] Refactor and add KDoc.
+- [x] Add `.terracotta-state.yml` to `.gitignore`.
+- [x] Verify `java.time.Instant` round-trips through the YAML codec.
+- [x] Run `./gradlew :terracotta-core:build :terracotta-gradle-plugin:build :spotlessCheck`.
 
-## Phase 4: Documentation
+## Phase 4: Review / release prep
 
-- [ ] Read `module-documentation-workflow.md`.
-- [ ] Add or update Diátaxis docs.
-- [ ] Cross-link KDoc with `@see`.
-- [ ] Run `mkdocs build --strict`.
+- [x] Read `module-review-workflow.md`.
+- [x] Run code review checklist.
+- [x] Update `CHANGELOG.md`.
+- [x] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
 
-## Phase 5: Review / release prep
+## Phase 5: Documentation
 
-- [ ] Read `module-review-workflow.md`.
-- [ ] Run code review checklist.
-- [ ] Update `CHANGELOG.md` if users need to know about the change.
-- [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
+- [x] Read `module-documentation-workflow.md`.
+- [x] Add or update Diátaxis docs, including that `.terracotta-state.yml` should not be committed.
+- [x] Cross-link KDoc with `@see`.
+- [x] Run `mkdocs build --strict`.
 
 ## Notes
+
+- Design proposal `project/proposals/2026-07-state-management.md` is already written; Phase 1 is mainly review and checklist completion.
+- Design review fixed an overload conflict in `FileSystemStateSource`: the original secondary constructor `constructor(directory: Path)` conflicted with the primary `constructor(file: Path)` on the JVM. Replaced with companion factory methods `forFile` and `forDirectory`.
+- SpotlessApply cleaned up pre-existing unused imports in `TerracottaProject.kt` and `TerracottaConfigLoaderLinksTest.kt` so the full `:spotlessCheck` passes.
+- The state file is not yet wired into `terracottaPlan`/`terracottaApply` task actions because diff identity consumers are out of scope for this change. The Gradle plugin exposes the `stateFile` DSL property and convention; task-level load/save will follow once state consumers exist.
 
 <!-- Decisions, blockers, and discoveries go here as work progresses. -->
