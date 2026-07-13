@@ -6,6 +6,7 @@ import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.hangar.client.HangarCategories
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
 import io.github.beduality.terracotta.provider.hangar.client.toHangarCategories
+import io.github.beduality.terracotta.provider.hangar.mapper.HangarLicenseMapper
 
 /**
  * Applies Terracotta operations to Hangar by translating them into Hangar API calls.
@@ -37,12 +38,7 @@ class HangarRegistryProvider(
 
         for (operation in operations) {
             when (operation) {
-                is Operation.UpdateMetadata -> {
-                    updateMetadataOps.add(operation)
-                    if (!operation.newLicenseUrl.isNullOrBlank()) {
-                        logger.warn("Hangar does not support licenseUrl; the configured URL will not be published.")
-                    }
-                }
+                is Operation.UpdateMetadata -> updateMetadataOps.add(operation)
                 is Operation.UpdateDescription -> updateDescriptionOps.add(operation)
                 is Operation.UpdateCategories -> updateCategoriesOps.add(operation)
                 is Operation.UploadVersion -> client.uploadVersion(slug, operation.version)
@@ -65,7 +61,10 @@ class HangarRegistryProvider(
 
         val name = metadataOps.lastOrNull { it.nameChanged }?.newName ?: current?.name ?: ""
         val summary = metadataOps.lastOrNull { it.summaryChanged }?.newSummary ?: current?.description ?: ""
-        val license = metadataOps.lastOrNull { it.licenseChanged }?.newLicense ?: current?.license ?: ""
+        val license =
+            metadataOps.lastOrNull { it.licenseChanged }?.newLicense?.let { HangarLicenseMapper.toHangarLicense(it) }
+                ?: current?.license?.let { HangarLicenseMapper.toHangarLicense(it) }
+                ?: ""
         val description = descriptionOps.lastOrNull()?.newDescription ?: current?.body ?: ""
         val categories =
             categoriesOps.lastOrNull()?.newCategories?.toHangarCategories()

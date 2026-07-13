@@ -17,4 +17,5 @@ import io.github.beduality.terracotta.provider.hangar.mapper.HangarLoaderMapper
 object HangarProviderLogic : ProviderLogic {
     override val loaderMapper: LoaderMapper = HangarLoaderMapper
     override val platformBehavior: PlatformBehavior = HangarPlatformBehavior
+    override val supportsLicenseUrl: Boolean = false
 }

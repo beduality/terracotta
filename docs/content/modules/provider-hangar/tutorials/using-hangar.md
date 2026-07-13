@@ -158,6 +158,26 @@ Hangar does not expose a project creation API. Projects must be created manually
 
 Hangar does not expose an API for changing project visibility. When a plan includes an `UpdateVisibility` operation, the Hangar provider filters it out and logs a warning so the apply continues without failing.
 
+## License Mapping
+
+Terracotta's `license` field is a free-form identifier, but Hangar's project settings accept a fixed set of license values. The Hangar provider maps common identifiers to the values Hangar recognizes:
+
+| Terracotta License | Hangar License |
+|--------------------|----------------|
+| `MIT` | `MIT` |
+| `Apache-2.0` | `Apache 2.0` |
+| `GPL-3.0`, `GPL-3.0-only`, `GPL-2.0`, `GPL-2.0-only` | `GPL` |
+| `LGPL-3.0`, `LGPL-3.0-only`, `LGPL-2.0`, `LGPL-2.0-only` | `LGPL` |
+| `AGPL-3.0`, `AGPL-3.0-only` | `AGPL` |
+| `CC0-1.0`, `Unlicense` | `Unspecified` |
+| Unknown or custom | `Other` |
+
+Matching is case-insensitive. Unknown identifiers are sent as `Other` so Hangar can display them as a custom license.
+
+### License URL
+
+Hangar does not expose a `licenseUrl` field on its project API, so the value is not persisted. The Hangar provider reports this capability to the diff engine, which means a configured `licenseUrl` does **not** generate a recurring `UpdateMetadata` operation. Other providers such as Modrinth still receive the URL.
+
 ## Loader-to-Platform Mapping
 
 Hangar uses a coarser "platform" concept than individual loaders. Terracotta maps multiple Paper-ecosystem loaders to the same Hangar platform:

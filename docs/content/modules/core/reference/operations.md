@@ -40,6 +40,13 @@
 
 Licenses are compared case-insensitively to avoid false positives from capitalization differences.
 
+## License URL behavior
+
+Whether a `licenseUrl` difference produces an `UpdateMetadata` operation is provider-dependent. Each provider exposes a `supportsLicenseUrl` capability through its `ProviderLogic`:
+
+- Modrinth supports `licenseUrl`, so changes are emitted and applied.
+- Hangar does not support `licenseUrl`, so differences are ignored and the operation is not generated. This prevents a perpetual diff loop because Hangar's API cannot persist the value.
+
 ## Preprocessing
 
 `OperationPreprocessor.process` normalizes versions before upload:

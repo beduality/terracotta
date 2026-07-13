@@ -10,6 +10,7 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
+import io.github.beduality.terracotta.provider.hangar.mapper.HangarLicenseMapper
 import io.github.beduality.terracotta.provider.hangar.mapper.HangarLoaderMapper
 import io.github.beduality.terracotta.provider.hangar.model.HangarVersion
 
@@ -40,7 +41,7 @@ class HangarStateProvider(private val client: HangarClient) : StateProvider {
                     primary = TerracottaCategory(project.category ?: "unknown", project.category ?: "Unknown"),
                     additional = project.tags.map { TerracottaCategory(it, it) },
                 ),
-            license = project.license ?: "UNLICENSED",
+            license = project.license?.let { HangarLicenseMapper.fromHangarLicense(it) } ?: "UNLICENSED",
             links =
                 TerracottaProjectLinks(
                     homepage = project.homepage,
