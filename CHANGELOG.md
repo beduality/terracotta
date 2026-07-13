@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-07-13
+
 Tightens the changelog standard so `[Unreleased]` summaries are written as direct summaries and cannot be promoted with stale "unreleased" wording.
 
 ### Fixed
@@ -22,7 +24,6 @@ Tightens the changelog standard so `[Unreleased]` summaries are written as direc
 - Updated changelog guidelines to require direct summaries in `[Unreleased]`.
 - Updated `scripts/release.py` to reject `[Unreleased]` summaries that start with "This release...", "This unreleased...", or "These unreleased...".
 - Updated the plan generation workflow and template to remind users to write direct changelog summaries.
-
 ## [0.7.0] - 2026-07-13
 
 Narrows Hangar license handling by mapping common SPDX identifiers to Hangar's license values and stopping `licenseUrl` from generating a recurring metadata diff on providers that cannot persist it.

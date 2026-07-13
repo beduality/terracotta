@@ -1,6 +1,6 @@
 [project]
 name = "terracotta"
-version = "0.7.0"
+version = "0.7.1"
 description = "Declarative Minecraft project registry management tool"
 requires-python = ">=3.13"
 dependencies = [
