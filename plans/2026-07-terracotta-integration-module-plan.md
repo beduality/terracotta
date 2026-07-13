@@ -19,7 +19,7 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 | Brainstorm | Not started | Optional |
 | System design | Not started | |
 | Contract | Not started | |
-| Test-driven development | Not started | |
+| TDD | Not started | |
 | Implementation | Not started | |
 | Review | Not started | |
 | Documentation | Not started | |
@@ -49,6 +49,7 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 
 ## Phase 3: Contract
 
+- [ ] Create a feature branch from `main` after the design proposal is approved.
 - [ ] Read `project/methodology/module-contract-workflow.md`.
 - [ ] Verify the new module exposes no public API; there is no production source set.
 - [ ] Confirm test dependencies in `terracotta-integration/build.gradle.kts` cover the Gradle plugin, core, state filesystem, and any providers needed.
@@ -105,8 +106,8 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 ## Phase 9: Release report
 
 - [ ] Archive project artifacts used for this work:
-  - Move this plan to `project/plans/archived/2026-07-terracotta-integration-module-plan.md`.
-  - Move the design proposal to `project/designs/archived/26-07-12-add-module-integration.md` if it is no longer needed.
+  - Move this plan to `project/plans/archived/<plan>.md`.
+  - Move the design proposal to `project/designs/archived/<design>.md` if it is no longer needed.
   - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
 - [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 

@@ -5,7 +5,7 @@ description: Add provider-specific Hangar link configuration so users can custom
 # Add Hangar Provider-Specific Link Settings
 
 This plan follows `project/methodology/module-development-workflow.md` for a **new public API / major feature** that
- touches `terracotta-core`, `terracotta-provider-hangar`, `terracotta-gradle-plugin`, and `docs`.
+touches `terracotta-core`, `terracotta-provider-hangar`, `terracotta-gradle-plugin`, and `docs`.
 
 ## Source of truth
 
@@ -16,17 +16,17 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Phase 1: Brainstorm | Not started | Optional; design direction already discussed |
-| Phase 2: System design | Not started | |
-| Phase 3: Contract | Not started | |
-| Phase 4: Test-driven development | Not started | |
-| Phase 5: Implementation | Not started | |
-| Phase 6: Review | Not started | |
-| Phase 7: Documentation | Not started | |
-| Phase 8: Push and merge | Not started | |
-| Phase 9: Release report | Not started | |
+| Brainstorm | Not started | Optional |
+| System design | Not started | |
+| Contract | Not started | |
+| TDD | Not started | |
+| Implementation | Not started | |
+| Review | Not started | |
+| Documentation | Not started | |
+| Push and merge | Not started | |
+| Release report | Not started | |
 
-## Phase 1: Brainstorm (optional)
+## Phase 1: Brainstorm
 
 - [ ] Decide whether to skip this phase; the design direction was already discussed.
 - [ ] If open questions remain, open a brief `project/brainstorm/26-07-12-add-hangar-provider-link-settings.md` note.
@@ -96,9 +96,11 @@ This plan follows `project/methodology/module-development-workflow.md` for a **n
 
 ## Phase 9: Release report
 
-- [ ] Archive this plan to `project/plans/archived/2026-07-add-hangar-provider-link-settings-plan.md`.
-- [ ] Archive the design proposal to `project/designs/archived/26-07-12-add-hangar-provider-link-settings.md` if it is no longer needed.
-- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-add-hangar-provider-link-settings.md` and fill it out.
+- [ ] Archive project artifacts used for this work:
+  - Move this plan to `project/plans/archived/<plan>.md`.
+  - Move the design proposal to `project/designs/archived/<design>.md` if it is no longer needed.
+  - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
+- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 
 ## Notes
 

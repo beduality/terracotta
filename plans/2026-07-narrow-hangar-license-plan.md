@@ -4,12 +4,13 @@ description: Fix Hangar license mapping and stop licenseUrl from causing a recur
 
 # Narrow Hangar License Integration
 
-This plan follows `module-development-workflow.md` for a **bug fix** that
+This plan follows `project/methodology/module-development-workflow.md` for a **bug fix** that
 touches `terracotta-provider-hangar`, `terracotta-core`, and `docs`.
 
 ## Source of truth
 
-- Design proposal: `project/proposals/26-07-12-narrow-license-hangar.md`
+- TODO item: "Add [Narrow License](./designs/26-07-12-narrow-license-hangar.md)" (`project/TODO.md`)
+- Design proposal: `project/designs/26-07-12-narrow-license-hangar.md`
 
 ## Progress summary
 
@@ -21,7 +22,8 @@ touches `terracotta-provider-hangar`, `terracotta-core`, and `docs`.
 | Phase 3: Implementation | Not started | |
 | Phase 4: Review | Not started | |
 | Phase 5: Documentation | Not started | |
-| Phase 6: Push to remote | Not started | |
+| Phase 6: Push and merge | Not started | |
+| Phase 7: Release report | Not started | |
 
 ## Phase 0: Investigation
 
@@ -32,6 +34,7 @@ touches `terracotta-provider-hangar`, `terracotta-core`, and `docs`.
 
 ## Phase 1: Contract
 
+- [ ] Create a feature branch from `main` after the design proposal is approved.
 - [ ] Add a capability method (e.g. `supportsLicenseUrl`) to the provider SPI with a default implementation.
 - [ ] Define the `HangarLicenseMapper` interface/object contract.
 - [ ] Run `:<module>:compileKotlin` for affected modules.
@@ -66,10 +69,20 @@ touches `terracotta-provider-hangar`, `terracotta-core`, and `docs`.
 - [ ] Cross-link KDoc with `@see` where appropriate.
 - [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
 
-## Phase 6: Push to remote
+## Phase 6: Push and merge
 
-- [ ] Push the branch or merge the pull request to `main`.
-- [ ] Verify remote CI passes after the push or merge.
+- [ ] Push the branch and open a pull request to `main`.
+- [ ] Review the PR; address feedback and re-run checks.
+- [ ] Once CI is green, merge the pull request.
+- [ ] Observe CD and confirm the deployment succeeds.
+
+## Phase 7: Release report
+
+- [ ] Archive project artifacts used for this work:
+  - Move this plan to `project/plans/archived/<plan>.md`.
+  - Move the design proposal to `project/designs/archived/<design>.md` if it is no longer needed.
+  - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
+- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
 
 ## Notes
 

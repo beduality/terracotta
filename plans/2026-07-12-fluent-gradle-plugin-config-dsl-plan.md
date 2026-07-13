@@ -16,7 +16,7 @@ touches `terracotta-gradle-plugin`.
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Brainstorm | Not started | |
+| Brainstorm | Not started | Optional |
 | System design | Not started | |
 | Contract | Not started | |
 | TDD | Not started | |
