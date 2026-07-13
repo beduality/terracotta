@@ -11,10 +11,23 @@ This tutorial walks you through publishing a Minecraft plugin to Modrinth with T
 ## Prerequisites
 
 - The Terracotta Gradle plugin installed. See [Installing the Gradle plugin](../../modules/gradle-plugin/tutorials/installation.md).
+- The `terracotta-state-filesystem` module on your buildscript classpath (required for the default state backend).
 - A Modrinth account and API token.
 - A Gradle-based Minecraft plugin project with a JAR artifact.
 
-## 1. Configure the Modrinth provider
+## 1. Install the state backend
+
+If you have not already, add the filesystem state backend to your `build.gradle.kts`:
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath("io.github.beduality:terracotta-state-filesystem:0.8.0")
+    }
+}
+```
+
+## 2. Configure the Modrinth provider
 
 Create or edit `terracotta.yml` in your project root:
 
@@ -26,7 +39,7 @@ providers:
 
 Use your Modrinth project slug or ID.
 
-## 2. Set the token
+## 3. Set the token
 
 Export the token in your shell:
 
@@ -42,7 +55,7 @@ $env:MODRINTH_TOKEN="your_modrinth_token"
 
 Terracotta reads the token from the `MODRINTH_TOKEN` environment variable by default.
 
-## 3. Plan the release
+## 4. Plan the release
 
 Run the plan task to see what Terracotta will do:
 
@@ -52,7 +65,7 @@ Run the plan task to see what Terracotta will do:
 
 Review the project metadata, version, supported loaders, and game versions.
 
-## 4. Apply the release
+## 5. Apply the release
 
 When the plan looks correct, apply it:
 

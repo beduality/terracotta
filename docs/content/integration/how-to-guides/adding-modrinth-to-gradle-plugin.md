@@ -9,6 +9,7 @@ You need:
 - A Modrinth account.
 - A Modrinth API token from [Modrinth settings](https://modrinth.com/settings/tokens).
 - The Terracotta Gradle plugin installed.
+- The `terracotta-state-filesystem` module on your buildscript classpath (required for the default state backend).
 
 See the [Gradle plugin installation guide](../../modules/gradle-plugin/tutorials/installation.md) if you have not installed the plugin yet.
 
@@ -24,7 +25,7 @@ providers:
 
 Set the token as an environment variable. Terracotta uses the `<PROVIDER>_TOKEN` convention, so the variable name for Modrinth is `MODRINTH_TOKEN`:
 
-```=== "Linux / macOS"
+=== "Linux / macOS"
 
     ```bash
     export MODRINTH_TOKEN="your_modrinth_token"
@@ -35,7 +36,6 @@ Set the token as an environment variable. Terracotta uses the `<PROVIDER>_TOKEN`
     ```powershell
     $env:MODRINTH_TOKEN="your_modrinth_token"
     ```
-```
 
 Or set the token explicitly in `build.gradle.kts`:
 

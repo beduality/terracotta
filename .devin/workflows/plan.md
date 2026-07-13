@@ -4,7 +4,7 @@ description: Reusable workflow for generating an on-demand implementation plan f
 
 Triggered by `/plan`.
 
-This workflow follows `project/methodology/module-plan-generation-workflow.md`.
+This workflow follows `project/methodology/guides/plan.md`.
 
 1. **Decide if a plan is needed.**
    - If the change is trivial (one-line fix, typo, or single-file refactor), suggest skipping the plan and doing the work directly.
@@ -21,7 +21,7 @@ This workflow follows `project/methodology/module-plan-generation-workflow.md`.
    - Ask for the source of truth (TODO item, issue, or design) if known.
 
 3. **Choose the phase sequence.**
-   - Use the scope guidance in `project/methodology/module-development-workflow.md`:
+   - Use the scope guidance in `project/methodology/guides/development.md`:
 
      | Change type | Plan phases |
      |-------------|-------------|

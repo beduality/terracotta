@@ -27,6 +27,16 @@ plugins {
 }
 ```
 
+Then add the filesystem state backend to your buildscript classpath so Terracotta can persist run state:
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath("io.github.beduality:terracotta-state-filesystem:0.8.0")
+    }
+}
+```
+
 ## 2. Configure Terracotta
 
 Create a `terracotta.yml` in your project root:
@@ -49,7 +59,7 @@ Create a Modrinth API token from your Modrinth account settings.
 
 Set the token as an environment variable:
 
-```=== "Linux / macOS"
+=== "Linux / macOS"
 
     ```bash
     export MODRINTH_TOKEN="your_modrinth_token"

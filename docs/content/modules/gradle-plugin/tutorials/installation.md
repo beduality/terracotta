@@ -17,6 +17,20 @@ plugins {
 }
 ```
 
+### Filesystem state backend
+
+The Gradle plugin uses a pluggable state backend. To persist run state — which powers stable gallery image identities across runs — add the `terracotta-state-filesystem` module to your buildscript classpath:
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath("io.github.beduality:terracotta-state-filesystem:0.8.0")
+    }
+}
+```
+
+If the backend is missing, the build fails fast with an error listing the available factory IDs and the dependency coordinates needed to restore the default backend. See the [State Filesystem module docs](../../../terracotta-state-filesystem/README.md) for advanced configuration.
+
 ### Snapshots (optional)
 
 If you want to use snapshot versions, add the snapshot repository to your `settings.gradle.kts`:
