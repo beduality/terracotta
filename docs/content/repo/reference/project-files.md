@@ -17,7 +17,7 @@ Ideas and tasks that are not yet ready for implementation.
 - Use this for raw ideas, future investigations, and items waiting on other work.
 - Move items to `TODO.md` once they are well-defined and actionable.
 
-## `project/proposals/`
+## `project/designs/`
 
 Larger changes that need discussion before implementation.
 

@@ -35,7 +35,7 @@ git worktree add project origin/project
 You now have two views of the same repository:
 
 - `terracotta/` tracks `main` and contains code and docs.
-- `terracotta/project/` tracks the `project` branch and contains `TODO.md`, `BACKLOG.md`, and `proposals/`.
+- `terracotta/project/` tracks the `project` branch and contains `TODO.md`, `BACKLOG.md`, and `designs/`.
 
 ## 3. Find your way around
 

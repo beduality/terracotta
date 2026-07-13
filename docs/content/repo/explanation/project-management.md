@@ -21,7 +21,7 @@ Keeping planning on a dedicated branch means:
 
 - **`TODO.md`**: Concrete, actionable tasks that are ready for implementation.
 - **`BACKLOG.md`**: Ideas and tasks that need more investigation or prioritization.
-- **`project/proposals/`**: Larger changes that need discussion before implementation.
+- **`project/designs/`**: Larger changes that need discussion before implementation.
 
 For the mechanics of moving items between these files and opening planning PRs, see the [Contributing how-to guide](../how-to-guides/contributing.md) and [Project Files Reference](../reference/project-files.md).
 

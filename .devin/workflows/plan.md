@@ -18,29 +18,29 @@ This workflow follows `project/methodology/module-plan-generation-workflow.md`.
      - Refactoring
      - Documentation-only
    - Ask for the modules this plan touches, unless already provided.
-   - Ask for the source of truth (TODO item, issue, or proposal) if known.
+   - Ask for the source of truth (TODO item, issue, or design) if known.
 
 3. **Choose the phase sequence.**
    - Use the scope guidance in `project/methodology/module-development-workflow.md`:
 
      | Change type | Plan phases |
      |-------------|-------------|
-     | New module / major feature / new public API | Design → Tests → Implementation → Review → Docs |
-     | Bug fix | Investigation → Tests → Implementation → Review |
-     | Refactoring | Tests → Implementation → Review |
-     | Documentation-only | Docs → Review |
+     | New module / major feature / new public API | Brainstorm? → System design → Contract → Tests → Implementation → Review → Documentation → Push and merge → Release report |
+     | Bug fix | Investigation → Tests → Implementation → Review (→ Documentation → Push and merge → Release report if behavior changes) |
+     | Refactoring | Tests → Implementation → Review (→ Documentation → Push and merge → Release report if shared) |
+     | Documentation-only | Documentation → Review → Push and merge → Release report |
 
-4. **Read `project/plans/TEMPLATE.md`.**
+4. **Read `project/methodology/templates/plan.md`.**
 
 5. **Determine the filename.**
    - Use `YYYY-MM-<kebab-case-title>-plan.md` based on current year and month.
    - If `project/plans/<filename>` already exists, warn the user and ask for confirmation before overwriting.
 
-6. **Create the plan file from `TEMPLATE.md`.**
+6. **Create the plan file from `project/methodology/templates/plan.md`.**
    - Fill the YAML `description` frontmatter with the one-line summary.
    - Replace the `# <Title>` heading with the descriptive title.
    - Fill the intro sentence with the change type and affected modules.
-   - Fill the source-of-truth references (TODO item or proposal) when provided; otherwise leave placeholders.
+   - Fill the source-of-truth references (TODO item or design) when provided; otherwise leave placeholders.
    - Include **only the phases needed** for the selected change type:
      - Keep matching template phases as-is, mapped to the chosen sequence.
      - For **Bug fix**, prepend a `Phase 0: Investigation` checklist before the TDD phase.

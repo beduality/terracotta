@@ -42,5 +42,5 @@ It contains planning artifacts that evolve independently from `main`:
 
 - **`TODO.md`**: Concrete, actionable tasks ready for implementation.
 - **`BACKLOG.md`**: Ideas and tasks needing investigation or prioritization.
-- **`plans/`**: Implementation plans created from `plans/TEMPLATE.md`.
-- **`proposals/`**: Design proposals created from `proposals/TEMPLATE.md`.
+- **`plans/`**: Implementation plans created from `methodology/templates/plan.md`.
+- **`designs/`**: Design proposals created from `methodology/templates/design.md`.
