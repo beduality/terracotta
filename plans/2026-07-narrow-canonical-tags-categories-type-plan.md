@@ -20,9 +20,9 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 | Contract | Completed | Core models, config, resolver, Gradle DSL, providers |
 | Test-driven development | Completed | Existing tests updated to categories; new mapping tests can be added in follow-up |
 | Implementation | Completed | Category mapping implemented alongside contract |
-| Review | In progress | Auto-review passing; human review recommended for public API change |
+| Review | Completed | Auto-review and human review passed for public API change |
 | Documentation | Completed | Config schema, models, DSL, provider tutorials, explanations updated; build and mkdocs verified |
-| Push to remote | Not started | |
+| Push to remote | Completed | Merged via PR #2; CI passed |
 
 ## Phase 1: System design
 
@@ -77,7 +77,7 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 - [x] Read `module-review-workflow.md`.
 - [x] Run code review checklist.
 - [x] By default, confirm auto-review (tests, spotless, build) passes.
-- [ ] Escalate to human review because this changes public API and the Gradle DSL.
+- [x] Escalate to human review because this changes public API and the Gradle DSL.
 - [x] Update `CHANGELOG.md` to document the breaking change and migration path.
 
 ## Phase 6: Documentation
@@ -93,8 +93,8 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 
 ## Phase 7: Push to remote
 
-- [ ] Push the branch or merge the pull request to `main`.
-- [ ] Verify remote CI passes after the push or merge.
+- [x] Push the branch or merge the pull request to `main`.
+- [x] Verify remote CI passes after the push or merge.
 
 ## Notes
 
