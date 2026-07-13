@@ -88,6 +88,7 @@ object TerracottaConfigLoader {
         return list.map { map ->
             TerracottaGalleryItem(
                 imagePath = map.readString("path") ?: "",
+                key = map.readString("key"),
                 title = map.readString("title") ?: "",
                 description = map.readString("description") ?: "",
                 featured = map.readBoolean("featured") ?: false,

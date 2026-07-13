@@ -31,7 +31,8 @@ provider, `imagePath` holds the remote URL.
 | Field | Purpose | Default |
 |-------|---------|---------|
 | `imagePath` | Local file path or remote URL. | — |
-| `title` | Human-readable title used as the identity key. | `""` |
+| `key` | Optional stable local identity key. | `null` |
+| `title` | Human-readable title used as the fallback identity key. | `""` |
 | `description` | Optional longer description. | `""` |
 | `featured` | Whether the image is highlighted. | `false` |
 | `ordering` | Display order; lower values come first. | `0` |

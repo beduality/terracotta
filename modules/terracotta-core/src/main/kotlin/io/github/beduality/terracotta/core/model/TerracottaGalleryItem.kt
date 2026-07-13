@@ -5,7 +5,9 @@ package io.github.beduality.terracotta.core.model
  *
  * @property imagePath Local file path when declared in config, or remote URL when
  *   fetched from a provider.
- * @property title Human-readable title used as the stable identity key.
+ * @property key Optional stable local identity key. When omitted, the absolute
+ *   [imagePath] is used as the stable identity for cross-run matching.
+ * @property title Human-readable title used as the fallback identity key.
  * @property description Optional longer description.
  * @property featured Whether the image should be highlighted by the provider.
  * @property ordering Display order; lower values come first.
@@ -14,6 +16,8 @@ package io.github.beduality.terracotta.core.model
 data class TerracottaGalleryItem(
     /** Local file path or remote URL. */
     val imagePath: String,
+    /** Optional stable local identity key. */
+    val key: String? = null,
     /** Human-readable title used as identity key. */
     val title: String = "",
     /** Optional longer description. */

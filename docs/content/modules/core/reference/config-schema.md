@@ -47,13 +47,16 @@ Each entry under `gallery:` describes an image to associate with the project.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `path` | string | Yes | Local file path to the image. |
-| `title` | string | No | Human-readable title used as the stable identity key. |
+| `key` | string | No | Stable local identity key. When omitted, `path` is used as the identity. |
+| `title` | string | No | Human-readable title used as the fallback identity key. |
 | `description` | string | No | Optional longer description. |
 | `featured` | boolean | No | Whether the image should be highlighted by the provider. |
 | `ordering` | integer | No | Display order; lower values come first. |
 
-Identity matching uses the normalized title (trimmed and lowercased). When a title
-is not provided, items are matched by `ordering`.
+Identity matching first uses the stable `key` (or `path` when no key is set) by
+looking up the persisted gallery state from the previous run. When no persisted
+identity exists, it falls back to the normalized title (trimmed and lowercased).
+When a title is not provided, items are matched by `ordering`.
 
 ## Links block
 
@@ -104,6 +107,7 @@ changelog: "Initial release"
 
 gallery:
   - path: "docs/assets/screenshot.png"
+    key: "main-inventory"
     title: "Main inventory screen"
     description: "Shows the new GUI"
     featured: true

@@ -34,6 +34,7 @@ terracotta {
     gallery {
         register("screenshot") {
             imageFile.set(file("docs/assets/screenshot.png"))
+            key.set("main-inventory")
             title.set("Main inventory screen")
             description.set("Shows the new GUI")
             featured.set(true)
@@ -101,6 +102,7 @@ terracotta {
     gallery {
         register("screenshot") {
             imageFile.set(file("docs/assets/screenshot.png"))
+            key.set("main-inventory")
             title.set("Main inventory screen")
             description.set("Shows the new GUI")
             featured.set(true)
@@ -110,7 +112,12 @@ terracotta {
 }
 ```
 
-The `title` is used as the stable identity key: if you rename an image, Terracotta will delete the old image and upload a new one.
+The optional `key` provides a stable local identity for the image. When `key` is
+set, Terracotta matches the image across runs by that key, so changing the
+`title` or `ordering` updates the existing remote image instead of deleting and
+re-uploading it. If `key` is omitted, the image file path is used as the stable
+identity. When no persisted identity exists, `title` is used as the fallback
+matching key.
 
 ## Links configuration
 

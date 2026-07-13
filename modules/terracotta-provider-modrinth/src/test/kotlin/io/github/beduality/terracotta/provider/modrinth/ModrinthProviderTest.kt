@@ -710,7 +710,19 @@ class ModrinthProviderTest {
                     when {
                         request.method == HttpMethod.Post && request.url.encodedPath == "/project/my-mod/gallery" -> {
                             uploadedPaths.add(request.url.encodedPath)
-                            respond("", status = HttpStatusCode.OK)
+                            respond(
+                                content =
+                                    ByteReadChannel(
+                                        json.encodeToString(
+                                            ModrinthGalleryItem(
+                                                url = "https://cdn.modrinth.com/data/image.png",
+                                                title = "My Image",
+                                            ),
+                                        ),
+                                    ),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
                         }
                         else -> respond("", status = HttpStatusCode.NotFound)
                     }
@@ -734,11 +746,14 @@ class ModrinthProviderTest {
             val item =
                 io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
                     imagePath = imageFile.absolutePath,
+                    key = "my-image",
                     title = "My Image",
                 )
             registryProvider.apply("my-mod", listOf(Operation.UploadGalleryItem(item)))
 
             assertEquals(listOf("/project/my-mod/gallery"), uploadedPaths)
+            val identities = registryProvider.reportGalleryIdentities("my-mod", listOf(Operation.UploadGalleryItem(item)))
+            assertEquals("https://cdn.modrinth.com/data/image.png", identities["my-image"]?.remoteUrl)
         }
 
     @Test
@@ -775,11 +790,65 @@ class ModrinthProviderTest {
             val item =
                 io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
                     imagePath = "https://cdn/image.png",
+                    key = "my-image",
                     title = "My Image",
                 )
             registryProvider.apply("my-mod", listOf(Operation.DeleteGalleryItem(item)))
 
             assertEquals(listOf("https://cdn/image.png"), deletedUrls)
+            val identities = registryProvider.reportGalleryIdentities("my-mod", listOf(Operation.DeleteGalleryItem(item)))
+            assertTrue(identities.isEmpty())
+        }
+
+    @Test
+    fun `test ModrinthRegistryProvider reports update gallery identity with existing url`() =
+        runTest {
+            val patchedUrls = mutableListOf<String>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.method == HttpMethod.Patch && request.url.encodedPath == "/project/my-mod/gallery" -> {
+                            request.url.parameters["url"]?.let { patchedUrls.add(it) }
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = "test-token", baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
+
+            val oldItem =
+                io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
+                    imagePath = "https://cdn/image.png",
+                    key = "my-image",
+                    title = "Old Title",
+                )
+            val newItem =
+                io.github.beduality.terracotta.core.model.TerracottaGalleryItem(
+                    imagePath = "https://cdn/image.png",
+                    key = "my-image",
+                    title = "New Title",
+                )
+            val operations = listOf(Operation.UpdateGalleryItem(oldItem, newItem))
+            registryProvider.apply("my-mod", operations)
+
+            assertEquals(listOf("https://cdn/image.png"), patchedUrls)
+            val identities = registryProvider.reportGalleryIdentities("my-mod", operations)
+            assertEquals("https://cdn/image.png", identities["my-image"]?.remoteUrl)
         }
 
     @Test

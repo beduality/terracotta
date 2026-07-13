@@ -88,6 +88,25 @@ interface RegistryProvider {
 }
 ```
 
+### GalleryIdentityReporter
+
+Optional capability for providers that can report the stable identities that
+resulted from applying gallery operations. The Gradle plugin merges these
+identities into the persisted `TerracottaState` after a successful apply.
+
+```kotlin
+interface GalleryIdentityReporter {
+    suspend fun reportGalleryIdentities(
+        projectId: String,
+        operations: List<Operation>,
+    ): Map<String, GalleryItemIdentity>
+}
+```
+
+Providers can capture identities from upload responses, re-fetch the remote
+gallery list after applying operations, or return an empty map if gallery
+identities are not supported.
+
 ### BaseRegistryProvider
 
 A base class for concrete registry providers. It owns the provider's logger, platform identifier, and skipped-operation logging. It filters incoming operations using the injected `ProviderLogic` and delegates the remaining operations to `applySupported`.

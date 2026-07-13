@@ -61,6 +61,7 @@ internal object TerracottaExtensionConfigurer {
         resolved.gallery.forEachIndexed { index, item ->
             extension.gallery.create("galleryItem$index") { galleryItem: TerracottaGalleryExtension ->
                 galleryItem.imageFile.set(project.file(item.imagePath))
+                item.key?.let { galleryItem.key.set(it) }
                 galleryItem.title.set(item.title)
                 galleryItem.description.set(item.description)
                 galleryItem.featured.set(item.featured)
