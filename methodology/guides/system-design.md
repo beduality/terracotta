@@ -8,8 +8,8 @@ A repeatable workflow for designing a `terracotta-*` module before tests,
 implementation, or documentation. Output is a stable mental model and a
 reviewable design proposal.
 
-This is Phase 1 of the module development workflow. Start with
-`module-development-workflow.md` if you have not read it.
+This is Phase 2 of the module development workflow. Start with
+`development.md` if you have not read it.
 
 ## 1. Define the problem and scope
 
@@ -118,7 +118,7 @@ Review against production attributes and update where gaps appear:
 
 ## 11. Write the design proposal
 
-Capture the design in a short proposal under `project/proposals/`. Include:
+Capture the design in a short proposal under `project/designs/<module>-design.md`. Include:
 
 - Problem statement and scope.
 - Public API sketch.

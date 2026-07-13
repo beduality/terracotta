@@ -7,8 +7,8 @@ description: Reusable TDD workflow for adding automated tests to a Terracotta mo
 A repeatable test-first workflow for adding behavior to any `terracotta-*` module.
 The goal is to write a failing test before writing the implementation, then iterate.
 
-This is Phase 2 of the module development workflow. Start with
-`module-development-workflow.md` if you have not read it.
+This is Phase 4 of the module development workflow. Start with
+`development.md` if you have not read it.
 
 ## Test framework and location
 

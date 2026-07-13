@@ -23,7 +23,17 @@ Before approving a design proposal:
 - Error handling and configuration strategies are explicit.
 - Open questions and risks are listed.
 
-## 2. Code review
+## 2. Contract review
+
+Before approving a public API contract:
+
+- The contract matches the approved design proposal.
+- Public symbols are stable, minimal, and covered by KDoc.
+- Implementation details are not leaked into the public API.
+- Extension points and seams are explicit.
+- `:<module>:compileKotlin` passes.
+
+## 3. Code review
 
 Before approving an implementation:
 
@@ -35,7 +45,7 @@ Before approving an implementation:
 - `spotlessCheck` passes.
 - The full module build passes (`:<module>:build`).
 
-## 3. Documentation review
+## 4. Documentation review
 
 Before approving documentation:
 
@@ -45,11 +55,11 @@ Before approving documentation:
 - `mkdocs build --strict` passes.
 - Spelling and grammar are correct.
 
-## 4. Merge / release review
+## 5. Merge / release review
 
 Before merging or releasing:
 
-- The change matches the scope guidance in `module-development-workflow.md`.
+- The change matches the scope guidance in `development.md`.
 - `CHANGELOG.md` is updated if users need to know about the change.
 - CI is green.
 

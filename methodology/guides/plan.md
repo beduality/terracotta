@@ -42,7 +42,7 @@ When you reach a phase in the plan, follow its dedicated guide:
 
 ## 3. Generate the plan file
 
-Create `project/plans/YYYY-MM-<short-name>-plan.md` from `project/plans/TEMPLATE.md`.
+Create `project/plans/YYYY-MM-<short-name>-plan.md` from `project/methodology/templates/plan.md`.
 
 Fill in:
 

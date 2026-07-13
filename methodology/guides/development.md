@@ -12,7 +12,7 @@ For shared conventions, see `README.md` in this directory.
 
 Main sequence: `Brainstorm (optional) → System design → Contract → Tests → Implementation → Review → Documentation → Push and merge → Release report`
 
-Bug-fix sequence: `Investigation → Tests → Implementation → Review → Documentation → Push and merge → Release report`
+Bug-fix sequence: `Investigation → Tests → Implementation → Review (→ Documentation → Push and merge → Release report if behavior changes)`
 
 Every change passes through **Review** and is pushed to **remote** before release.
 
@@ -45,7 +45,7 @@ Every change passes through **Review** and is pushed to **remote** before releas
 
 **Goal**: define responsibilities, public API, and system fit.
 
-**Read**: `project/methodology/module-system-design-workflow.md`
+**Read**: `system-design.md`
 
 **Output before proceeding**:
 
@@ -64,7 +64,7 @@ overlap with an existing module.
 
 **Goal**: turn the approved design into a stable, KDoc-covered public interface before tests and implementation.
 
-**Read**: `project/methodology/module-contract-workflow.md`
+**Read**: `contract.md`
 
 **Input from design phase**:
 
@@ -85,7 +85,7 @@ overlap with an existing module.
 - KDoc-covered contract source files.
 - Passing `:<module>:compileKotlin`.
 
-**Stop if**: the contract cannot be written without leaking implementation details, or the design needs revision. Return to Phase 1.
+**Stop if**: the contract cannot be written without leaking implementation details, or the design needs revision. Return to Phase 2 (System design).
 
 ---
 
@@ -93,7 +93,7 @@ overlap with an existing module.
 
 **Goal**: write executable specifications before production code exists.
 
-**Read**: `project/methodology/module-testing-workflow.md`
+**Read**: `testing.md`
 
 **Input from contract phase**:
 
@@ -115,7 +115,7 @@ that the design needs to change. In that case, return to Phase 1 or Phase 2.
 
 **Goal**: make failing tests pass with a production-ready implementation.
 
-**Read**: `project/methodology/module-implementation-workflow.md`
+**Read**: `implementation.md`
 
 **Input from TDD phase**:
 
@@ -144,7 +144,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 **Goal**: validate the change against the review checklists.
 
-**Read**: `project/methodology/module-review-workflow.md`
+**Read**: `review.md`
 
 **Input from implementation phase**:
 
@@ -171,7 +171,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 
 **Goal**: publish user-facing guides and cross-linked API reference.
 
-**Read**: `project/methodology/module-documentation-workflow.md`
+**Read**: `documentation.md`
 
 **Input from review phase**:
 
@@ -278,7 +278,7 @@ Insert **Contract** before Tests for bug fixes or refactorings that introduce a 
 
 ## Review gates
 
-Run `module-review-workflow.md` before moving forward. By default, **auto-review** is sufficient; escalate to human review only when blocked on taste, direction, or high-stakes decisions (e.g., public API, build configuration, security-sensitive, or multi-module changes).
+Run `review.md` before moving forward. By default, **auto-review** is sufficient; escalate to human review only when blocked on taste, direction, or high-stakes decisions (e.g., public API, build configuration, security-sensitive, or multi-module changes).
 
 - **Design review** before contract.
 - **Contract review** before tests.

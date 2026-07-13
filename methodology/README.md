@@ -14,15 +14,15 @@ Each workflow packages an established practice:
 
 | Workflow file | Established practice |
 |---|---|
-| `module-development-workflow.md` | Phase-gated development, design-first / API-first planning |
-| `module-system-design-workflow.md` | Modular design, ports-and-adapters / clean architecture |
-| `module-contract-workflow.md` | Interface-first / API contract writing with KDoc |
-| `module-testing-workflow.md` | Test-driven development (TDD), behavior-driven testing |
-| `module-implementation-workflow.md` | Refactoring, composability, type safety |
-| `module-documentation-workflow.md` | Diátaxis documentation framework |
-| `module-bugfix-workflow.md` | Root-cause analysis, regression testing, minimal fixes |
-| `module-review-workflow.md` | Code review gates, merge / release review |
-| `module-plan-generation-workflow.md` | On-demand plans from TODO/backlog items with checkbox tracking |
+| `guides/development.md` | Phase-gated development, design-first / API-first planning |
+| `guides/system-design.md` | Modular design, ports-and-adapters / clean architecture |
+| `guides/contract.md` | Interface-first / API contract writing with KDoc |
+| `guides/testing.md` | Test-driven development (TDD), behavior-driven testing |
+| `guides/implementation.md` | Refactoring, composability, type safety |
+| `guides/documentation.md` | Diátaxis documentation framework |
+| `guides/bugfix.md` | Root-cause analysis, regression testing, minimal fixes |
+| `guides/review.md` | Code review gates, merge / release review |
+| `guides/plan.md` | On-demand plans from TODO/backlog items with checkbox tracking |
 
 ## What is distinctive here
 
@@ -45,15 +45,15 @@ and observability, and contributor onboarding.
 
 Highest-ROI extensions to add next:
 
-- `module-release-workflow.md` — version bump, changelog, publish.
-- `module-hotfix-workflow.md` — critical-patch path.
-- `module-spike-workflow.md` — exploratory work before design.
+- `guides/release.md` — version bump, changelog, publish.
+- `guides/hotfix.md` — critical-patch path.
+- `guides/spike.md` — exploratory work before design.
 
 ## How to use this directory
 
 1. If starting from `project/TODO.md` or `project/BACKLOG.md`, run
-   `module-plan-generation-workflow.md` to create a focused, checkable plan.
-2. Read `module-development-workflow.md` to choose the right sequence.
+   `guides/plan.md` to create a focused, checkable plan.
+2. Read `guides/development.md` to choose the right sequence.
 3. Follow the linked child workflow for your current phase.
 4. Use this file for shared placeholders and commit/release conventions.
 

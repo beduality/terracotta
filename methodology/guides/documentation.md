@@ -7,8 +7,8 @@ description: Reusable workflow for adding user-facing documentation and KDoc cro
 A repeatable plan for documenting any `terracotta-*` module, keeping user docs,
 reference docs, and API docs aligned.
 
-This is Phase 4 of the module development workflow. Start with
-`module-development-workflow.md` if you have not read it.
+This is Phase 7 of the module development workflow. Start with
+`development.md` if you have not read it.
 
 ## 1. Create isolated module documentation
 

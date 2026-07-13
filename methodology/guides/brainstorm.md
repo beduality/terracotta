@@ -42,7 +42,7 @@ End the session with one of:
 
 If a direction was chosen:
 
-- Update or create the design proposal in `project/designs/<design>.md`.
+- Update or create the design proposal in `project/designs/<module>-design.md`.
 - Update `project/plans/<plan>.md` to reflect the chosen approach.
 
 If the work is larger than expected, return to planning or split the work into smaller items.

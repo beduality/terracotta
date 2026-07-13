@@ -8,8 +8,8 @@ A repeatable workflow for turning a failing test suite into a production-ready
 implementation in any `terracotta-*` module. Runs after the TDD workflow and
 focuses on maintainable, composable, well-documented code.
 
-This is Phase 3 of the module development workflow. Start with
-`module-development-workflow.md` if you have not read it.
+This is Phase 5 of the module development workflow. Start with
+`development.md` if you have not read it.
 
 ## 1. Start from the failing tests
 

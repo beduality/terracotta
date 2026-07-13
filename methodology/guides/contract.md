@@ -42,5 +42,5 @@ data classes — that captures the design proposal without implementation detail
 
 ## Stop if
 
-- The contract cannot be expressed without leaking implementation details. Return to Phase 1.
+- The contract cannot be expressed without leaking implementation details. Return to Phase 2 (System design).
 - The design proposal needs revision because the contract surface is too large or unstable.
