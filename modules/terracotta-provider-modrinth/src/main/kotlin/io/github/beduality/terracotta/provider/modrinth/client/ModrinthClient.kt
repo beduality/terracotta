@@ -259,7 +259,14 @@ class ModrinthClient(
                 put("title", project.name)
                 put("description", project.summary)
                 put("body", project.description)
-                put("categories", buildJsonArray { project.tags.forEach { add(it) } })
+                val modrinthCategories = project.categories.toModrinthCategories()
+                put("categories", buildJsonArray { modrinthCategories.featured.forEach { add(it) } })
+                if (modrinthCategories.additional.isNotEmpty()) {
+                    put(
+                        "additional_categories",
+                        buildJsonArray { modrinthCategories.additional.forEach { add(it) } },
+                    )
+                }
                 put("client_side", environment.toModrinthClientSide())
                 put("server_side", environment.toModrinthServerSide())
                 put("project_type", "mod")

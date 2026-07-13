@@ -13,6 +13,8 @@ data class HangarProject(
     val description: String = "",
     /** Full project description. */
     val body: String = "",
+    /** Project category. */
+    val category: String? = null,
     /** Project tags. */
     val tags: List<String> = emptyList(),
     /** License identifier. */

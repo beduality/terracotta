@@ -9,9 +9,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**Core**
+
+- Added `TerracottaCategory` and `TerracottaProjectCategories` models for structured project categories.
+
 **Docs**
 
 - Simplified homepage, integration tutorial, and getting-started docs to feature Modrinth as the default single provider, moving Hangar coverage to a follow-up how-to guide.
+
+### Changed
+
+**Core**
+
+- Replaced free-form `tags: List<String>` on `TerracottaProject` with structured `categories: TerracottaProjectCategories`.
+- Replaced `Operation.UpdateTags` with `Operation.UpdateCategories` carrying `TerracottaProjectCategories`.
+- Updated `DiffEngine` to compare and emit category changes via `UpdateCategories`.
+
+**Gradle Plugin**
+
+- Replaced the `tags` DSL property with a nested `categories { ... }` block (`TerracottaCategoriesExtension` and `TerracottaCategoryExtension`).
+- Updated `TerracottaPlanTask` and `TerracottaApplyTask` to wire categories into the resolved project metadata.
+
+**Modrinth**
+
+- `ModrinthStateProvider.fetchProject` maps Modrinth `categories` and `additional_categories` to `TerracottaProjectCategories`.
+- `ModrinthRegistryProvider` applies `UpdateCategories` to Modrinth featured and additional categories.
+- `ModrinthClient.createProject` and `updateProject` serialize Terracotta categories using the Modrinth featured / additional split.
+
+**Hangar**
+
+- `HangarStateProvider.fetchProject` maps Hangar `category` and `tags` to `TerracottaProjectCategories`.
+- `HangarRegistryProvider` applies `UpdateCategories` by mapping the primary category and recognized tags back to Hangar's model.
+- `HangarPlatformBehavior` filters on `UpdateCategories` instead of `UpdateTags`.
 
 ## [0.6.0] - 2026-07-12
 

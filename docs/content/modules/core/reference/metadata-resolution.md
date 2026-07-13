@@ -18,7 +18,7 @@ From highest to lowest priority:
 | `name` | `config.name` | `detected.name` | `source.name` | `""` |
 | `summary` | `config.summary` | `detected.summary` | `source.summary` | `""` |
 | `description` | `config.description` | `detected.description` | — | `""` |
-| `tags` | `config.tags` | — | — | `emptyList()` |
+| `categories` | `config.categories` | — | — | `TerracottaProjectCategories(...)` |
 | `license` | `config.license` | `detected.license` | — | `""` |
 | `gameVersions` | `config.gameVersions` | `detected.gameVersions` | — | `emptyList()` |
 | `loaders` | `config.loaders` | `detected.loaders` | — | `emptyList()` |

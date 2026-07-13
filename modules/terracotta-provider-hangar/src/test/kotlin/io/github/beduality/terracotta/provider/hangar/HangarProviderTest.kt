@@ -1,9 +1,11 @@
 package io.github.beduality.terracotta.provider.hangar
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -55,7 +57,8 @@ class HangarProviderTest {
                     name = "My Plugin",
                     description = "A test plugin",
                     body = "Test description",
-                    tags = listOf("utility"),
+                    category = "utility",
+                    tags = emptyList(),
                     license = "MIT",
                 )
             val hangarVersion =
@@ -114,7 +117,7 @@ class HangarProviderTest {
             assertEquals("My Plugin", terracottaProject?.name)
             assertEquals("A test plugin", terracottaProject?.summary)
             assertEquals("Test description", terracottaProject?.description)
-            assertEquals(listOf("utility"), terracottaProject?.tags)
+            assertEquals("utility", terracottaProject?.categories?.primary?.id)
             assertEquals("MIT", terracottaProject?.license)
             assertEquals(1, terracottaProject?.versions?.size)
             assertEquals("1.0.0", terracottaProject?.versions?.firstOrNull()?.version)
@@ -290,7 +293,10 @@ class HangarProviderTest {
                         newLinks = TerracottaProjectLinks(),
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
-                    Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
+                    Operation.UpdateCategories(
+                        oldCategories = categories("old"),
+                        newCategories = categories("new", "tag"),
+                    ),
                 )
 
             registryProvider.apply("my-plugin", operations)
@@ -301,7 +307,7 @@ class HangarProviderTest {
             assertEquals("New summary", body["description"]?.jsonPrimitive?.content)
             assertEquals("New body", body["body"]?.jsonPrimitive?.content)
             assertEquals("MIT", body["license"]?.jsonPrimitive?.content)
-            assertEquals(listOf("new", "tag"), body["tags"]?.jsonArray?.map { it.jsonPrimitive.content })
+            assertTrue(body["tags"]?.jsonArray?.isEmpty() ?: true)
         }
 
     @Test
@@ -325,7 +331,7 @@ class HangarProviderTest {
                     summary = "Summary",
                     description = "Description",
                     versions = emptyList(),
-                    tags = emptyList(),
+                    categories = categories(),
                     license = "MIT",
                     licenseUrl = "https://example.com/LICENSE",
                 )
@@ -1197,4 +1203,12 @@ class HangarProviderTest {
             assertEquals("ko-fi", terracottaProject?.links?.donations?.firstOrNull()?.platform)
             assertEquals("https://ko-fi.com/dsl", terracottaProject?.links?.donations?.firstOrNull()?.url)
         }
+
+    private fun categories(vararg ids: String): TerracottaProjectCategories {
+        val primary = ids.firstOrNull() ?: "default"
+        return TerracottaProjectCategories(
+            primary = TerracottaCategory(primary, primary),
+            additional = ids.drop(1).map { TerracottaCategory(it, it) },
+        )
+    }
 }

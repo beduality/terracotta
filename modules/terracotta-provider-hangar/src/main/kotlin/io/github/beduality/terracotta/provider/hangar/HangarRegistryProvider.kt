@@ -3,7 +3,9 @@ package io.github.beduality.terracotta.provider.hangar
 import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
 import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
+import io.github.beduality.terracotta.provider.hangar.client.HangarCategories
 import io.github.beduality.terracotta.provider.hangar.client.HangarClient
+import io.github.beduality.terracotta.provider.hangar.client.toHangarCategories
 
 /**
  * Applies Terracotta operations to Hangar by translating them into Hangar API calls.
@@ -31,7 +33,7 @@ class HangarRegistryProvider(
         var slug = projectId
         val updateMetadataOps = mutableListOf<Operation.UpdateMetadata>()
         val updateDescriptionOps = mutableListOf<Operation.UpdateDescription>()
-        val updateTagsOps = mutableListOf<Operation.UpdateTags>()
+        val updateCategoriesOps = mutableListOf<Operation.UpdateCategories>()
 
         for (operation in operations) {
             when (operation) {
@@ -42,14 +44,14 @@ class HangarRegistryProvider(
                     }
                 }
                 is Operation.UpdateDescription -> updateDescriptionOps.add(operation)
-                is Operation.UpdateTags -> updateTagsOps.add(operation)
+                is Operation.UpdateCategories -> updateCategoriesOps.add(operation)
                 is Operation.UploadVersion -> client.uploadVersion(slug, operation.version)
                 else -> throw UnsupportedOperationException("Unexpected operation for Hangar: ${operation.description}")
             }
         }
 
-        if (updateMetadataOps.isNotEmpty() || updateDescriptionOps.isNotEmpty() || updateTagsOps.isNotEmpty()) {
-            applyMetadataUpdates(slug, updateMetadataOps, updateDescriptionOps, updateTagsOps)
+        if (updateMetadataOps.isNotEmpty() || updateDescriptionOps.isNotEmpty() || updateCategoriesOps.isNotEmpty()) {
+            applyMetadataUpdates(slug, updateMetadataOps, updateDescriptionOps, updateCategoriesOps)
         }
     }
 
@@ -57,7 +59,7 @@ class HangarRegistryProvider(
         slug: String,
         metadataOps: List<Operation.UpdateMetadata>,
         descriptionOps: List<Operation.UpdateDescription>,
-        tagsOps: List<Operation.UpdateTags>,
+        categoriesOps: List<Operation.UpdateCategories>,
     ) {
         val current = client.getProject(slug)
 
@@ -65,7 +67,12 @@ class HangarRegistryProvider(
         val summary = metadataOps.lastOrNull { it.summaryChanged }?.newSummary ?: current?.description ?: ""
         val license = metadataOps.lastOrNull { it.licenseChanged }?.newLicense ?: current?.license ?: ""
         val description = descriptionOps.lastOrNull()?.newDescription ?: current?.body ?: ""
-        val tags = tagsOps.lastOrNull()?.newTags ?: current?.tags ?: emptyList()
+        val categories =
+            categoriesOps.lastOrNull()?.newCategories?.toHangarCategories()
+                ?: HangarCategories(
+                    category = current?.category ?: "",
+                    tags = current?.tags ?: emptyList(),
+                )
         val links = metadataOps.lastOrNull { it.linksChanged }?.newLinks
 
         client.updateProject(
@@ -74,7 +81,8 @@ class HangarRegistryProvider(
             summary = summary,
             description = description,
             license = license,
-            tags = tags,
+            category = categories.category,
+            tags = categories.tags,
             links = links,
         )
     }

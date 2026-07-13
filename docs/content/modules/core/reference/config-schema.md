@@ -9,7 +9,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `name` | string | No | Project display name. |
 | `summary` | string | No | Short description. |
 | `description` | string | No | Full description. |
-| `tags` | list of strings | No | Search tags. |
+| `categories` | map | No | Project categories with `primary` and `additional`. |
 | `license` | string | No | SPDX license identifier. |
 | `licenseUrl` | string | No | Optional URL to the full license text. Forwarded to Modrinth; ignored by Hangar. |
 | `icon` | string | No | Path to the project icon file. Uploaded to Modrinth; skipped by Hangar. |
@@ -81,9 +81,13 @@ Each entry under `links:` is optional. Unknown keys are preserved in the `other`
 name: "My Plugin"
 summary: "Lightweight Paper plugin"
 description: "A useful plugin."
-tags:
-  - paper
-  - utility
+categories:
+  primary:
+    id: paper
+    displayName: Paper
+  additional:
+    - id: utility
+      displayName: Utility
 license: "MIT"
 licenseUrl: "https://github.com/example/my-plugin/blob/main/LICENSE"
 icon: "docs/assets/icon.png"

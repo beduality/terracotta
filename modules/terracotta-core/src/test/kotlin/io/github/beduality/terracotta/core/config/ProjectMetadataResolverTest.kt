@@ -120,7 +120,7 @@ class ProjectMetadataResolverTest {
         assertEquals("", result.name)
         assertEquals("", result.summary)
         assertEquals("", result.description)
-        assertEquals(emptyList<String>(), result.tags)
+        assertEquals("uncategorized", result.categories.primary.id)
         assertEquals("", result.license)
         assertEquals(emptyList<String>(), result.gameVersions)
         assertEquals(emptyList<String>(), result.loaders)

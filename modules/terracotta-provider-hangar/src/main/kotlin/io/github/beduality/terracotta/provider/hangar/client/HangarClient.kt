@@ -152,6 +152,7 @@ class HangarClient(
         summary: String,
         description: String,
         license: String,
+        category: String,
         tags: List<String>,
         links: TerracottaProjectLinks? = null,
     ) {
@@ -161,6 +162,7 @@ class HangarClient(
                 put("description", summary)
                 put("body", description)
                 put("license", license)
+                put("category", category)
                 put("tags", buildJsonArray { tags.forEach { add(it) } })
                 links?.homepage?.let { put("homepage", it) }
                 links?.source?.let { put("source", it) }

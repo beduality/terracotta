@@ -4,6 +4,7 @@ import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
 import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.client.toModrinthCategories
 
 /**
  * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
@@ -62,8 +63,14 @@ class ModrinthRegistryProvider(
                 is Operation.UpdateDescription -> {
                     client.patchProject(resolvedProjectId, mapOf("body" to op.newDescription))
                 }
-                is Operation.UpdateTags -> {
-                    client.patchProject(resolvedProjectId, mapOf("categories" to op.newTags))
+                is Operation.UpdateCategories -> {
+                    val modrinthCategories = op.newCategories.toModrinthCategories()
+                    val patches = mutableMapOf<String, Any>()
+                    patches["categories"] = modrinthCategories.featured
+                    if (modrinthCategories.additional.isNotEmpty()) {
+                        patches["additional_categories"] = modrinthCategories.additional
+                    }
+                    client.patchProject(resolvedProjectId, patches)
                 }
                 is Operation.UploadVersion -> {
                     client.createVersion(resolvedProjectId, op.version)

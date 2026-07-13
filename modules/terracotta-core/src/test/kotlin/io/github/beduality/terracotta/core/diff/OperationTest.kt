@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -17,7 +19,7 @@ class OperationTest {
                 summary = "A summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = TerracottaProjectCategories(primary = TerracottaCategory("utility", "Utility")),
                 license = "MIT",
             )
         val op = Operation.CreateProject(project)
@@ -44,11 +46,19 @@ class OperationTest {
     }
 
     @Test
-    fun `UpdateTags description contains tilde prefix and both old and new tag values`() {
+    fun `UpdateCategories description contains tilde prefix and both old and new category values`() {
         val op =
-            Operation.UpdateTags(
-                oldTags = listOf("utility", "paper"),
-                newTags = listOf("utility", "fabric"),
+            Operation.UpdateCategories(
+                oldCategories =
+                    TerracottaProjectCategories(
+                        primary = TerracottaCategory("utility", "Utility"),
+                        additional = listOf(TerracottaCategory("paper", "Paper")),
+                    ),
+                newCategories =
+                    TerracottaProjectCategories(
+                        primary = TerracottaCategory("utility", "Utility"),
+                        additional = listOf(TerracottaCategory("fabric", "Fabric")),
+                    ),
             )
 
         assertTrue(op.description.contains("~"))

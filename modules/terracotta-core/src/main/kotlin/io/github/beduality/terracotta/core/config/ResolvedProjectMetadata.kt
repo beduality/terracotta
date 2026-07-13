@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
@@ -18,8 +19,8 @@ data class ResolvedProjectMetadata(
     val summary: String,
     /** Full project description. */
     val description: String,
-    /** Search tags. */
-    val tags: List<String>,
+    /** Project categories. */
+    val categories: TerracottaProjectCategories,
     /** SPDX license identifier. */
     val license: String,
     /** Optional URL to the full license text. */

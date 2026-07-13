@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -157,9 +159,12 @@ class OperationPreprocessorPropertyTest {
                     listOf(
                         Operation.UpdateDescription("old", "new"),
                     ),
-                "single UpdateTags" to
+                "single UpdateCategories" to
                     listOf(
-                        Operation.UpdateTags(listOf("a"), listOf("b")),
+                        Operation.UpdateCategories(
+                            TerracottaProjectCategories(primary = TerracottaCategory("a", "A")),
+                            TerracottaProjectCategories(primary = TerracottaCategory("b", "B")),
+                        ),
                     ),
                 "mixed operations (5)" to
                     listOf(
@@ -167,7 +172,13 @@ class OperationPreprocessorPropertyTest {
                         Operation.UploadVersion(sampleVersions[1]),
                         Operation.UpdateMetadata(true, true, false, false, false, "n", "s", "", null, TerracottaProjectLinks()),
                         Operation.UpdateDescription("old", "new"),
-                        Operation.UpdateTags(listOf("x"), listOf("y", "z")),
+                        Operation.UpdateCategories(
+                            TerracottaProjectCategories(primary = TerracottaCategory("x", "X")),
+                            TerracottaProjectCategories(
+                                primary = TerracottaCategory("y", "Y"),
+                                additional = listOf(TerracottaCategory("z", "Z")),
+                            ),
+                        ),
                     ),
                 "multiple UploadVersion (10)" to
                     sampleVersions.take(10).map {
@@ -190,7 +201,7 @@ class OperationPreprocessorPropertyTest {
     /**
      * Property 4: Pass-Through for Non-Version Operations
      *
-     * For UpdateMetadata, UpdateDescription, and UpdateTags operations,
+     * For UpdateMetadata, UpdateDescription, and UpdateCategories operations,
      * preprocessed output equals input (identity transformation).
      *
      * **Validates: Requirement 3.3**
@@ -235,25 +246,47 @@ class OperationPreprocessorPropertyTest {
                         oldDescription = "A very long old description with lots of details",
                         newDescription = "A very long new description with even more details",
                     ),
-                "UpdateTags(single to single)" to
-                    Operation.UpdateTags(
-                        oldTags = listOf("adventure"),
-                        newTags = listOf("utility"),
+                "UpdateCategories(single to single)" to
+                    Operation.UpdateCategories(
+                        oldCategories = TerracottaProjectCategories(primary = TerracottaCategory("adventure", "Adventure")),
+                        newCategories = TerracottaProjectCategories(primary = TerracottaCategory("utility", "Utility")),
                     ),
-                "UpdateTags(multiple to multiple)" to
-                    Operation.UpdateTags(
-                        oldTags = listOf("combat", "pvp", "arena"),
-                        newTags = listOf("pve", "survival", "economy"),
+                "UpdateCategories(multiple to multiple)" to
+                    Operation.UpdateCategories(
+                        oldCategories =
+                            TerracottaProjectCategories(
+                                primary = TerracottaCategory("combat", "Combat"),
+                                additional =
+                                    listOf(
+                                        TerracottaCategory("pvp", "PvP"),
+                                        TerracottaCategory("arena", "Arena"),
+                                    ),
+                            ),
+                        newCategories =
+                            TerracottaProjectCategories(
+                                primary = TerracottaCategory("pve", "PvE"),
+                                additional =
+                                    listOf(
+                                        TerracottaCategory("survival", "Survival"),
+                                        TerracottaCategory("economy", "Economy"),
+                                    ),
+                            ),
                     ),
-                "UpdateTags(empty to some)" to
-                    Operation.UpdateTags(
-                        oldTags = emptyList(),
-                        newTags = listOf("new-tag"),
+                "UpdateCategories(empty to some)" to
+                    Operation.UpdateCategories(
+                        oldCategories = TerracottaProjectCategories(primary = TerracottaCategory("removed", "Removed")),
+                        newCategories =
+                            TerracottaProjectCategories(
+                                primary = TerracottaCategory("new-tag", "New Tag"),
+                            ),
                     ),
-                "UpdateTags(some to empty)" to
-                    Operation.UpdateTags(
-                        oldTags = listOf("removed"),
-                        newTags = emptyList(),
+                "UpdateCategories(some to empty)" to
+                    Operation.UpdateCategories(
+                        oldCategories =
+                            TerracottaProjectCategories(
+                                primary = TerracottaCategory("removed", "Removed"),
+                            ),
+                        newCategories = TerracottaProjectCategories(primary = TerracottaCategory("kept", "Kept")),
                     ),
             )
 
@@ -323,7 +356,7 @@ class OperationPreprocessorPropertyTest {
             summary = "A test plugin",
             description = "Description for testing",
             versions = versions,
-            tags = listOf("utility"),
+            categories = TerracottaProjectCategories(primary = TerracottaCategory("utility", "Utility")),
             license = "MIT",
         )
 }

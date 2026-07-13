@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthLicense
@@ -290,7 +292,7 @@ class ModrinthClientTest {
                         summary = "Summary",
                         description = "Body",
                         versions = listOf(version),
-                        tags = listOf("utility"),
+                        categories = categories("utility"),
                         license = "MIT",
                     )
                 val createdProject =
@@ -339,7 +341,7 @@ class ModrinthClientTest {
                     summary = "Summary",
                     description = "Body",
                     versions = emptyList(),
-                    tags = emptyList(),
+                    categories = categories(),
                     license = "MIT",
                 )
             val exception =
@@ -371,7 +373,7 @@ class ModrinthClientTest {
                     summary = "Summary",
                     description = "Body",
                     versions = listOf(version),
-                    tags = listOf("utility"),
+                    categories = categories("utility"),
                     license = "MIT",
                     licenseUrl = "https://example.com/LICENSE",
                 )
@@ -455,4 +457,12 @@ class ModrinthClientTest {
             assertNotNull(exception)
             assertTrue(exception!!.message!!.contains("Gallery image not found"))
         }
+}
+
+private fun categories(vararg ids: String): TerracottaProjectCategories {
+    val primary = ids.firstOrNull() ?: "default"
+    return TerracottaProjectCategories(
+        primary = TerracottaCategory(primary, primary),
+        additional = ids.drop(1).map { TerracottaCategory(it, it) },
+    )
 }

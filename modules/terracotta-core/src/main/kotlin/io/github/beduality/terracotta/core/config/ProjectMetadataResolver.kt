@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.config
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
 import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataLoader
@@ -62,7 +64,11 @@ class ProjectMetadataResolver(
             name = config.name ?: detected.name ?: "",
             summary = config.summary ?: detected.summary ?: "",
             description = config.description ?: detected.description ?: "",
-            tags = config.tags ?: emptyList(),
+            categories =
+                config.categories
+                    ?: TerracottaProjectCategories(
+                        primary = TerracottaCategory("uncategorized", "Uncategorized"),
+                    ),
             license = config.license ?: detected.license ?: "",
             licenseUrl = config.licenseUrl ?: detected.licenseUrl,
             gameVersions = config.gameVersions ?: detected.gameVersions ?: emptyList(),

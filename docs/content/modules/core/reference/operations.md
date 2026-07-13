@@ -9,7 +9,7 @@
 | `CreateProject(project)` | Create a new remote project and upload all versions. |
 | `UpdateMetadata(...)` | Update name, summary, or license. |
 | `UpdateDescription(old, new)` | Replace the project description. |
-| `UpdateTags(oldTags, newTags)` | Replace the project tags. |
+| `UpdateCategories(oldCategories, newCategories)` | Replace the project categories. |
 | `UploadVersion(version)` | Upload a new version artifact. |
 | `UploadGalleryItem(item)` | Upload a new gallery image. |
 | `UpdateGalleryItem(oldItem, newItem)` | Update metadata of an existing gallery image. |
@@ -27,7 +27,7 @@
 | Summary changed | `UpdateMetadata` with `summaryChanged = true`. |
 | License changed | `UpdateMetadata` with `licenseChanged = true`. |
 | Description changed | `UpdateDescription`. |
-| Tags changed | `UpdateTags`. |
+| Categories changed | `UpdateCategories`. |
 | Local version not present remotely | `UploadVersion`. |
 | Local gallery item not present remotely | `UploadGalleryItem`. |
 | Matched gallery item metadata changed | `UpdateGalleryItem`. |

@@ -6,7 +6,7 @@ import io.github.beduality.terracotta.core.provider.logic.PlatformBehavior
  * Platform behavior for Modrinth.
  *
  * Modrinth is a stateful registry: it supports project metadata updates,
- * description changes, tags, version uploads, gallery images, and project icon
+ * description changes, categories, version uploads, gallery images, and project icon
  * uploads. All operations are passed through unchanged.
  */
 object ModrinthPlatformBehavior : PlatformBehavior {

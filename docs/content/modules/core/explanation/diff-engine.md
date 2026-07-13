@@ -14,7 +14,7 @@ A naive approach would overwrite every field on every run. That is wasteful, har
 
 Operations fall into two groups:
 
-- **Project-level**: create the project, update metadata, description, or tags.
+- **Project-level**: create the project, update metadata, description, or categories.
 - **Version-level**: upload a version that does not yet exist remotely.
 
 ## Why new projects get separate uploads

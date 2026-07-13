@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -22,7 +24,7 @@ class DiffEngineTest {
                         TerracottaVersion("1.0.0", "path/to/jar", listOf("1.20")),
                         TerracottaVersion("1.1.0", "path/to/jar-2", listOf("1.20.1")),
                     ),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
@@ -45,7 +47,7 @@ class DiffEngineTest {
                 summary = "A summary",
                 description = "Some description",
                 versions = emptyList(),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
@@ -67,7 +69,7 @@ class DiffEngineTest {
                     listOf(
                         TerracottaVersion("1.0.0", "path/to/jar", listOf("1.20")),
                     ),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
@@ -88,7 +90,7 @@ class DiffEngineTest {
                     listOf(
                         TerracottaVersion("1.0.0", "path/to/jar", listOf("1.20")),
                     ),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
@@ -103,7 +105,7 @@ class DiffEngineTest {
                         TerracottaVersion("1.0.0", "path/to/jar", listOf("1.20")),
                         TerracottaVersion("1.1.0", "path/to/new-jar", listOf("1.20.1")),
                     ),
-                tags = listOf("utility", "new-tag"),
+                categories = tags("utility", "new-tag"),
                 license = "Apache-2.0",
             )
 
@@ -121,8 +123,17 @@ class DiffEngineTest {
         assertEquals("Old description", descOp.oldDescription)
         assertEquals("New description", descOp.newDescription)
 
-        val tagsOp = ops.filterIsInstance<Operation.UpdateTags>().first()
-        assertEquals(listOf("utility", "new-tag"), tagsOp.newTags)
+        val categoriesOp = ops.filterIsInstance<Operation.UpdateCategories>().first()
+        assertEquals(
+            listOf("utility", "new-tag"),
+            categoriesOp.newCategories.let {
+                listOf(it.primary.id) +
+                    it.additional.map {
+                            c ->
+                        c.id
+                    }
+            },
+        )
 
         val versionOp = ops.filterIsInstance<Operation.UploadVersion>().first()
         assertEquals("1.1.0", versionOp.version.version)
@@ -137,7 +148,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -148,7 +159,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -169,7 +180,7 @@ class DiffEngineTest {
                 summary = "Old Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -180,7 +191,7 @@ class DiffEngineTest {
                 summary = "New Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -201,7 +212,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -212,7 +223,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "Apache-2.0",
             )
 
@@ -233,7 +244,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "mit",
             )
 
@@ -244,7 +255,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -261,7 +272,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -272,7 +283,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 licenseUrl = "https://example.com/LICENSE",
             )
@@ -297,7 +308,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 licenseUrl = "https://example.com/old",
             )
@@ -309,7 +320,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -330,7 +341,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 licenseUrl = "https://example.com/LICENSE",
             )
@@ -342,7 +353,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 licenseUrl = "https://example.com/LICENSE",
             )
@@ -360,7 +371,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Old description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -371,7 +382,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "New description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -383,7 +394,7 @@ class DiffEngineTest {
     }
 
     @Test
-    fun `test diff with tags added`() {
+    fun `test diff with categories added`() {
         val remote =
             TerracottaProject(
                 id = "my-plugin",
@@ -391,7 +402,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
@@ -402,19 +413,28 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = listOf("utility", "new-tag"),
+                categories = tags("utility", "new-tag"),
                 license = "MIT",
             )
 
         val ops = DiffEngine.diff(local, remote)
         assertEquals(1, ops.size)
-        val tagsOp = ops.filterIsInstance<Operation.UpdateTags>().first()
-        assertEquals(listOf("utility"), tagsOp.oldTags)
-        assertEquals(listOf("utility", "new-tag"), tagsOp.newTags)
+        val categoriesOp = ops.filterIsInstance<Operation.UpdateCategories>().first()
+        assertEquals(listOf("utility"), categoriesOp.oldCategories.let { listOf(it.primary.id) + it.additional.map { c -> c.id } })
+        assertEquals(
+            listOf("utility", "new-tag"),
+            categoriesOp.newCategories.let {
+                listOf(it.primary.id) +
+                    it.additional.map {
+                            c ->
+                        c.id
+                    }
+            },
+        )
     }
 
     @Test
-    fun `test diff with tags removed`() {
+    fun `test diff with categories removed`() {
         val remote =
             TerracottaProject(
                 id = "my-plugin",
@@ -422,7 +442,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = listOf("utility", "old-tag"),
+                categories = tags("utility", "old-tag"),
                 license = "MIT",
             )
 
@@ -433,15 +453,24 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = listOf("utility"),
+                categories = tags("utility"),
                 license = "MIT",
             )
 
         val ops = DiffEngine.diff(local, remote)
         assertEquals(1, ops.size)
-        val tagsOp = ops.filterIsInstance<Operation.UpdateTags>().first()
-        assertEquals(listOf("utility", "old-tag"), tagsOp.oldTags)
-        assertEquals(listOf("utility"), tagsOp.newTags)
+        val categoriesOp = ops.filterIsInstance<Operation.UpdateCategories>().first()
+        assertEquals(
+            listOf("utility", "old-tag"),
+            categoriesOp.oldCategories.let {
+                listOf(it.primary.id) +
+                    it.additional.map {
+                            c ->
+                        c.id
+                    }
+            },
+        )
+        assertEquals(listOf("utility"), categoriesOp.newCategories.let { listOf(it.primary.id) + it.additional.map { c -> c.id } })
     }
 
     @Test
@@ -453,7 +482,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -464,7 +493,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 icon = "docs/assets/icon.png",
             )
@@ -484,7 +513,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 icon = "https://hangar.papermc.io/avatars/old.png",
             )
@@ -496,7 +525,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 icon = "docs/assets/icon.png",
             )
@@ -517,7 +546,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 icon = "https://hangar.papermc.io/avatars/old.png",
             )
@@ -529,7 +558,7 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
             )
 
@@ -548,12 +577,20 @@ class DiffEngineTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = tags(),
                 license = "MIT",
                 icon = "docs/assets/icon.png",
             )
 
         val ops = DiffEngine.diff(project, project)
         assertTrue(ops.isEmpty())
+    }
+
+    private fun tags(vararg ids: String): TerracottaProjectCategories {
+        val primary = ids.firstOrNull() ?: "default"
+        return TerracottaProjectCategories(
+            primary = TerracottaCategory(primary, primary),
+            additional = ids.drop(1).map { TerracottaCategory(it, it) },
+        )
     }
 }

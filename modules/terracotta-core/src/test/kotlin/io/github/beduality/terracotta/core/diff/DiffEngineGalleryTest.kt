@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -14,7 +16,7 @@ class DiffEngineGalleryTest {
             summary = "A summary",
             description = "A description",
             versions = emptyList(),
-            tags = emptyList(),
+            categories = TerracottaProjectCategories(primary = TerracottaCategory("default", "Default")),
             license = "MIT",
         )
 

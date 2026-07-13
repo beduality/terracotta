@@ -1,8 +1,10 @@
 package io.github.beduality.terracotta.provider.modrinth
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -121,7 +123,7 @@ class ModrinthProviderTest {
             assertEquals("My Mod", terracottaProject?.name)
             assertEquals("A test mod", terracottaProject?.summary)
             assertEquals("Test description", terracottaProject?.description)
-            assertEquals(listOf("utility"), terracottaProject?.tags)
+            assertEquals(listOf("utility"), terracottaProject?.categories?.let { listOf(it.primary.id) + it.additional.map { c -> c.id } })
             assertEquals("MIT", terracottaProject?.license)
             assertEquals(1, terracottaProject?.versions?.size)
             assertEquals("1.0.0", terracottaProject?.versions?.firstOrNull()?.version)
@@ -268,7 +270,10 @@ class ModrinthProviderTest {
                         newLinks = TerracottaProjectLinks(),
                     ),
                     Operation.UpdateDescription(oldDescription = "Old body", newDescription = "New body"),
-                    Operation.UpdateTags(oldTags = listOf("old"), newTags = listOf("new", "tag")),
+                    Operation.UpdateCategories(
+                        oldCategories = categories("old"),
+                        newCategories = categories("new", "tag"),
+                    ),
                 )
 
             registryProvider.apply("my-mod", operations)
@@ -282,8 +287,8 @@ class ModrinthProviderTest {
             val descriptionBody = json.parseToJsonElement(capturedPatches[1].second).jsonObject
             assertEquals("New body", descriptionBody["body"]?.jsonPrimitive?.content)
 
-            val tagsBody = json.parseToJsonElement(capturedPatches[2].second).jsonObject
-            assertEquals(listOf("new", "tag"), tagsBody["categories"]?.jsonArray?.map { it.jsonPrimitive.content })
+            val categoriesBody = json.parseToJsonElement(capturedPatches[2].second).jsonObject
+            assertEquals(listOf("new", "tag"), categoriesBody["categories"]?.jsonArray?.map { it.jsonPrimitive.content })
         }
 
     @Test
@@ -343,7 +348,7 @@ class ModrinthProviderTest {
                     summary = "A test mod",
                     description = "Test description",
                     versions = emptyList(),
-                    tags = listOf("utility"),
+                    categories = categories("utility"),
                     license = "MIT",
                 )
 
@@ -1123,4 +1128,12 @@ class ModrinthProviderTest {
             assertEquals("ko-fi", terracottaProject?.links?.donations?.firstOrNull()?.platform)
             assertEquals("https://ko-fi.com/dsl", terracottaProject?.links?.donations?.firstOrNull()?.url)
         }
+}
+
+private fun categories(vararg ids: String): TerracottaProjectCategories {
+    val primary = ids.firstOrNull() ?: "default"
+    return TerracottaProjectCategories(
+        primary = TerracottaCategory(primary, primary),
+        additional = ids.drop(1).map { TerracottaCategory(it, it) },
+    )
 }
