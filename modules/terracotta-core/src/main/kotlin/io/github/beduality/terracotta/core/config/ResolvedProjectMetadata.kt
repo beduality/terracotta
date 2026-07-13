@@ -4,7 +4,6 @@ import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
-import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 /**
@@ -34,8 +33,6 @@ data class ResolvedProjectMetadata(
     val environment: TerracottaEnvironment,
     /** Release type. */
     val releaseType: TerracottaReleaseType,
-    /** Project visibility. */
-    val visibility: TerracottaVisibility,
     /** Release notes for the current version. */
     val changelog: String,
     /** Path to the project icon file, or null if not configured. */

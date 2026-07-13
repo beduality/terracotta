@@ -49,7 +49,6 @@ object TerracottaConfigLoader {
             loaders = map.readStringList("loaders"),
             environment = map.readString("environment"),
             releaseType = map.readString("releaseType"),
-            visibility = map.readString("visibility"),
             changelog = map.readString("changelog"),
             gallery = parseGallery(map["gallery"]),
             links = parseLinks(map["links"]),

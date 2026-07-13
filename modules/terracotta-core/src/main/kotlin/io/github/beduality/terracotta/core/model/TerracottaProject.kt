@@ -30,6 +30,4 @@ data class TerracottaProject(
     val gallery: List<TerracottaGalleryItem> = emptyList(),
     /** Canonical project links. */
     val links: TerracottaProjectLinks = TerracottaProjectLinks(),
-    /** Canonical project visibility. */
-    val visibility: TerracottaVisibility = TerracottaVisibility.PUBLIC,
 )
