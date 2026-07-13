@@ -122,7 +122,7 @@ registryProvider.apply(projectId = "my-plugin-id", operations = operations)
 ## Gallery images
 
 The Modrinth provider supports uploading, updating metadata, and deleting gallery images.
-Images are declared in project configuration (for example, `terracotta.yml`) or through a build-tool DSL and matched by their title.
+Images are declared in project configuration (for example, `terracotta.yml`) or through a build-tool DSL. They are matched by a stable local key before falling back to title matching.
 
 ### Supported formats and limits
 
@@ -130,7 +130,8 @@ Images are declared in project configuration (for example, `terracotta.yml`) or 
 |-------|-------|
 | Maximum file size | 5 MiB |
 | Supported extensions | `png`, `jpg`, `jpeg`, `webp`, `gif`, `bmp` |
-| Identity key | Normalized title (trimmed and lowercased) |
+| Stable identity key | `key` if set, otherwise the local `path` |
+| Fallback identity key | Normalized title (trimmed and lowercased) |
 
 ### Configuration example
 
@@ -140,6 +141,7 @@ name: "My Plugin"
 
 gallery:
   - path: "docs/assets/main.png"
+    key: "main-inventory"
     title: "Main inventory screen"
     description: "Shows the new GUI"
     featured: true
@@ -147,8 +149,10 @@ gallery:
 ```
 
 When `terracottaApply` runs, the provider uploads new images, updates metadata for
-images whose title/description/featured/ordering changed, and deletes images whose
-title no longer exists in the local configuration.
+images whose stable key matches, and deletes images that are no longer present
+locally. Persisted gallery identities are saved to the configured `StateSource`
+after a successful apply, so subsequent runs can match by `key` even if the
+title changes.
 
 ## Project visibility
 

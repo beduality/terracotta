@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.diff.DiffEngine
+import io.github.beduality.terracotta.core.diff.Operation
 import io.github.beduality.terracotta.core.diff.OperationPreprocessor
+import io.github.beduality.terracotta.core.diff.galleryLocalKey
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
@@ -10,14 +12,20 @@ import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
+import io.github.beduality.terracotta.core.provider.GalleryIdentityReporter
 import io.github.beduality.terracotta.core.provider.ProviderFactory
 import io.github.beduality.terracotta.core.provider.RegistryProvider
 import io.github.beduality.terracotta.core.provider.StateProvider
+import io.github.beduality.terracotta.core.state.GalleryItemIdentity
+import io.github.beduality.terracotta.core.state.ProviderState
+import io.github.beduality.terracotta.core.state.StateSource
+import io.github.beduality.terracotta.core.state.TerracottaState
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
@@ -118,31 +126,57 @@ abstract class TerracottaApplyTask : DefaultTask() {
     /** Gallery images for the project. */
     abstract val gallery: ListProperty<TerracottaGalleryItem>
 
+    @get:Input
+    /** State backend identifier. */
+    abstract val stateSource: Property<String>
+
+    @get:Input
+    /** Backend-specific state source settings. */
+    abstract val stateSourceSettings: MapProperty<String, String>
+
     /** Applies the computed operations to the remote registry. */
     @TaskAction
     fun apply() =
         runBlocking {
             val local = createLocalProject()
+            val providerId = provider.get()
 
-            val providerFactory = findProviderFactory(provider.get())
+            val providerFactory = findProviderFactory(providerId)
             val providerLogic = providerFactory.createProviderLogic()
+            val stateSource = resolveStateSource()
+            val state = loadStateSafely(stateSource)
+            val providerState = state.providers[providerId] ?: ProviderState()
+            val persistedGallery = computePersistedGallery(local, providerState.gallery)
+
             val stateProvider: StateProvider = providerFactory.createStateProvider(token.orNull)
             val remote = stateProvider.fetchProject(projectId.get())
 
-            val operations = DiffEngine.diff(local, remote, providerLogic.supportsLicenseUrl)
+            val operations = DiffEngine.diff(local, remote, providerLogic.supportsLicenseUrl, persistedGallery)
             val preprocessedOperations = OperationPreprocessor.process(operations)
 
             logger.lifecycle("Terracotta Apply:")
             if (preprocessedOperations.isEmpty()) {
                 logger.lifecycle("  No changes to apply!")
-            } else {
-                val registryProvider: RegistryProvider = providerFactory.createRegistryProvider(token.orNull)
-                preprocessedOperations.forEach { op ->
-                    logger.lifecycle("  Applying: ${op.description}")
-                }
-                registryProvider.apply(projectId.get(), preprocessedOperations)
-                logger.lifecycle("  Done!")
+                return@runBlocking
             }
+
+            val registryProvider: RegistryProvider = providerFactory.createRegistryProvider(token.orNull)
+            preprocessedOperations.forEach { op ->
+                logger.lifecycle("  Applying: ${op.description}")
+            }
+            registryProvider.apply(projectId.get(), preprocessedOperations)
+            logger.lifecycle("  Done!")
+
+            val updatedState =
+                updateState(
+                    state = state,
+                    providerId = providerId,
+                    providerState = providerState,
+                    local = local,
+                    operations = preprocessedOperations,
+                    registryProvider = registryProvider,
+                )
+            stateSource.save(updatedState)
         }
 
     private fun createLocalProject(): TerracottaProject {
@@ -177,5 +211,67 @@ abstract class TerracottaApplyTask : DefaultTask() {
         val loader = ServiceLoader.load(ProviderFactory::class.java)
         return loader.find { it.id == id }
             ?: throw GradleException("No provider found with id '$id'. Make sure the provider is added as a dependency.")
+    }
+
+    private fun resolveStateSource(): StateSource =
+        StateSourceResolver.resolve(
+            id = stateSource.get(),
+            projectDir = project.projectDir,
+            settings = stateSourceSettings.get(),
+        )
+
+    private fun loadStateSafely(stateSource: StateSource): TerracottaState {
+        return try {
+            stateSource.load()
+        } catch (e: java.io.IOException) {
+            logger.warn("Failed to load persisted state; falling back to title/ordering matching: ${e.message}")
+            TerracottaState()
+        }
+    }
+
+    private fun computePersistedGallery(
+        local: TerracottaProject,
+        persisted: Map<String, GalleryItemIdentity>,
+    ): Map<String, GalleryItemIdentity> {
+        val duplicateKeys =
+            local.gallery
+                .groupingBy { galleryLocalKey(it) }
+                .eachCount()
+                .filter { it.value > 1 }
+                .keys
+        if (duplicateKeys.isNotEmpty()) {
+            logger.warn(
+                "Duplicate gallery local keys detected: {}. " +
+                    "Falling back to title/ordering matching for these items.",
+                duplicateKeys,
+            )
+        }
+        return persisted.filterKeys { it !in duplicateKeys }
+    }
+
+    private suspend fun updateState(
+        state: TerracottaState,
+        providerId: String,
+        providerState: ProviderState,
+        local: TerracottaProject,
+        operations: List<Operation>,
+        registryProvider: RegistryProvider,
+    ): TerracottaState {
+        val updatedGallery = providerState.gallery.toMutableMap()
+
+        operations.filterIsInstance<Operation.DeleteGalleryItem>().forEach { op ->
+            updatedGallery.remove(galleryLocalKey(op.item))
+        }
+
+        val reporter = registryProvider as? GalleryIdentityReporter
+        if (reporter != null) {
+            val reported = reporter.reportGalleryIdentities(projectId.get(), operations)
+            reported.forEach { (key, identity) ->
+                updatedGallery[key] = identity
+            }
+        }
+
+        val newProviderState = providerState.copy(gallery = updatedGallery.toMap())
+        return state.copy(providers = state.providers + (providerId to newProviderState))
     }
 }

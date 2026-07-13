@@ -2,6 +2,7 @@ package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.state.GalleryItemIdentity
 
 /**
  * @see [Compute a diff guide](https://beduality.github.io/terracotta/content/modules/core/how-to-guides/compute-a-diff.html)
@@ -10,8 +11,8 @@ import io.github.beduality.terracotta.core.model.TerracottaProject
  */
 object DiffEngine {
     /**
-     * Computes the semantic diff between a desired local project state
-     * and the actual remote project state.
+     * Computes the semantic diff between a desired local project state and the
+     * actual remote project state.
      *
      * @param supportsLicenseUrl whether the target provider can persist a custom
      * license URL. When `false`, [licenseUrl] differences are ignored so they
@@ -21,6 +22,36 @@ object DiffEngine {
         local: TerracottaProject,
         remote: TerracottaProject?,
         supportsLicenseUrl: Boolean = true,
+    ): List<Operation> = diff(local, remote, supportsLicenseUrl, emptyMap())
+
+    /**
+     * Computes the semantic diff between a desired local project state and the
+     * actual remote project state, using previously persisted [persistedGallery]
+     * identities to match local gallery items with remote ones across title or
+     * ordering changes.
+     *
+     * @param persistedGallery gallery identities keyed by stable local key.
+     */
+    fun diff(
+        local: TerracottaProject,
+        remote: TerracottaProject?,
+        persistedGallery: Map<String, GalleryItemIdentity>,
+    ): List<Operation> = diff(local, remote, true, persistedGallery)
+
+    /**
+     * Computes the semantic diff between a desired local project state and the
+     * actual remote project state.
+     *
+     * @param supportsLicenseUrl whether the target provider can persist a custom
+     * license URL. When `false`, [licenseUrl] differences are ignored so they
+     * do not generate a perpetual metadata update.
+     * @param persistedGallery gallery identities keyed by stable local key.
+     */
+    fun diff(
+        local: TerracottaProject,
+        remote: TerracottaProject?,
+        supportsLicenseUrl: Boolean,
+        persistedGallery: Map<String, GalleryItemIdentity>,
     ): List<Operation> {
         val operations = mutableListOf<Operation>()
 
@@ -83,7 +114,7 @@ object DiffEngine {
         }
 
         // Compare gallery images
-        operations.addAll(diffGallery(local.gallery, remote.gallery))
+        operations.addAll(diffGallery(local.gallery, remote.gallery, persistedGallery))
 
         // Compare icon
         operations.addAll(diffIcon(local.icon, remote.icon))
@@ -115,28 +146,49 @@ object DiffEngine {
     private fun diffGallery(
         local: List<TerracottaGalleryItem>,
         remote: List<TerracottaGalleryItem>,
+        persistedGallery: Map<String, GalleryItemIdentity>,
     ): List<Operation> {
         val operations = mutableListOf<Operation>()
 
+        val remoteByUrl = remote.associateBy { it.imagePath }
         val remoteByKey = remote.associateBy { galleryKey(it) }
         val localByKey = local.associateBy { galleryKey(it) }
+        val matchedRemote = mutableSetOf<TerracottaGalleryItem>()
+        val matchedLocal = mutableSetOf<TerracottaGalleryItem>()
 
-        // Delete remote items not present locally.
+        // Match local items to remote items using persisted identities first.
+        local.forEach { localItem ->
+            val localKey = galleryLocalKey(localItem)
+            val identity = persistedGallery[localKey] ?: return@forEach
+            val remoteItem = remoteByUrl[identity.remoteUrl] ?: return@forEach
+            matchedLocal.add(localItem)
+            matchedRemote.add(remoteItem)
+            if (hasMetadataChanged(localItem, remoteItem)) {
+                operations.add(Operation.UpdateGalleryItem(remoteItem, localItem))
+            }
+        }
+
+        // Delete remote items not present locally and not matched by identity.
         remote.forEach { remoteItem ->
+            if (remoteItem in matchedRemote) return@forEach
             val key = galleryKey(remoteItem)
             if (key !in localByKey) {
                 operations.add(Operation.DeleteGalleryItem(remoteItem))
             }
         }
 
-        // Update or upload local items.
+        // Update or upload local items, skipping identity-matched ones.
         local.forEach { localItem ->
+            if (localItem in matchedLocal) return@forEach
             val key = galleryKey(localItem)
             val remoteItem = remoteByKey[key]
             if (remoteItem == null) {
                 operations.add(Operation.UploadGalleryItem(localItem))
-            } else if (hasMetadataChanged(localItem, remoteItem)) {
-                operations.add(Operation.UpdateGalleryItem(remoteItem, localItem))
+            } else {
+                matchedRemote.add(remoteItem)
+                if (hasMetadataChanged(localItem, remoteItem)) {
+                    operations.add(Operation.UpdateGalleryItem(remoteItem, localItem))
+                }
             }
         }
 
@@ -158,3 +210,9 @@ object DiffEngine {
             local.ordering != remote.ordering
     }
 }
+
+/**
+ * Returns the stable local key for [item]: the explicit [TerracottaGalleryItem.key]
+ * if present, otherwise the absolute [TerracottaGalleryItem.imagePath].
+ */
+fun galleryLocalKey(item: TerracottaGalleryItem): String = item.key ?: item.imagePath

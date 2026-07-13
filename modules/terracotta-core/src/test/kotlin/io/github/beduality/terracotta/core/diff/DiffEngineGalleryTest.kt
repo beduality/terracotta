@@ -4,6 +4,7 @@ import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
+import io.github.beduality.terracotta.core.state.GalleryItemIdentity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -115,5 +116,122 @@ class DiffEngineGalleryTest {
         assertTrue(ops.filterIsInstance<Operation.UploadGalleryItem>().isEmpty())
         assertTrue(ops.filterIsInstance<Operation.UpdateGalleryItem>().isEmpty())
         assertTrue(ops.filterIsInstance<Operation.DeleteGalleryItem>().isEmpty())
+    }
+
+    @Test
+    fun `matches gallery item by stable key across title changes`() {
+        val localKey = "alpha-key"
+        val remoteUrl = "https://cdn/remote.png"
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", key = localKey, title = "Alpha New")),
+            )
+        val remote =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = remoteUrl, title = "Alpha Old")),
+            )
+        val persisted = mapOf(localKey to GalleryItemIdentity(localKey = localKey, remoteUrl = remoteUrl))
+
+        val ops = DiffEngine.diff(local, remote, persisted)
+
+        assertEquals(1, ops.size)
+        val update = ops.filterIsInstance<Operation.UpdateGalleryItem>().first()
+        assertEquals("Alpha Old", update.oldItem.title)
+        assertEquals("Alpha New", update.newItem.title)
+        assertEquals(remoteUrl, update.oldItem.imagePath)
+    }
+
+    @Test
+    fun `falls back to title matching when no persisted identity exists`() {
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", title = "Alpha")),
+            )
+        val remote =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "https://cdn/remote.png", title = "Alpha")),
+            )
+
+        val ops = DiffEngine.diff(local, remote, emptyMap())
+
+        assertTrue(ops.isEmpty(), "Expected no operations when title matches without persisted identity")
+    }
+
+    @Test
+    fun `uploads and deletes when identity match is absent and title changes`() {
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", key = "alpha-key", title = "Alpha")),
+            )
+        val remote =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "https://cdn/remote.png", title = "Beta")),
+            )
+        val persisted = mapOf("alpha-key" to GalleryItemIdentity(localKey = "alpha-key", remoteUrl = "https://cdn/other.png"))
+
+        val ops = DiffEngine.diff(local, remote, persisted)
+
+        assertEquals(2, ops.size)
+        assertEquals(1, ops.filterIsInstance<Operation.UploadGalleryItem>().size)
+        assertEquals(1, ops.filterIsInstance<Operation.DeleteGalleryItem>().size)
+    }
+
+    @Test
+    fun `matches gallery item by stable key when remote title changed beyond recognition`() {
+        val localKey = "alpha-key"
+        val remoteUrl = "https://cdn/remote.png"
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", key = localKey, title = "Alpha")),
+            )
+        val remote =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = remoteUrl, title = "Completely different title")),
+            )
+        val persisted = mapOf(localKey to GalleryItemIdentity(localKey = localKey, remoteUrl = remoteUrl))
+
+        val ops = DiffEngine.diff(local, remote, persisted)
+
+        assertEquals(1, ops.size)
+        val update = ops.filterIsInstance<Operation.UpdateGalleryItem>().first()
+        assertEquals("Completely different title", update.oldItem.title)
+        assertEquals("Alpha", update.newItem.title)
+    }
+
+    @Test
+    fun `matches gallery item by image path when no explicit key is provided`() {
+        val remoteUrl = "https://cdn/remote.png"
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", title = "Alpha New")),
+            )
+        val remote =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = remoteUrl, title = "Alpha Old")),
+            )
+        val persisted = mapOf("a.png" to GalleryItemIdentity(localKey = "a.png", remoteUrl = remoteUrl))
+
+        val ops = DiffEngine.diff(local, remote, persisted)
+
+        assertEquals(1, ops.size)
+        val update = ops.filterIsInstance<Operation.UpdateGalleryItem>().first()
+        assertEquals("Alpha Old", update.oldItem.title)
+        assertEquals("Alpha New", update.newItem.title)
+    }
+
+    @Test
+    fun `uploads new gallery item when identity exists but remote url does not`() {
+        val local =
+            emptyProject.copy(
+                gallery = listOf(TerracottaGalleryItem(imagePath = "a.png", key = "alpha-key", title = "Alpha")),
+            )
+        val remote = emptyProject
+        val persisted = mapOf("alpha-key" to GalleryItemIdentity(localKey = "alpha-key", remoteUrl = "https://cdn/missing.png"))
+
+        val ops = DiffEngine.diff(local, remote, persisted)
+
+        assertEquals(1, ops.size)
+        val upload = ops.filterIsInstance<Operation.UploadGalleryItem>().first()
+        assertEquals("Alpha", upload.item.title)
     }
 }

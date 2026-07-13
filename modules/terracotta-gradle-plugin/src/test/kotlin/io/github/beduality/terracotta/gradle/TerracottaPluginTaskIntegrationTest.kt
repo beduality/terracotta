@@ -67,6 +67,32 @@ private fun runGradle(
 
 class TerracottaPluginTaskIntegrationTest {
     @Test
+    fun `accepts custom state source settings`(
+        @TempDir projectDir: File,
+    ) {
+        projectDir.writeMinimalProject(
+            providers = mapOf("modrinth" to mapOf("projectId" to "my-plugin")),
+        )
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                stateSource.set("filesystem")
+                stateSourceSettings.put("path", "custom-state.yml")
+            }
+            """.trimIndent(),
+        )
+
+        val result = runGradle(projectDir, "tasks", "--all")
+
+        assertTrue("terracottaPlanModrinth" in result.output, "Expected plan task to be configured")
+        assertTrue("terracottaApplyModrinth" in result.output, "Expected apply task to be configured")
+    }
+
+    @Test
     fun `registers aggregate terracottaPlan and terracottaApply tasks`(
         @TempDir projectDir: File,
     ) {

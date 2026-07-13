@@ -56,6 +56,8 @@ internal object TerracottaTaskRegistrar {
                     task.icon.set(extension.icon)
                     task.gallery.convention(galleryItemsProvider(project, extension))
                     task.links.convention(project.provider { extension.links.toModel() })
+                    task.stateSource.set(extension.stateSource)
+                    task.stateSourceSettings.set(extension.stateSourceSettings)
                 }
             allPlanTasks.add(providerPlanTask)
 
@@ -86,6 +88,8 @@ internal object TerracottaTaskRegistrar {
                     task.icon.set(extension.icon)
                     task.gallery.convention(galleryItemsProvider(project, extension))
                     task.links.convention(project.provider { extension.links.toModel() })
+                    task.stateSource.set(extension.stateSource)
+                    task.stateSourceSettings.set(extension.stateSourceSettings)
 
                     task.dependsOn(providerPlanTask)
                 }
@@ -142,6 +146,7 @@ internal object TerracottaTaskRegistrar {
         extension.gallery.map { item ->
             TerracottaGalleryItem(
                 imagePath = item.imageFile.get().asFile.absolutePath,
+                key = item.key.orNull,
                 title = item.title.orNull ?: "",
                 description = item.description.orNull ?: "",
                 featured = item.featured.orNull ?: false,

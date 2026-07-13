@@ -1,8 +1,11 @@
 package io.github.beduality.terracotta.provider.modrinth
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.diff.galleryLocalKey
 import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
+import io.github.beduality.terracotta.core.provider.GalleryIdentityReporter
 import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
+import io.github.beduality.terracotta.core.state.GalleryItemIdentity
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 import io.github.beduality.terracotta.provider.modrinth.client.toModrinthCategories
 import io.github.beduality.terracotta.provider.modrinth.client.toModrinthStatus
@@ -18,7 +21,17 @@ import io.github.beduality.terracotta.provider.modrinth.client.toModrinthStatus
 class ModrinthRegistryProvider(
     private val client: ModrinthClient,
     providerLogic: ProviderLogic,
-) : BaseRegistryProvider(providerLogic, "modrinth") {
+) : BaseRegistryProvider(providerLogic, "modrinth"),
+    GalleryIdentityReporter {
+    /**
+     * Maps local gallery keys to the remote URLs returned by upload operations.
+     *
+     * Populated during [applySupported] and consumed by [reportGalleryIdentities].
+     * Cleared at the start of each apply so a single provider instance is safe
+     * across multiple projects.
+     */
+    private val uploadedGalleryUrls = mutableMapOf<String, String>()
+
     /**
      * Applies the supported [operations] to the Modrinth project identified by
      * [projectId].
@@ -30,6 +43,8 @@ class ModrinthRegistryProvider(
         projectId: String,
         operations: List<Operation>,
     ) {
+        uploadedGalleryUrls.clear()
+
         // May be updated to the real base62 ID after project creation
         var resolvedProjectId = projectId
 
@@ -83,7 +98,8 @@ class ModrinthRegistryProvider(
                     resolvedProjectId = client.createProject(op.project)
                 }
                 is Operation.UploadGalleryItem -> {
-                    client.uploadGalleryItem(resolvedProjectId, op.item)
+                    val url = client.uploadGalleryItem(resolvedProjectId, op.item)
+                    uploadedGalleryUrls[galleryLocalKey(op.item)] = url
                 }
                 is Operation.UpdateGalleryItem -> {
                     client.updateGalleryItem(resolvedProjectId, op.oldItem.imagePath, op.newItem)
@@ -102,5 +118,43 @@ class ModrinthRegistryProvider(
                 }
             }
         }
+    }
+
+    /**
+     * Reports the gallery identities that resulted from applying [operations].
+     *
+     * Upload URLs are captured during [applySupported]. For update operations the
+     * remote URL is the previous item's [TerracottaGalleryItem.imagePath], since
+     * Modrinth's gallery patch does not change the image URL.
+     *
+     * @param projectId Modrinth project slug or ID.
+     * @param operations changes that were applied.
+     * @return map of local keys to gallery identities.
+     */
+    override suspend fun reportGalleryIdentities(
+        projectId: String,
+        operations: List<Operation>,
+    ): Map<String, GalleryItemIdentity> {
+        val identities = mutableMapOf<String, GalleryItemIdentity>()
+        operations.forEach { op ->
+            when (op) {
+                is Operation.UploadGalleryItem -> {
+                    val localKey = galleryLocalKey(op.item)
+                    val url = uploadedGalleryUrls[localKey] ?: return@forEach
+                    identities[localKey] = GalleryItemIdentity(localKey = localKey, remoteUrl = url)
+                }
+                is Operation.UpdateGalleryItem -> {
+                    val localKey = galleryLocalKey(op.newItem)
+                    identities[localKey] = GalleryItemIdentity(localKey = localKey, remoteUrl = op.oldItem.imagePath)
+                }
+                is Operation.DeleteGalleryItem -> {
+                    identities.remove(galleryLocalKey(op.item))
+                }
+                else -> {
+                    // Not a gallery operation; ignore.
+                }
+            }
+        }
+        return identities
     }
 }

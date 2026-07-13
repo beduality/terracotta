@@ -8,7 +8,8 @@ import org.gradle.api.provider.Property
  * A single gallery image entry in the Gradle DSL.
  *
  * The object name is used only as a DSL handle; the published title comes from
- * [title].
+ * [title]. The optional [key] provides a stable local identity that survives
+ * title changes and file moves.
  *
  * @see [Kotlin DSL configuration](https://beduality.github.io/terracotta/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.html)
  */
@@ -17,6 +18,9 @@ abstract class TerracottaGalleryExtension(private val name: String) : Named {
 
     /** Image file to upload. */
     abstract val imageFile: RegularFileProperty
+
+    /** Optional stable local identity key. */
+    abstract val key: Property<String>
 
     /** Human-readable title used as the stable identity key. */
     abstract val title: Property<String>

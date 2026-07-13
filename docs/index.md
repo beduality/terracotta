@@ -38,8 +38,10 @@ Terracotta compares the state you want with the state that exists on the configu
 
 1. **Read local state** from `terracotta.yml`, build configuration files like `build.gradle.kts`, and detected project files.
 2. **Fetch remote state** from the configured provider.
-3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateCategories`, and `UploadVersion`.
+3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateCategories`, `UploadVersion`, and gallery image changes.
 4. **Apply the operations** or print a human-readable plan first.
+
+Gallery images can optionally declare a stable `key` so they are matched across runs by identity rather than by title. This avoids accidental delete-and-reupload cycles when you rename screenshots or reorder images.
 
 Example plan output:
 

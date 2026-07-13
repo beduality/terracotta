@@ -36,6 +36,18 @@
 | Local icon differs from remote icon | `UpdateIcon`. |
 | Remote icon present but local has none | `DeleteIcon`. |
 
+## Gallery matching
+
+When `DiffEngine.diff(local, remote, persistedGallery)` is called with persisted
+identities, gallery items are matched by their stable local key: the explicit
+`TerracottaGalleryItem.key` if set, otherwise the local `imagePath`. This allows
+titles and ordering to change without triggering a delete-and-reupload cycle.
+
+If no persisted identity exists for a local item, the engine falls back to the
+normalized title, then to `ordering` when the title is empty. Duplicate local
+keys detected at the task level are excluded from identity matching and fall
+back to the same title/ordering behavior.
+
 ## License comparison
 
 Licenses are compared case-insensitively to avoid false positives from capitalization differences.

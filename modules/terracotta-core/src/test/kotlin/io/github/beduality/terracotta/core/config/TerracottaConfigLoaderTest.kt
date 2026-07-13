@@ -229,6 +229,31 @@ class TerracottaConfigLoaderTest {
     }
 
     @Test
+    fun `loads gallery key field`(
+        @TempDir tempDir: File,
+    ) {
+        val file = File(tempDir, "terracotta.yml")
+        file.writeText(
+            """
+            gallery:
+              - path: docs/assets/main.png
+                key: main-shot
+                title: Main inventory screen
+              - path: docs/assets/config.png
+                title: Configuration UI
+            """.trimIndent(),
+        )
+
+        val config = TerracottaConfigLoader.load(file)
+
+        val items = config.gallery ?: throw AssertionError("Expected gallery items")
+        assertEquals(2, items.size)
+        assertEquals("main-shot", items[0].key)
+        assertEquals("docs/assets/main.png", items[0].imagePath)
+        assertNull(items[1].key)
+    }
+
+    @Test
     fun `gallery defaults optional fields`(
         @TempDir tempDir: File,
     ) {

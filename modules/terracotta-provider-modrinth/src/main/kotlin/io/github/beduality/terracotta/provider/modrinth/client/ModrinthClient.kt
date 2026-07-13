@@ -7,6 +7,7 @@ import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
+import io.github.beduality.terracotta.provider.modrinth.model.ModrinthGalleryItem
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthProject
 import io.github.beduality.terracotta.provider.modrinth.model.ModrinthVersion
 import io.ktor.client.HttpClient
@@ -334,7 +335,7 @@ class ModrinthClient(
     suspend fun uploadGalleryItem(
         projectId: String,
         item: TerracottaGalleryItem,
-    ) {
+    ): String {
         val processed = assetProcessor.process(File(item.imagePath))
         GalleryValidator.validate(
             processed.path,
@@ -373,7 +374,9 @@ class ModrinthClient(
         if (response.status.value !in 200..299) {
             throw IOException("Failed to upload gallery image: ${response.status.value} ${response.bodyAsText()}")
         }
+        val created: ModrinthGalleryItem = response.body()
         logger.info("Successfully uploaded gallery image '${item.title}' to Modrinth project $projectId.")
+        return created.url
     }
 
     /** Updates the gallery image identified by [url] on the project [projectId]. */
