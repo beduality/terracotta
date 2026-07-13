@@ -23,8 +23,8 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-state-filesys
 | Implementation | Complete | DiffEngine identity matching, task state load/save, Modrinth reporter |
 | Review | Complete | `./gradlew check` and `spotlessCheck` pass; mkdocs builds |
 | Documentation | Complete | Updated config-schema, models, operations, provider-interfaces, kotlin-dsl-configuration, using-modrinth, CHANGELOG |
-| Push and merge | Ready | Committed to `feature/stabilize-gallery-item-identity`; push and open PR when ready |
-| Release report | Not started | |
+| Push and merge | Complete | PR #5 merged; branch deleted |
+| Release report | Complete | v0.8.0 released and docs deployed |
 
 ## Phase 1: Brainstorm
 
