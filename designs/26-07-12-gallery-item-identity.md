@@ -106,9 +106,10 @@ interface GalleryIdentityReporter {
     /**
      * Reports the gallery identities that resulted from applying [operations].
      *
-     * Implementations may capture identities during the apply call or re-fetch
-     * the remote gallery afterward. Returning an empty map is valid for providers
-     * that do not support gallery operations.
+     * Implementations choose the cheapest reliable method for the provider:
+     * capture identities from upload responses when the API returns them, or
+     * re-fetch the remote gallery list afterward when it does not. Returning an
+     * empty map is valid for providers that do not support gallery operations.
      */
     suspend fun reportGalleryIdentities(
         projectId: String,
@@ -119,7 +120,7 @@ interface GalleryIdentityReporter {
 
 The Gradle task calls `registryProvider.apply(...)` as before, then checks whether the provider is also a `GalleryIdentityReporter` and merges the reported identities into state. This keeps the base contract stable and makes reporting opt-in.
 
-`ModrinthRegistryProvider` implements both `BaseRegistryProvider` and `GalleryIdentityReporter`. It captures the remote URL returned by the Modrinth gallery POST for each upload and maps it to the corresponding `localKey`. No remote re-fetch is required for the MVP.
+`ModrinthRegistryProvider` implements both `BaseRegistryProvider` and `GalleryIdentityReporter`. It captures the remote URL returned by the Modrinth gallery POST for each upload and maps it to the corresponding `localKey`. Providers whose upload endpoints do not return the created identity can re-fetch the remote gallery list instead.
 
 ### 4. State update in `TerracottaApplyTask`
 
@@ -178,6 +179,6 @@ If `key` is omitted, the absolute path is used as the stable identity.
 
 ## Open Questions and Risks
 
-1. **Hangar gallery support**: Hangar currently does not support gallery operations. This proposal leaves Hangar without a `GalleryIdentityReporter` implementation; it will gain one when gallery support is added.
-2. **Remote state refresh**: The MVP relies on providers reporting identities from upload responses. If a provider cannot reliably report identities, we can add a re-fetch fallback later, but that costs an extra API call.
+1. **Hangar gallery support**: Hangar currently does not support gallery operations. This proposal leaves Hangar without a `GalleryIdentityReporter` implementation; it will gain one when gallery support is added. The unsupported operations are already warned by the platform behavior.
+2. **Remote state refresh**: `GalleryIdentityReporter` supports both capture-from-response and re-fetch strategies. The Modrinth implementation uses the upload response. Providers that do not return identities from uploads can re-fetch the remote gallery list afterward at the cost of an extra API call.
 3. **Content hashing**: A content hash could be used as a fallback disambiguator when keys conflict, but it changes identity when the file changes and does not distinguish items with the same image but different metadata. Path/key + warning/fallback is chosen for simplicity.

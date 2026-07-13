@@ -4,9 +4,13 @@
 - Stabilize gallery item identity via persisted state
 - Add [Narrow License](./designs/26-07-12-narrow-license-hangar.md)
 - Add Visibility canonical field
+- Add [Hangar provider-specific link settings](./plans/2026-07-add-hangar-provider-link-settings-plan.md)
 
 - Add [Override Pattern](./designs/25-07-10-add-config-override-pattern.md)
+- Add [Fluent Gradle Plugin Config DSL](./plans/2026-07-12-fluent-gradle-plugin-config-dsl-plan.md)
 - Add [Import Task](./designs/26-07-12-add-task-import.md)
+
+- Rename `environment` to `gameEnvironment`
 
 - Finish [External YAML Configuration](./designs/26-07-10-add-config-external-yaml.md)
 

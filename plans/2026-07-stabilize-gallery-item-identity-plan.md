@@ -17,7 +17,7 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-state-filesys
 | Phase | Status | Notes |
 |-------|--------|-------|
 | Brainstorm | Skipped | Well-understood problem; no note needed |
-| System design | In progress | Awaiting approval of design proposal |
+| System design | Complete | Open questions resolved; design proposal updated |
 | Contract | Not started | |
 | TDD | Not started | |
 | Implementation | Not started | |
@@ -42,7 +42,7 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-state-filesys
 - [x] Decide how `DiffEngine` receives persisted `ProviderState`: new overload accepting `Map<String, GalleryItemIdentity>`, with title/ordering fallback.
 - [x] Decide how providers update persisted gallery identities: optional `GalleryIdentityReporter` interface, `ModrinthRegistryProvider` captures upload response URLs.
 - [x] Decide how to handle title changes: update in place when identity matches; delete+upload only when identity is absent or key conflicts force fallback.
-- [ ] Complete design review checklist from `module-review-workflow.md`.
+- [x] Complete design review checklist from `module-review-workflow.md`.
 - [x] Update this plan with decisions that affect later phases.
 
 ## Phase 3: Contract

@@ -6,7 +6,7 @@
 
 ## Summary
 
-Add support for a two-tier configuration model: `canonical` (shared defaults) and `providers.*.overrides` (platform-specific customization). This allows DRY configuration while preserving access to platform-specific features.
+Add support for a two-tier configuration model: root-level fields act as shared defaults (canonical), and `providers.*.overrides` apply platform-specific customization. This allows DRY configuration while preserving access to platform-specific features.
 
 ## Problem Statement
 
@@ -43,18 +43,18 @@ terracotta {
 }
 ```
 
-## Solution: Canonical + Overrides Pattern
+## Solution: Root Defaults + Overrides Pattern
 
 ### YAML Configuration Structure
 
 ```yaml
 # terracotta.yaml
-canonical:
-  loaders: ["fabric", "paper"]
-  game_versions: ["1.20.1", "1.20.2"]
-  environment: "universal"
-  release_type: "release"
-  changelog: "Standard release."
+# Root-level fields act as canonical defaults
+loaders: ["fabric", "paper"]
+game_versions: ["1.20.1", "1.20.2"]
+environment: "universal"
+release_type: "release"
+changelog: "Standard release."
 
 providers:
   modrinth:
@@ -63,13 +63,13 @@ providers:
     overrides:
       loaders: ["fabric"]  # Modrinth only supports fabric
       changelog: "Modrinth-specific notes"
-      
+
   hangar:
     project_id: "example-mod-plugin"
     token: ${HANGAR_TOKEN}
     overrides:
       loaders: ["paper"]
-      
+
   curseforge:
     project_id: 123456
     token: ${CURSEFORGE_TOKEN}
@@ -108,19 +108,19 @@ data class TerracottaProviderOverrides(
 object TerracottaConfigResolver {
     fun resolveProviderSettings(
         providerName: String,
-        canonical: TerracottaProviderSettings?,
+        root: TerracottaProviderSettings?,       // Root-level canonical defaults
         providerOverride: TerracottaProviderSettings?
     ): TerracottaProviderSettings {
-        val canonicalOrEmpty = canonical ?: TerracottaProviderSettings()
+        val rootOrEmpty = root ?: TerracottaProviderSettings()
         val overrideOrEmpty = providerOverride ?: TerracottaProviderSettings()
-        
+
         return TerracottaProviderSettings(
-            loaders = overrideOrEmpty.loaders ?: canonicalOrEmpty.loaders,
-            gameVersions = overrideOrEmpty.gameVersions ?: canonicalOrEmpty.gameVersions,
-            environment = overrideOrEmpty.environment ?: canonicalOrEmpty.environment,
-            releaseType = overrideOrEmpty.releaseType ?: canonicalOrEmpty.releaseType,
-            changelog = overrideOrEmpty.changelog ?: canonicalOrEmpty.changelog,
-            platformSpecific = overrideOrEmpty.platformSpecific ?: canonicalOrEmpty.platformSpecific,
+            loaders = overrideOrEmpty.loaders ?: rootOrEmpty.loaders,
+            gameVersions = overrideOrEmpty.gameVersions ?: rootOrEmpty.gameVersions,
+            environment = overrideOrEmpty.environment ?: rootOrEmpty.environment,
+            releaseType = overrideOrEmpty.releaseType ?: rootOrEmpty.releaseType,
+            changelog = overrideOrEmpty.changelog ?: rootOrEmpty.changelog,
+            platformSpecific = overrideOrEmpty.platformSpecific ?: rootOrEmpty.platformSpecific,
         )
     }
 }
@@ -129,7 +129,7 @@ object TerracottaConfigResolver {
 ### 3. Usage Example
 
 ```kotlin
-val canonical = TerracottaProviderSettings(
+val rootDefaults = TerracottaProviderSettings(
     loaders = listOf(TerracottaLoader.FABRIC, TerracottaLoader.PAPER),
     gameVersions = listOf("1.20.1", "1.20.2"),
     environment = TerracottaEnvironment.UNIVERSAL,
@@ -138,13 +138,13 @@ val canonical = TerracottaProviderSettings(
 )
 
 val modrinthOverrides = TerracottaProviderOverrides(
-    loaders = listOf(TerracottaLoader.FABRIC),  // Override loaders
-    changelog = "Modrinth-specific notes"  // Override changelog
+    loaders = listOf(TerracottaLoader.FABRIC),  // Override root loaders
+    changelog = "Modrinth-specific notes"  // Override root changelog
 )
 
 val resolved = TerracottaConfigResolver.resolveProviderSettings(
     providerName = "modrinth",
-    canonical = canonical,
+    root = rootDefaults,
     providerOverride = modrinthOverrides
 )
 
@@ -156,18 +156,16 @@ val resolved = TerracottaConfigResolver.resolveProviderSettings(
 
 ```kotlin
 terracotta {
-    // Canonical defaults (optional)
-    canonical {
-        loaders.set(listOf(TerracottaLoader.FABRIC, TerracottaLoader.PAPER))
-        gameVersions.set(listOf("1.20.1", "1.20.2"))
-        environment.set(TerracottaEnvironment.UNIVERSAL)
-    }
-    
+    // Root-level canonical defaults (optional)
+    loaders.set(listOf(TerracottaLoader.FABRIC, TerracottaLoader.PAPER))
+    gameVersions.set(listOf("1.20.1", "1.20.2"))
+    environment.set(TerracottaEnvironment.UNIVERSAL)
+
     providers {
         create("modrinth") {
             projectId.set("AABBCCDD")
             token.set(System.getenv("MODRINTH_TOKEN"))
-            
+
             // Provider-specific overrides
             overrides.set(
                 TerracottaProviderOverrides(
@@ -176,11 +174,11 @@ terracotta {
                 )
             )
         }
-        
+
         create("curseforge") {
             projectId.set("123456")
             token.set(System.getenv("CURSEFORGE_TOKEN"))
-            
+
             overrides.set(
                 TerracottaProviderOverrides(
                     platformSpecific = mapOf(
@@ -230,23 +228,23 @@ providers:
 
 ## Benefits
 
-1. **DRY**: Common settings defined once in `canonical`
+1. **DRY**: Common settings defined once at the root level
 2. **Flexibility**: Platform-specific overrides when needed
 3. **Clarity**: Explicit separation of common vs. platform-specific
-4. **Backward Compatible**: Optional `canonical` and `overrides`
+4. **Backward Compatible**: Optional root defaults and `overrides`
 
 ## Migration Path
 
 1. ✅ Update `TerracottaProviderExtension` with `overrides` property
-2. 🔄 Update Gradle DSL to support `canonical` block
+2. 🔄 Update Gradle DSL so root-level fields act as canonical defaults
 3. 🔄 Implement resolution logic
-4. 🔄 Update YAML parser to handle overrides
+4. 🔄 Update YAML parser to use root-level defaults and provider overrides
 5. 🔄 Add tests for resolution precedence
 6. 🔄 Document usage
 
 ## Alternatives Considered
 
-### Alternative 1: Only Provider Overrides (No Canonical)
+### Alternative 1: Only Provider Overrides (No Root Defaults)
 **Pros**: Simpler, no overlap  
 **Cons**: Requires full duplication for each provider
 
@@ -258,4 +256,4 @@ providers:
 **Pros**: Simple, no merge complexity  
 **Cons**: High duplication, error-prone
 
-**Chosen**: Canonical + overrides because it balances DRY principles with platform flexibility while remaining easy to understand.
+**Chosen**: Root-level defaults + provider overrides because it balances DRY principles with platform flexibility while remaining easy to understand.

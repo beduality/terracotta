@@ -16,14 +16,14 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Brainstorm | Not started | Optional |
-| System design | Not started | |
-| Contract | Not started | |
-| TDD | Not started | |
-| Implementation | Not started | |
-| Review | Not started | |
-| Documentation | Not started | |
-| Push and merge | Not started | |
+| Brainstorm | Completed | Brainstormed in previous session; no separate note kept. |
+| System design | Completed | Modrinth `status` used as canonical reference; Hangar filters unsupported operations. |
+| Contract | Completed | `TerracottaVisibility`, `visibility` fields, `UpdateVisibility` operation, and provider mappings defined. |
+| TDD | Completed | Tests added for `TerracottaVisibility`, config loading, metadata resolution, diff engine, Modrinth registry, and Hangar platform behavior. |
+| Implementation | Completed | Core model, diff engine, Gradle plugin DSL/tasks, Modrinth mapping, and Hangar filtering implemented. |
+| Review | Completed | `./gradlew build :spotlessCheck` and `uv run mkdocs build --strict` pass. |
+| Documentation | Completed | Updated config schema, models, metadata resolution, Gradle DSL, tasks, Modrinth/Hangar tutorials, and CHANGELOG. |
+| Push and merge | Completed | Branch pushed to `origin/feat/add-visibility-canonical-field`; PR not yet opened. |
 | Release report | Not started | |
 
 ## Phase 1: Brainstorm
