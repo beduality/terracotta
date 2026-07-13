@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+**Docs**
+
+- Added a Mermaid flowchart to the "What Terracotta does" section on the docs homepage, visualizing the read-diff-apply workflow alongside the existing description.
+
 ### Fixed
 
 **Docs**
