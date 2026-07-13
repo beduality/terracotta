@@ -30,7 +30,14 @@ internal object TerracottaExtensionConfigurer {
         extension.name.convention(resolved.name)
         extension.summary.convention(resolved.summary)
         extension.description.convention(resolved.description)
-        extension.tags.convention(resolved.tags)
+        extension.categories.primary.id.convention(resolved.categories.primary.id)
+        extension.categories.primary.displayName.convention(resolved.categories.primary.displayName)
+        resolved.categories.additional.forEach { category ->
+            extension.categories.additional.create(category.id) {
+                it.id.set(category.id)
+                it.displayName.set(category.displayName)
+            }
+        }
         extension.license.convention(resolved.license)
         resolved.licenseUrl?.let { extension.licenseUrl.convention(it) }
         resolved.icon?.let { extension.icon.convention(project.layout.projectDirectory.file(it)) }

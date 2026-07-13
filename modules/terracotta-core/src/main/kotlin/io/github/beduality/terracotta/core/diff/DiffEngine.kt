@@ -58,11 +58,9 @@ object DiffEngine {
             operations.add(Operation.UpdateDescription(remote.description, local.description))
         }
 
-        // Compare tags
-        val localTags = local.tags.toSet()
-        val remoteTags = remote.tags.toSet()
-        if (localTags != remoteTags) {
-            operations.add(Operation.UpdateTags(remote.tags, local.tags))
+        // Compare categories
+        if (local.categories != remote.categories) {
+            operations.add(Operation.UpdateCategories(remote.categories, local.categories))
         }
 
         // Compare versions (upload any missing local versions)

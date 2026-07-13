@@ -18,8 +18,8 @@ data class TerracottaProject(
     val description: String,
     /** Released versions of the project. */
     val versions: List<TerracottaVersion>,
-    /** Search tags. */
-    val tags: List<String>,
+    /** Project categories. */
+    val categories: TerracottaProjectCategories,
     /** SPDX license identifier. */
     val license: String,
     /** Optional URL to the full license text. */
@@ -30,4 +30,6 @@ data class TerracottaProject(
     val gallery: List<TerracottaGalleryItem> = emptyList(),
     /** Canonical project links. */
     val links: TerracottaProjectLinks = TerracottaProjectLinks(),
+    /** Canonical project visibility. */
+    val visibility: TerracottaVisibility = TerracottaVisibility.PUBLIC,
 )

@@ -24,7 +24,7 @@ The codebase is organized into four layers:
 Registries such as Modrinth and Hangar store metadata and versions that may have been edited by humans or other tools. Overwriting the whole project would destroy those changes. Terracotta fetches the current remote state, computes a semantic diff, and produces targeted operations:
 
 - `UpdateMetadata` for project-level fields such as name, summary, and license.
-- `UpdateTags` for tag lists.
+- `UpdateCategories` for categories.
 - `UpdateDescription` for the project body.
 - `UploadVersion` for new versions.
 

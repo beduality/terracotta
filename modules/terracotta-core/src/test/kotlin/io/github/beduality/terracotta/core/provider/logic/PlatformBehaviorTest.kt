@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.provider.logic
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaCategory
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.test.CapturingLogger
@@ -48,7 +50,10 @@ class PlatformBehaviorTest {
             listOf(
                 Operation.UpdateDescription("old", "new"),
                 Operation.UploadVersion(version),
-                Operation.UpdateTags(emptyList(), listOf("tag")),
+                Operation.UpdateCategories(
+                    TerracottaProjectCategories(primary = TerracottaCategory("old", "Old")),
+                    TerracottaProjectCategories(primary = TerracottaCategory("tag", "Tag")),
+                ),
             )
 
         assertEquals(listOf(Operation.UploadVersion(version)), behavior.filterOperations(operations))

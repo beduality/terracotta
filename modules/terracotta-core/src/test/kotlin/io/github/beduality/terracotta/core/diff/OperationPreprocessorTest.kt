@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -118,8 +120,20 @@ class OperationPreprocessorTest {
     }
 
     @Test
-    fun `UpdateTags passes through unchanged`() {
-        val operation = Operation.UpdateTags(listOf("adventure", "pvp"), listOf("utility", "economy"))
+    fun `UpdateCategories passes through unchanged`() {
+        val operation =
+            Operation.UpdateCategories(
+                oldCategories =
+                    TerracottaProjectCategories(
+                        primary = TerracottaCategory("adventure", "Adventure"),
+                        additional = listOf(TerracottaCategory("pvp", "PvP")),
+                    ),
+                newCategories =
+                    TerracottaProjectCategories(
+                        primary = TerracottaCategory("utility", "Utility"),
+                        additional = listOf(TerracottaCategory("economy", "Economy")),
+                    ),
+            )
 
         val result = OperationPreprocessor.process(listOf(operation))
 
@@ -169,7 +183,11 @@ class OperationPreprocessorTest {
                 summary = "Cool mod",
                 description = "A really cool mod",
                 versions = listOf(version(versionStr = "1.0.0", changelog = "")),
-                tags = listOf("magic", "adventure"),
+                categories =
+                    TerracottaProjectCategories(
+                        primary = TerracottaCategory("magic", "Magic"),
+                        additional = listOf(TerracottaCategory("adventure", "Adventure")),
+                    ),
                 license = "Apache-2.0",
             )
         val operation = Operation.CreateProject(project)
@@ -181,7 +199,8 @@ class OperationPreprocessorTest {
         assertEquals("My Mod", processed.name)
         assertEquals("Cool mod", processed.summary)
         assertEquals("A really cool mod", processed.description)
-        assertEquals(listOf("magic", "adventure"), processed.tags)
+        assertEquals("magic", processed.categories.primary.id)
+        assertEquals(listOf("adventure"), processed.categories.additional.map { it.id })
         assertEquals("Apache-2.0", processed.license)
     }
 
@@ -208,7 +227,7 @@ class OperationPreprocessorTest {
             summary = "A test plugin",
             description = "Description for testing",
             versions = versions,
-            tags = listOf("utility"),
+            categories = TerracottaProjectCategories(primary = TerracottaCategory("utility", "Utility")),
             license = "MIT",
         )
 }

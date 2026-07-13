@@ -1,7 +1,9 @@
 package io.github.beduality.terracotta.core.config
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import org.yaml.snakeyaml.Yaml
 import java.io.File
@@ -39,7 +41,7 @@ object TerracottaConfigLoader {
             name = map.readString("name"),
             summary = map.readString("summary"),
             description = map.readString("description"),
-            tags = map.readStringList("tags"),
+            categories = parseCategories(map["categories"]),
             license = map.readString("license"),
             licenseUrl = map.readString("licenseUrl"),
             icon = map.readString("icon"),
@@ -47,12 +49,36 @@ object TerracottaConfigLoader {
             loaders = map.readStringList("loaders"),
             environment = map.readString("environment"),
             releaseType = map.readString("releaseType"),
+            visibility = map.readString("visibility"),
             changelog = map.readString("changelog"),
             gallery = parseGallery(map["gallery"]),
             links = parseLinks(map["links"]),
             convention = parseConvention(conventionMap),
             providers = parseProviders(providersMap),
         )
+    }
+
+    private fun parseCategories(value: Any?): TerracottaProjectCategories? {
+        @Suppress("UNCHECKED_CAST")
+        val map = value as? Map<String, Any?> ?: return null
+
+        @Suppress("UNCHECKED_CAST")
+        val primaryMap = map["primary"] as? Map<String, Any?> ?: return null
+        val primary = parseCategory(primaryMap) ?: return null
+
+        @Suppress("UNCHECKED_CAST")
+        val additionalList = map["additional"] as? List<Map<String, Any?>> ?: emptyList()
+
+        return TerracottaProjectCategories(
+            primary = primary,
+            additional = additionalList.mapNotNull { parseCategory(it) },
+        )
+    }
+
+    private fun parseCategory(map: Map<String, Any?>): TerracottaCategory? {
+        val id = map.readString("id") ?: return null
+        val displayName = map.readString("displayName") ?: id
+        return TerracottaCategory(id, displayName)
     }
 
     private fun parseGallery(value: Any?): List<TerracottaGalleryItem>? {

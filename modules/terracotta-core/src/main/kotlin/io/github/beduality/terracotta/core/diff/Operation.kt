@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.diff
 
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
@@ -16,9 +17,22 @@ sealed interface Operation {
         override val description: String = "~ Update description"
     }
 
-    /** Updates the project tags from [oldTags] to [newTags]. */
-    data class UpdateTags(val oldTags: List<String>, val newTags: List<String>) : Operation {
-        override val description: String = "~ Update tags (from: ${oldTags.joinToString()} to: ${newTags.joinToString()})"
+    /** Updates the project categories from [oldCategories] to [newCategories]. */
+    data class UpdateCategories(
+        val oldCategories: TerracottaProjectCategories,
+        val newCategories: TerracottaProjectCategories,
+    ) : Operation {
+        override val description: String =
+            "~ Update categories (from: ${formatCategories(oldCategories)} to: ${formatCategories(newCategories)})"
+
+        private fun formatCategories(categories: TerracottaProjectCategories): String =
+            buildString {
+                append(categories.primary.id)
+                if (categories.additional.isNotEmpty()) {
+                    append(", ")
+                    append(categories.additional.joinToString { it.id })
+                }
+            }
     }
 
     /**

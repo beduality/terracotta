@@ -22,7 +22,7 @@ Declarative publishing for Minecraft projects. Define your metadata once in `ter
 
     ---
 
-    Run `./gradlew terracottaApply` to create or update your Modrinth project, upload versions, update metadata, and synchronize tags in one step. [Add Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md) when you are ready for a second registry.
+    Run `./gradlew terracottaApply` to create or update your Modrinth project, upload versions, update metadata, and synchronize categories in one step. [Add Hangar](content/integration/how-to-guides/adding-hangar-to-gradle-plugin.md) when you are ready for a second registry.
 
 -   :material-puzzle:{ .lg .middle } __Pluggable by Design__
 
@@ -38,14 +38,14 @@ Terracotta compares the state you want with the state that exists on the configu
 
 1. **Read local state** from `terracotta.yml`, build configuration files like `build.gradle.kts`, and detected project files.
 2. **Fetch remote state** from the configured provider.
-3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateTags`, and `UploadVersion`.
+3. **Compute a diff** that produces semantic operations such as `CreateProject`, `UpdateMetadata`, `UpdateCategories`, and `UploadVersion`.
 4. **Apply the operations** or print a human-readable plan first.
 
 Example plan output:
 
 ```text
 ~ Update summary (from: "Old summary" to: "Lightweight Paper plugin")
-~ Update tags (from: ["utility"] to: ["utility", "paper"])
+~ Update categories (from: ["utility"] to: ["utility", "paper"])
 + Upload version 1.2.0 (file: build/libs/my-plugin-1.2.0.jar)
 ```
 

@@ -14,8 +14,10 @@ private fun File.writeTerracottaYml() {
         name: "YAML Name"
         summary: "Lightweight Paper plugin"
         description: "A useful plugin."
-        tags:
-          - paper
+        categories:
+          primary:
+            id: paper
+            displayName: Paper
         license: MIT
         gameVersions:
           - 1.21.8
@@ -254,8 +256,10 @@ class TerracottaPluginIntegrationTest {
             name: "My Plugin"
             summary: "Lightweight Paper plugin"
             description: "A useful plugin."
-            tags:
-              - paper
+            categories:
+              primary:
+                id: paper
+                displayName: Paper
             license: MIT
             gameVersions:
               - 1.21.8

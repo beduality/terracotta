@@ -12,7 +12,15 @@ terracotta {
     name.set("My Plugin")
     summary.set("Lightweight Paper plugin")
     description.set(file("README.md").readText())
-    tags.set(listOf("paper", "utility"))
+    categories {
+        primary {
+            id.set("paper")
+            displayName.set("Paper")
+        }
+        additional("utility") {
+            displayName.set("Utility")
+        }
+    }
     license.set("MIT")
     gameVersions.set(listOf("1.21.8", "1.21.7"))
     loaders.set(listOf("paper"))

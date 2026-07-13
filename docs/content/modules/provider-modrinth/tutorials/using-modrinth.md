@@ -179,8 +179,10 @@ icon, so `DeleteIcon` operations are skipped with a warning.
 Here's a complete example showing how to use the Modrinth provider with the Terracotta core:
 
 ```kotlin
-import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.diff.DiffEngine
+import io.github.beduality.terracotta.core.model.TerracottaCategory
+import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.provider.modrinth.ModrinthProviderFactory
 import kotlinx.coroutines.runBlocking
 
@@ -196,7 +198,10 @@ fun main() = runBlocking {
         summary = "A great plugin",
         description = "Full description here",
         versions = emptyList(),
-        tags = listOf("plugin", "utility"),
+        categories = TerracottaProjectCategories(
+            primary = TerracottaCategory("plugin", "Plugin"),
+            additional = listOf(TerracottaCategory("utility", "Utility")),
+        ),
         license = "MIT"
     )
     

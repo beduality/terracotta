@@ -18,7 +18,9 @@ Create `modules/terracotta-core/src/test/kotlin/io/github/beduality/terracotta/c
 ```kotlin
 package io.github.beduality.terracotta.core.provider.example
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.provider.StateProvider
 
 class ExampleStateProvider : StateProvider {
@@ -139,7 +141,9 @@ class ExampleProviderIntegrationTest {
                     gameVersions = listOf("1.21.1"),
                 ),
             ),
-            tags = listOf("test"),
+            categories = TerracottaProjectCategories(
+                primary = TerracottaCategory("test", "Test"),
+            ),
             license = "MIT",
         )
 

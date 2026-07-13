@@ -29,8 +29,9 @@ abstract class TerracottaExtension {
     /** Full project description. */
     abstract val description: Property<String>
 
-    /** Search tags. */
-    abstract val tags: ListProperty<String>
+    @get:Nested
+    /** Project categories. */
+    abstract val categories: TerracottaCategoriesExtension
 
     /** SPDX license identifier. */
     abstract val license: Property<String>
@@ -67,6 +68,11 @@ abstract class TerracottaExtension {
     /** Configures the canonical project links. */
     fun links(action: Action<in TerracottaLinksExtension>) {
         action.execute(links)
+    }
+
+    /** Configures the project categories. */
+    fun categories(action: Action<in TerracottaCategoriesExtension>) {
+        action.execute(categories)
     }
 
     /** Compiled artifact to upload. */

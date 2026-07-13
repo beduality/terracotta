@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DynamicTest
@@ -43,15 +45,62 @@ class OperationDescriptionPropertyTest {
             "v2.0",
         )
 
-    private val tagListPairs =
+    private val categoryPairs =
         listOf(
-            Pair(listOf("adventure"), listOf("utility", "economy")),
-            Pair(listOf("combat", "pvp"), listOf("pve", "survival")),
-            Pair(listOf("a"), listOf("b")),
-            Pair(listOf("tag1", "tag2", "tag3"), listOf("tag4")),
-            Pair(emptyList(), listOf("new-tag")),
-            Pair(listOf("removed-tag"), emptyList()),
-            Pair(listOf("alpha", "beta"), listOf("gamma", "delta", "epsilon")),
+            Pair(
+                TerracottaProjectCategories(primary = TerracottaCategory("adventure", "Adventure")),
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("utility", "Utility"),
+                    additional = listOf(TerracottaCategory("economy", "Economy")),
+                ),
+            ),
+            Pair(
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("combat", "Combat"),
+                    additional = listOf(TerracottaCategory("pvp", "PvP")),
+                ),
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("pve", "PvE"),
+                    additional = listOf(TerracottaCategory("survival", "Survival")),
+                ),
+            ),
+            Pair(
+                TerracottaProjectCategories(primary = TerracottaCategory("a", "A")),
+                TerracottaProjectCategories(primary = TerracottaCategory("b", "B")),
+            ),
+            Pair(
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("tag1", "Tag 1"),
+                    additional =
+                        listOf(
+                            TerracottaCategory("tag2", "Tag 2"),
+                            TerracottaCategory("tag3", "Tag 3"),
+                        ),
+                ),
+                TerracottaProjectCategories(primary = TerracottaCategory("tag4", "Tag 4")),
+            ),
+            Pair(
+                TerracottaProjectCategories(primary = TerracottaCategory("kept", "Kept")),
+                TerracottaProjectCategories(primary = TerracottaCategory("new-tag", "New Tag")),
+            ),
+            Pair(
+                TerracottaProjectCategories(primary = TerracottaCategory("removed-tag", "Removed Tag")),
+                TerracottaProjectCategories(primary = TerracottaCategory("kept", "Kept")),
+            ),
+            Pair(
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("alpha", "Alpha"),
+                    additional = listOf(TerracottaCategory("beta", "Beta")),
+                ),
+                TerracottaProjectCategories(
+                    primary = TerracottaCategory("gamma", "Gamma"),
+                    additional =
+                        listOf(
+                            TerracottaCategory("delta", "Delta"),
+                            TerracottaCategory("epsilon", "Epsilon"),
+                        ),
+                ),
+            ),
         )
 
     /**
@@ -70,7 +119,7 @@ class OperationDescriptionPropertyTest {
                         summary = "A test project",
                         description = "Description",
                         versions = emptyList(),
-                        tags = emptyList(),
+                        categories = TerracottaProjectCategories(primary = TerracottaCategory("test", "Test")),
                         license = "MIT",
                     )
                 val operation = Operation.CreateProject(project)
@@ -117,35 +166,37 @@ class OperationDescriptionPropertyTest {
         }
 
     /**
-     * Property 6: UpdateTags description content
+     * Property 6: UpdateCategories description content
      *
-     * For any two distinct tag lists, description contains `~` and both old and new values.
+     * For any two distinct category values, description contains `~` and both old and new ids.
      */
     @TestFactory
-    fun `Property 6 - UpdateTags description contains tilde and both tag lists`(): List<DynamicTest> =
-        tagListPairs.map { (oldTags, newTags) ->
+    fun `Property 6 - UpdateCategories description contains tilde and both category lists`(): List<DynamicTest> =
+        categoryPairs.map { (oldCategories, newCategories) ->
             DynamicTest.dynamicTest(
-                "UpdateTags(old=$oldTags, new=$newTags) description contains '~' and tag values",
+                "UpdateCategories(old=$oldCategories, new=$newCategories) description contains '~' and category values",
             ) {
-                val operation = Operation.UpdateTags(oldTags, newTags)
+                val operation = Operation.UpdateCategories(oldCategories, newCategories)
                 val desc = operation.description
 
                 assertTrue(
                     desc.contains("~"),
-                    "UpdateTags description should contain '~' but was: $desc",
+                    "UpdateCategories description should contain '~' but was: $desc",
                 )
-                oldTags.forEach { tag ->
+                oldCategories.allIds().forEach { id ->
                     assertTrue(
-                        desc.contains(tag),
-                        "UpdateTags description should contain old tag '$tag' but was: $desc",
+                        desc.contains(id),
+                        "UpdateCategories description should contain old category '$id' but was: $desc",
                     )
                 }
-                newTags.forEach { tag ->
+                newCategories.allIds().forEach { id ->
                     assertTrue(
-                        desc.contains(tag),
-                        "UpdateTags description should contain new tag '$tag' but was: $desc",
+                        desc.contains(id),
+                        "UpdateCategories description should contain new category '$id' but was: $desc",
                     )
                 }
             }
         }
+
+    private fun TerracottaProjectCategories.allIds(): List<String> = listOf(primary.id) + additional.map { it.id }
 }

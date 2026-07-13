@@ -40,7 +40,7 @@ object HangarPlatformBehavior : PlatformBehavior {
         operations.filter {
             it is UpdateMetadata ||
                 it is UpdateDescription ||
-                it is UpdateTags ||
+                it is UpdateCategories ||
                 it is UploadVersion
         }
 }

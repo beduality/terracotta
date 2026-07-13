@@ -1,6 +1,8 @@
 package io.github.beduality.terracotta.core.diff
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -17,7 +19,7 @@ class DiffEngineLinksTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = TerracottaProjectCategories(primary = TerracottaCategory("default", "Default")),
                 license = "MIT",
             )
 
@@ -28,7 +30,7 @@ class DiffEngineLinksTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = TerracottaProjectCategories(primary = TerracottaCategory("default", "Default")),
                 license = "MIT",
                 links = TerracottaProjectLinks(source = "https://github.com/example/project"),
             )
@@ -52,7 +54,7 @@ class DiffEngineLinksTest {
                 summary = "Summary",
                 description = "Description",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = TerracottaProjectCategories(primary = TerracottaCategory("default", "Default")),
                 license = "MIT",
                 links = links,
             )

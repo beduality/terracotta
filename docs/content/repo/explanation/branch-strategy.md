@@ -22,7 +22,7 @@ The `project` branch is not a free-form issue tracker. It has three strict bucke
 
 - **TODO.md**: Tasks ready to pick up.
 - **BACKLOG.md**: Ideas not yet actionable.
-- **proposals/**: Larger changes needing design review.
+- **designs/**: Larger changes needing design review.
 
 This structure prevents the branch from becoming a dumping ground. If an item cannot be placed in one of these files with a clear next step, it is not ready for the `project` branch.
 

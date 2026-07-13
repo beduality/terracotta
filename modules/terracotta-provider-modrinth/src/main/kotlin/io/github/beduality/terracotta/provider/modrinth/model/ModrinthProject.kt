@@ -17,8 +17,11 @@ data class ModrinthProject(
     @kotlinx.serialization.SerialName("description") val summary: String,
     /** Full project description. */
     val body: String,
-    /** Project categories / tags. */
+    /** Featured project categories. */
     val categories: List<String>,
+    /** Additional non-featured project categories. */
+    @kotlinx.serialization.SerialName("additional_categories")
+    val additionalCategories: List<String> = emptyList(),
     /** License information. */
     val license: ModrinthLicense,
     /** Project icon URL. */

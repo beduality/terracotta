@@ -18,7 +18,7 @@ object HangarPlatformBehavior : PlatformBehavior {
             when (it) {
                 is Operation.UpdateMetadata,
                 is Operation.UpdateDescription,
-                is Operation.UpdateTags,
+                is Operation.UpdateCategories,
                 is Operation.UploadVersion,
                 -> true
                 else -> false

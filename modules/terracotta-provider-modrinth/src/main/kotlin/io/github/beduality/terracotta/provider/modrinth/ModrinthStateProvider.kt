@@ -1,8 +1,10 @@
 package io.github.beduality.terracotta.provider.modrinth
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -41,7 +43,16 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
             summary = project.summary,
             description = project.body,
             versions = versions,
-            tags = project.categories,
+            categories =
+                TerracottaProjectCategories(
+                    primary =
+                        project.categories.firstOrNull()?.let { TerracottaCategory(it, it) }
+                            ?: TerracottaCategory("unknown", "Unknown"),
+                    additional =
+                        (project.categories.drop(1) + project.additionalCategories).map {
+                            TerracottaCategory(it, it)
+                        },
+                ),
             license = project.license.id,
             licenseUrl = project.license.url,
             icon = project.iconUrl,

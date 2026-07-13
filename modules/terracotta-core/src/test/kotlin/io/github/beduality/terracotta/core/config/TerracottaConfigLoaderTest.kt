@@ -1,5 +1,7 @@
 package io.github.beduality.terracotta.core.config
 
+import io.github.beduality.terracotta.core.model.TerracottaCategory
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -29,9 +31,13 @@ class TerracottaConfigLoaderTest {
             name: My Plugin
             summary: Lightweight Paper plugin
             description: A useful plugin
-            tags:
-              - paper
-              - utility
+            categories:
+              primary:
+                id: paper
+                displayName: Paper
+              additional:
+                - id: utility
+                  displayName: Utility
             license: MIT
             licenseUrl: https://github.com/example/my-plugin/blob/main/LICENSE
             gameVersions:
@@ -57,7 +63,13 @@ class TerracottaConfigLoaderTest {
         assertEquals("My Plugin", config.name)
         assertEquals("Lightweight Paper plugin", config.summary)
         assertEquals("A useful plugin", config.description)
-        assertEquals(listOf("paper", "utility"), config.tags)
+        assertEquals(
+            TerracottaProjectCategories(
+                primary = TerracottaCategory("paper", "Paper"),
+                additional = listOf(TerracottaCategory("utility", "Utility")),
+            ),
+            config.categories,
+        )
         assertEquals("MIT", config.license)
         assertEquals("https://github.com/example/my-plugin/blob/main/LICENSE", config.licenseUrl)
         assertEquals(listOf("1.21.8", "1.21.7"), config.gameVersions)
@@ -93,7 +105,7 @@ class TerracottaConfigLoaderTest {
         assertEquals("Minimal Plugin", config.name)
         assertNull(config.summary)
         assertNull(config.icon)
-        assertNull(config.tags)
+        assertNull(config.categories)
         assertNull(config.convention.readme)
         assertNull(config.convention.changelog)
         assertEquals("minimal", config.providers["modrinth"]?.projectId)
@@ -171,7 +183,8 @@ class TerracottaConfigLoaderTest {
         file.writeText(
             """
             name: Plugin
-            tags: paper
+            categories:
+              primary: paper
             loaders: fabric
             """.trimIndent(),
         )
@@ -179,7 +192,7 @@ class TerracottaConfigLoaderTest {
         val config = TerracottaConfigLoader.load(file)
 
         assertEquals("Plugin", config.name)
-        assertNull(config.tags)
+        assertNull(config.categories)
         assertNull(config.loaders)
     }
 

@@ -17,7 +17,7 @@ import org.slf4j.Logger
 interface PlatformBehavior {
     /**
      * Returns `true` when the registry supports updating project metadata,
-     * descriptions, and tags.
+     * descriptions, and categories.
      *
      * Append-only platforms return `false` and implementations should filter
      * metadata operations before applying them.

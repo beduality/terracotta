@@ -5,6 +5,7 @@ import io.github.beduality.terracotta.core.diff.OperationPreprocessor
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -52,8 +53,8 @@ abstract class TerracottaApplyTask : DefaultTask() {
     abstract val modDescription: Property<String>
 
     @get:Input
-    /** Search tags. */
-    abstract val tags: ListProperty<String>
+    /** Project categories. */
+    abstract val categories: Property<TerracottaProjectCategories>
 
     @get:Input
     /** SPDX license identifier. */
@@ -156,7 +157,7 @@ abstract class TerracottaApplyTask : DefaultTask() {
             summary = summary.get(),
             description = modDescription.get(),
             versions = listOf(version),
-            tags = tags.get(),
+            categories = categories.get(),
             license = license.get(),
             licenseUrl = licenseUrl.orNull,
             icon = icon.orNull?.asFile?.absolutePath,

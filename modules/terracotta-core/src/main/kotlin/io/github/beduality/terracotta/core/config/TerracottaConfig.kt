@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 
 /**
@@ -18,8 +19,8 @@ data class TerracottaConfig(
     val summary: String? = null,
     /** Full project description. */
     val description: String? = null,
-    /** Search tags. */
-    val tags: List<String>? = null,
+    /** Project categories. */
+    val categories: TerracottaProjectCategories? = null,
     /** SPDX license identifier. */
     val license: String? = null,
     /** Optional URL to the full license text. */
@@ -34,6 +35,8 @@ data class TerracottaConfig(
     val environment: String? = null,
     /** Release type identifier (`release`, `beta`, or `alpha`). */
     val releaseType: String? = null,
+    /** Visibility identifier (`public`, `unlisted`, `archived`, `private`, or `draft`). */
+    val visibility: String? = null,
     /** Changelog text for the current version. */
     val changelog: String? = null,
     /** Gallery images for the project. */

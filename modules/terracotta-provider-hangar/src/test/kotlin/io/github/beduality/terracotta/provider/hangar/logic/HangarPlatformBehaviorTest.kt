@@ -1,8 +1,10 @@
 package io.github.beduality.terracotta.provider.hangar.logic
 
 import io.github.beduality.terracotta.core.diff.Operation
+import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
+import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
@@ -40,7 +42,10 @@ class HangarPlatformBehaviorTest {
                     newLinks = TerracottaProjectLinks(),
                 ),
                 Operation.UpdateDescription("old", "new"),
-                Operation.UpdateTags(emptyList(), listOf("tag")),
+                Operation.UpdateCategories(
+                    TerracottaProjectCategories(primary = TerracottaCategory("old", "Old")),
+                    TerracottaProjectCategories(primary = TerracottaCategory("tag", "Tag")),
+                ),
                 Operation.UploadVersion(version),
             )
 
@@ -56,7 +61,7 @@ class HangarPlatformBehaviorTest {
                 summary = "",
                 description = "",
                 versions = emptyList(),
-                tags = emptyList(),
+                categories = TerracottaProjectCategories(primary = TerracottaCategory("default", "Default")),
                 license = "",
             )
         val item = TerracottaGalleryItem(imagePath = "image.png", title = "")
