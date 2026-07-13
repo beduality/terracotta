@@ -32,7 +32,7 @@ Create a Hangar API key from your Hangar account settings.
 
 Set the key as an environment variable. Terracotta uses the `<PROVIDER>_TOKEN` convention, so the variable name for Hangar is `HANGAR_TOKEN`:
 
-```=== "Linux / macOS"
+=== "Linux / macOS"
 
     ```bash
     export HANGAR_TOKEN="your_hangar_token"

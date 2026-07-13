@@ -24,7 +24,7 @@ providers:
 
 Set the token as an environment variable. Terracotta uses the `<PROVIDER>_TOKEN` convention, so the variable name for Modrinth is `MODRINTH_TOKEN`:
 
-```=== "Linux / macOS"
+=== "Linux / macOS"
 
     ```bash
     export MODRINTH_TOKEN="your_modrinth_token"
@@ -35,7 +35,6 @@ Set the token as an environment variable. Terracotta uses the `<PROVIDER>_TOKEN`
     ```powershell
     $env:MODRINTH_TOKEN="your_modrinth_token"
     ```
-```
 
 Or set the token explicitly in `build.gradle.kts`:
 

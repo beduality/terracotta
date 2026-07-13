@@ -98,8 +98,6 @@ For most projects, this is enough. Terracotta detects `name`, `summary`, `descri
 |---|---|
 | Plan changes | `./gradlew terracottaPlan` |
 | Apply changes | `./gradlew terracottaApply` |
-| Plan only Modrinth | `./gradlew terracottaPlanModrinth` |
-| Apply only Modrinth | `./gradlew terracottaApplyModrinth` |
 
 See the [Gradle tasks reference](content/modules/gradle-plugin/reference/tasks.md) for the full list.
 

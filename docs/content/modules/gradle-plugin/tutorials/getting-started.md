@@ -49,7 +49,7 @@ Create a Modrinth API token from your Modrinth account settings.
 
 Set the token as an environment variable:
 
-```=== "Linux / macOS"
+=== "Linux / macOS"
 
     ```bash
     export MODRINTH_TOKEN="your_modrinth_token"

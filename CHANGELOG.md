@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+**Docs**
+
+- Fixed broken MkDocs Material content tab syntax in authentication sections of the Gradle plugin and integration how-to guides.
+- Removed obsolete per-provider plan/apply task names from the docs homepage quick reference.
+
 ## [0.8.0] - 2026-07-13
 
 Stabilizes gallery item identity using persisted state so images can be renamed or reordered without triggering a delete-and-reupload cycle.
