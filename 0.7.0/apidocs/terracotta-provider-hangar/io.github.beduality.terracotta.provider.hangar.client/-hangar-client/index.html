@@ -1,0 +1,243 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HangarClient</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            terracotta
+                    </a>            </div>
+            <div class="library-version">0.7.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":terracotta-provider-hangar:dokkaHtmlPartial/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="terracotta-provider-hangar::io.github.beduality.terracotta.provider.hangar.client/HangarClient///PointingToDeclaration//542201105">
+  <div class="breadcrumbs"><a href="../../index.html">terracotta-provider-hangar</a><span class="delimiter">/</span><a href="../index.html">io.github.beduality.terracotta.provider.hangar.client</a><span class="delimiter">/</span><span class="current">HangarClient</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Hangar</span><wbr><span><span>Client</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">HangarClient</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">apiKey<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">baseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"https://hangar.papermc.io/api/v1"</span><span class="token punctuation">, </span></span><span class="parameter ">loaderMapper<span class="token operator">: </span><a href="../../../terracotta-core/io.github.beduality.terracotta.core.provider.logic/-loader-mapper/index.html">LoaderMapper</a><span class="token operator"> = </span>HangarLoaderMapper<span class="token punctuation">, </span></span><span class="parameter ">client<span class="token operator">: </span><span data-unresolved-link="io.ktor.client/HttpClient///PointingToDeclaration/">HttpClient</span><span class="token operator"> = </span>defaultClient()</span></span><span class="token punctuation">)</span></div><p class="paragraph">HTTP client for the Hangar API.</p><p class="paragraph">Handles JWT authentication, project metadata updates, version uploads, and channel creation.</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div></div></span></div><div><div class="title"><p class="paragraph"><a href="https://beduality.github.io/terracotta/content/modules/provider-hangar/tutorials/using-hangar.html">Hangar provider tutorial</a></p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-897784494%2FConstructors%2F542201105" anchor-label="HangarClient" id="-897784494%2FConstructors%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hangar-client.html"><span>Hangar</span><wbr><span><span>Client</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-897784494%2FConstructors%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">apiKey<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">baseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">"https://hangar.papermc.io/api/v1"</span><span class="token punctuation">, </span></span><span class="parameter ">loaderMapper<span class="token operator">: </span><a href="../../../terracotta-core/io.github.beduality.terracotta.core.provider.logic/-loader-mapper/index.html">LoaderMapper</a><span class="token operator"> = </span>HangarLoaderMapper<span class="token punctuation">, </span></span><span class="parameter ">client<span class="token operator">: </span><span data-unresolved-link="io.ktor.client/HttpClient///PointingToDeclaration/">HttpClient</span><span class="token operator"> = </span>defaultClient()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="377281718%2FClasslikes%2F542201105" anchor-label="Companion" id="377281718%2FClasslikes%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="377281718%2FClasslikes%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2060547585%2FFunctions%2F542201105" anchor-label="createChannel" id="2060547585%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-channel.html"><span>create</span><wbr><span><span>Channel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2060547585%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="create-channel.html"><span class="token function">createChannel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new release <a href="create-channel.html">name</a> channel on the project if it does not exist.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1093800093%2FFunctions%2F542201105" anchor-label="deleteProject" id="-1093800093%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-project.html"><span>delete</span><wbr><span><span>Project</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1093800093%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="delete-project.html"><span class="token function">deleteProject</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Deletes the Hangar project identified by <a href="delete-project.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1006115001%2FFunctions%2F542201105" anchor-label="deleteVersion" id="-1006115001%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-version.html"><span>delete</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1006115001%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="delete-version.html"><span class="token function">deleteVersion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">versionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Deletes the Hangar version identified by <a href="delete-version.html">versionId</a> on the project <a href="delete-version.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-268606661%2FFunctions%2F542201105" anchor-label="getChannels" id="-268606661%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-channels.html"><span>get</span><wbr><span><span>Channels</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-268606661%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-channels.html"><span class="token function">getChannels</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.beduality.terracotta.provider.hangar.model/-hangar-channel/index.html">HangarChannel</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Fetches all channels of the Hangar project with the given <a href="get-channels.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="639595836%2FFunctions%2F542201105" anchor-label="getProject" id="639595836%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-project.html"><span>get</span><wbr><span><span>Project</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="639595836%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-project.html"><span class="token function">getProject</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../io.github.beduality.terracotta.provider.hangar.model/-hangar-project/index.html">HangarProject</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Fetches the Hangar project with the given <a href="get-project.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1467502022%2FFunctions%2F542201105" anchor-label="getVersions" id="1467502022%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-versions.html"><span>get</span><wbr><span><span>Versions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1467502022%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-versions.html"><span class="token function">getVersions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.beduality.terracotta.provider.hangar.model/-hangar-version/index.html">HangarVersion</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Fetches all versions of the Hangar project with the given <a href="get-versions.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="721352193%2FFunctions%2F542201105" anchor-label="updateProject" id="721352193%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="update-project.html"><span>update</span><wbr><span><span>Project</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="721352193%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="update-project.html"><span class="token function">updateProject</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">summary<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">license<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">links<span class="token operator">: </span><a href="../../../terracotta-core/io.github.beduality.terracotta.core.model/-terracotta-project-links/index.html">TerracottaProjectLinks</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Updates Hangar project metadata.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1504220287%2FFunctions%2F542201105" anchor-label="uploadVersion" id="1504220287%2FFunctions%2F542201105" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-provider-hangar:dokkaHtmlPartial/main" data-filterable-set=":terracotta-provider-hangar:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="upload-version.html"><span>upload</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1504220287%2FFunctions%2F542201105"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-provider-hangar:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="upload-version.html"><span class="token function">uploadVersion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slug<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">version<span class="token operator">: </span><a href="../../../terracotta-core/io.github.beduality.terracotta.core.model.version/-terracotta-version/index.html">TerracottaVersion</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Uploads <a href="upload-version.html">version</a> to the Hangar project identified by <a href="upload-version.html">slug</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
