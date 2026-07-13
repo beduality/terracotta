@@ -74,7 +74,7 @@ When applying any workflow, replace these placeholders consistently:
 | Design proposal | `project/designs/<module>-design.md` |
 | Plan file | `project/plans/YYYY-MM-<short-name>-plan.md` |
 | Brainstorm note | `project/brainstorm/<datetime>-<title>.md` |
-| Release report | `project/reports/release/<datetime>-<title>.md` |
+| Release report | `reports/<datetime>-<title>.md` |
 | Release report template | `project/methodology/templates/report.md` |
 | Archived plans | `project/plans/archived/<plan>.md` |
 | Archived designs | `project/designs/archived/<design>.md` |
@@ -99,4 +99,4 @@ Choose the release path:
 - Open a pull request, review it, and merge once CI is green for changes that affect public API, build configuration, or multiple modules.
 - Observe CD after merge and confirm the deployment succeeds.
 - Archive the plan, design, and brainstorm note used for the work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
-- Copy `reports/release/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- Copy `project/methodology/templates/report.md` to `reports/<datetime>-<title>.md` and fill it out.

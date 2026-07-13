@@ -1,9 +1,6 @@
 # TODO
 
 - Add support to load any Terracotta config value from file just using `<field>Path` convention, e.g. `descriptionPath`
-- Stabilize gallery item identity via persisted state
-- Add [Narrow License](./designs/26-07-12-narrow-license-hangar.md)
-- Add Visibility canonical field
 - Add [Hangar provider-specific link settings](./plans/2026-07-add-hangar-provider-link-settings-plan.md)
 
 - Add [Override Pattern](./designs/25-07-10-add-config-override-pattern.md)

@@ -15,7 +15,7 @@ Skip for one-line fixes or documentation typos.
 
 ## 2. Choose the methodology path
 
-Use the scope guidance in `module-development-workflow.md` to select the phase
+Use the scope guidance in [`development.md`](development.md) to select the phase
 sequence:
 
 | Change type | Plan phases |
@@ -26,6 +26,19 @@ sequence:
 | Documentation-only | Docs → Review → Push and merge → Release report |
 
 Insert **Contract** before Tests for bug fixes or refactorings that introduce a new public API surface or extension point.
+
+When you reach a phase in the plan, follow its dedicated guide:
+
+| Phase | Guide |
+|---|---|
+| Brainstorm | [`brainstorm.md`](brainstorm.md) |
+| System design | [`system-design.md`](system-design.md) |
+| Contract | [`contract.md`](contract.md) |
+| Tests | [`testing.md`](testing.md) |
+| Implementation | [`implementation.md`](implementation.md) |
+| Review | [`review.md`](review.md) |
+| Documentation | [`documentation.md`](documentation.md) |
+| Investigation (bug fix) | [`bugfix.md`](bugfix.md) |
 
 ## 3. Generate the plan file
 
@@ -71,7 +84,7 @@ When all checkboxes are done and the change is merged or released:
 
 - Observe CD and confirm the deployment succeeds.
 - Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
-- Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- Copy `project/methodology/templates/report.md` to `reports/<datetime>-<title>.md` and fill it out.
 - Link the merged PR or release tag in the release report and any final notes.
 - Move the source TODO item to a done section or remove it.
 

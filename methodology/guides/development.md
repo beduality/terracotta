@@ -24,9 +24,11 @@ Every change passes through **Review** and is pushed to **remote** before releas
 
 **When to skip**: the change is small, well-understood, or has a clear precedent.
 
+**Read**: `project/methodology/guides/brainstorm.md`
+
 **Work**:
 
-- Open a fresh `project/brainstorm/<datetime>-<title>.md` file.
+- Open a fresh `project/brainstorm/<datetime>-<title>.md` from `project/methodology/templates/brainstorm.md`.
 - Spend a short, time-boxed session generating ideas and trade-offs.
 - Capture the best ideas, alternatives, and open questions succinctly.
 - If the brainstorm produces a better direction, update the design proposal and plan before continuing.
@@ -232,7 +234,7 @@ the design. Return to Phase 1 or Phase 2, then Phase 3.
 **Work**:
 
 - Archive the plan, design proposal, and brainstorm note used for this work by moving them into `project/plans/archived/`, `project/designs/archived/`, and `project/brainstorm/archived/` respectively.
-- Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out with the released version links and verification results.
+- Copy `project/methodology/templates/report.md` to `reports/<datetime>-<title>.md` and fill it out with the released version links and verification results.
 
 **Output before considering the module complete**:
 

@@ -4,7 +4,7 @@ description: Implementation plan for <short description>.
 
 # <Title>
 
-This plan follows `project/methodology/module-development-workflow.md` for a **<change type>** that
+This plan follows `project/methodology/guides/development.md` for a **<change type>** that
 touches `<modules>`.
 
 ## Source of truth
@@ -28,7 +28,8 @@ touches `<modules>`.
 
 ## Phase 1: Brainstorm
 
-- [ ] Open a fresh `project/brainstorm/<datetime>-<title>.md` file.
+- [ ] Read `project/methodology/guides/brainstorm.md`.
+- [ ] Open a fresh `project/brainstorm/<datetime>-<title>.md` from `project/methodology/templates/brainstorm.md`.
 - [ ] Spend a short, time-boxed session exploring alternatives, creative angles, and out-of-the-box ideas.
 - [ ] Capture the best ideas, trade-offs, and open questions in the brainstorm file.
 - [ ] If the brainstorm produces a better direction, update the design proposal and this plan before continuing.
@@ -36,36 +37,36 @@ touches `<modules>`.
 
 ## Phase 2: System design
 
-- [ ] Read `project/methodology/module-system-design-workflow.md`.
+- [ ] Read `project/methodology/guides/system-design.md`.
 - [ ] Read or write the design proposal.
-- [ ] Complete design review checklist from `module-review-workflow.md`.
+- [ ] Complete design review checklist from `project/methodology/guides/review.md`.
 - [ ] Update this plan with decisions that affect later phases.
 
 ## Phase 3: Contract
 
 - [ ] Create a feature branch from `main` after the design proposal is approved.
-- [ ] Read `project/methodology/module-contract-workflow.md`.
+- [ ] Read `project/methodology/guides/contract.md`.
 - [ ] Write or update public interfaces, abstract types, SPI entries, and data classes.
 - [ ] Add KDoc for every public symbol intended for Dokka.
 - [ ] Run `:<module>:compileKotlin`.
 
 ## Phase 4: Test-driven development
 
-- [ ] Read `project/methodology/module-testing-workflow.md`.
+- [ ] Read `project/methodology/guides/testing.md`.
 - [ ] Identify behavior and edge cases.
 - [ ] Write failing tests against the contract.
 - [ ] Run tests and confirm they fail for the expected reason.
 
 ## Phase 5: Implementation
 
-- [ ] Read `project/methodology/module-implementation-workflow.md`.
+- [ ] Read `project/methodology/guides/implementation.md`.
 - [ ] Make tests pass with the smallest change.
 - [ ] Refactor and add KDoc.
 - [ ] Run `:build :spotlessCheck`.
 
 ## Phase 6: Review
 
-- [ ] Read `project/methodology/module-review-workflow.md`.
+- [ ] Read `project/methodology/guides/review.md`.
 - [ ] Run code review checklist.
 - [ ] By default, confirm auto-review (tests, spotless, build, docs build) passes.
 - [ ] Update `CHANGELOG.md` if users need to know about the change. Write the `[Unreleased]` summary directly (e.g. "Adds...", "Fixes...", "Narrows..."), without a meta-introduction such as "This release..." or "This unreleased set of changes..."; the release script promotes the `[Unreleased]` body verbatim into the new version section.
@@ -73,7 +74,7 @@ touches `<modules>`.
 
 ## Phase 7: Documentation
 
-- [ ] Read `project/methodology/module-documentation-workflow.md`.
+- [ ] Read `project/methodology/guides/documentation.md`.
 - [ ] Add or update Diátaxis docs.
 - [ ] Cross-link KDoc with `@see`.
 - [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
@@ -91,7 +92,7 @@ touches `<modules>`.
   - Move this plan to `project/plans/archived/<plan>.md`.
   - Move the design proposal to `project/designs/archived/<design>.md` if it is no longer needed.
   - Move the brainstorm note to `project/brainstorm/archived/<note>.md` if one was created.
-- [ ] Copy `project/reports/TEMPLATE.md` to `project/reports/release/<datetime>-<title>.md` and fill it out.
+- [ ] Copy `project/methodology/templates/report.md` to `reports/<datetime>-<title>.md` and fill it out.
 
 ## Notes
 
