@@ -3749,6 +3749,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#project-visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Visibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#loader-to-platform-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5225,6 +5236,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#project-visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Visibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#loader-to-platform-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5416,6 +5438,8 @@
 </code></pre></div>
 <h2 id="project-creation">Project Creation<a class="headerlink" href="#project-creation" title="Permanent link">&para;</a></h2>
 <p>Hangar does not expose a project creation API. Projects must be created manually on Hangar first. When Terracotta receives a <code>CreateProject</code> operation, it logs a warning and skips the operation. Once the project exists on Hangar, Terracotta can sync metadata and upload versions.</p>
+<h2 id="project-visibility">Project Visibility<a class="headerlink" href="#project-visibility" title="Permanent link">&para;</a></h2>
+<p>Hangar does not expose an API for changing project visibility. When a plan includes an <code>UpdateVisibility</code> operation, the Hangar provider filters it out and logs a warning so the apply continues without failing.</p>
 <h2 id="loader-to-platform-mapping">Loader-to-Platform Mapping<a class="headerlink" href="#loader-to-platform-mapping" title="Permanent link">&para;</a></h2>
 <p>Hangar uses a coarser "platform" concept than individual loaders. Terracotta maps multiple Paper-ecosystem loaders to the same Hangar platform:</p>
 <table>

@@ -5080,6 +5080,21 @@
 <p><strong>Core</strong></p>
 <ul>
 <li>Added <code>TerracottaCategory</code> and <code>TerracottaProjectCategories</code> models for structured project categories.</li>
+<li>Added <code>TerracottaVisibility</code> enum (<code>public</code>, <code>unlisted</code>, <code>archived</code>, <code>private</code>, <code>draft</code>) and a canonical <code>visibility</code> field on <code>TerracottaProject</code>, <code>TerracottaConfig</code>, and <code>ResolvedProjectMetadata</code>.</li>
+<li>Added <code>Operation.UpdateVisibility</code> and updated <code>DiffEngine</code> to emit it when the local and remote visibility differ.</li>
+</ul>
+<p><strong>Gradle Plugin</strong></p>
+<ul>
+<li>Added <code>visibility</code> property to the <code>terracotta</code> DSL extension and wired it through <code>TerracottaExtensionConfigurer</code>, <code>TerracottaTaskRegistrar</code>, <code>TerracottaPlanTask</code>, and <code>TerracottaApplyTask</code>.</li>
+</ul>
+<p><strong>Modrinth</strong></p>
+<ul>
+<li><code>ModrinthStateProvider.fetchProject</code> maps Modrinth project <code>status</code> to <code>TerracottaVisibility</code>.</li>
+<li><code>ModrinthRegistryProvider</code> applies <code>UpdateVisibility</code> by patching the project <code>status</code>.</li>
+</ul>
+<p><strong>Hangar</strong></p>
+<ul>
+<li><code>HangarPlatformBehavior</code> filters out <code>UpdateVisibility</code> operations so Hangar applies continue without failing; a warning is logged for skipped operations.</li>
 </ul>
 <p><strong>Docs</strong></p>
 <ul>
