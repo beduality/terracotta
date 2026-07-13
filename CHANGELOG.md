@@ -29,6 +29,16 @@ Stabilizes gallery item identity using persisted state so images can be renamed 
 - `ModrinthRegistryProvider` implements `GalleryIdentityReporter`: uploads return the new remote URL, updates keep the existing URL, and deletes omit the identity.
 - `ModrinthClient.uploadGalleryItem` returns the created gallery image URL.
 
+## [0.7.1] - 2026-07-13
+
+Tightens the changelog standard so `[Unreleased]` summaries are written as direct summaries and cannot be promoted with stale "unreleased" wording.
+
+### Fixed
+
+**Repo**
+
+- Corrected the 0.7.0 changelog summary to remove the incorrect "unreleased" wording.
+
 ### Changed
 
 **Repo**
@@ -36,12 +46,6 @@ Stabilizes gallery item identity using persisted state so images can be renamed 
 - Updated changelog guidelines to require direct summaries in `[Unreleased]`.
 - Updated `scripts/release.py` to reject `[Unreleased]` summaries that start with "This release...", "This unreleased...", or "These unreleased...".
 - Updated the plan generation workflow and template to remind users to write direct changelog summaries.
-
-### Fixed
-
-**Repo**
-
-- Corrected the 0.7.0 changelog summary to remove the incorrect "unreleased" wording.
 
 ## [0.7.0] - 2026-07-13
 
