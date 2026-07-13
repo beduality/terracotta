@@ -1,23 +1,23 @@
 ---
-description: Implementation plan for <short description>.
+description: Stabilize gallery item identity via persisted state.
 ---
 
-# <Title>
+# Stabilize Gallery Item Identity via Persisted State
 
-This plan follows `project/methodology/module-development-workflow.md` for a **<change type>** that
-touches `<modules>`.
+This plan follows `project/methodology/module-development-workflow.md` for a **major feature** that
+touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-state-filesystem`, and provider modules (`terracotta-provider-modrinth`, `terracotta-provider-hangar`).
 
 ## Source of truth
 
-- TODO item: `<text>` (`project/TODO.md`)
-- Design proposal: `project/designs/<design>.md` (if needed)
+- TODO item: `Stabilize gallery item identity via persisted state` (`project/TODO.md`)
+- Design proposal: `project/designs/26-07-12-gallery-item-identity.md`
 
 ## Progress summary
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Brainstorm | Not started | Optional |
-| System design | Not started | |
+| Brainstorm | Skipped | Well-understood problem; no note needed |
+| System design | In progress | Awaiting approval of design proposal |
 | Contract | Not started | |
 | TDD | Not started | |
 | Implementation | Not started | |
@@ -36,10 +36,14 @@ touches `<modules>`.
 
 ## Phase 2: System design
 
-- [ ] Read `project/methodology/module-system-design-workflow.md`.
-- [ ] Read or write the design proposal.
+- [x] Read `project/methodology/module-system-design-workflow.md`.
+- [x] Read or write the design proposal.
+- [x] Decide how to generate and store stable `localKey` values for gallery items from the local configuration: explicit `key` property, fallback to absolute `imagePath`.
+- [x] Decide how `DiffEngine` receives persisted `ProviderState`: new overload accepting `Map<String, GalleryItemIdentity>`, with title/ordering fallback.
+- [x] Decide how providers update persisted gallery identities: optional `GalleryIdentityReporter` interface, `ModrinthRegistryProvider` captures upload response URLs.
+- [x] Decide how to handle title changes: update in place when identity matches; delete+upload only when identity is absent or key conflicts force fallback.
 - [ ] Complete design review checklist from `module-review-workflow.md`.
-- [ ] Update this plan with decisions that affect later phases.
+- [x] Update this plan with decisions that affect later phases.
 
 ## Phase 3: Contract
 
@@ -47,12 +51,17 @@ touches `<modules>`.
 - [ ] Read `project/methodology/module-contract-workflow.md`.
 - [ ] Write or update public interfaces, abstract types, SPI entries, and data classes.
 - [ ] Add KDoc for every public symbol intended for Dokka.
-- [ ] Run `:<module>:compileKotlin`.
+- [ ] Run `:terracotta-core:compileKotlin` and `:terracotta-gradle-plugin:compileKotlin`.
 
 ## Phase 4: Test-driven development
 
 - [ ] Read `project/methodology/module-testing-workflow.md`.
-- [ ] Identify behavior and edge cases.
+- [ ] Identify behavior and edge cases:
+  - Gallery item matched by stable local key even when title changes.
+  - New item without persisted state matched by title or ordering fallback.
+  - Deleted item removes its persisted identity.
+  - Updated item persists new remote URL/ID.
+  - State round-trips through `YamlStateCodec` correctly.
 - [ ] Write failing tests against the contract.
 - [ ] Run tests and confirm they fail for the expected reason.
 
@@ -74,7 +83,7 @@ touches `<modules>`.
 ## Phase 7: Documentation
 
 - [ ] Read `project/methodology/module-documentation-workflow.md`.
-- [ ] Add or update Diátaxis docs.
+- [ ] Add or update Diátaxis docs covering persisted state and gallery identity.
 - [ ] Cross-link KDoc with `@see`.
 - [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
 

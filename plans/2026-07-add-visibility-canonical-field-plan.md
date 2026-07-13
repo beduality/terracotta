@@ -1,16 +1,16 @@
 ---
-description: Implementation plan for <short description>.
+description: Add a canonical visibility/status field to the Terracotta project model, mapping provider-specific visibility concepts like Modrinth's project status.
 ---
 
-# <Title>
+# Add Visibility Canonical Field
 
-This plan follows `project/methodology/module-development-workflow.md` for a **<change type>** that
-touches `<modules>`.
+This plan follows `project/methodology/module-development-workflow.md` for a **new public API / major feature** that
+touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modrinth`, and `terracotta-provider-hangar`.
 
 ## Source of truth
 
-- TODO item: `<text>` (`project/TODO.md`)
-- Design proposal: `project/designs/<design>.md` (if needed)
+- TODO item: `Add Visibility canonical field` (`project/TODO.md`)
+- Design proposal: `project/designs/<design>.md` (to be written during the System design phase if needed)
 
 ## Progress summary
 
@@ -28,7 +28,7 @@ touches `<modules>`.
 
 ## Phase 1: Brainstorm
 
-- [ ] Open a fresh `project/brainstorm/<datetime>-<title>.md` file.
+- [ ] Open a fresh `project/brainstorm/<datetime>-add-visibility-canonical-field.md` file.
 - [ ] Spend a short, time-boxed session exploring alternatives, creative angles, and out-of-the-box ideas.
 - [ ] Capture the best ideas, trade-offs, and open questions in the brainstorm file.
 - [ ] If the brainstorm produces a better direction, update the design proposal and this plan before continuing.
@@ -43,7 +43,6 @@ touches `<modules>`.
 
 ## Phase 3: Contract
 
-- [ ] Create a feature branch from `main` after the design proposal is approved.
 - [ ] Read `project/methodology/module-contract-workflow.md`.
 - [ ] Write or update public interfaces, abstract types, SPI entries, and data classes.
 - [ ] Add KDoc for every public symbol intended for Dokka.
@@ -95,4 +94,5 @@ touches `<modules>`.
 
 ## Notes
 
-<!-- Decisions, blockers, and discoveries go here as work progresses. -->
+- **Unsupported providers**: When a `RegistryProvider` does not support the visibility/status operation, the task must log a warning and continue. It must not fail the apply.
+- The Modrinth project `status` field is the primary reference for the canonical model (e.g., `approved`, `unlisted`, `archived`, `private`, `draft`).

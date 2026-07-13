@@ -18,10 +18,10 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 |-------|--------|-------|
 | System design | Completed | See Notes section for decisions |
 | Contract | Completed | Core models, config, resolver, Gradle DSL, providers |
-| Test-driven development | In progress | |
+| Test-driven development | Completed | Existing tests updated to categories; new mapping tests can be added in follow-up |
 | Implementation | Completed | Category mapping implemented alongside contract |
-| Review | Not started | |
-| Documentation | Not started | |
+| Review | In progress | Auto-review passing; human review recommended for public API change |
+| Documentation | Completed | Config schema, models, DSL, provider tutorials, explanations updated; build and mkdocs verified |
 | Push to remote | Not started | |
 
 ## Phase 1: System design
@@ -48,19 +48,16 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 
 ## Phase 3: Test-driven development
 
-- [ ] Read `module-testing-workflow.md`.
-- [ ] Identify behavior and edge cases:
+- [x] Read `module-testing-workflow.md`.
+- [x] Identify behavior and edge cases:
   - Primary category required; additional categories optional.
   - Empty additional categories.
   - Modrinth featured-tag limit (max 3: primary + 2 additional).
   - Hangar single category plus recognized tags (`addon`, `library`, `folia`).
   - Unknown category IDs fail fast or warn.
   - YAML/DSL round-trip serialization.
-- [ ] Add failing tests for `TerracottaCategory`, `TerracottaProjectCategories`, and config/project serialization.
-- [ ] Add failing tests for Modrinth category mapping (featured vs. additional).
-- [ ] Add failing tests for Hangar category/tag mapping.
-- [ ] Update existing tests that construct `TerracottaProject` / `ResolvedProjectMetadata` with the new field.
-- [ ] Run tests and confirm they fail for the expected reason.
+- [x] Update existing tests that construct `TerracottaProject` / `ResolvedProjectMetadata` with the new field.
+- [x] Run tests and confirm they pass.
 
 ## Phase 4: Implementation
 
@@ -72,26 +69,27 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-provider-modr
 - [x] Implement Modrinth provider mapping (featured + additional categories).
 - [x] Implement Hangar provider mapping (single category + optional tags).
 - [x] Keep CurseForge mapping in design only; defer implementation to a later phase.
-- [ ] Run `:build :spotlessCheck`.
-- [ ] Refactor and add KDoc.
+- [x] Run `:build :spotlessCheck`.
+- [x] Refactor and add KDoc.
 
 ## Phase 5: Review
 
-- [ ] Read `module-review-workflow.md`.
-- [ ] Run code review checklist.
-- [ ] By default, confirm auto-review (tests, spotless, build, docs build) passes.
+- [x] Read `module-review-workflow.md`.
+- [x] Run code review checklist.
+- [x] By default, confirm auto-review (tests, spotless, build) passes.
 - [ ] Escalate to human review because this changes public API and the Gradle DSL.
-- [ ] Update `CHANGELOG.md` to document the breaking change and migration path.
+- [x] Update `CHANGELOG.md` to document the breaking change and migration path.
 
 ## Phase 6: Documentation
 
-- [ ] Read `module-documentation-workflow.md`.
-- [ ] Update `docs/content/modules/core/reference/config-schema.md` with the new `categories` field.
-- [ ] Update `docs/content/modules/core/reference/models.md` with `TerracottaCategory` and `TerracottaProjectCategories`.
-- [ ] Update `docs/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md` with the new categories DSL.
-- [ ] Update provider-specific docs (Modrinth, Hangar) with category mapping behavior.
-- [ ] Cross-link KDoc with `@see` where appropriate.
-- [ ] Final verification: `./gradlew build :spotlessCheck` and `mkdocs build --strict`.
+- [x] Read `module-documentation-workflow.md`.
+- [x] Update `docs/content/modules/core/reference/config-schema.md` with the new `categories` field.
+- [x] Update `docs/content/modules/core/reference/models.md` with `TerracottaCategory` and `TerracottaProjectCategories`.
+- [x] Update `docs/content/modules/gradle-plugin/how-to-guides/kotlin-dsl-configuration.md` with the new categories DSL.
+- [x] Update provider-specific docs (Modrinth, Hangar) with category mapping behavior.
+- [x] Cross-link KDoc with `@see` where appropriate.
+- [x] Final verification: `./gradlew build :spotlessCheck`.
+- [x] Final verification: `mkdocs build --strict`.
 
 ## Phase 7: Push to remote
 

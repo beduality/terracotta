@@ -72,6 +72,7 @@ overlap with an existing module.
 
 **Work**:
 
+- Create a feature branch from `main` after the design proposal is approved.
 - Write or update public interfaces, abstract types, SPI entries, and data classes.
 - Add KDoc for every public symbol intended for Dokka.
 - Keep implementation details out of the contract.
