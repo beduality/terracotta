@@ -12,6 +12,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Core**
 
 - Added `TerracottaCategory` and `TerracottaProjectCategories` models for structured project categories.
+- Added `TerracottaVisibility` enum (`public`, `unlisted`, `archived`, `private`, `draft`) and a canonical `visibility` field on `TerracottaProject`, `TerracottaConfig`, and `ResolvedProjectMetadata`.
+- Added `Operation.UpdateVisibility` and updated `DiffEngine` to emit it when the local and remote visibility differ.
+
+**Gradle Plugin**
+
+- Added `visibility` property to the `terracotta` DSL extension and wired it through `TerracottaExtensionConfigurer`, `TerracottaTaskRegistrar`, `TerracottaPlanTask`, and `TerracottaApplyTask`.
+
+**Modrinth**
+
+- `ModrinthStateProvider.fetchProject` maps Modrinth project `status` to `TerracottaVisibility`.
+- `ModrinthRegistryProvider` applies `UpdateVisibility` by patching the project `status`.
+
+**Hangar**
+
+- `HangarPlatformBehavior` filters out `UpdateVisibility` operations so Hangar applies continue without failing; a warning is logged for skipped operations.
 
 **Docs**
 

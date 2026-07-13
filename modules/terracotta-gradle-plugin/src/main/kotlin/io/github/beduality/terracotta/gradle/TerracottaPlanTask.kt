@@ -7,6 +7,7 @@ import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.ProviderFactory
@@ -79,6 +80,10 @@ abstract class TerracottaPlanTask : DefaultTask() {
     @get:Input
     /** Release type. */
     abstract val releaseType: Property<TerracottaReleaseType>
+
+    @get:Input
+    /** Project visibility. */
+    abstract val visibility: Property<TerracottaVisibility>
 
     @get:Input
     /** Release notes for the current version. */
@@ -159,6 +164,7 @@ abstract class TerracottaPlanTask : DefaultTask() {
             icon = icon.orNull?.asFile?.absolutePath,
             gallery = gallery.get(),
             links = links.get(),
+            visibility = visibility.get(),
         )
     }
 

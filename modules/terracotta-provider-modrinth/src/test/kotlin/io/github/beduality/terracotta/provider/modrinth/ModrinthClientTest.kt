@@ -65,6 +65,7 @@ class ModrinthClientTest {
                     body = "Body",
                     categories = listOf("utility"),
                     license = ModrinthLicense("MIT"),
+                    status = "approved",
                 )
             val mockEngine =
                 MockEngine { _ ->
@@ -304,6 +305,7 @@ class ModrinthClientTest {
                         body = "Body",
                         categories = listOf("utility"),
                         license = ModrinthLicense("MIT"),
+                        status = "approved",
                     )
                 var capturedBody: String? = null
                 val mockEngine =
@@ -386,6 +388,7 @@ class ModrinthClientTest {
                     body = "Body",
                     categories = listOf("utility"),
                     license = ModrinthLicense("MIT"),
+                    status = "approved",
                 )
             var capturedBody: String? = null
             val mockEngine =

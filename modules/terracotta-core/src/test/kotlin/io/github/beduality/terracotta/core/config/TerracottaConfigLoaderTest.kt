@@ -47,6 +47,7 @@ class TerracottaConfigLoaderTest {
               - paper
             environment: server_only
             releaseType: release
+            visibility: unlisted
             changelog: Initial release
             convention:
               readme: terracotta
@@ -76,6 +77,7 @@ class TerracottaConfigLoaderTest {
         assertEquals(listOf("paper"), config.loaders)
         assertEquals("server_only", config.environment)
         assertEquals("release", config.releaseType)
+        assertEquals("unlisted", config.visibility)
         assertEquals("Initial release", config.changelog)
         assertEquals("terracotta", config.convention.readme)
         assertEquals("keep-a-changelog", config.convention.changelog)

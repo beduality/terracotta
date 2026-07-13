@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.core.config
 import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataContext
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
 import io.github.beduality.terracotta.core.model.metadata.detector.ProjectMetadataLoader
@@ -81,6 +82,9 @@ class ProjectMetadataResolver(
                 config.releaseType?.let { TerracottaReleaseType.fromId(it) }
                     ?: detected.releaseType
                     ?: TerracottaReleaseType.RELEASE,
+            visibility =
+                config.visibility?.let { TerracottaVisibility.fromId(it) }
+                    ?: TerracottaVisibility.PUBLIC,
             changelog = changelog,
             icon = config.icon,
             gallery = config.gallery ?: emptyList(),

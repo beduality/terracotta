@@ -154,6 +154,10 @@ fun main() = runBlocking {
 
 Hangar does not expose a project creation API. Projects must be created manually on Hangar first. When Terracotta receives a `CreateProject` operation, it logs a warning and skips the operation. Once the project exists on Hangar, Terracotta can sync metadata and upload versions.
 
+## Project Visibility
+
+Hangar does not expose an API for changing project visibility. When a plan includes an `UpdateVisibility` operation, the Hangar provider filters it out and logs a warning so the apply continues without failing.
+
 ## Loader-to-Platform Mapping
 
 Hangar uses a coarser "platform" concept than individual loaders. Terracotta maps multiple Paper-ecosystem loaders to the same Hangar platform:

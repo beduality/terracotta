@@ -19,6 +19,8 @@ Represents a project as it should appear on a registry.
 | `licenseUrl` | Optional URL to the full license text. |
 | `icon` | Path to the project icon file, or the remote icon URL when read from provider state. |
 | `gallery` | List of `TerracottaGalleryItem` objects. |
+| `links` | `TerracottaProjectLinks` object. |
+| `visibility` | `TerracottaVisibility` value. Defaults to `PUBLIC`. |
 
 ## TerracottaGalleryItem
 
@@ -68,6 +70,18 @@ Use `TerracottaEnvironment.fromId(id)` to parse a string value.
 | `ALPHA` | `alpha` |
 
 Use `TerracottaReleaseType.fromId(id)` to parse a string value.
+
+## TerracottaVisibility
+
+| Value | Serialized ID |
+|-------|---------------|
+| `PUBLIC` | `public` |
+| `UNLISTED` | `unlisted` |
+| `ARCHIVED` | `archived` |
+| `PRIVATE` | `private` |
+| `DRAFT` | `draft` |
+
+Use `TerracottaVisibility.fromId(id)` to parse a string value.
 
 ## See also
 

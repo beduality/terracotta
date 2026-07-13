@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.gradle
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
@@ -53,6 +54,9 @@ abstract class TerracottaExtension {
 
     /** Release type. */
     abstract val releaseType: Property<TerracottaReleaseType>
+
+    /** Project visibility. */
+    abstract val visibility: Property<TerracottaVisibility>
 
     /** Release notes for the current version. */
     abstract val changelog: Property<String>

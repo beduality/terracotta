@@ -55,6 +55,18 @@ class EnumFromIdPropertyTest {
                     ),
                 )
             }
+            TerracottaVisibility.entries.forEach { entry ->
+                add(
+                    EnumEntry(
+                        enumName = "TerracottaVisibility",
+                        entryName = entry.name,
+                        id = entry.id,
+                        fromId = { TerracottaVisibility.fromId(it) },
+                        expectedEntry = entry,
+                        allIds = TerracottaVisibility.entries.map { it.id },
+                    ),
+                )
+            }
         }
 
     /**
@@ -124,6 +136,11 @@ class EnumFromIdPropertyTest {
                     name = "TerracottaReleaseType",
                     fromId = { TerracottaReleaseType.fromId(it) },
                     allIds = TerracottaReleaseType.entries.map { it.id },
+                ),
+                EnumFromId(
+                    name = "TerracottaVisibility",
+                    fromId = { TerracottaVisibility.fromId(it) },
+                    allIds = TerracottaVisibility.entries.map { it.id },
                 ),
             )
 

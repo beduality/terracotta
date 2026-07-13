@@ -17,6 +17,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `loaders` | list of strings | No | Loader identifiers. |
 | `environment` | string | No | `client_only`, `server_only`, or `universal`. |
 | `releaseType` | string | No | `release`, `beta`, or `alpha`. |
+| `visibility` | string | No | `public`, `unlisted`, `archived`, `private`, or `draft`. Defaults to `public`. |
 | `changelog` | string | No | Release notes for the current version. |
 | `gallery` | list | No | Gallery images for the project. See [Gallery block](#gallery-block). |
 | `links` | map | No | Canonical project links. See [Links block](#links-block). |
@@ -98,6 +99,7 @@ loaders:
   - paper
 environment: server_only
 releaseType: release
+visibility: unlisted
 changelog: "Initial release"
 
 gallery:
@@ -149,6 +151,7 @@ Terracotta can infer several fields from standard project files and caller-suppl
 | `license` | `LICENSE` or `LICENSE.txt` | Only common SPDX identifiers are recognized. |
 | `licenseUrl` | None | Must be configured explicitly; not auto-detected. |
 | `releaseType` | Build-system project version | Detected from version strings containing `alpha`, `beta`, or `rc`. |
+| `visibility` | None | Defaults to `public` when not configured. |
 | `changelog` | `CHANGELOG.md` | Extracted using the configured changelog convention. |
 
 A build-tool frontend such as the Terracotta Gradle plugin supplies build-system values through a `ProjectMetadataSource`. See [Resolve Project Metadata](../how-to-guides/resolve-project-metadata.md) for the full resolution workflow.
@@ -186,6 +189,16 @@ Use the lowercase loader ID in `terracotta.yml` and in caller-supplied configura
 | `release` | Stable release |
 | `beta` | Beta release |
 | `alpha` | Alpha release |
+
+## Visibility values
+
+| Value | Meaning |
+|-------|---------|
+| `public` | Publicly listed and discoverable. |
+| `unlisted` | Accessible by direct URL but hidden from listings and search. |
+| `archived` | Read-only and marked as no longer maintained. |
+| `private` | Visible only to project members or the owner. |
+| `draft` | Not yet published; visible only to the owner. |
 
 ## See also
 

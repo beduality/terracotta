@@ -6,6 +6,7 @@ import io.github.beduality.terracotta.core.model.TerracottaDonationLink
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
@@ -59,6 +60,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT"),
+                    status = "approved",
                 )
             val modrinthVersion =
                 ModrinthVersion(
@@ -130,6 +132,7 @@ class ModrinthProviderTest {
             assertEquals(listOf("fabric"), terracottaProject?.versions?.firstOrNull()?.loaders)
             assertEquals(TerracottaReleaseType.RELEASE, terracottaProject?.versions?.firstOrNull()?.releaseType)
             assertEquals("", terracottaProject?.versions?.firstOrNull()?.changelog)
+            assertEquals(TerracottaVisibility.PUBLIC, terracottaProject?.visibility)
         }
 
     @Test
@@ -292,6 +295,55 @@ class ModrinthProviderTest {
         }
 
     @Test
+    fun `test ModrinthRegistryProvider apply UpdateVisibility`() =
+        runTest {
+            val capturedPatches = mutableListOf<Pair<String, String>>()
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath == "/project/my-mod" && request.method == HttpMethod.Patch -> {
+                            val body = (request.body as TextContent).text
+                            capturedPatches.add(request.url.encodedPath to body)
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> {
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val modrinthClient = ModrinthClient(token = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = ModrinthRegistryProvider(modrinthClient, ModrinthProviderLogic)
+
+            registryProvider.apply(
+                "my-mod",
+                listOf(
+                    Operation.UpdateVisibility(
+                        oldVisibility = TerracottaVisibility.PUBLIC,
+                        newVisibility = TerracottaVisibility.UNLISTED,
+                    ),
+                ),
+            )
+
+            assertEquals(1, capturedPatches.size)
+            val body = json.parseToJsonElement(capturedPatches[0].second).jsonObject
+            assertEquals("unlisted", body["status"]?.jsonPrimitive?.content)
+        }
+
+    @Test
     fun `test ModrinthRegistryProvider apply CreateProject updates resolved project id`() =
         runTest {
             val createdProject =
@@ -303,6 +355,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT"),
+                    status = "approved",
                 )
             val capturedPaths = mutableListOf<String>()
 
@@ -394,6 +447,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT"),
+                    status = "approved",
                 )
             val modrinthVersion =
                 ModrinthVersion(
@@ -579,6 +633,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT"),
+                    status = "approved",
                     gallery =
                         listOf(
                             ModrinthGalleryItem(
@@ -739,6 +794,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT", url = "https://example.com/LICENSE"),
+                    status = "approved",
                 )
 
             val mockEngine =
@@ -854,6 +910,7 @@ class ModrinthProviderTest {
                     body = "Test description",
                     categories = listOf("utility"),
                     license = ModrinthLicense(id = "MIT"),
+                    status = "approved",
                     iconUrl = "https://cdn.modrinth.com/data/icon.png",
                 )
 
@@ -1070,6 +1127,7 @@ class ModrinthProviderTest {
                     body = "Description",
                     categories = emptyList(),
                     license = ModrinthLicense(id = "MIT", url = null),
+                    status = "approved",
                     issuesUrl = "https://github.com/dsl/issues",
                     sourceUrl = "https://github.com/dsl/project",
                     wikiUrl = "https://wiki.example.com",

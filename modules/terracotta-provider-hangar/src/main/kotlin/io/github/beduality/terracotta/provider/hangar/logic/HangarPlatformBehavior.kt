@@ -7,8 +7,8 @@ import io.github.beduality.terracotta.core.provider.logic.PlatformBehavior
  * Platform behavior for Hangar.
  *
  * Hangar is a stateful registry, but it does not support project creation,
- * gallery images, or project icon operations through its API. Those operations
- * are filtered out before they reach the registry provider.
+ * gallery images, project icon operations, or visibility changes through its API.
+ * Those operations are filtered out before they reach the registry provider.
  */
 object HangarPlatformBehavior : PlatformBehavior {
     override val isStateful: Boolean = true
