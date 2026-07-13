@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Docs**
 
-- Added a Mermaid flowchart to the "What Terracotta does" section on the docs homepage, visualizing the read-diff-apply workflow alongside the existing description.
+- Reworked the docs homepage (`index.md`) to be more succinct: replaced the dense numbered workflow description with a Mermaid diagram and folded the gallery note and example output into accordions.
 
 ### Fixed
 
