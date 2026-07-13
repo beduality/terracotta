@@ -1,5 +1,7 @@
 # TODO
 
+- Rethink changelog to be a buffer, because of the frequent releases
+
 - Add support to load any Terracotta config value from file just using `<field>Path` convention, e.g. `descriptionPath`
 - Add [Hangar provider-specific link settings](./plans/2026-07-add-hangar-provider-link-settings-plan.md)
 
