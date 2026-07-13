@@ -1,0 +1,299 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TerracottaProject</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            terracotta
+                    </a>            </div>
+            <div class="library-version">0.7.1
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":terracotta-core:dokkaHtmlPartial/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="terracotta-core::io.github.beduality.terracotta.core.model/TerracottaProject///PointingToDeclaration//-550798861">
+  <div class="breadcrumbs"><a href="../../index.html">terracotta-core</a><span class="delimiter">/</span><a href="../index.html">io.github.beduality.terracotta.core.model</a><span class="delimiter">/</span><span class="current">TerracottaProject</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Terracotta</span><wbr><span><span>Project</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">TerracottaProject</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>schemaVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>summary<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>versions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.beduality.terracotta.core.model.version/-terracotta-version/index.html">TerracottaVersion</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>categories<span class="token operator">: </span><a href="../-terracotta-project-categories/index.html">TerracottaProjectCategories</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>license<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>licenseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>icon<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>gallery<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-terracotta-gallery-item/index.html">TerracottaGalleryItem</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>links<span class="token operator">: </span><a href="../-terracotta-project-links/index.html">TerracottaProjectLinks</a><span class="token operator"> = </span>TerracottaProjectLinks()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>visibility<span class="token operator">: </span><a href="../-terracotta-visibility/index.html">TerracottaVisibility</a><span class="token operator"> = </span>TerracottaVisibility.PUBLIC</span></span><span class="token punctuation">)</span></div><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div></div></span></div><div><div class="title"><p class="paragraph"><a href="https://beduality.github.io/terracotta/content/modules/core/reference/models.html">Models reference</a></p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-13076368%2FConstructors%2F-550798861" anchor-label="TerracottaProject" id="-13076368%2FConstructors%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-terracotta-project.html"><span>Terracotta</span><wbr><span><span>Project</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-13076368%2FConstructors%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">schemaVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">summary<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">versions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.beduality.terracotta.core.model.version/-terracotta-version/index.html">TerracottaVersion</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">categories<span class="token operator">: </span><a href="../-terracotta-project-categories/index.html">TerracottaProjectCategories</a><span class="token punctuation">, </span></span><span class="parameter ">license<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">licenseUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">icon<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">gallery<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-terracotta-gallery-item/index.html">TerracottaGalleryItem</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()<span class="token punctuation">, </span></span><span class="parameter ">links<span class="token operator">: </span><a href="../-terracotta-project-links/index.html">TerracottaProjectLinks</a><span class="token operator"> = </span>TerracottaProjectLinks()<span class="token punctuation">, </span></span><span class="parameter ">visibility<span class="token operator">: </span><a href="../-terracotta-visibility/index.html">TerracottaVisibility</a><span class="token operator"> = </span>TerracottaVisibility.PUBLIC</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1023738312%2FProperties%2F-550798861" anchor-label="categories" id="-1023738312%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="categories.html"><span><span>categories</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1023738312%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="categories.html">categories</a><span class="token operator">: </span><a href="../-terracotta-project-categories/index.html">TerracottaProjectCategories</a></div><div class="brief "><p class="paragraph">Project categories.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-955798262%2FProperties%2F-550798861" anchor-label="description" id="-955798262%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="description.html"><span><span>description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-955798262%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="description.html">description</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Full project description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1739042060%2FProperties%2F-550798861" anchor-label="gallery" id="-1739042060%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gallery.html"><span><span>gallery</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1739042060%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="gallery.html">gallery</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-terracotta-gallery-item/index.html">TerracottaGalleryItem</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gallery images for the project.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1740330939%2FProperties%2F-550798861" anchor-label="icon" id="1740330939%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="icon.html"><span><span>icon</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1740330939%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="icon.html">icon</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div><div class="brief "><p class="paragraph">Project icon: local path in config, remote URL when read from provider state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="78695193%2FProperties%2F-550798861" anchor-label="id" id="78695193%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="78695193%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="id.html">id</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Registry project identifier.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1291739365%2FProperties%2F-550798861" anchor-label="license" id="1291739365%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="license.html"><span><span>license</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1291739365%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="license.html">license</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">SPDX license identifier.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1981673254%2FProperties%2F-550798861" anchor-label="licenseUrl" id="1981673254%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="license-url.html"><span>license</span><wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1981673254%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="license-url.html">licenseUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div><div class="brief "><p class="paragraph">Optional URL to the full license text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1244392109%2FProperties%2F-550798861" anchor-label="links" id="1244392109%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="links.html"><span><span>links</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1244392109%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="links.html">links</a><span class="token operator">: </span><a href="../-terracotta-project-links/index.html">TerracottaProjectLinks</a></div><div class="brief "><p class="paragraph">Canonical project links.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-782061079%2FProperties%2F-550798861" anchor-label="name" id="-782061079%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782061079%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Project display name.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="76131119%2FProperties%2F-550798861" anchor-label="schemaVersion" id="76131119%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="schema-version.html"><span>schema</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="76131119%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="schema-version.html">schemaVersion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span></div><div class="brief "><p class="paragraph">Internal schema version.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="58943776%2FProperties%2F-550798861" anchor-label="summary" id="58943776%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="summary.html"><span><span>summary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="58943776%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="summary.html">summary</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Short description or tagline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="787504217%2FProperties%2F-550798861" anchor-label="versions" id="787504217%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="versions.html"><span><span>versions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787504217%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="versions.html">versions</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.beduality.terracotta.core.model.version/-terracotta-version/index.html">TerracottaVersion</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Released versions of the project.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-212254206%2FProperties%2F-550798861" anchor-label="visibility" id="-212254206%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="visibility.html"><span><span>visibility</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-212254206%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="visibility.html">visibility</a><span class="token operator">: </span><a href="../-terracotta-visibility/index.html">TerracottaVisibility</a></div><div class="brief "><p class="paragraph">Canonical project visibility.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

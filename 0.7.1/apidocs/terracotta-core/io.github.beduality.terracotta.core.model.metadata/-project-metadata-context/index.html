@@ -1,0 +1,164 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ProjectMetadataContext</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            terracotta
+                    </a>            </div>
+            <div class="library-version">0.7.1
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":terracotta-core:dokkaHtmlPartial/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="terracotta-core::io.github.beduality.terracotta.core.model.metadata/ProjectMetadataContext///PointingToDeclaration//-550798861">
+  <div class="breadcrumbs"><a href="../../index.html">terracotta-core</a><span class="delimiter">/</span><a href="../index.html">io.github.beduality.terracotta.core.model.metadata</a><span class="delimiter">/</span><span class="current">ProjectMetadataContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Project</span><wbr><span>Metadata</span><wbr><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">ProjectMetadataContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cache<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile/-project-file-cache/index.html">ProjectFileCache</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>source<span class="token operator">: </span><a href="../-project-metadata-source/index.html">ProjectMetadataSource</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>readmeConvention<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-readme-convention/index.html">ReadmeConvention</a><span class="token operator"> = </span>TerracottaReadmeConvention<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>changelogConvention<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-changelog-convention/index.html">ChangelogConvention</a><span class="token operator"> = </span>KeepAChangelogConvention</span></span><span class="token punctuation">)</span></div><p class="paragraph">Context passed to ProjectMetadataDetectors while loading metadata.</p><p class="paragraph">Holds the file cache, the explicit source metadata, and the conventions used to interpret project files.</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div></div></span></div><div><div class="title"><p class="paragraph"><a href="https://beduality.github.io/terracotta/content/modules/core/reference/metadata-resolution.html">Metadata resolution reference</a></p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1955248412%2FConstructors%2F-550798861" anchor-label="ProjectMetadataContext" id="-1955248412%2FConstructors%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-project-metadata-context.html"><span>Project</span><wbr><span>Metadata</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1955248412%2FConstructors%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cache<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile/-project-file-cache/index.html">ProjectFileCache</a><span class="token punctuation">, </span></span><span class="parameter ">source<span class="token operator">: </span><a href="../-project-metadata-source/index.html">ProjectMetadataSource</a><span class="token punctuation">, </span></span><span class="parameter ">readmeConvention<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-readme-convention/index.html">ReadmeConvention</a><span class="token operator"> = </span>TerracottaReadmeConvention<span class="token punctuation">, </span></span><span class="parameter ">changelogConvention<span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-changelog-convention/index.html">ChangelogConvention</a><span class="token operator"> = </span>KeepAChangelogConvention</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-199705840%2FProperties%2F-550798861" anchor-label="cache" id="-199705840%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cache.html"><span><span>cache</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-199705840%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="cache.html">cache</a><span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile/-project-file-cache/index.html">ProjectFileCache</a></div><div class="brief "><p class="paragraph">Cached reads of the project directory.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="275066637%2FProperties%2F-550798861" anchor-label="changelogConvention" id="275066637%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="changelog-convention.html"><span>changelog</span><wbr><span><span>Convention</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="275066637%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="changelog-convention.html">changelogConvention</a><span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-changelog-convention/index.html">ChangelogConvention</a></div><div class="brief "><p class="paragraph">Convention used to interpret <code class="lang-kotlin">CHANGELOG.md</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-266778327%2FProperties%2F-550798861" anchor-label="readmeConvention" id="-266778327%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="readme-convention.html"><span>readme</span><wbr><span><span>Convention</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-266778327%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="readme-convention.html">readmeConvention</a><span class="token operator">: </span><a href="../../io.github.beduality.terracotta.core.model.projectfile.convention/-readme-convention/index.html">ReadmeConvention</a></div><div class="brief "><p class="paragraph">Convention used to interpret <code class="lang-kotlin">README.md</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="127623693%2FProperties%2F-550798861" anchor-label="source" id="127623693%2FProperties%2F-550798861" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":terracotta-core:dokkaHtmlPartial/main" data-filterable-set=":terracotta-core:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source.html"><span><span>source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="127623693%2FProperties%2F-550798861"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":terracotta-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="source.html">source</a><span class="token operator">: </span><a href="../-project-metadata-source/index.html">ProjectMetadataSource</a></div><div class="brief "><p class="paragraph">Build-system values that do not come from files.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
