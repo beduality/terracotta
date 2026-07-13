@@ -183,10 +183,10 @@ class TestUpdateFiles(unittest.TestCase):
     @patch("scripts.release.date")
     def test_update_changelog(self, mock_date, mock_write, mock_read):
         mock_date.today.return_value.isoformat.return_value = "2026-07-07"
-        mock_read.return_value = "## [Unreleased]\n\nThis release adds feature X.\n\n### Added\n- Feature"
+        mock_read.return_value = "## [Unreleased]\n\nAdds feature X.\n\n### Added\n- Feature"
         release.update_changelog("0.4.0")
         mock_write.assert_called_once_with(
-            "## [Unreleased]\n\n## [0.4.0] - 2026-07-07\n\nThis release adds feature X.\n\n### Added\n- Feature"
+            "## [Unreleased]\n\n## [0.4.0] - 2026-07-07\n\nAdds feature X.\n\n### Added\n- Feature"
         )
 
     @patch("scripts.release.Path.read_text")
@@ -206,6 +206,50 @@ class TestUpdateFiles(unittest.TestCase):
         mock_read.return_value = "## [0.3.0]\nSome content"
         with self.assertRaises(ValueError):
             release.update_changelog("0.4.0")
+
+    @patch("scripts.release.Path.read_text")
+    @patch("scripts.release.Path.write_text")
+    @patch("scripts.release.date")
+    def test_update_changelog_rejects_this_release_wording(self, mock_date, mock_write, mock_read):
+        mock_date.today.return_value.isoformat.return_value = "2026-07-07"
+        mock_read.return_value = (
+            "## [Unreleased]\n\n"
+            "This release adds feature X.\n\n"
+            "### Added\n- Feature"
+        )
+        with self.assertRaises(ValueError):
+            release.update_changelog("0.4.0")
+
+    @patch("scripts.release.Path.read_text")
+    @patch("scripts.release.Path.write_text")
+    @patch("scripts.release.date")
+    def test_update_changelog_rejects_unreleased_wording(self, mock_date, mock_write, mock_read):
+        mock_date.today.return_value.isoformat.return_value = "2026-07-07"
+        mock_read.return_value = (
+            "## [Unreleased]\n\n"
+            "This unreleased set of changes narrows Hangar license handling.\n\n"
+            "### Added\n- Feature"
+        )
+        with self.assertRaises(ValueError):
+            release.update_changelog("0.4.0")
+
+    @patch("scripts.release.Path.read_text")
+    @patch("scripts.release.Path.write_text")
+    @patch("scripts.release.date")
+    def test_update_changelog_allows_legitimate_unreleased_mention(self, mock_date, mock_write, mock_read):
+        mock_date.today.return_value.isoformat.return_value = "2026-07-07"
+        mock_read.return_value = (
+            "## [Unreleased]\n\n"
+            "Fixes an unreleased state bug.\n\n"
+            "### Added\n- Feature"
+        )
+        release.update_changelog("0.4.0")
+        mock_write.assert_called_once_with(
+            "## [Unreleased]\n\n"
+            "## [0.4.0] - 2026-07-07\n\n"
+            "Fixes an unreleased state bug.\n\n"
+            "### Added\n- Feature"
+        )
 
 
 class TestExtractReleaseNotes(unittest.TestCase):

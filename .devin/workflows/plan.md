@@ -41,6 +41,7 @@ This workflow follows `project/methodology/module-plan-generation-workflow.md`.
    - Replace the `# <Title>` heading with the descriptive title.
    - Fill the intro sentence with the change type and affected modules.
    - Fill the source-of-truth references (TODO item or design) when provided; otherwise leave placeholders.
+   - If the plan touches `CHANGELOG.md`, keep the Phase 6 changelog reminder about direct summaries (no "This release..." or "This unreleased..." meta-introductions; the release script promotes `[Unreleased]` verbatim).
    - Include **only the phases needed** for the selected change type:
      - Keep matching template phases as-is, mapped to the chosen sequence.
      - For **Bug fix**, prepend a `Phase 0: Investigation` checklist before the TDD phase.
