@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `TerracottaCategory` and `TerracottaProjectCategories` models for structured project categories.
 - Added `TerracottaVisibility` enum (`public`, `unlisted`, `archived`, `private`, `draft`) and a canonical `visibility` field on `TerracottaProject`, `TerracottaConfig`, and `ResolvedProjectMetadata`.
 - Added `Operation.UpdateVisibility` and updated `DiffEngine` to emit it when the local and remote visibility differ.
+- Added `ProviderLogic.supportsLicenseUrl` capability so providers can indicate whether they persist a custom license URL. `DiffEngine.diff` now accepts this flag and ignores `licenseUrl` differences when the provider reports it is unsupported.
 
 **Gradle Plugin**
 
@@ -27,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Hangar**
 
 - `HangarPlatformBehavior` filters out `UpdateVisibility` operations so Hangar applies continue without failing; a warning is logged for skipped operations.
+- Added `HangarLicenseMapper` to map common SPDX license identifiers (e.g., `Apache-2.0`, `GPL-3.0-only`) to the license values accepted by Hangar's project settings API.
+- `HangarProviderLogic` reports `supportsLicenseUrl = false` because Hangar's project API does not expose a license URL field.
+- `HangarStateProvider` reverse-maps Hangar license values back to Terracotta license identifiers when reading project state.
+- `HangarRegistryProvider` no longer warns about configured `licenseUrl`; the diff engine now ignores the field for Hangar.
 
 **Docs**
 
@@ -44,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replaced the `tags` DSL property with a nested `categories { ... }` block (`TerracottaCategoriesExtension` and `TerracottaCategoryExtension`).
 - Updated `TerracottaPlanTask` and `TerracottaApplyTask` to wire categories into the resolved project metadata.
+- Updated `TerracottaPlanTask` and `TerracottaApplyTask` to pass the provider's `supportsLicenseUrl` capability to `DiffEngine.diff`, so providers that cannot persist a license URL do not generate a perpetual metadata update.
 
 **Modrinth**
 

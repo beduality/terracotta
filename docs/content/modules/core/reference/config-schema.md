@@ -11,7 +11,7 @@ This page describes the fields accepted by `terracotta.yml`. For type details, s
 | `description` | string | No | Full description. |
 | `categories` | map | No | Project categories with `primary` and `additional`. |
 | `license` | string | No | SPDX license identifier. |
-| `licenseUrl` | string | No | Optional URL to the full license text. Forwarded to Modrinth; ignored by Hangar. |
+| `licenseUrl` | string | No | Optional URL to the full license text. Forwarded to Modrinth; ignored by Hangar, which does not expose a license URL field. When using Hangar, a configured `licenseUrl` does not generate a metadata update. |
 | `icon` | string | No | Path to the project icon file. Uploaded to Modrinth; skipped by Hangar. |
 | `gameVersions` | list of strings | No | Supported Minecraft versions. |
 | `loaders` | list of strings | No | Loader identifiers. |

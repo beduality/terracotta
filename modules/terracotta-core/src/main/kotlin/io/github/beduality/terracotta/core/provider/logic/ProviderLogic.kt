@@ -17,4 +17,13 @@ interface ProviderLogic {
 
     /** Platform behavior rules for this provider, such as stateful updates. */
     val platformBehavior: PlatformBehavior
+
+    /**
+     * Returns `true` when this provider can persist a custom license URL.
+     *
+     * Providers that do not expose a dedicated `licenseUrl` field (such as
+     * Hangar) should return `false` so the diff engine ignores the field
+     * instead of generating a perpetual metadata update.
+     */
+    val supportsLicenseUrl: Boolean get() = true
 }

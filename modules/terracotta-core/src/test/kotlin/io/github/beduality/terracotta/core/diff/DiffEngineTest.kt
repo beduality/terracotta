@@ -364,6 +364,70 @@ class DiffEngineTest {
     }
 
     @Test
+    fun `test diff with licenseUrl ignored when provider does not support licenseUrl`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                categories = tags(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                categories = tags(),
+                license = "MIT",
+                licenseUrl = "https://example.com/LICENSE",
+            )
+
+        val ops = DiffEngine.diff(local, remote, supportsLicenseUrl = false)
+
+        assertTrue(ops.isEmpty())
+    }
+
+    @Test
+    fun `test diff with licenseUrl and metadata change only sets licenseUrl when supported`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "Old Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                categories = tags(),
+                license = "MIT",
+            )
+
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "New Name",
+                summary = "Summary",
+                description = "Description",
+                versions = emptyList(),
+                categories = tags(),
+                license = "MIT",
+                licenseUrl = "https://example.com/LICENSE",
+            )
+
+        val ops = DiffEngine.diff(local, remote, supportsLicenseUrl = false)
+
+        assertEquals(1, ops.size)
+        val metaOp = ops.filterIsInstance<Operation.UpdateMetadata>().first()
+        assertTrue(metaOp.nameChanged)
+        assertFalse(metaOp.licenseUrlChanged)
+        assertNull(metaOp.newLicenseUrl)
+    }
+
+    @Test
     fun `test diff with only description changed`() {
         val remote =
             TerracottaProject(

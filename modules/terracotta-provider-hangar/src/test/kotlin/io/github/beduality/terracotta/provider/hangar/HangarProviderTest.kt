@@ -311,6 +311,77 @@ class HangarProviderTest {
         }
 
     @Test
+    fun `test HangarRegistryProvider maps SPDX license to Hangar license`() =
+        runTest {
+            val currentProject =
+                HangarProject(
+                    name = "Old Name",
+                    description = "Old summary",
+                    body = "Old body",
+                    tags = listOf("old"),
+                    license = "Apache 2.0",
+                )
+
+            var patchBody: String? = null
+
+            val mockEngine =
+                MockEngine { request ->
+                    when {
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Get -> {
+                            val responseJson = json.encodeToString(currentProject)
+                            respond(
+                                content = ByteReadChannel(responseJson),
+                                status = HttpStatusCode.OK,
+                                headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                            )
+                        }
+                        request.url.encodedPath.endsWith("/projects/my-plugin") && request.method == HttpMethod.Patch -> {
+                            patchBody = (request.body as TextContent).text
+                            respond("", status = HttpStatusCode.OK)
+                        }
+                        else -> respond("", status = HttpStatusCode.NotFound)
+                    }
+                }
+
+            val client =
+                HttpClient(mockEngine) {
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                encodeDefaults = false
+                            },
+                        )
+                    }
+                }
+
+            val hangarClient = HangarClient(apiKey = null, baseUrl = "http://localhost", client = client)
+            val registryProvider = HangarRegistryProvider(hangarClient, HangarProviderLogic)
+
+            registryProvider.apply(
+                "my-plugin",
+                listOf(
+                    Operation.UpdateMetadata(
+                        nameChanged = false,
+                        summaryChanged = false,
+                        licenseChanged = true,
+                        licenseUrlChanged = false,
+                        linksChanged = false,
+                        newName = "",
+                        newSummary = "",
+                        newLicense = "Apache-2.0",
+                        newLicenseUrl = null,
+                        newLinks = TerracottaProjectLinks(),
+                    ),
+                ),
+            )
+
+            assertNotNull(patchBody)
+            val body = json.parseToJsonElement(patchBody!!).jsonObject
+            assertEquals("Apache 2.0", body["license"]?.jsonPrimitive?.content)
+        }
+
+    @Test
     fun `test HangarRegistryProvider filters and warns on CreateProject`() =
         runTest {
             var requestCount = 0

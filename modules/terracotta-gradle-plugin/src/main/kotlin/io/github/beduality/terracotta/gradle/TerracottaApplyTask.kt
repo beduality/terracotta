@@ -125,10 +125,11 @@ abstract class TerracottaApplyTask : DefaultTask() {
             val local = createLocalProject()
 
             val providerFactory = findProviderFactory(provider.get())
+            val providerLogic = providerFactory.createProviderLogic()
             val stateProvider: StateProvider = providerFactory.createStateProvider(token.orNull)
             val remote = stateProvider.fetchProject(projectId.get())
 
-            val operations = DiffEngine.diff(local, remote)
+            val operations = DiffEngine.diff(local, remote, providerLogic.supportsLicenseUrl)
             val preprocessedOperations = OperationPreprocessor.process(operations)
 
             logger.lifecycle("Terracotta Apply:")

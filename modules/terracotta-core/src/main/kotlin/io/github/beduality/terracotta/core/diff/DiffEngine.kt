@@ -12,10 +12,15 @@ object DiffEngine {
     /**
      * Computes the semantic diff between a desired local project state
      * and the actual remote project state.
+     *
+     * @param supportsLicenseUrl whether the target provider can persist a custom
+     * license URL. When `false`, [licenseUrl] differences are ignored so they
+     * do not generate a perpetual metadata update.
      */
     fun diff(
         local: TerracottaProject,
         remote: TerracottaProject?,
+        supportsLicenseUrl: Boolean = true,
     ): List<Operation> {
         val operations = mutableListOf<Operation>()
 
@@ -33,7 +38,7 @@ object DiffEngine {
         val nameChanged = local.name != remote.name
         val summaryChanged = local.summary != remote.summary
         val licenseChanged = local.license.uppercase() != remote.license.uppercase()
-        val licenseUrlChanged = local.licenseUrl != remote.licenseUrl
+        val licenseUrlChanged = supportsLicenseUrl && local.licenseUrl != remote.licenseUrl
         val linksChanged = local.links != remote.links
 
         if (nameChanged || summaryChanged || licenseChanged || licenseUrlChanged || linksChanged) {
@@ -47,7 +52,7 @@ object DiffEngine {
                     newName = local.name,
                     newSummary = local.summary,
                     newLicense = local.license,
-                    newLicenseUrl = local.licenseUrl,
+                    newLicenseUrl = if (supportsLicenseUrl) local.licenseUrl else null,
                     newLinks = local.links,
                 ),
             )
