@@ -7,9 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Tightens the changelog standard so `[Unreleased]` summaries are written as direct summaries and cannot be promoted with stale "unreleased" wording.
+
+### Fixed
+
+**Repo**
+
+- Corrected the 0.7.0 changelog summary to remove the incorrect "unreleased" wording.
+
+### Changed
+
+**Repo**
+
+- Updated changelog guidelines to require direct summaries in `[Unreleased]`.
+- Updated `scripts/release.py` to reject `[Unreleased]` summaries that start with "This release...", "This unreleased...", or "These unreleased...".
+- Updated the plan generation workflow and template to remind users to write direct changelog summaries.
+
 ## [0.7.0] - 2026-07-13
 
-This unreleased set of changes narrows Hangar license handling by mapping common SPDX identifiers to Hangar's license values and stopping `licenseUrl` from generating a recurring metadata diff on providers that cannot persist it.
+Narrows Hangar license handling by mapping common SPDX identifiers to Hangar's license values and stopping `licenseUrl` from generating a recurring metadata diff on providers that cannot persist it.
 
 ### Added
 
@@ -66,9 +82,10 @@ This unreleased set of changes narrows Hangar license handling by mapping common
 - `HangarStateProvider.fetchProject` maps Hangar `category` and `tags` to `TerracottaProjectCategories`.
 - `HangarRegistryProvider` applies `UpdateCategories` by mapping the primary category and recognized tags back to Hangar's model.
 - `HangarPlatformBehavior` filters on `UpdateCategories` instead of `UpdateTags`.
+
 ## [0.6.0] - 2026-07-12
 
-This release introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
+Introduces pluggable state management and canonical project links. State persistence is now backend-agnostic, with the file-backed implementation extracted into its own module, and project links now map consistently between Terracotta, Modrinth, and Hangar with full Gradle DSL support.
 
 ### Added
 

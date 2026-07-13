@@ -199,6 +199,17 @@ def update_changelog(new_version: str):
             "before the first '###' category heading."
         )
 
+    # The Unreleased body is promoted verbatim into the new release section, so its summary
+    # must summarize directly (e.g. "Adds...", "Fixes...", "Narrows..."), not start with a
+    # meta-introduction such as "This release..." or "This unreleased set of changes...".
+    first_block = re.split(r"\n\s*\n", unreleased_body.strip(), maxsplit=1)[0]
+    if re.match(r"^(This|These)\s+(release|unreleased)\b", first_block, re.IGNORECASE):
+        raise ValueError(
+            "CHANGELOG.md '[Unreleased]' summary must not start with a meta-introduction "
+            "(e.g. 'This release...' or 'This unreleased set of changes...'). Summarize directly "
+            "(e.g. 'Adds...', 'Fixes...', 'Narrows...') because the release script promotes it verbatim."
+        )
+
     new_header = f"## [{new_version}] - {today}"
 
     # Replace the Unreleased section with an empty one and place the new release
