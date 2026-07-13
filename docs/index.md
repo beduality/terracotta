@@ -59,7 +59,7 @@ Example plan output:
 
     ```kotlin
     plugins {
-        id("io.github.beduality.terracotta") version "0.7.1"
+        id("io.github.beduality.terracotta") version "0.8.0"
     }
     ```
 

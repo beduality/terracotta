@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-07-13
+
 Stabilizes gallery item identity using persisted state so images can be renamed or reordered without triggering a delete-and-reupload cycle.
 
 ### Added
@@ -28,7 +30,6 @@ Stabilizes gallery item identity using persisted state so images can be renamed 
 
 - `ModrinthRegistryProvider` implements `GalleryIdentityReporter`: uploads return the new remote URL, updates keep the existing URL, and deletes omit the identity.
 - `ModrinthClient.uploadGalleryItem` returns the created gallery image URL.
-
 ## [0.7.1] - 2026-07-13
 
 Tightens the changelog standard so `[Unreleased]` summaries are written as direct summaries and cannot be promoted with stale "unreleased" wording.

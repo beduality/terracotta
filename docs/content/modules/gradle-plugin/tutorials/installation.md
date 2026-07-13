@@ -13,7 +13,7 @@ Add the Terracotta plugin to your `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("io.github.beduality.terracotta") version "0.7.1"
+    id("io.github.beduality.terracotta") version "0.8.0"
 }
 ```
 
