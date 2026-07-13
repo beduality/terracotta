@@ -10,6 +10,7 @@ import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseTy
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import io.github.beduality.terracotta.core.provider.StateProvider
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
+import io.github.beduality.terracotta.provider.modrinth.client.toTerracottaVisibility
 
 /**
  * Reads project and version state from Modrinth.
@@ -74,6 +75,7 @@ class ModrinthStateProvider(private val client: ModrinthClient) : StateProvider 
                     community = project.discordUrl,
                     donations = project.donationUrls.map { TerracottaDonationLink(it.platform, it.url) },
                 ),
+            visibility = project.status.toTerracottaVisibility(),
         )
     }
 }

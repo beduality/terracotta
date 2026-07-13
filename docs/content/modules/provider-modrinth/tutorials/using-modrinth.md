@@ -150,6 +150,26 @@ When `terracottaApply` runs, the provider uploads new images, updates metadata f
 images whose title/description/featured/ordering changed, and deletes images whose
 title no longer exists in the local configuration.
 
+## Project visibility
+
+The Modrinth provider supports changing project visibility through the canonical `TerracottaVisibility` field. The field maps to Modrinth's project `status`:
+
+| Terracotta visibility | Modrinth `status` |
+|-----------------------|-------------------|
+| `PUBLIC` | `approved` |
+| `UNLISTED` | `unlisted` |
+| `ARCHIVED` | `archived` |
+| `PRIVATE` | `private` |
+| `DRAFT` | `draft` |
+
+Configure visibility in `terracotta.yml` or through the Gradle DSL. When the local visibility differs from the remote project, Terracotta emits an `UpdateVisibility` operation and patches the project status.
+
+```yaml
+name: "My Plugin"
+visibility: unlisted
+# ... other fields ...
+```
+
 ## Project icon
 
 The Modrinth provider can upload and update the project icon. The icon is declared with the `icon` field in project configuration (for example, `terracotta.yml`) or through a build-tool DSL.

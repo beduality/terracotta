@@ -6,6 +6,7 @@ Instead of using `terracotta.yml`, you can configure Terracotta directly in `bui
 
 ```kotlin
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 
 terracotta {
@@ -26,6 +27,7 @@ terracotta {
     loaders.set(listOf("paper"))
     environment.set(TerracottaEnvironment.SERVER_ONLY)
     releaseType.set(TerracottaReleaseType.RELEASE)
+    visibility.set(TerracottaVisibility.UNLISTED)
     changelog.set("Initial release")
     icon.set(file("docs/assets/icon.png"))
 

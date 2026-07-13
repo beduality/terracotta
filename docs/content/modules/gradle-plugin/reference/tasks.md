@@ -18,7 +18,7 @@ Generate semantic diffs comparing your local build configuration against all con
 **Output Indicators:**
 - `+`: Indicates a resource (e.g. version) that will be uploaded or created.
 - `-`: Indicates a resource or metadata element (e.g. categories) that will be deleted or removed.
-- `~`: Indicates metadata fields, categories, or descriptions that will be updated on the remote registry.
+- `~`: Indicates metadata fields, categories, descriptions, or visibility that will be updated on the remote registry.
 
 ---
 

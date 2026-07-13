@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DynamicTest
@@ -44,6 +45,11 @@ class OperationDescriptionPropertyTest {
             "1",
             "v2.0",
         )
+
+    private val visibilityPairs =
+        TerracottaVisibility.entries.flatMap { old ->
+            TerracottaVisibility.entries.filter { it != old }.map { new -> old to new }
+        }
 
     private val categoryPairs =
         listOf(
@@ -195,6 +201,35 @@ class OperationDescriptionPropertyTest {
                         "UpdateCategories description should contain new category '$id' but was: $desc",
                     )
                 }
+            }
+        }
+
+    /**
+     * Property 7: UpdateVisibility description content
+     *
+     * For any two distinct visibility values, description contains `~` and both old and new ids.
+     */
+    @TestFactory
+    fun `Property 7 - UpdateVisibility description contains tilde and both visibility ids`(): List<DynamicTest> =
+        visibilityPairs.map { (oldVisibility, newVisibility) ->
+            DynamicTest.dynamicTest(
+                "UpdateVisibility(old=${oldVisibility.id}, new=${newVisibility.id}) description contains '~' and visibility values",
+            ) {
+                val operation = Operation.UpdateVisibility(oldVisibility, newVisibility)
+                val desc = operation.description
+
+                assertTrue(
+                    desc.contains("~"),
+                    "UpdateVisibility description should contain '~' but was: $desc",
+                )
+                assertTrue(
+                    desc.contains(oldVisibility.id),
+                    "UpdateVisibility description should contain old visibility '${oldVisibility.id}' but was: $desc",
+                )
+                assertTrue(
+                    desc.contains(newVisibility.id),
+                    "UpdateVisibility description should contain new visibility '${newVisibility.id}' but was: $desc",
+                )
             }
         }
 

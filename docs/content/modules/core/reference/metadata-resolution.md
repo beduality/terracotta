@@ -24,6 +24,7 @@ From highest to lowest priority:
 | `loaders` | `config.loaders` | `detected.loaders` | — | `emptyList()` |
 | `environment` | `config.environment` | `detected.environment` | — | `SERVER_ONLY` |
 | `releaseType` | `config.releaseType` | `detected.releaseType` | `detectReleaseType(source.version)` | `RELEASE` |
+| `visibility` | `config.visibility` | — | — | `PUBLIC` |
 | `changelog` | `config.changelog` | Extracted from `CHANGELOG.md` | — | `""` |
 
 ## List merging

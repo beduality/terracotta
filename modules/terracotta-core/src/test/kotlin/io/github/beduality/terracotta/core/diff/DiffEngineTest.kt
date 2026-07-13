@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaCategory
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -583,6 +584,58 @@ class DiffEngineTest {
             )
 
         val ops = DiffEngine.diff(project, project)
+        assertTrue(ops.isEmpty())
+    }
+
+    @Test
+    fun `test diff with visibility change should emit UpdateVisibility`() {
+        val remote =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "My Plugin",
+                summary = "A summary",
+                description = "Some description",
+                versions = emptyList(),
+                categories = tags("utility"),
+                license = "MIT",
+                visibility = TerracottaVisibility.PUBLIC,
+            )
+        val local =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "My Plugin",
+                summary = "A summary",
+                description = "Some description",
+                versions = emptyList(),
+                categories = tags("utility"),
+                license = "MIT",
+                visibility = TerracottaVisibility.UNLISTED,
+            )
+
+        val ops = DiffEngine.diff(local, remote)
+
+        assertEquals(1, ops.size)
+        val visibilityOp = ops.filterIsInstance<Operation.UpdateVisibility>().first()
+        assertEquals(TerracottaVisibility.PUBLIC, visibilityOp.oldVisibility)
+        assertEquals(TerracottaVisibility.UNLISTED, visibilityOp.newVisibility)
+    }
+
+    @Test
+    fun `test diff with identical visibility should not trigger update`() {
+        val project =
+            TerracottaProject(
+                id = "my-plugin",
+                name = "My Plugin",
+                summary = "A summary",
+                description = "Some description",
+                versions = emptyList(),
+                categories = tags("utility"),
+                license = "MIT",
+                visibility = TerracottaVisibility.ARCHIVED,
+            )
+
+        val ops = DiffEngine.diff(project, project)
+
         assertTrue(ops.isEmpty())
     }
 

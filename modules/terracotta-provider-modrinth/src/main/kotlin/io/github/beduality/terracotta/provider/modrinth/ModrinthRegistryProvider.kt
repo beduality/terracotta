@@ -5,6 +5,7 @@ import io.github.beduality.terracotta.core.provider.BaseRegistryProvider
 import io.github.beduality.terracotta.core.provider.logic.ProviderLogic
 import io.github.beduality.terracotta.provider.modrinth.client.ModrinthClient
 import io.github.beduality.terracotta.provider.modrinth.client.toModrinthCategories
+import io.github.beduality.terracotta.provider.modrinth.client.toModrinthStatus
 
 /**
  * Applies Terracotta operations to Modrinth by translating them into Modrinth API calls.
@@ -71,6 +72,9 @@ class ModrinthRegistryProvider(
                         patches["additional_categories"] = modrinthCategories.additional
                     }
                     client.patchProject(resolvedProjectId, patches)
+                }
+                is Operation.UpdateVisibility -> {
+                    client.patchProject(resolvedProjectId, mapOf("status" to op.newVisibility.toModrinthStatus()))
                 }
                 is Operation.UploadVersion -> {
                     client.createVersion(resolvedProjectId, op.version)

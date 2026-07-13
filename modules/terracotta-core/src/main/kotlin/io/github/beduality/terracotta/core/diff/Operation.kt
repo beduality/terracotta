@@ -3,6 +3,7 @@ package io.github.beduality.terracotta.core.diff
 import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 
 /**
@@ -81,6 +82,19 @@ sealed interface Operation {
                 if (linksChanged) changes.add("links")
                 return "~ Update project metadata (${changes.joinToString(", ")})"
             }
+    }
+
+    /**
+     * Updates the project visibility from [oldVisibility] to [newVisibility].
+     */
+    data class UpdateVisibility(
+        /** Previous visibility on the remote project. */
+        val oldVisibility: TerracottaVisibility,
+        /** Desired visibility from the local configuration. */
+        val newVisibility: TerracottaVisibility,
+    ) : Operation {
+        override val description: String =
+            "~ Update visibility (from: ${oldVisibility.id} to: ${newVisibility.id})"
     }
 
     /** Uploads [version] as a new release. */

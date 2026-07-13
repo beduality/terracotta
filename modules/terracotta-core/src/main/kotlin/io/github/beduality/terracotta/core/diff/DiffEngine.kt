@@ -63,6 +63,11 @@ object DiffEngine {
             operations.add(Operation.UpdateCategories(remote.categories, local.categories))
         }
 
+        // Compare visibility
+        if (local.visibility != remote.visibility) {
+            operations.add(Operation.UpdateVisibility(remote.visibility, local.visibility))
+        }
+
         // Compare versions (upload any missing local versions)
         val remoteVersionMap = remote.versions.associateBy { it.version }
         local.versions.forEach { localVersion ->

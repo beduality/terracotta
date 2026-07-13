@@ -38,4 +38,6 @@ data class ModrinthProject(
     @kotlinx.serialization.SerialName("discord_url") val discordUrl: String? = null,
     /** Donation platform links. */
     @kotlinx.serialization.SerialName("donation_urls") val donationUrls: List<ModrinthDonationUrl> = emptyList(),
+    /** Project status (visibility). */
+    val status: String,
 )

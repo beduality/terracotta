@@ -6,6 +6,7 @@ import io.github.beduality.terracotta.core.model.TerracottaGalleryItem
 import io.github.beduality.terracotta.core.model.TerracottaProject
 import io.github.beduality.terracotta.core.model.TerracottaProjectCategories
 import io.github.beduality.terracotta.core.model.TerracottaProjectLinks
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import io.github.beduality.terracotta.core.model.version.TerracottaVersion
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -74,6 +75,10 @@ class HangarPlatformBehaviorTest {
                 Operation.UploadIcon("icon.png"),
                 Operation.UpdateIcon(oldIconUrl = null, iconPath = "icon.png"),
                 Operation.DeleteIcon("https://cdn/old.png"),
+                Operation.UpdateVisibility(
+                    oldVisibility = TerracottaVisibility.PUBLIC,
+                    newVisibility = TerracottaVisibility.UNLISTED,
+                ),
             )
 
         assertEquals(emptyList<Operation>(), HangarProviderLogic.platformBehavior.filterOperations(operations))

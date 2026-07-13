@@ -45,6 +45,7 @@ internal object TerracottaExtensionConfigurer {
         extension.loaders.convention(resolved.loaders)
         extension.environment.convention(resolved.environment)
         extension.releaseType.convention(resolved.releaseType)
+        extension.visibility.convention(resolved.visibility)
         extension.conventions.readme.convention(resolved.readmeConvention)
         extension.conventions.changelog.convention(resolved.changelogConvention)
         extension.changelog.convention(resolved.changelog)

@@ -440,6 +440,80 @@ class TerracottaPluginIntegrationTest {
     }
 
     @Test
+    fun `loads visibility from terracotta yml`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            visibility: unlisted
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            tasks.register("printVisibility") {
+                doLast {
+                    println("VISIBILITY=" + terracotta.visibility.get())
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath(pluginClasspathWithFileSystem())
+                .withArguments("printVisibility")
+                .build()
+
+        assertTrue("VISIBILITY=unlisted" in result.output, "Expected visibility from terracotta.yml")
+    }
+
+    @Test
+    fun `kotlin dsl overrides visibility from terracotta yml`(
+        @TempDir projectDir: File,
+    ) {
+        File(projectDir, "terracotta.yml").writeText(
+            """
+            visibility: unlisted
+            """.trimIndent(),
+        )
+        projectDir.writeSettings()
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            import io.github.beduality.terracotta.core.model.TerracottaVisibility
+
+            plugins {
+                id("io.github.beduality.terracotta")
+            }
+
+            terracotta {
+                visibility.set(TerracottaVisibility.PRIVATE)
+            }
+
+            tasks.register("printVisibility") {
+                doLast {
+                    println("VISIBILITY=" + terracotta.visibility.get())
+                }
+            }
+            """.trimIndent(),
+        )
+
+        val result =
+            GradleRunner.create()
+                .withProjectDir(projectDir)
+                .withPluginClasspath(pluginClasspathWithFileSystem())
+                .withArguments("printVisibility")
+                .build()
+
+        assertTrue("VISIBILITY=private" in result.output, "Expected DSL to override terracotta.yml visibility")
+    }
+
+    @Test
     fun `loads gallery from terracotta yml and dsl`(
         @TempDir projectDir: File,
     ) {

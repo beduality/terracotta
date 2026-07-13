@@ -35,6 +35,8 @@ data class TerracottaConfig(
     val environment: String? = null,
     /** Release type identifier (`release`, `beta`, or `alpha`). */
     val releaseType: String? = null,
+    /** Visibility identifier (`public`, `unlisted`, `archived`, `private`, or `draft`). */
+    val visibility: String? = null,
     /** Changelog text for the current version. */
     val changelog: String? = null,
     /** Gallery images for the project. */

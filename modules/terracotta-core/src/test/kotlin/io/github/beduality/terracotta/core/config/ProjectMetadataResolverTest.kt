@@ -1,6 +1,7 @@
 package io.github.beduality.terracotta.core.config
 
 import io.github.beduality.terracotta.core.model.TerracottaEnvironment
+import io.github.beduality.terracotta.core.model.TerracottaVisibility
 import io.github.beduality.terracotta.core.model.metadata.ProjectMetadataSource
 import io.github.beduality.terracotta.core.model.releasetype.TerracottaReleaseType
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -29,6 +30,7 @@ class ProjectMetadataResolverTest {
                 summary = "Config summary",
                 license = "Apache-2.0",
                 licenseUrl = "https://config.example.com/LICENSE",
+                visibility = "unlisted",
             )
         val resolver = ProjectMetadataResolver(tempDir, config, ProjectMetadataSource())
 
@@ -38,6 +40,7 @@ class ProjectMetadataResolverTest {
         assertEquals("Config summary", result.summary)
         assertEquals("Apache-2.0", result.license)
         assertEquals("https://config.example.com/LICENSE", result.licenseUrl)
+        assertEquals(TerracottaVisibility.UNLISTED, result.visibility)
     }
 
     @Test
@@ -126,6 +129,7 @@ class ProjectMetadataResolverTest {
         assertEquals(emptyList<String>(), result.loaders)
         assertEquals(TerracottaEnvironment.SERVER_ONLY, result.environment)
         assertEquals(TerracottaReleaseType.RELEASE, result.releaseType)
+        assertEquals(TerracottaVisibility.PUBLIC, result.visibility)
         assertEquals("", result.changelog)
         assertEquals("terracotta", result.readmeConvention)
         assertEquals("keep-a-changelog", result.changelogConvention)
