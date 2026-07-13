@@ -5180,9 +5180,10 @@
 <ol>
 <li><strong>Read local state</strong> from <code>terracotta.yml</code>, build configuration files like <code>build.gradle.kts</code>, and detected project files.</li>
 <li><strong>Fetch remote state</strong> from the configured provider.</li>
-<li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateCategories</code>, and <code>UploadVersion</code>.</li>
+<li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateCategories</code>, <code>UploadVersion</code>, and gallery image changes.</li>
 <li><strong>Apply the operations</strong> or print a human-readable plan first.</li>
 </ol>
+<p>Gallery images can optionally declare a stable <code>key</code> so they are matched across runs by identity rather than by title. This avoids accidental delete-and-reupload cycles when you rename screenshots or reorder images.</p>
 <p>Example plan output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~ Update summary (from: &quot;Old summary&quot; to: &quot;Lightweight Paper plugin&quot;)
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>~ Update categories (from: [&quot;utility&quot;] to: [&quot;utility&quot;, &quot;paper&quot;])
@@ -5194,7 +5195,7 @@
 <div class="tabbed-block">
 <p>Add the plugin to your <code>build.gradle.kts</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;io.github.beduality.terracotta&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;0.7.0&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;io.github.beduality.terracotta&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;0.7.1&quot;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
 </code></pre></div>
 <p>Then add Modrinth:</p>

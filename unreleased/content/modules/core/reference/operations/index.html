@@ -1690,6 +1690,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gallery-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gallery matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#license-comparison" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5059,6 +5070,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gallery-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gallery matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#license-comparison" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5252,6 +5274,15 @@
 </tr>
 </tbody>
 </table>
+<h2 id="gallery-matching">Gallery matching<a class="headerlink" href="#gallery-matching" title="Permanent link">&para;</a></h2>
+<p>When <code>DiffEngine.diff(local, remote, persistedGallery)</code> is called with persisted
+identities, gallery items are matched by their stable local key: the explicit
+<code>TerracottaGalleryItem.key</code> if set, otherwise the local <code>imagePath</code>. This allows
+titles and ordering to change without triggering a delete-and-reupload cycle.</p>
+<p>If no persisted identity exists for a local item, the engine falls back to the
+normalized title, then to <code>ordering</code> when the title is empty. Duplicate local
+keys detected at the task level are excluded from identity matching and fall
+back to the same title/ordering behavior.</p>
 <h2 id="license-comparison">License comparison<a class="headerlink" href="#license-comparison" title="Permanent link">&para;</a></h2>
 <p>Licenses are compared case-insensitively to avoid false positives from capitalization differences.</p>
 <h2 id="license-url-behavior">License URL behavior<a class="headerlink" href="#license-url-behavior" title="Permanent link">&para;</a></h2>

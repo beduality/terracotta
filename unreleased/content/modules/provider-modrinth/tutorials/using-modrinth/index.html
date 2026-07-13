@@ -5519,7 +5519,7 @@
 </code></pre></div>
 <h2 id="gallery-images">Gallery images<a class="headerlink" href="#gallery-images" title="Permanent link">&para;</a></h2>
 <p>The Modrinth provider supports uploading, updating metadata, and deleting gallery images.
-Images are declared in project configuration (for example, <code>terracotta.yml</code>) or through a build-tool DSL and matched by their title.</p>
+Images are declared in project configuration (for example, <code>terracotta.yml</code>) or through a build-tool DSL. They are matched by a stable local key before falling back to title matching.</p>
 <h3 id="supported-formats-and-limits">Supported formats and limits<a class="headerlink" href="#supported-formats-and-limits" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5538,7 +5538,11 @@ Images are declared in project configuration (for example, <code>terracotta.yml<
 <td><code>png</code>, <code>jpg</code>, <code>jpeg</code>, <code>webp</code>, <code>gif</code>, <code>bmp</code></td>
 </tr>
 <tr>
-<td>Identity key</td>
+<td>Stable identity key</td>
+<td><code>key</code> if set, otherwise the local <code>path</code></td>
+</tr>
+<tr>
+<td>Fallback identity key</td>
 <td>Normalized title (trimmed and lowercased)</td>
 </tr>
 </tbody>
@@ -5549,14 +5553,17 @@ Images are declared in project configuration (for example, <code>terracotta.yml<
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nt">gallery</span><span class="p">:</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docs/assets/main.png&quot;</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Main</span><span class="nv"> </span><span class="s">inventory</span><span class="nv"> </span><span class="s">screen&quot;</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Shows</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">GUI&quot;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">featured</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">ordering</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main-inventory&quot;</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Main</span><span class="nv"> </span><span class="s">inventory</span><span class="nv"> </span><span class="s">screen&quot;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Shows</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">GUI&quot;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">featured</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="nt">ordering</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 <p>When <code>terracottaApply</code> runs, the provider uploads new images, updates metadata for
-images whose title/description/featured/ordering changed, and deletes images whose
-title no longer exists in the local configuration.</p>
+images whose stable key matches, and deletes images that are no longer present
+locally. Persisted gallery identities are saved to the configured <code>StateSource</code>
+after a successful apply, so subsequent runs can match by <code>key</code> even if the
+title changes.</p>
 <h2 id="project-visibility">Project visibility<a class="headerlink" href="#project-visibility" title="Permanent link">&para;</a></h2>
 <p>The Modrinth provider supports changing project visibility through the canonical <code>TerracottaVisibility</code> field. The field maps to Modrinth's project <code>status</code>:</p>
 <table>

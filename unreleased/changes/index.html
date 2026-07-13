@@ -474,21 +474,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
+        Added
       
     </span>
   </a>
@@ -5018,21 +5007,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
+        Added
       
     </span>
   </a>
@@ -5076,18 +5054,25 @@
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<p>Tightens the changelog standard so <code>[Unreleased]</code> summaries are written as direct summaries and cannot be promoted with stale "unreleased" wording.</p>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
-<p><strong>Repo</strong></p>
+<p>Stabilizes gallery item identity using persisted state so images can be renamed or reordered without triggering a delete-and-reupload cycle.</p>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<p><strong>Core</strong></p>
 <ul>
-<li>Corrected the 0.7.0 changelog summary to remove the incorrect "unreleased" wording.</li>
+<li>Added optional <code>key</code> property to <code>TerracottaGalleryItem</code> for stable local identity.</li>
+<li>Added <code>GalleryIdentityReporter</code> interface so providers can report stable gallery identities after applying operations.</li>
+<li>Updated <code>DiffEngine.diff</code> with a persisted-gallery overload that matches local items to remote items by stable <code>localKey</code> even when titles change; falls back to title/ordering matching when no persisted identity exists.</li>
+<li>Added top-level <code>galleryLocalKey(item)</code> helper returning <code>item.key ?: item.imagePath</code>.</li>
 </ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
-<p><strong>Repo</strong></p>
+<p><strong>Gradle Plugin</strong></p>
 <ul>
-<li>Updated changelog guidelines to require direct summaries in <code>[Unreleased]</code>.</li>
-<li>Updated <code>scripts/release.py</code> to reject <code>[Unreleased]</code> summaries that start with "This release...", "This unreleased...", or "These unreleased...".</li>
-<li>Updated the plan generation workflow and template to remind users to write direct changelog summaries.</li>
+<li>Added <code>key</code> property to <code>TerracottaGalleryExtension</code> and wired it through <code>TerracottaExtensionConfigurer</code> and <code>TerracottaTaskRegistrar</code>.</li>
+<li>Updated <code>TerracottaPlanTask</code> and <code>TerracottaApplyTask</code> to load persisted gallery state from the configured <code>StateSource</code>, pass it to <code>DiffEngine.diff</code>, and detect duplicate local keys with a warning and fallback to title/ordering matching.</li>
+<li>Updated <code>TerracottaApplyTask</code> to merge reported gallery identities from <code>GalleryIdentityReporter</code> providers into provider state and save the updated <code>TerracottaState</code> after a successful apply.</li>
+</ul>
+<p><strong>Modrinth</strong></p>
+<ul>
+<li><code>ModrinthRegistryProvider</code> implements <code>GalleryIdentityReporter</code>: uploads return the new remote URL, updates keep the existing URL, and deletes omit the identity.</li>
+<li><code>ModrinthClient.uploadGalleryItem</code> returns the created gallery image URL.</li>
 </ul>
 
 
