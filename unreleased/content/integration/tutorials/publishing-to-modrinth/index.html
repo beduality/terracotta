@@ -678,10 +678,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-configure-the-modrinth-provider" class="md-nav__link">
+  <a href="#1-install-the-state-backend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure the Modrinth provider
+        1. Install the state backend
       
     </span>
   </a>
@@ -689,10 +689,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-set-the-token" class="md-nav__link">
+  <a href="#2-configure-the-modrinth-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set the token
+        2. Configure the Modrinth provider
       
     </span>
   </a>
@@ -700,10 +700,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-plan-the-release" class="md-nav__link">
+  <a href="#3-set-the-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Plan the release
+        3. Set the token
       
     </span>
   </a>
@@ -711,10 +711,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-apply-the-release" class="md-nav__link">
+  <a href="#4-plan-the-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Apply the release
+        4. Plan the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-apply-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Apply the release
       
     </span>
   </a>
@@ -5068,10 +5079,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-configure-the-modrinth-provider" class="md-nav__link">
+  <a href="#1-install-the-state-backend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure the Modrinth provider
+        1. Install the state backend
       
     </span>
   </a>
@@ -5079,10 +5090,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-set-the-token" class="md-nav__link">
+  <a href="#2-configure-the-modrinth-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set the token
+        2. Configure the Modrinth provider
       
     </span>
   </a>
@@ -5090,10 +5101,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-plan-the-release" class="md-nav__link">
+  <a href="#3-set-the-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Plan the release
+        3. Set the token
       
     </span>
   </a>
@@ -5101,10 +5112,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-apply-the-release" class="md-nav__link">
+  <a href="#4-plan-the-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Apply the release
+        4. Plan the release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-apply-the-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Apply the release
       
     </span>
   </a>
@@ -5163,32 +5185,41 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The Terracotta Gradle plugin installed. See <a href="../../../modules/gradle-plugin/tutorials/installation/">Installing the Gradle plugin</a>.</li>
+<li>The <code>terracotta-state-filesystem</code> module on your buildscript classpath (required for the default state backend).</li>
 <li>A Modrinth account and API token.</li>
 <li>A Gradle-based Minecraft plugin project with a JAR artifact.</li>
 </ul>
-<h2 id="1-configure-the-modrinth-provider">1. Configure the Modrinth provider<a class="headerlink" href="#1-configure-the-modrinth-provider" title="Permanent link">&para;</a></h2>
+<h2 id="1-install-the-state-backend">1. Install the state backend<a class="headerlink" href="#1-install-the-state-backend" title="Permanent link">&para;</a></h2>
+<p>If you have not already, add the filesystem state backend to your <code>build.gradle.kts</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">classpath</span><span class="p">(</span><span class="s">&quot;io.github.beduality:terracotta-state-filesystem:0.8.0&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="2-configure-the-modrinth-provider">2. Configure the Modrinth provider<a class="headerlink" href="#2-configure-the-modrinth-provider" title="Permanent link">&para;</a></h2>
 <p>Create or edit <code>terracotta.yml</code> in your project root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">providers</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">providers</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">modrinth</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">projectId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-plugin&quot;</span>
 </code></pre></div>
 <p>Use your Modrinth project slug or ID.</p>
-<h2 id="2-set-the-token">2. Set the token<a class="headerlink" href="#2-set-the-token" title="Permanent link">&para;</a></h2>
+<h2 id="3-set-the-token">3. Set the token<a class="headerlink" href="#3-set-the-token" title="Permanent link">&para;</a></h2>
 <p>Export the token in your shell:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
 </code></pre></div>
 <p>On Windows PowerShell:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">$env:MODRINTH_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">$env:MODRINTH_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
 </code></pre></div>
 <p>Terracotta reads the token from the <code>MODRINTH_TOKEN</code> environment variable by default.</p>
-<h2 id="3-plan-the-release">3. Plan the release<a class="headerlink" href="#3-plan-the-release" title="Permanent link">&para;</a></h2>
+<h2 id="4-plan-the-release">4. Plan the release<a class="headerlink" href="#4-plan-the-release" title="Permanent link">&para;</a></h2>
 <p>Run the plan task to see what Terracotta will do:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./gradlew<span class="w"> </span>terracottaPlan
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>terracottaPlan
 </code></pre></div>
 <p>Review the project metadata, version, supported loaders, and game versions.</p>
-<h2 id="4-apply-the-release">4. Apply the release<a class="headerlink" href="#4-apply-the-release" title="Permanent link">&para;</a></h2>
+<h2 id="5-apply-the-release">5. Apply the release<a class="headerlink" href="#5-apply-the-release" title="Permanent link">&para;</a></h2>
 <p>When the plan looks correct, apply it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span>terracottaApply
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./gradlew<span class="w"> </span>terracottaApply
 </code></pre></div>
 <p>Terracotta creates or updates the project on Modrinth and uploads the version.</p>
 <h2 id="whats-next">What's next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>

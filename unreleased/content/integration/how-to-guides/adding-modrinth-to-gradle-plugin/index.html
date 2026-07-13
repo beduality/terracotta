@@ -5116,6 +5116,7 @@
 <li>A Modrinth account.</li>
 <li>A Modrinth API token from <a href="https://modrinth.com/settings/tokens">Modrinth settings</a>.</li>
 <li>The Terracotta Gradle plugin installed.</li>
+<li>The <code>terracotta-state-filesystem</code> module on your buildscript classpath (required for the default state backend).</li>
 </ul>
 <p>See the <a href="../../../modules/gradle-plugin/tutorials/installation/">Gradle plugin installation guide</a> if you have not installed the plugin yet.</p>
 <h2 id="1-add-the-modrinth-provider-to-terracottayml">1. Add the Modrinth provider to <code>terracotta.yml</code><a class="headerlink" href="#1-add-the-modrinth-provider-to-terracottayml" title="Permanent link">&para;</a></h2>
@@ -5125,28 +5126,25 @@
 </code></pre></div>
 <h2 id="2-configure-authentication">2. Configure authentication<a class="headerlink" href="#2-configure-authentication" title="Permanent link">&para;</a></h2>
 <p>Set the token as an environment variable. Terracotta uses the <code>&lt;PROVIDER&gt;_TOKEN</code> convention, so the variable name for Modrinth is <code>MODRINTH_TOKEN</code>:</p>
-<p>```=== "Linux / macOS"</p>
-<div class="highlight"><pre><span></span><code>```bash
-export MODRINTH_TOKEN=&quot;your_modrinth_token&quot;
-```
-</code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows PowerShell</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / macOS</label><label for="__tabbed_1_2">Windows PowerShell</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MODRINTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">$env:MODRINTH_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_modrinth_token&quot;</span>
 </code></pre></div>
 </div>
 </div>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Or set the token explicitly in `build.gradle.kts`:
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>```kotlin
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>providers {
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    create(&quot;modrinth&quot;) {
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        projectId.set(&quot;my-modrinth-project-id&quot;)
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        token.set(System.getenv(&quot;MODRINTH_TOKEN&quot;))
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    }
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>}
+<p>Or set the token explicitly in <code>build.gradle.kts</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">providers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">create</span><span class="p">(</span><span class="s">&quot;modrinth&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">projectId</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;my-modrinth-project-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="n">token</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;MODRINTH_TOKEN&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="3-plan-and-apply">3. Plan and apply<a class="headerlink" href="#3-plan-and-apply" title="Permanent link">&para;</a></h2>
 <p>Preview the changes:</p>

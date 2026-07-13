@@ -5156,6 +5156,7 @@
 <p>This guide explains how to add a <a href="https://hangar.papermc.io/">Hangar</a> provider to an existing Terracotta setup. It assumes you have already installed the Terracotta Gradle plugin and configured your project metadata.</p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <p>Hangar does not expose a project creation API. Log in to Hangar and create your project manually before running Terracotta. Make a note of the project slug — you will use it as the <code>projectId</code>.</p>
+<p>You also need the <code>terracotta-state-filesystem</code> module on your buildscript classpath (required for the default state backend).</p>
 <h2 id="1-add-the-hangar-provider-to-terracottayml">1. Add the Hangar provider to <code>terracotta.yml</code><a class="headerlink" href="#1-add-the-hangar-provider-to-terracottayml" title="Permanent link">&para;</a></h2>
 <p>Add a <code>hangar</code> entry under <code>providers:</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">providers</span><span class="p">:</span>
@@ -5172,13 +5173,12 @@
 <h2 id="2-configure-authentication">2. Configure authentication<a class="headerlink" href="#2-configure-authentication" title="Permanent link">&para;</a></h2>
 <p>Create a Hangar API key from your Hangar account settings.</p>
 <p>Set the key as an environment variable. Terracotta uses the <code>&lt;PROVIDER&gt;_TOKEN</code> convention, so the variable name for Hangar is <code>HANGAR_TOKEN</code>:</p>
-<p>```=== "Linux / macOS"</p>
-<div class="highlight"><pre><span></span><code>```bash
-export HANGAR_TOKEN=&quot;your_hangar_token&quot;
-```
-</code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows PowerShell</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / macOS</label><label for="__tabbed_1_2">Windows PowerShell</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HANGAR_TOKEN</span><span class="o">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">$env:HANGAR_TOKEN</span><span class="p">=</span><span class="s2">&quot;your_hangar_token&quot;</span>
 </code></pre></div>
