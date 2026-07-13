@@ -5071,7 +5071,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    1 min read
+    2 min read
   </p>
 
 <h1 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h1>
@@ -5082,6 +5082,7 @@
 <li>Added <code>TerracottaCategory</code> and <code>TerracottaProjectCategories</code> models for structured project categories.</li>
 <li>Added <code>TerracottaVisibility</code> enum (<code>public</code>, <code>unlisted</code>, <code>archived</code>, <code>private</code>, <code>draft</code>) and a canonical <code>visibility</code> field on <code>TerracottaProject</code>, <code>TerracottaConfig</code>, and <code>ResolvedProjectMetadata</code>.</li>
 <li>Added <code>Operation.UpdateVisibility</code> and updated <code>DiffEngine</code> to emit it when the local and remote visibility differ.</li>
+<li>Added <code>ProviderLogic.supportsLicenseUrl</code> capability so providers can indicate whether they persist a custom license URL. <code>DiffEngine.diff</code> now accepts this flag and ignores <code>licenseUrl</code> differences when the provider reports it is unsupported.</li>
 </ul>
 <p><strong>Gradle Plugin</strong></p>
 <ul>
@@ -5095,6 +5096,10 @@
 <p><strong>Hangar</strong></p>
 <ul>
 <li><code>HangarPlatformBehavior</code> filters out <code>UpdateVisibility</code> operations so Hangar applies continue without failing; a warning is logged for skipped operations.</li>
+<li>Added <code>HangarLicenseMapper</code> to map common SPDX license identifiers (e.g., <code>Apache-2.0</code>, <code>GPL-3.0-only</code>) to the license values accepted by Hangar's project settings API.</li>
+<li><code>HangarProviderLogic</code> reports <code>supportsLicenseUrl = false</code> because Hangar's project API does not expose a license URL field.</li>
+<li><code>HangarStateProvider</code> reverse-maps Hangar license values back to Terracotta license identifiers when reading project state.</li>
+<li><code>HangarRegistryProvider</code> no longer warns about configured <code>licenseUrl</code>; the diff engine now ignores the field for Hangar.</li>
 </ul>
 <p><strong>Docs</strong></p>
 <ul>
@@ -5111,6 +5116,7 @@
 <ul>
 <li>Replaced the <code>tags</code> DSL property with a nested <code>categories { ... }</code> block (<code>TerracottaCategoriesExtension</code> and <code>TerracottaCategoryExtension</code>).</li>
 <li>Updated <code>TerracottaPlanTask</code> and <code>TerracottaApplyTask</code> to wire categories into the resolved project metadata.</li>
+<li>Updated <code>TerracottaPlanTask</code> and <code>TerracottaApplyTask</code> to pass the provider's <code>supportsLicenseUrl</code> capability to <code>DiffEngine.diff</code>, so providers that cannot persist a license URL do not generate a perpetual metadata update.</li>
 </ul>
 <p><strong>Modrinth</strong></p>
 <ul>

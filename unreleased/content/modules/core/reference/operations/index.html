@@ -1701,6 +1701,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-url-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License URL behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5059,6 +5070,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-url-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License URL behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5232,6 +5254,12 @@
 </table>
 <h2 id="license-comparison">License comparison<a class="headerlink" href="#license-comparison" title="Permanent link">&para;</a></h2>
 <p>Licenses are compared case-insensitively to avoid false positives from capitalization differences.</p>
+<h2 id="license-url-behavior">License URL behavior<a class="headerlink" href="#license-url-behavior" title="Permanent link">&para;</a></h2>
+<p>Whether a <code>licenseUrl</code> difference produces an <code>UpdateMetadata</code> operation is provider-dependent. Each provider exposes a <code>supportsLicenseUrl</code> capability through its <code>ProviderLogic</code>:</p>
+<ul>
+<li>Modrinth supports <code>licenseUrl</code>, so changes are emitted and applied.</li>
+<li>Hangar does not support <code>licenseUrl</code>, so differences are ignored and the operation is not generated. This prevents a perpetual diff loop because Hangar's API cannot persist the value.</li>
+</ul>
 <h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
 <p><code>OperationPreprocessor.process</code> normalizes versions before upload:</p>
 <ul>

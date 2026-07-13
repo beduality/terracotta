@@ -3760,6 +3760,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="License Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#license-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License URL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#loader-to-platform-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5247,6 +5275,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="License Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#license-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License URL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#loader-to-platform-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5317,7 +5373,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    4 min read
+    5 min read
   </p>
 
 <h1 id="using-the-hangar-provider">Using the Hangar Provider<a class="headerlink" href="#using-the-hangar-provider" title="Permanent link">&para;</a></h1>
@@ -5440,6 +5496,49 @@
 <p>Hangar does not expose a project creation API. Projects must be created manually on Hangar first. When Terracotta receives a <code>CreateProject</code> operation, it logs a warning and skips the operation. Once the project exists on Hangar, Terracotta can sync metadata and upload versions.</p>
 <h2 id="project-visibility">Project Visibility<a class="headerlink" href="#project-visibility" title="Permanent link">&para;</a></h2>
 <p>Hangar does not expose an API for changing project visibility. When a plan includes an <code>UpdateVisibility</code> operation, the Hangar provider filters it out and logs a warning so the apply continues without failing.</p>
+<h2 id="license-mapping">License Mapping<a class="headerlink" href="#license-mapping" title="Permanent link">&para;</a></h2>
+<p>Terracotta's <code>license</code> field is a free-form identifier, but Hangar's project settings accept a fixed set of license values. The Hangar provider maps common identifiers to the values Hangar recognizes:</p>
+<table>
+<thead>
+<tr>
+<th>Terracotta License</th>
+<th>Hangar License</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MIT</code></td>
+<td><code>MIT</code></td>
+</tr>
+<tr>
+<td><code>Apache-2.0</code></td>
+<td><code>Apache 2.0</code></td>
+</tr>
+<tr>
+<td><code>GPL-3.0</code>, <code>GPL-3.0-only</code>, <code>GPL-2.0</code>, <code>GPL-2.0-only</code></td>
+<td><code>GPL</code></td>
+</tr>
+<tr>
+<td><code>LGPL-3.0</code>, <code>LGPL-3.0-only</code>, <code>LGPL-2.0</code>, <code>LGPL-2.0-only</code></td>
+<td><code>LGPL</code></td>
+</tr>
+<tr>
+<td><code>AGPL-3.0</code>, <code>AGPL-3.0-only</code></td>
+<td><code>AGPL</code></td>
+</tr>
+<tr>
+<td><code>CC0-1.0</code>, <code>Unlicense</code></td>
+<td><code>Unspecified</code></td>
+</tr>
+<tr>
+<td>Unknown or custom</td>
+<td><code>Other</code></td>
+</tr>
+</tbody>
+</table>
+<p>Matching is case-insensitive. Unknown identifiers are sent as <code>Other</code> so Hangar can display them as a custom license.</p>
+<h3 id="license-url">License URL<a class="headerlink" href="#license-url" title="Permanent link">&para;</a></h3>
+<p>Hangar does not expose a <code>licenseUrl</code> field on its project API, so the value is not persisted. The Hangar provider reports this capability to the diff engine, which means a configured <code>licenseUrl</code> does <strong>not</strong> generate a recurring <code>UpdateMetadata</code> operation. Other providers such as Modrinth still receive the URL.</p>
 <h2 id="loader-to-platform-mapping">Loader-to-Platform Mapping<a class="headerlink" href="#loader-to-platform-mapping" title="Permanent link">&para;</a></h2>
 <p>Hangar uses a coarser "platform" concept than individual loaders. Terracotta maps multiple Paper-ecosystem loaders to the same Hangar platform:</p>
 <table>
