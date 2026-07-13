@@ -5166,7 +5166,7 @@
 <li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 4v2h14V4zm0 10h4v6h6v-6h4l-7-7z"/></svg></span> <strong>Publish to Modrinth</strong></p>
 <hr />
-<p>Run <code>./gradlew terracottaApply</code> to create or update your Modrinth project, upload versions, update metadata, and synchronize tags in one step. <a href="content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar</a> when you are ready for a second registry.</p>
+<p>Run <code>./gradlew terracottaApply</code> to create or update your Modrinth project, upload versions, update metadata, and synchronize categories in one step. <a href="content/integration/how-to-guides/adding-hangar-to-gradle-plugin/">Add Hangar</a> when you are ready for a second registry.</p>
 </li>
 <li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5A2.5 2.5 0 0 0 10.5 1 2.5 2.5 0 0 0 8 3.5V5H4a2 2 0 0 0-2 2v3.8h1.5c1.5 0 2.7 1.2 2.7 2.7S5 16.2 3.5 16.2H2V20a2 2 0 0 0 2 2h3.8v-1.5c0-1.5 1.2-2.7 2.7-2.7s2.7 1.2 2.7 2.7V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5"/></svg></span> <strong>Pluggable by Design</strong></p>
@@ -5180,12 +5180,12 @@
 <ol>
 <li><strong>Read local state</strong> from <code>terracotta.yml</code>, build configuration files like <code>build.gradle.kts</code>, and detected project files.</li>
 <li><strong>Fetch remote state</strong> from the configured provider.</li>
-<li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateTags</code>, and <code>UploadVersion</code>.</li>
+<li><strong>Compute a diff</strong> that produces semantic operations such as <code>CreateProject</code>, <code>UpdateMetadata</code>, <code>UpdateCategories</code>, and <code>UploadVersion</code>.</li>
 <li><strong>Apply the operations</strong> or print a human-readable plan first.</li>
 </ol>
 <p>Example plan output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~ Update summary (from: &quot;Old summary&quot; to: &quot;Lightweight Paper plugin&quot;)
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>~ Update tags (from: [&quot;utility&quot;] to: [&quot;utility&quot;, &quot;paper&quot;])
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>~ Update categories (from: [&quot;utility&quot;] to: [&quot;utility&quot;, &quot;paper&quot;])
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>+ Upload version 1.2.0 (file: build/libs/my-plugin-1.2.0.jar)
 </code></pre></div>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
