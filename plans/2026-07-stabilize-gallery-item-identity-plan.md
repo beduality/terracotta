@@ -18,12 +18,12 @@ touches `terracotta-core`, `terracotta-gradle-plugin`, `terracotta-state-filesys
 |-------|--------|-------|
 | Brainstorm | Skipped | Well-understood problem; no note needed |
 | System design | Complete | Open questions resolved; design proposal updated |
-| Contract | Not started | |
-| TDD | Not started | |
-| Implementation | Not started | |
-| Review | Not started | |
-| Documentation | Not started | |
-| Push and merge | Not started | |
+| Contract | Complete | Added key property, DiffEngine overload, GalleryIdentityReporter, state source task inputs |
+| TDD | Complete | Added DiffEngine, config loader, and Modrinth reporter tests |
+| Implementation | Complete | DiffEngine identity matching, task state load/save, Modrinth reporter |
+| Review | Complete | `./gradlew check` and `spotlessCheck` pass; mkdocs builds |
+| Documentation | Complete | Updated config-schema, models, operations, provider-interfaces, kotlin-dsl-configuration, using-modrinth, CHANGELOG |
+| Push and merge | Ready | Committed to `feature/stabilize-gallery-item-identity`; push and open PR when ready |
 | Release report | Not started | |
 
 ## Phase 1: Brainstorm

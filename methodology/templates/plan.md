@@ -68,7 +68,7 @@ touches `<modules>`.
 - [ ] Read `project/methodology/module-review-workflow.md`.
 - [ ] Run code review checklist.
 - [ ] By default, confirm auto-review (tests, spotless, build, docs build) passes.
-- [ ] Update `CHANGELOG.md` if users need to know about the change.
+- [ ] Update `CHANGELOG.md` if users need to know about the change. Write the `[Unreleased]` summary directly (e.g. "Adds...", "Fixes...", "Narrows..."), without a meta-introduction such as "This release..." or "This unreleased set of changes..."; the release script promotes the `[Unreleased]` body verbatim into the new version section.
 - [ ] Optional: escalate to human review only when blocked on taste, direction, or high-stakes decisions.
 
 ## Phase 7: Documentation
