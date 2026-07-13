@@ -22,6 +22,12 @@ Add the dependency to your project:
     </dependency>
     ```
 
+To persist state across runs, also add the file-backed state backend:
+
+```kotlin
+implementation("io.github.beduality:terracotta-state-filesystem:0.2.0")
+```
+
 ## Authentication
 
 The Hangar provider requires an API key. You can create one from your Hangar account settings.

@@ -6,6 +6,8 @@ This guide explains how to add a [Hangar](https://hangar.papermc.io/) provider t
 
 Hangar does not expose a project creation API. Log in to Hangar and create your project manually before running Terracotta. Make a note of the project slug — you will use it as the `projectId`.
 
+You also need the `terracotta-state-filesystem` module on your buildscript classpath (required for the default state backend).
+
 ## 1. Add the Hangar provider to `terracotta.yml`
 
 Add a `hangar` entry under `providers:`

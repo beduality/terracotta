@@ -9,6 +9,7 @@ You need:
 - A Modrinth account.
 - A Modrinth API token from [Modrinth settings](https://modrinth.com/settings/tokens).
 - The Terracotta Gradle plugin installed.
+- The `terracotta-state-filesystem` module on your buildscript classpath (required for the default state backend).
 
 See the [Gradle plugin installation guide](../../modules/gradle-plugin/tutorials/installation.md) if you have not installed the plugin yet.
 

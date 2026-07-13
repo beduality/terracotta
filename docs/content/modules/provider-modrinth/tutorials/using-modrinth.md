@@ -15,7 +15,7 @@ The `terracotta-provider-modrinth` module provides a complete implementation of 
 
 ## Installation
 
-Add the dependency to your project:
+Add the provider dependency to your project:
 
 === "Gradle (Kotlin)"
 
@@ -32,6 +32,12 @@ Add the dependency to your project:
         <version>0.2.0</version>
     </dependency>
     ```
+
+To persist gallery identities across runs, also add the file-backed state backend:
+
+```kotlin
+implementation("io.github.beduality:terracotta-state-filesystem:0.2.0")
+```
 
 ## Authentication
 
