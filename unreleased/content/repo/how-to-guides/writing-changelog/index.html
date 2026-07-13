@@ -5216,7 +5216,7 @@
 <p>Every release section, including <code>## [Unreleased]</code>, must start with a summary paragraph before the first <code>###</code> category heading. The summary should capture the release's themes and impact in two to four sentences.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gu">## [Unreleased]</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>This release adds project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Adds project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="gu">### Added</span>
 </code></pre></div>
@@ -5231,6 +5231,7 @@
 <h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Start every release section with a summary.</strong> The summary goes immediately under the <code>## [Version]</code> heading, before the first <code>###</code> category. Keep it to two to four sentences that state the release's themes and impact.</li>
+<li><strong>Write <code>[Unreleased]</code> summaries directly.</strong> Start with the substance (e.g. "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The release script copies the <code>[Unreleased]</code> body into the new version section verbatim, so meta-introductions become redundant or incorrect after release.</li>
 <li><strong>Start each entry with a past-tense verb.</strong> Use <code>Added</code>, <code>Fixed</code>, <code>Updated</code>, <code>Removed</code>, <code>Changed</code>, <code>Configured</code>, etc.</li>
 <li><strong>Be specific.</strong> Say what changed in concrete terms, not "improved" or "refactored".</li>
 <li><strong>Focus on impact, not implementation.</strong> A consumer should understand the change without reading the code.</li>
