@@ -10,7 +10,7 @@ Declarative publishing for Minecraft projects. Define your metadata once in `ter
 
     ---
 
-    Describe your project in one place; Terracotta auto-detects the rest from your repo files, like `README.md` and platform-specific files.
+    Describe your project in one place; Terracotta auto-detects the rest from `README.md`, `LICENSE`, `CHANGELOG.md`, and platform-specific files.
 
 -   :material-eye-outline:{ .lg .middle } __Plan Before You Publish__
 
@@ -22,7 +22,7 @@ Declarative publishing for Minecraft projects. Define your metadata once in `ter
 
     ---
 
-    Sync metadata, versions, and gallery images to Modrinth or any supported registry.
+    Sync metadata, versions, and gallery images to Modrinth, Hangar, or any supported registry.
 
 -   :material-puzzle:{ .lg .middle } __Pluggable by Design__
 
