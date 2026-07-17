@@ -1,1 +1,0 @@
-sourceset_dependencies = '{":terracotta-core:dokkaHtmlPartial/main":[],":terracotta-provider-hangar:dokkaHtmlPartial/main":[],":terracotta-gradle-plugin:dokkaHtmlPartial/main":[],":modules:terracotta-github:dokkaHtmlPartial/main":[],":terracotta-provider-modrinth:dokkaHtmlPartial/main":[]}'
