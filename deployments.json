@@ -1,0 +1,184 @@
+{
+  "deployments": [
+    {
+      "version": "0.8.0",
+      "createdAt": "2026-07-13T00:00:00Z",
+      "title": "Stable Gallery Identity",
+      "summary": "Gallery items now use persisted stable keys so renaming or reordering images no longer triggers delete-and-reupload cycles.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "modrinth"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.7.1",
+      "createdAt": "2026-07-13T00:00:00Z",
+      "title": "Changelog Standard Tightening",
+      "summary": "Enforces direct summaries in [Unreleased] changelog sections and rejects stale \"unreleased\" wording during release validation.",
+      "modules": [
+        "docs",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.7.0",
+      "createdAt": "2026-07-13T00:00:00Z",
+      "title": "Hangar License & Categories",
+      "summary": "Maps SPDX license identifiers to Hangar's accepted values and suppresses licenseUrl diffs for providers that cannot persist them.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "modrinth"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.6.0",
+      "createdAt": "2026-07-12T00:00:00Z",
+      "title": "Pluggable State & Project Links",
+      "summary": "State persistence is now backend-agnostic via an SPI with the filesystem backend extracted to its own module. Project links map consistently across Terracotta, Modrinth, and Hangar with full Gradle DSL support.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "modrinth",
+        "repo",
+        "state-filesystem"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.5.0",
+      "createdAt": "2026-07-12T00:00:00Z",
+      "title": "Provider Logic & Project Icons",
+      "summary": "Adds a provider logic layer (ProviderLogic, LoaderMapper, PlatformBehavior) and project icon support with upload, update, and delete operations across Modrinth and Hangar.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "modrinth"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.4.1",
+      "createdAt": "2026-07-12T00:00:00Z",
+      "title": "Artifact Alignment Republish",
+      "summary": "Republishes Maven Central artifacts to match the v0.4.0 release tag after the initial upload used an earlier commit.",
+      "modules": [
+        "docs",
+        "release-pipeline"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.4.0",
+      "createdAt": "2026-07-12T00:00:00Z",
+      "title": "Gallery, Icons & License URLs",
+      "summary": "Adds gallery image support, project icons, and license URL fields across Core, the Gradle plugin, and both providers.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "modrinth"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.3.0",
+      "createdAt": "2026-07-12T00:00:00Z",
+      "title": "Repo Docs & Destructive Operations",
+      "summary": "Adds repo and integration documentation, destructive provider operations for project and version deletion, and reorganizes user docs under a Diátaxis structure.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "modrinth",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.2.0",
+      "createdAt": "2026-07-11T00:00:00Z",
+      "title": "Hangar Provider & Game Version Detection",
+      "summary": "Adds the Hangar provider with JWT authentication and loader-to-platform mapping, plus automatic release type and game version detection from loader descriptors.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin",
+        "hangar",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.1.4",
+      "createdAt": "2026-07-11T00:00:00Z",
+      "title": "YAML Config & Auto-Detection",
+      "summary": "Adds terracotta.yml parsing, an extensible loader system with adapters for all major Minecraft platforms, and project metadata auto-detection from project files.",
+      "modules": [
+        "core",
+        "docs",
+        "gradle-plugin"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.1.3",
+      "createdAt": "2026-07-11T00:00:00Z",
+      "title": "Smoke Testing & Docs Polish",
+      "summary": "Adds a smoke-testing release guide, archives test results as structured JSON metrics, and fixes docs deployment reliability.",
+      "modules": [
+        "docs",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.1.2",
+      "createdAt": "2026-07-10T00:00:00Z",
+      "title": "Changelog & Docs Fixes",
+      "summary": "Fixes release tooling to leave an empty Unreleased section after each release and prevents routine pushes from resetting the default docs site version.",
+      "modules": [
+        "docs",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.1.1",
+      "createdAt": "2026-07-10T00:00:00Z",
+      "title": "Gradle Plugin & Modrinth Provider",
+      "summary": "Adds the Gradle plugin with plan and apply tasks, Modrinth provider integration, and automated GitHub releases on tag push.",
+      "modules": [
+        "docs",
+        "gradle-plugin",
+        "modrinth",
+        "repo"
+      ],
+      "isRelease": false
+    },
+    {
+      "version": "0.1.0",
+      "createdAt": "2026-07-10T00:00:00Z",
+      "title": "Initial Release",
+      "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.",
+      "modules": [
+        "core",
+        "docs"
+      ],
+      "isRelease": false
+    }
+  ]
+}

@@ -15,4 +15,5 @@ dependencies = [
 dev = [
     "pytest>=9.1.1",
     "pytest-json-report>=1.5.0",
+    "semver>=3.0.4",
 ]

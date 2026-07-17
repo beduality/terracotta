@@ -10,7 +10,7 @@ Releasing from a local machine is error-prone. A maintainer might use the wrong 
 
 The `release.yml` workflow performs every step in one run:
 
-1. Bump version and update `CHANGELOG.md`, `gradle.properties`, `pyproject.toml`, and `uv.lock`.
+1. Bump version and update `CHANGELOG.md`, `gradle.properties`, `pyproject.toml`, `deployments.json`, and `uv.lock`.
 2. Verify the build with `./gradlew spotlessCheck build`.
 3. Sign and publish artifacts to Maven Central.
 4. Push the version tag only if publishing succeeds.

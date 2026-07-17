@@ -35,8 +35,6 @@ theme:
     - content.code.copy
     - content.action.edit
     - content.tabs.link
-  icon:
-    repo: fontawesome/brands/github
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -64,13 +62,15 @@ markdown_extensions:
 
 hooks:
   - docs/hooks/copy_kdoc.py
-  - docs/hooks/copy_changes.py
   - docs/hooks/copy_license.py
 
 plugins:
   - search
   - macros:
       module_name: docs/macros
+
+extra_css:
+  - stylesheets/deployments.css
 
 extra:
   version:
@@ -86,7 +86,7 @@ nav:
     - Introduction: index.md
     - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
     - Navigating the Docs: content/navigating-docs.md
-    - Release Changes: changes.md
+    - Last Changes: last-changes.md
     - License: LICENSE.md
   - Integration:
     - Overview: content/integration/README.md

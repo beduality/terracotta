@@ -41,6 +41,17 @@ The script parses `modules/terracotta-github/src/.../App.kt` to detect which sec
 
 ## Documentation
 
+### `deployments.py`
+
+Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses `CHANGELOG.md` to extract structured metadata (title, summary, modules) for each version.
+
+| Command | Purpose |
+|---|---|
+| `uv run scripts/deployments.py seed` | Rebuilds the entire manifest from `CHANGELOG.md`. |
+| `uv run scripts/deployments.py generate <version>` | Generates and appends a single deployment entry. |
+
+Called automatically by `release.py` during each release.
+
 ### `redeploy_all_docs.py`
 
 Rebuilds and redeploys every versioned docs release using `mike`.
@@ -64,6 +75,10 @@ Pytest suite for smoke testing a release end-to-end. See [Smoke Testing a Releas
 ### `test_load_pulumi_secrets.py`
 
 Unit tests for `load_pulumi_secrets.py`.
+
+### `test_deployments.py`
+
+Unit tests for `deployments.py`.
 
 ### `redeploy_all_docs.test.py`
 
