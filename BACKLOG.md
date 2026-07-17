@@ -21,6 +21,10 @@
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
 
+## Performance
+
+- Move docs deployments.json to its own API
+
 ## Features
 
 - Publish relevant package managers to our target users (Minecraft modders); update docs and README
