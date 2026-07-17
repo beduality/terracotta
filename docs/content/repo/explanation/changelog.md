@@ -64,3 +64,32 @@ If a change cannot be described in terms of user, operator, or integrator impact
 ## Where the rules live
 
 For the mechanical format, grouping rules, and examples, see the [Changelog Guidelines](../reference/changelog-guidelines.md) and [Writing Changelog Entries](../how-to-guides/writing-changelog.md).
+
+## Deployment manifest
+
+The changelog is the source of truth for what changed, but the docs "Changes" page is driven by a structured `deployments.json` manifest. This separation lets the UI provide filtering, search, and module-based browsing that a raw markdown changelog cannot.
+
+### Schema
+
+Each deployment entry has:
+
+- **`version`** — Semver string (e.g. `"0.8.0"`).
+- **`createdAt`** — ISO 8601 datetime (e.g. `"2026-07-13T00:00:00Z"`). Rendered in the UI using `Intl.DateTimeFormat` for English international format.
+- **`title`** — Short human-readable title, derived from the changelog summary or entered manually.
+- **`summary`** — One-to-four sentence summary extracted from the changelog's first paragraph.
+- **`modules`** — List of canonical module identifiers touched by this deployment (e.g. `["core", "gradle-plugin", "modrinth"]`).
+- **`isRelease`** — `true` for major milestones (minor or major bumps); `false` for routine patch deployments.
+
+### Generation
+
+During each release, `scripts/release.py` calls `scripts/deployments.py` to:
+
+1. Parse the changelog section for the new version.
+2. Extract the summary (first paragraph before `###` headings).
+3. Derive a title from the summary by stripping leading verbs and articles.
+4. Extract module identifiers from bold `**Module**` headings.
+5. Append the entry to `deployments.json`, replacing any existing entry with the same version.
+
+### Releases vs deployments
+
+**Releases** are major milestones (minor or major version bumps). Everything else is a routine **deployment**. The Changes page distinguishes the two with a badge and a "Releases only" filter. The full history is kept in `deployments.json`; the UI shows the last 10 by default with a "Show all" button.

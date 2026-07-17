@@ -9,6 +9,7 @@ from pathlib import Path
 from cyclopts import App
 from rich.console import Console
 import questionary
+from scripts.deployments import generate_deployment_entry, append_deployment
 
 console = Console()
 app = App(
@@ -280,6 +281,33 @@ def validate_changelog_release_section(new_version: str):
             "Add release notes before cutting the release."
         )
     console.print("[green]✔[/green] CHANGELOG.md release section validated")
+
+
+def update_deployment_manifest(new_version: str, is_release: bool = False):
+    """Generate a deployment entry from the changelog and append it to deployments.json.
+
+    Parameters
+    ----------
+    new_version : str
+        The version that was just released.
+    is_release : bool
+        Whether this version is a major milestone.
+    """
+    from scripts.deployments import parse_changelog_section, extract_summary
+    from datetime import datetime, timezone
+
+    changelog_path = Path("CHANGELOG.md")
+    content = changelog_path.read_text(encoding="utf-8")
+    section_body = parse_changelog_section(content, new_version)
+    if not section_body:
+        console.print(f"[yellow]Warning: No changelog section found for {new_version}, skipping deployment manifest update[/yellow]")
+        return
+
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    entry = generate_deployment_entry(new_version, now_str, section_body, is_release=is_release)
+    added = append_deployment(entry)
+    action = "Added" if added else "Updated"
+    console.print(f"[green]✔[/green] {action} deployment entry for v{new_version} in deployments.json")
 
 
 @app.command
@@ -711,6 +739,10 @@ def main(
         validate_docs_version_snippets(new_version)
         validate_changelog_release_section(new_version)
 
+        # Releases are major milestones — not yet used, all deployments are routine
+        is_release = False
+        update_deployment_manifest(new_version, is_release=is_release)
+
         # 2. Run uv lock to update lock file
         console.print("\n[bold]2. Updating uv.lock...[/bold]")
         run_command(["uv", "lock"])
@@ -760,7 +792,7 @@ def main(
                 console.print("[yellow]Release aborted.[/yellow]")
                 sys.exit(0)
 
-            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "uv.lock", "docs/index.md", "docs/content"])
+            run_command(["git", "add", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "deployments.json", "uv.lock", "docs/index.md", "docs/content"])
 
             run_command(["git", "commit", "-m", f"chore: release version {new_version}"])
             actions_taken.append("committed")
@@ -826,7 +858,7 @@ def main(
         if "files_modified" in actions_taken and "committed" not in actions_taken:
             try:
                 subprocess.run(
-                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "docs/index.md", "docs/content"],
+                    ["git", "restore", "gradle.properties", "pyproject.toml", "CHANGELOG.md", "deployments.json", "docs/index.md", "docs/content"],
                     check=True
                 )
                 # Try to restore uv.lock if it exists in git
