@@ -98,3 +98,7 @@ Introduces pluggable state management and canonical project links. State persist
   - **Why**: Improves security and flexibility by using separate tokens per provider.
 - Added `maven-publish` and `signing` plugins.
   - **Why**: Enables the Gradle plugin to be published to Maven Central.
+
+### Fixed
+
+- Fixed `version` in `build.gradle.kts` being hardcoded to `0.1.0` instead of reading from `gradle.properties`.

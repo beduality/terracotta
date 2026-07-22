@@ -61,6 +61,12 @@ Introduces pluggable state management and canonical project links. State persist
 
 - Moved `ProjectMetadataDetector`, `ProjectMetadataLoader`, and built-in adapters into `io.github.beduality.terracotta.core.model.metadata.detector` (renamed from `io.github.beduality.terracotta.core.detect`). Service files and custom detector implementations must update package names and imports.
 
+## [0.4.1] - 2026-07-12
+
+### Fixed
+
+- Republished as `0.4.1` to align Maven Central artifacts with the `v0.4.0` release tag. The initial `0.4.0` upload was published from a slightly earlier commit than the tagged release, so this patch ensures users receive the source reflected by the `v0.4.0` tag.
+
 ## [0.4.0] - 2026-07-12
 
 ### Added
