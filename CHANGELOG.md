@@ -89,9 +89,7 @@ See per-module changelogs for module-specific changes.
 
 ## [0.1.4] - 2026-07-11
 
-### Fixed
-
-- Removed the stale `docs/overrides` reference from `mkdocs.yml` so docs deployments no longer fail with a missing custom_dir path.
+No repo-wide changes in this release.
 
 ## [0.1.3] - 2026-07-11
 
@@ -101,16 +99,9 @@ See per-module changelogs for module-specific changes.
 - Added pre-publish checks that abort if version references are out of sync with the release version.
 - Added pre-publish checks that abort if `-javadoc.jar` artifacts are missing or empty.
 
-### Changed
-
-- Moved the Changes link from the custom docs header into the main navigation so it works easily on mobile.
-- Reorganized changelog docs into a succinct explanation and a practical how-to guide.
-
 ### Fixed
 
 - Fixed publishing of `-javadoc.jar` artifacts so they include generated API documentation instead of being empty or missing, satisfying Maven Central requirements.
-- Fixed docs deployments so the live site reliably matches the latest generated release, preventing stale or mismatched content.
-- Configured versioned docs to build from the release tag, so the docs site updates as soon as a release goes out.
 - Synchronized version references across `README.md`, `CHANGELOG.md`, generated release notes, and `docs/content/**/*.md` as part of the release process.
 
 ## [0.1.2] - 2026-07-10
@@ -119,8 +110,6 @@ See per-module changelogs for module-specific changes.
 
 - Fixed release tooling so each release leaves an empty "Unreleased" section in the changelog.
   - **Why**: Keeps the changelog ready for the next development cycle.
-- Fixed docs deployment so routine pushes no longer reset the default site version from `latest` to `unreleased`.
-  - **Why**: Prevents the root site from drifting away from the latest release.
 
 ## [0.1.1] - 2026-07-10
 
