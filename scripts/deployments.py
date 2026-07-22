@@ -8,7 +8,7 @@ Schema
 ------
 Each deployment entry has:
 
-- ``version`` (str, optional): Semver string, e.g. ``"0.8.0"``. Omitted for non-versioned deployments (e.g. infrastructure applies).
+- ``version`` (str, optional): Semver string, e.g. ``"0.8.0"``. Omitted for non-versioned deployments (e.g. infrastructure applies, documentation site deploys).
 - ``createdAt`` (str): ISO 8601 datetime, e.g. ``"2026-07-13T00:00:00Z"``.
 - ``title`` (str): Short human-readable title.
 - ``summary`` (str): One-to-four sentence summary from the changelog.

@@ -45,7 +45,7 @@ The script parses `modules/terracotta-github/src/.../App.kt` to detect which sec
 
 ### `deployments.py`
 
-Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version. Supports both versioned entries (module releases) and versionless entries (infrastructure applies, routine deployments).
+Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version. Supports both versioned entries (module releases) and versionless entries (infrastructure applies, documentation site deploys).
 
 Called automatically by `release.py` during each release to append deployment entries.
 
