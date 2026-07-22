@@ -54,28 +54,45 @@ Split the monolithic changelog into per-module files and hardened release versio
 
 Tightened the changelog standard to require release summaries and reject stale unreleased wording.
 
+### Changed
+
 - Tightened changelog standard: required release summaries, direct wording validation in `release.py`, corrected 0.7.0 changelog summary.
 
 ## 2026-07-12
 
 Introduced required release summaries in the changelog standard and fixed docs deployment housekeeping.
 
+### Added
+
 - Added required release summary paragraph to the changelog standard.
+
+### Fixed
+
 - Updated `.gitignore` for generated `docs/LICENSE` file.
 
 ## 2026-07-11
 
 Improved release automation with docs snippet validation, smoke-test archiving, and JAR artifact checks.
 
+### Changed
+
 - Updated release script for Gradle plugin version snippets in `docs/index.md`.
-- Fixed GitHub release workflow to extract notes from `CHANGELOG.md` instead of external parser.
 - Archived smoke-test results as structured JSON metrics.
 - Added pre-publish checks for version sync and `-javadoc.jar` artifacts.
+
+### Fixed
+
+- Fixed GitHub release workflow to extract notes from `CHANGELOG.md` instead of external parser.
 - Fixed `-javadoc.jar` publishing to include generated API docs.
 
 ## 2026-07-10
 
 Shipped automated GitHub releases on tag push with JAR artifact uploads and Dokka API docs in CI.
 
+### Added
+
 - Implemented automated GitHub releases on tag push, JAR artifact uploads, Dokka generation in CI.
+
+### Fixed
+
 - Fixed release tooling to leave an empty "Unreleased" section after each release.
