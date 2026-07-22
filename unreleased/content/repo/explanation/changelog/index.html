@@ -428,6 +428,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5019,6 +5047,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#versionless-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versionless entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#releases-vs-deployments" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5185,6 +5224,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#versionless-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versionless entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#releases-vs-deployments" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5227,11 +5277,11 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    4 min read
+    5 min read
   </p>
 
 <h1 id="changelog-design">Changelog Design<a class="headerlink" href="#changelog-design" title="Permanent link">&para;</a></h1>
-<p>Terracotta keeps a single, hand-written <code>CHANGELOG.md</code> instead of generating release notes from Git commits. This page explains why.</p>
+<p>Terracotta keeps human-written changelogs instead of generating release notes from Git commits. Each publishable module has its own <code>CHANGELOG.md</code> under <code>modules/&lt;module&gt;/CHANGELOG.md</code>, a <code>docs/CHANGELOG.md</code> tracks documentation site changes, and a root <code>CHANGELOG.md</code> is a repo-wide activity log (CI/CD, tooling, conventions). This page explains why.</p>
 <h2 id="why-not-auto-generate-from-commits">Why not auto-generate from commits?<a class="headerlink" href="#why-not-auto-generate-from-commits" title="Permanent link">&para;</a></h2>
 <p>Commit history is a record of what changed in the codebase, not a story for the people who use the project. Generated changelogs inherit every problem of the underlying commits:</p>
 <ul>
@@ -5259,10 +5309,10 @@
 </blockquote>
 <p>The implementation detail (retry logic) is hidden. The user-visible outcome (publishing is more reliable) is front and center.</p>
 <h2 id="why-keep-a-changelog-categories">Why Keep a Changelog categories?<a class="headerlink" href="#why-keep-a-changelog-categories" title="Permanent link">&para;</a></h2>
-<p>A release starts with a summary for the high-level story, then entries are grouped under <a href="https://keepachangelog.com/">Keep a Changelog</a> categories (<code>Added</code>, <code>Changed</code>, <code>Fixed</code>, etc.) and then by module. This structure makes two things obvious at a glance:</p>
+<p>A release starts with a summary for the high-level story, then entries are grouped under <a href="https://keepachangelog.com/">Keep a Changelog</a> categories (<code>Added</code>, <code>Changed</code>, <code>Fixed</code>, etc.). Module-specific entries live in each module's own <code>CHANGELOG.md</code>; documentation changes go in <code>docs/CHANGELOG.md</code>; the root changelog is a repo-wide activity log that uses dated sections instead of version headers.</p>
 <ul>
 <li><strong>Severity.</strong> <code>Fixed</code> suggests a safe upgrade; <code>Changed</code> suggests checking behavior; <code>Removed</code> or breaking markers signal required action.</li>
-<li><strong>Scope.</strong> A Gradle plugin user can skip entries under <code>Core</code> if they only use the plugin surface, and vice versa.</li>
+<li><strong>Scope.</strong> Each module has its own changelog, so consumers only need to read the changelog for the module they depend on. Documentation changes are tracked separately in <code>docs/CHANGELOG.md</code>.</li>
 </ul>
 <p>Categories also catch mistakes. If a change is hard to place in <code>Added</code>, <code>Changed</code>, <code>Fixed</code>, <code>Deprecated</code>, <code>Removed</code>, or <code>Security</code>, it may not be user-facing enough to mention.</p>
 <h2 id="relationship-to-conventional-commits">Relationship to Conventional Commits<a class="headerlink" href="#relationship-to-conventional-commits" title="Permanent link">&para;</a></h2>
@@ -5279,6 +5329,7 @@
 <li>Formatting or lint-only changes.</li>
 <li>Dependency updates that change nothing observable.</li>
 <li>Test-only changes that do not fix a reported bug.</li>
+<li><strong>In-progress fixes.</strong> If a feature was introduced and then fixed or refined before release, document only the final working state. Consumers never saw the intermediate bug, so a <code>Fixed</code> entry for it is noise.</li>
 </ul>
 <p>If a change cannot be described in terms of user, operator, or integrator impact, it does not need a changelog entry.</p>
 <h2 id="where-the-rules-live">Where the rules live<a class="headerlink" href="#where-the-rules-live" title="Permanent link">&para;</a></h2>
@@ -5288,7 +5339,7 @@
 <h3 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
 <p>Each deployment entry has:</p>
 <ul>
-<li><strong><code>version</code></strong> — Semver string (e.g. <code>"0.8.0"</code>).</li>
+<li><strong><code>version</code></strong> — Semver string (e.g. <code>"0.8.0"</code>). Optional; omitted for non-versioned deployments such as infrastructure applies.</li>
 <li><strong><code>createdAt</code></strong> — ISO 8601 datetime (e.g. <code>"2026-07-13T00:00:00Z"</code>). Rendered in the UI using <code>Intl.DateTimeFormat</code> for English international format.</li>
 <li><strong><code>title</code></strong> — Short human-readable title, derived from the changelog summary or entered manually.</li>
 <li><strong><code>summary</code></strong> — One-to-four sentence summary extracted from the changelog's first paragraph.</li>
@@ -5298,12 +5349,14 @@
 <h3 id="generation">Generation<a class="headerlink" href="#generation" title="Permanent link">&para;</a></h3>
 <p>During each release, <code>scripts/release.py</code> calls <code>scripts/deployments.py</code> to:</p>
 <ol>
-<li>Parse the changelog section for the new version.</li>
+<li>Parse the module's changelog section for the new version.</li>
 <li>Extract the summary (first paragraph before <code>###</code> headings).</li>
 <li>Derive a title from the summary by stripping leading verbs and articles.</li>
-<li>Extract module identifiers from bold <code>**Module**</code> headings.</li>
-<li>Append the entry to <code>deployments.json</code>, replacing any existing entry with the same version.</li>
+<li>Use the module's canonical identifier as the <code>modules</code> field.</li>
+<li>Append the entry to <code>deployments.json</code>, replacing any existing entry with the same version. Versionless entries are always appended.</li>
 </ol>
+<h3 id="versionless-entries">Versionless entries<a class="headerlink" href="#versionless-entries" title="Permanent link">&para;</a></h3>
+<p>Not all deployments are tied to a module version. Infrastructure changes (e.g. Pulumi applies to <code>terracotta-github</code>) and documentation site deploys are recorded as versionless entries with only a <code>createdAt</code> timestamp. These entries sort after all versioned entries and display without a version badge on the Changes page. The <code>docs</code> module badge identifies documentation site deployments.</p>
 <h3 id="releases-vs-deployments">Releases vs deployments<a class="headerlink" href="#releases-vs-deployments" title="Permanent link">&para;</a></h3>
 <p><strong>Releases</strong> are major milestones (minor or major version bumps). Everything else is a routine <strong>deployment</strong>. The Changes page distinguishes the two with a badge and a "Releases only" filter. The full history is kept in <code>deployments.json</code>; the UI shows the last 10 by default with a "Show all" button.</p>
 

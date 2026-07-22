@@ -16,7 +16,7 @@
         <link rel="prev" href="../content/navigating-docs/">
       
       
-        <link rel="next" href="../LICENSE/">
+        <link rel="next" href="../CHANGELOG/">
       
       
         
@@ -430,6 +430,34 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4975,46 +5003,41 @@
     </div>
 
     <nav class="md-tags mdx-module-tags">
-      <span class="md-tag" :class="!moduleFilter ? 'md-tag--ins' : ''" @click="moduleFilter = ''" style="cursor:pointer;">All</span>
+      <span class="md-tag" :class="moduleFilters.length === 0 ? 'md-tag--ins' : ''" @click="moduleFilters = []" style="cursor:pointer;">All</span>
 
-      <span class="md-tag" :class="moduleFilter === 'core' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'core' ? '' : 'core'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('core') ? 'md-tag--ins' : ''" @click="toggleModule('core')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><path d="M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z"/></svg></span>
         Core
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'github' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'github' ? '' : 'github'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('github') ? 'md-tag--ins' : ''" @click="toggleModule('github')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 512 512" width=".9rem" height=".9rem" fill="currentColor"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg></span>
         GitHub
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'gradle-plugin' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'gradle-plugin' ? '' : 'gradle-plugin'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('gradle-plugin') ? 'md-tag--ins' : ''" @click="toggleModule('gradle-plugin')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><title>Gradle</title><path d="M22.695 4.297a3.807 3.807 0 0 0-5.29-.09.368.368 0 0 0 0 .533l.46.47a.363.363 0 0 0 .474.032 2.182 2.182 0 0 1 2.86 3.291c-3.023 3.02-7.056-5.447-16.211-1.083a1.24 1.24 0 0 0-.534 1.745l1.571 2.713a1.238 1.238 0 0 0 1.681.461l.037-.02-.029.02.688-.384a16.083 16.083 0 0 0 2.193-1.635.384.384 0 0 1 .499-.016.357.357 0 0 1 .016.534 16.435 16.435 0 0 1-2.316 1.741H8.77l-.696.39a1.958 1.958 0 0 1-.963.25 1.987 1.987 0 0 1-1.726-.989L3.9 9.696C1.06 11.72-.686 15.603.26 20.522a.363.363 0 0 0 .354.296h1.675a.363.363 0 0 0 .37-.331 2.478 2.478 0 0 1 4.915 0 .36.36 0 0 0 .357.317h1.638a.363.363 0 0 0 .357-.317 2.478 2.478 0 0 1 4.914 0 .363.363 0 0 0 .358.317h1.627a.363.363 0 0 0 .363-.357c.037-2.294.656-4.93 2.42-6.25 6.108-4.57 4.502-8.486 3.088-9.9zm-6.229 6.901l-1.165-.584a.73.73 0 1 1 1.165.587z"/></svg></span>
         Gradle Plugin
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'hangar' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'hangar' ? '' : 'hangar'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('hangar') ? 'md-tag--ins' : ''" @click="toggleModule('hangar')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 21.391998 27.620741" width=".9rem" height=".9rem" fill="currentColor"><title>Hangar</title><g transform="translate(-76.172209,-127.6509)"><path d="m 95.888361,139.50018 c -2.09445,-0.76941 -5.179504,2.20945 -6.689752,6.77368 -0.749656,2.27401 -1.111608,4.94101 -0.763414,7.7343 l -0.968732,-0.40428 c -1.847153,-5.76086 -0.811394,-12.06006 2.389021,-16.60807 z" fill="currentColor"/><path d="m 97.235731,149.34797 -7.167063,-2.97004 c 1.325039,-3.98921 3.753571,-6.36975 5.339666,-6.36975 0.168276,0 0.325615,0.0279 0.471666,0.0787 l 0.131939,0.0561 c 0.564094,0.27234 2.259904,1.73778 1.223792,9.20503" fill="currentColor"/><path d="m 94.661536,131.62847 c -2.245793,1.21003 -4.121167,2.96192 -5.558389,5.05601 -3.147144,4.56742 -4.224885,10.76325 -2.585521,16.52658 0.196501,0.69321 0.432156,1.38113 0.710147,2.06058 l -9.586776,-3.97828 C 74.011253,142.40583 77.34043,131.8225 85.077585,127.6509 Z" fill="currentColor"/></g></svg></span>
         Hangar
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'modrinth' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'modrinth' ? '' : 'modrinth'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('modrinth') ? 'md-tag--ins' : ''" @click="toggleModule('modrinth')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><title>Modrinth</title><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg></span>
         Modrinth
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'state-filesystem' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'state-filesystem' ? '' : 'state-filesystem'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('state-filesystem') ? 'md-tag--ins' : ''" @click="toggleModule('state-filesystem')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg></span>
         State Filesystem
       </span>
 
-      <span class="md-tag" :class="moduleFilter === 'docs' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'docs' ? '' : 'docs'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('docs') ? 'md-tag--ins' : ''" @click="toggleModule('docs')" style="cursor:pointer;">
         <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><path d="M18 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6v7L9.5 7.5 7 9V2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg></span>
         Docs
-      </span>
-
-      <span class="md-tag" :class="moduleFilter === 'repo' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === 'repo' ? '' : 'repo'" style="cursor:pointer;">
-        <span class="mdx-tag-icon twemoji"><svg viewBox="0 0 24 24" width=".9rem" height=".9rem" fill="currentColor"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m6.75 11.5c2.75 0 3.49-2.03 3.68-3.1.91-.29 1.57-1.14 1.57-2.15C18 7 17 6 15.75 6S13.5 7 13.5 8.25c0 .94.57 1.75 1.39 2.08C14.67 11 14 12 12 12c-1.38 0-2.34.35-3 .84V8.87c.87-.31 1.5-1.14 1.5-2.12 0-1.25-1-2.25-2.25-2.25S6 5.5 6 6.75c0 .98.63 1.81 1.5 2.12v6.26c-.87.31-1.5 1.14-1.5 2.12 0 1.25 1 2.25 2.25 2.25s2.25-1 2.25-2.25c0-.93-.56-1.75-1.37-2.07.28-.68 1.1-1.68 3.62-1.68m-4.5 3a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75m0-10.5a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75m7.5 1.5a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75"/></svg></span>
-        Repository
       </span>
 
     </nav>
@@ -5070,31 +5093,31 @@
     </div>
   </div>
 
-  <template x-for="d in displayed" :key="d.version">
+  <template x-for="d in displayed" :key="d.version || d.createdAt">
     <div class="mdx-deployment">
       <div class="mdx-deployment-header">
-        <a class="mdx-version"
+        <span class="mdx-title" x-text="d.title"></span>
+        <a x-show="d.version" class="mdx-version"
            :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
            x-text="'v'+d.version"></a>
-        <span class="mdx-title" x-text="d.title"></span>
+        <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
+          <a x-show="d.modules && d.modules.includes('modrinth')"
+             class="mdx-link" :title="moduleLabel('modrinth')"
+             :href="'https://modrinth.com/plugin/terracotta/version/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('modrinth')"></span></a>
+          <a x-show="d.modules && d.modules.includes('hangar')"
+             class="mdx-link" :title="moduleLabel('hangar')"
+             :href="'https://hangar.papermc.io/beduality/Terracotta/versions/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('hangar')"></span></a>
+          <template x-for="m in (d.modules||[]).filter(x=>x!=='modrinth'&&x!=='hangar')" :key="m">
+            <span class="mdx-link-wrap">
+              <a x-show="moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)" :href="moduleLink(m, d.version)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></a>
+              <span x-show="!moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></span>
+            </span>
+          </template>
+        </div>
         <span x-show="d.isRelease" class="mdx-release">Release</span>
         <span class="mdx-date"><svg class="mdx-date-icon" viewBox="0 0 24 24" width=".75rem" height=".75rem" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20A8 8 0 0 1 4 12A8 8 0 0 1 12 4M12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z"/></svg><span x-text="fmtDate(d.createdAt)"></span></span>
       </div>
       <p class="mdx-summary" x-text="d.summary"></p>
-      <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
-        <a x-show="d.modules && d.modules.includes('modrinth')"
-           class="mdx-link" :title="moduleLabel('modrinth')"
-           :href="'https://modrinth.com/plugin/terracotta/version/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('modrinth')"></span></a>
-        <a x-show="d.modules && d.modules.includes('hangar')"
-           class="mdx-link" :title="moduleLabel('hangar')"
-           :href="'https://hangar.papermc.io/beduality/Terracotta/versions/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('hangar')"></span></a>
-        <template x-for="m in (d.modules||[]).filter(x=>x!=='modrinth'&&x!=='hangar')" :key="m">
-          <span class="mdx-link-wrap">
-            <a x-show="moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)" :href="moduleLink(m, d.version)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></a>
-            <span x-show="!moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></span>
-          </span>
-        </template>
-      </div>
     </div>
   </template>
 
@@ -5112,15 +5135,15 @@
 <script>
 function deploymentsApp() {
   return {
-    data: [{"version": "0.8.0", "createdAt": "2026-07-13T00:00:00Z", "title": "Stable Gallery Identity", "summary": "Gallery items now use persisted stable keys so renaming or reordering images no longer triggers delete-and-reupload cycles.", "modules": ["core", "docs", "gradle-plugin", "modrinth"], "isRelease": false}, {"version": "0.7.1", "createdAt": "2026-07-13T00:00:00Z", "title": "Changelog Standard Tightening", "summary": "Enforces direct summaries in [Unreleased] changelog sections and rejects stale \"unreleased\" wording during release validation.", "modules": ["docs", "repo"], "isRelease": false}, {"version": "0.7.0", "createdAt": "2026-07-13T00:00:00Z", "title": "Hangar License & Categories", "summary": "Maps SPDX license identifiers to Hangar's accepted values and suppresses licenseUrl diffs for providers that cannot persist them.", "modules": ["core", "docs", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.6.0", "createdAt": "2026-07-12T00:00:00Z", "title": "Pluggable State & Project Links", "summary": "State persistence is now backend-agnostic via an SPI with the filesystem backend extracted to its own module. Project links map consistently across Terracotta, Modrinth, and Hangar with full Gradle DSL support.", "modules": ["core", "docs", "gradle-plugin", "hangar", "modrinth", "repo", "state-filesystem"], "isRelease": false}, {"version": "0.5.0", "createdAt": "2026-07-12T00:00:00Z", "title": "Provider Logic & Project Icons", "summary": "Adds a provider logic layer (ProviderLogic, LoaderMapper, PlatformBehavior) and project icon support with upload, update, and delete operations across Modrinth and Hangar.", "modules": ["core", "docs", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.4.1", "createdAt": "2026-07-12T00:00:00Z", "title": "Artifact Alignment Republish", "summary": "Republishes Maven Central artifacts to match the v0.4.0 release tag after the initial upload used an earlier commit.", "modules": ["docs", "repo"], "isRelease": false}, {"version": "0.4.0", "createdAt": "2026-07-12T00:00:00Z", "title": "Gallery, Icons & License URLs", "summary": "Adds gallery image support, project icons, and license URL fields across Core, the Gradle plugin, and both providers.", "modules": ["core", "docs", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.3.0", "createdAt": "2026-07-12T00:00:00Z", "title": "Repo Docs & Destructive Operations", "summary": "Adds repo and integration documentation, destructive provider operations for project and version deletion, and reorganizes user docs under a Diátaxis structure.", "modules": ["core", "docs", "gradle-plugin", "hangar", "modrinth", "repo"], "isRelease": false}, {"version": "0.2.0", "createdAt": "2026-07-11T00:00:00Z", "title": "Hangar Provider & Game Version Detection", "summary": "Adds the Hangar provider with JWT authentication and loader-to-platform mapping, plus automatic release type and game version detection from loader descriptors.", "modules": ["core", "docs", "gradle-plugin", "hangar", "repo"], "isRelease": false}, {"version": "0.1.4", "createdAt": "2026-07-11T00:00:00Z", "title": "YAML Config & Auto-Detection", "summary": "Adds terracotta.yml parsing, an extensible loader system with adapters for all major Minecraft platforms, and project metadata auto-detection from project files.", "modules": ["core", "docs", "gradle-plugin"], "isRelease": false}, {"version": "0.1.3", "createdAt": "2026-07-11T00:00:00Z", "title": "Smoke Testing & Docs Polish", "summary": "Adds a smoke-testing release guide, archives test results as structured JSON metrics, and fixes docs deployment reliability.", "modules": ["docs", "repo"], "isRelease": false}, {"version": "0.1.2", "createdAt": "2026-07-10T00:00:00Z", "title": "Changelog & Docs Fixes", "summary": "Fixes release tooling to leave an empty Unreleased section after each release and prevents routine pushes from resetting the default docs site version.", "modules": ["docs", "repo"], "isRelease": false}, {"version": "0.1.1", "createdAt": "2026-07-10T00:00:00Z", "title": "Gradle Plugin & Modrinth Provider", "summary": "Adds the Gradle plugin with plan and apply tasks, Modrinth provider integration, and automated GitHub releases on tag push.", "modules": ["docs", "gradle-plugin", "modrinth", "repo"], "isRelease": false}, {"version": "0.1.0", "createdAt": "2026-07-10T00:00:00Z", "title": "Initial Release", "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.", "modules": ["core", "docs"], "isRelease": false}],
-    moduleLabels: {"core": "Core", "docs": "Docs", "github": "GitHub", "gradle-plugin": "Gradle Plugin", "hangar": "Hangar", "modrinth": "Modrinth", "repo": "Repository", "state-filesystem": "State Filesystem"},
-    moduleIcons: {"core": {"inner": "<path d=\"M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z\"/>", "viewBox": "0 0 24 24"}, "github": {"inner": "<!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2\"/>", "viewBox": "0 0 512 512"}, "gradle-plugin": {"inner": "<title>Gradle</title><path d=\"M22.695 4.297a3.807 3.807 0 0 0-5.29-.09.368.368 0 0 0 0 .533l.46.47a.363.363 0 0 0 .474.032 2.182 2.182 0 0 1 2.86 3.291c-3.023 3.02-7.056-5.447-16.211-1.083a1.24 1.24 0 0 0-.534 1.745l1.571 2.713a1.238 1.238 0 0 0 1.681.461l.037-.02-.029.02.688-.384a16.083 16.083 0 0 0 2.193-1.635.384.384 0 0 1 .499-.016.357.357 0 0 1 .016.534 16.435 16.435 0 0 1-2.316 1.741H8.77l-.696.39a1.958 1.958 0 0 1-.963.25 1.987 1.987 0 0 1-1.726-.989L3.9 9.696C1.06 11.72-.686 15.603.26 20.522a.363.363 0 0 0 .354.296h1.675a.363.363 0 0 0 .37-.331 2.478 2.478 0 0 1 4.915 0 .36.36 0 0 0 .357.317h1.638a.363.363 0 0 0 .357-.317 2.478 2.478 0 0 1 4.914 0 .363.363 0 0 0 .358.317h1.627a.363.363 0 0 0 .363-.357c.037-2.294.656-4.93 2.42-6.25 6.108-4.57 4.502-8.486 3.088-9.9zm-6.229 6.901l-1.165-.584a.73.73 0 1 1 1.165.587z\"/>", "viewBox": "0 0 24 24"}, "hangar": {"inner": "<title>Hangar</title><g transform=\"translate(-76.172209,-127.6509)\"><path d=\"m 95.888361,139.50018 c -2.09445,-0.76941 -5.179504,2.20945 -6.689752,6.77368 -0.749656,2.27401 -1.111608,4.94101 -0.763414,7.7343 l -0.968732,-0.40428 c -1.847153,-5.76086 -0.811394,-12.06006 2.389021,-16.60807 z\" fill=\"currentColor\"/><path d=\"m 97.235731,149.34797 -7.167063,-2.97004 c 1.325039,-3.98921 3.753571,-6.36975 5.339666,-6.36975 0.168276,0 0.325615,0.0279 0.471666,0.0787 l 0.131939,0.0561 c 0.564094,0.27234 2.259904,1.73778 1.223792,9.20503\" fill=\"currentColor\"/><path d=\"m 94.661536,131.62847 c -2.245793,1.21003 -4.121167,2.96192 -5.558389,5.05601 -3.147144,4.56742 -4.224885,10.76325 -2.585521,16.52658 0.196501,0.69321 0.432156,1.38113 0.710147,2.06058 l -9.586776,-3.97828 C 74.011253,142.40583 77.34043,131.8225 85.077585,127.6509 Z\" fill=\"currentColor\"/></g>", "viewBox": "0 0 21.391998 27.620741"}, "modrinth": {"inner": "<title>Modrinth</title><path d=\"M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z\"/>", "viewBox": "0 0 24 24"}, "state-filesystem": {"inner": "<path d=\"M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z\"/>", "viewBox": "0 0 24 24"}, "docs": {"inner": "<path d=\"M18 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6v7L9.5 7.5 7 9V2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z\"/>", "viewBox": "0 0 24 24"}, "repo": {"inner": "<path d=\"M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m6.75 11.5c2.75 0 3.49-2.03 3.68-3.1.91-.29 1.57-1.14 1.57-2.15C18 7 17 6 15.75 6S13.5 7 13.5 8.25c0 .94.57 1.75 1.39 2.08C14.67 11 14 12 12 12c-1.38 0-2.34.35-3 .84V8.87c.87-.31 1.5-1.14 1.5-2.12 0-1.25-1-2.25-2.25-2.25S6 5.5 6 6.75c0 .98.63 1.81 1.5 2.12v6.26c-.87.31-1.5 1.14-1.5 2.12 0 1.25 1 2.25 2.25 2.25s2.25-1 2.25-2.25c0-.93-.56-1.75-1.37-2.07.28-.68 1.1-1.68 3.62-1.68m-4.5 3a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75m0-10.5a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75m7.5 1.5a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75\"/>", "viewBox": "0 0 24 24"}},
-    search: '', moduleFilter: '', dateFrom: '', dateTo: '',
+    data: [{"version": "0.8.0", "createdAt": "2026-07-13T02:48:13Z", "title": "Stable Gallery Identity", "summary": "Gallery items now use persisted stable keys so renaming or reordering images no longer triggers delete-and-reupload cycles.", "modules": ["core", "gradle-plugin", "modrinth"], "isRelease": false}, {"version": "0.7.1", "createdAt": "2026-07-13T02:41:39Z", "title": "Changelog Standard Tightening", "summary": "Enforces direct summaries in [Unreleased] changelog sections and rejects stale \"unreleased\" wording during release validation.", "modules": [], "isRelease": false}, {"version": "0.7.0", "createdAt": "2026-07-13T01:49:18Z", "title": "Hangar License & Categories", "summary": "Maps SPDX license identifiers to Hangar's accepted values and suppresses licenseUrl diffs for providers that cannot persist them.", "modules": ["core", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.6.0", "createdAt": "2026-07-12T22:27:01Z", "title": "Pluggable State & Project Links", "summary": "State persistence is now backend-agnostic via an SPI with the filesystem backend extracted to its own module. Project links map consistently across Terracotta, Modrinth, and Hangar with full Gradle DSL support.", "modules": ["core", "gradle-plugin", "hangar", "modrinth", "state-filesystem"], "isRelease": false}, {"version": "0.5.0", "createdAt": "2026-07-12T18:46:04Z", "title": "Provider Logic & Project Icons", "summary": "Adds a provider logic layer (ProviderLogic, LoaderMapper, PlatformBehavior) and project icon support with upload, update, and delete operations across Modrinth and Hangar.", "modules": ["core", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.4.1", "createdAt": "2026-07-12T05:57:53Z", "title": "Artifact Alignment Republish", "summary": "Republishes Maven Central artifacts to match the v0.4.0 release tag after the initial upload used an earlier commit.", "modules": ["core"], "isRelease": false}, {"version": "0.4.0", "createdAt": "2026-07-12T05:39:25Z", "title": "Gallery & License URLs", "summary": "Adds gallery image support and license URL fields across Core, the Gradle plugin, and both providers.", "modules": ["core", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.3.0", "createdAt": "2026-07-12T02:04:41Z", "title": "Repo Docs & Destructive Operations", "summary": "Adds repo and integration documentation, destructive provider operations for project and version deletion, and reorganizes user docs under a Diátaxis structure.", "modules": ["core", "gradle-plugin", "hangar", "modrinth"], "isRelease": false}, {"version": "0.2.0", "createdAt": "2026-07-11T22:18:13Z", "title": "Hangar Provider & Game Version Detection", "summary": "Adds the Hangar provider with JWT authentication and loader-to-platform mapping, plus automatic release type and game version detection from loader descriptors.", "modules": ["core", "gradle-plugin", "hangar"], "isRelease": false}, {"version": "0.1.4", "createdAt": "2026-07-11T08:41:37Z", "title": "YAML Config & Auto-Detection", "summary": "Adds terracotta.yml parsing, an extensible loader system with adapters for all major Minecraft platforms, and project metadata auto-detection from project files.", "modules": ["core", "gradle-plugin"], "isRelease": false}, {"version": "0.1.3", "createdAt": "2026-07-11T05:10:58Z", "title": "Smoke Testing & Docs Polish", "summary": "Adds a smoke-testing release guide, archives test results as structured JSON metrics, and fixes docs deployment reliability.", "modules": ["github"], "isRelease": false}, {"version": "0.1.2", "createdAt": "2026-07-10T23:40:57Z", "title": "Changelog & Docs Fixes", "summary": "Fixes release tooling to leave an empty Unreleased section after each release and prevents routine pushes from resetting the default docs site version.", "modules": ["github"], "isRelease": false}, {"version": "0.1.1", "createdAt": "2026-07-10T22:54:32Z", "title": "Gradle Plugin & Modrinth Provider", "summary": "Adds the Gradle plugin with plan and apply tasks, Modrinth provider integration, and automated GitHub releases on tag push.", "modules": ["github", "gradle-plugin", "modrinth"], "isRelease": false}, {"version": "0.1.0", "createdAt": "2026-07-10T06:13:48Z", "title": "Initial Release", "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.", "modules": ["core", "github"], "isRelease": false}, {"createdAt": "2026-07-22T00:00:00Z", "title": "Docs Site Overhaul", "summary": "Reworked the Last Changes page with multi-module filtering, versionless deployment support, and reordered header. Added docs/CHANGELOG.md and updated all changelog references for the three-tier system.", "modules": ["docs"], "isRelease": false}, {"createdAt": "2026-07-10T00:00:00Z", "title": "Initial Docs Site", "summary": "Deployed the initial MkDocs Material documentation site to GitHub Pages with Diátaxis-structured content, estimated reading times, and a homepage with feature cards and a plan/apply flowchart.", "modules": ["docs"], "isRelease": false}, {"createdAt": "2026-07-09T19:16:18Z", "title": "Repository Description & Homepage", "summary": "Updates the GitHub repository description and adds the homepage URL via Pulumi infrastructure stack.", "modules": ["github"], "isRelease": false}, {"createdAt": "2026-07-09T18:09:57Z", "title": "Pulumi Secret Management", "summary": "Adds a script to load secrets from .env into Pulumi config and updates the terracotta-github module project configuration.", "modules": ["github"], "isRelease": false}],
+    moduleLabels: {"core": "Core", "docs": "Docs", "github": "GitHub", "gradle-plugin": "Gradle Plugin", "hangar": "Hangar", "modrinth": "Modrinth", "state-filesystem": "State Filesystem"},
+    moduleIcons: {"core": {"inner": "<path d=\"M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z\"/>", "viewBox": "0 0 24 24"}, "github": {"inner": "<!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d=\"M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2\"/>", "viewBox": "0 0 512 512"}, "gradle-plugin": {"inner": "<title>Gradle</title><path d=\"M22.695 4.297a3.807 3.807 0 0 0-5.29-.09.368.368 0 0 0 0 .533l.46.47a.363.363 0 0 0 .474.032 2.182 2.182 0 0 1 2.86 3.291c-3.023 3.02-7.056-5.447-16.211-1.083a1.24 1.24 0 0 0-.534 1.745l1.571 2.713a1.238 1.238 0 0 0 1.681.461l.037-.02-.029.02.688-.384a16.083 16.083 0 0 0 2.193-1.635.384.384 0 0 1 .499-.016.357.357 0 0 1 .016.534 16.435 16.435 0 0 1-2.316 1.741H8.77l-.696.39a1.958 1.958 0 0 1-.963.25 1.987 1.987 0 0 1-1.726-.989L3.9 9.696C1.06 11.72-.686 15.603.26 20.522a.363.363 0 0 0 .354.296h1.675a.363.363 0 0 0 .37-.331 2.478 2.478 0 0 1 4.915 0 .36.36 0 0 0 .357.317h1.638a.363.363 0 0 0 .357-.317 2.478 2.478 0 0 1 4.914 0 .363.363 0 0 0 .358.317h1.627a.363.363 0 0 0 .363-.357c.037-2.294.656-4.93 2.42-6.25 6.108-4.57 4.502-8.486 3.088-9.9zm-6.229 6.901l-1.165-.584a.73.73 0 1 1 1.165.587z\"/>", "viewBox": "0 0 24 24"}, "hangar": {"inner": "<title>Hangar</title><g transform=\"translate(-76.172209,-127.6509)\"><path d=\"m 95.888361,139.50018 c -2.09445,-0.76941 -5.179504,2.20945 -6.689752,6.77368 -0.749656,2.27401 -1.111608,4.94101 -0.763414,7.7343 l -0.968732,-0.40428 c -1.847153,-5.76086 -0.811394,-12.06006 2.389021,-16.60807 z\" fill=\"currentColor\"/><path d=\"m 97.235731,149.34797 -7.167063,-2.97004 c 1.325039,-3.98921 3.753571,-6.36975 5.339666,-6.36975 0.168276,0 0.325615,0.0279 0.471666,0.0787 l 0.131939,0.0561 c 0.564094,0.27234 2.259904,1.73778 1.223792,9.20503\" fill=\"currentColor\"/><path d=\"m 94.661536,131.62847 c -2.245793,1.21003 -4.121167,2.96192 -5.558389,5.05601 -3.147144,4.56742 -4.224885,10.76325 -2.585521,16.52658 0.196501,0.69321 0.432156,1.38113 0.710147,2.06058 l -9.586776,-3.97828 C 74.011253,142.40583 77.34043,131.8225 85.077585,127.6509 Z\" fill=\"currentColor\"/></g>", "viewBox": "0 0 21.391998 27.620741"}, "modrinth": {"inner": "<title>Modrinth</title><path d=\"M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z\"/>", "viewBox": "0 0 24 24"}, "state-filesystem": {"inner": "<path d=\"M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z\"/>", "viewBox": "0 0 24 24"}, "docs": {"inner": "<path d=\"M18 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6v7L9.5 7.5 7 9V2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z\"/>", "viewBox": "0 0 24 24"}},
+    search: '', moduleFilters: [], dateFrom: '', dateTo: '',
     versionFrom: '', versionTo: '', releasesOnly: false,
     all: false, limit: 10, showAdvanced: false,
 
     get versions() {
-      return [...new Set(this.data.map(d => d.version))].sort(this.cmp.bind(this));
+      return [...new Set(this.data.filter(d => d.version).map(d => d.version))].sort(this.cmp.bind(this));
     },
 
     get hasAdvancedFilters() {
@@ -5133,6 +5156,15 @@ function deploymentsApp() {
       this.versionFrom = '';
       this.versionTo = '';
       this.releasesOnly = false;
+    },
+
+    toggleModule(id) {
+      const idx = this.moduleFilters.indexOf(id);
+      if (idx >= 0) {
+        this.moduleFilters.splice(idx, 1);
+      } else {
+        this.moduleFilters.push(id);
+      }
     },
 
     moduleLabel(id) {
@@ -5160,11 +5192,11 @@ function deploymentsApp() {
           const h = (d.title + ' ' + d.summary + ' ' + d.version + ' ' + d.createdAt).toLowerCase();
           if (!h.includes(this.search.toLowerCase())) return false;
         }
-        if (this.moduleFilter && !(d.modules || []).includes(this.moduleFilter)) return false;
+        if (this.moduleFilters.length && !this.moduleFilters.some(m => (d.modules || []).includes(m))) return false;
         if (this.dateFrom && d.createdAt < this.dateFrom) return false;
         if (this.dateTo && d.createdAt > this.dateTo) return false;
-        if (this.versionFrom && this.cmp(d.version, this.versionFrom) < 0) return false;
-        if (this.versionTo && this.cmp(d.version, this.versionTo) > 0) return false;
+        if (this.versionFrom && (!d.version || this.cmp(d.version, this.versionFrom) < 0)) return false;
+        if (this.versionTo && (!d.version || this.cmp(d.version, this.versionTo) > 0)) return false;
         if (this.releasesOnly && !d.isRelease) return false;
         return true;
       });
@@ -5253,13 +5285,13 @@ function deploymentsApp() {
         
         
           
-          <a href="../LICENSE/" class="md-footer__link md-footer__link--next" aria-label="Next: License">
+          <a href="../CHANGELOG/" class="md-footer__link md-footer__link--next" aria-label="Next: Docs Changelog">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                License
+                Docs Changelog
               </div>
             </div>
             <div class="md-footer__button md-icon">

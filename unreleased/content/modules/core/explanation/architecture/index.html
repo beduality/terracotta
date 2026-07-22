@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5169,7 +5197,7 @@
 </code></pre></div>
 <p>A frontend such as the Terracotta Gradle plugin loads every available factory, then activates only the providers the user configured. Multiple providers can run in the same invocation. See the <a href="../../../gradle-plugin/explanation/architecture/">Gradle plugin architecture</a> for how the plugin wires discovery into a build.</p>
 <h2 id="versioning-and-releases">Versioning and releases<a class="headerlink" href="#versioning-and-releases" title="Permanent link">&para;</a></h2>
-<p>All modules share a single version tracked in <code>gradle/libs.versions.toml</code>. Core and provider artifacts are published to Maven Central; the Gradle plugin is published to the Gradle Plugin Portal. See <a href="../../../../repo/how-to-guides/releasing/">Releasing</a> for the release process.</p>
+<p>All modules are versioned independently via per-module <code>gradle.properties</code> and <code>CHANGELOG.md</code> files. Core and provider artifacts are published to Maven Central; the Gradle plugin is published to the Gradle Plugin Portal. See <a href="../../../../repo/how-to-guides/releasing/">Releasing</a> for the release process.</p>
 
 
 

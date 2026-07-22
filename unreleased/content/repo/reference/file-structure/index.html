@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5041,7 +5069,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    1 min read
+    2 min read
   </p>
 
 <h1 id="file-structure-reference">File Structure Reference<a class="headerlink" href="#file-structure-reference" title="Permanent link">&para;</a></h1>
@@ -5054,25 +5082,27 @@
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── .vscode/                # VSCode workspace settings and extensions
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── docs/                   # Documentation (MkDocs)
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── content/            # Content organized by topic (modules, integration, repo)
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   └── hooks/              # Build hooks for copying generated docs
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── gradle/                 # Gradle wrapper and version catalogs
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── modules/                # Gradle modules
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── project/                # Project management
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── scripts/                # Utility scripts (release, deployment)
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── build.gradle.kts        # Root build configuration
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── settings.gradle.kts     # Gradle settings
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── gradle.properties       # Gradle properties (version, etc.)
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── mkdocs.yml              # Documentation configuration
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── pyproject.toml          # Python dependencies (uv)
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── README.md               # Project overview
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── CHANGELOG.md            # Release notes
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── CONTRIBUTING.md         # Contribution guidelines
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── SECURITY.md             # Security policy
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>└── LICENSE                 # License
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   ├── CHANGELOG.md        # Documentation site changelog (promoted per major version)
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   └── hooks/              # Build hooks for copying generated docs
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── gradle/                 # Gradle wrapper and version catalogs
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── modules/                # Gradle modules (each with its own CHANGELOG.md and gradle.properties)
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── project/                # Project management
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── scripts/                # Utility scripts (release, deployment)
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── build.gradle.kts        # Root build configuration
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── settings.gradle.kts     # Gradle settings
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── gradle.properties       # Root Gradle properties (empty; versions are per-module)
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── mkdocs.yml              # Documentation configuration
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── pyproject.toml          # Python dependencies (uv)
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── README.md               # Project overview
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── CHANGELOG.md            # Repo-wide activity log
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── CONTRIBUTING.md         # Contribution guidelines
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>├── SECURITY.md             # Security policy
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>└── LICENSE                 # License
 </code></pre></div>
 <h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>terracotta-core</strong>: Pure domain library with canonical models, provider interfaces, and semantic diff engine. Published to Maven Central as <code>io.github.beduality:terracotta-core</code>.</li>
+<li><strong>terracotta-state-filesystem</strong>: File-backed state provider for persisting Terracotta state to disk.</li>
 <li><strong>terracotta-provider-modrinth</strong>: Modrinth state and registry providers using Ktor Client and Kotlinx Serialization.</li>
 <li><strong>terracotta-provider-hangar</strong>: Hangar state and registry providers using Ktor Client and Kotlinx Serialization.</li>
 <li><strong>terracotta-gradle-plugin</strong>: Gradle plugin providing <code>terracottaPlan</code> and <code>terracottaApply</code> tasks with multi-provider support via ServiceLoader.</li>

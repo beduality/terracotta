@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5161,10 +5189,6 @@
 <td>Deploys a versioned release and updates the <code>latest</code> alias.</td>
 </tr>
 <tr>
-<td><code>workflow_call</code></td>
-<td>Called by <code>release.yml</code> after a release.</td>
-</tr>
-<tr>
 <td><code>workflow_dispatch</code></td>
 <td>Manual deployment with optional <code>ref</code> input.</td>
 </tr>
@@ -5183,7 +5207,7 @@
 <li>Upload the <code>gh-pages</code> branch artifact and deploy to Pages.</li>
 </ol>
 <h3 id="releaseyml"><code>release.yml</code><a class="headerlink" href="#releaseyml" title="Permanent link">&para;</a></h3>
-<p>Performs a full release from a workflow dispatch.</p>
+<p>Performs a per-module release from a workflow dispatch or automatically on push to <code>main</code>.</p>
 <table>
 <thead>
 <tr>
@@ -5196,15 +5220,15 @@
 <tbody>
 <tr>
 <td><code>bump</code></td>
-<td>choice</td>
+<td>string</td>
 <td><code>auto</code></td>
-<td>Version bump strategy: <code>auto</code>, <code>patch</code>, <code>minor</code>, <code>major</code>, <code>custom</code>.</td>
+<td>Version bump strategy: <code>auto</code>, <code>patch</code>, <code>minor</code>, <code>major</code>, or a specific version like <code>0.9.0</code>.</td>
 </tr>
 <tr>
-<td><code>version</code></td>
+<td><code>modules</code></td>
 <td>string</td>
 <td>empty</td>
-<td>Required only when <code>bump</code> is <code>custom</code>.</td>
+<td>Comma-separated modules to release (e.g. <code>terracotta-core,terracotta-provider-modrinth</code>). Skips change detection when specified.</td>
 </tr>
 </tbody>
 </table>
@@ -5212,12 +5236,10 @@
 <ol>
 <li>Check out <code>main</code> with full history.</li>
 <li>Set up JDK 21 and <code>uv</code>.</li>
-<li>Run <code>release.py --yes --publish</code> to bump, build, publish, and tag.</li>
-<li>Read the released version from <code>gradle.properties</code>.</li>
-<li>Extract release notes from <code>CHANGELOG.md</code>.</li>
-<li>Create a GitHub release with JAR artifacts.</li>
-<li>Trigger <code>deploy-docs.yml</code> to publish versioned docs.</li>
+<li>Run <code>release.py release --yes --publish --bump '&lt;bump&gt;' [--modules '&lt;modules&gt;']</code> to detect changed modules, bump versions, update changelogs and deployment manifest, build, publish to Maven Central, create GitHub releases, and push tags.</li>
+<li>Push the release commit and tags.</li>
 </ol>
+<p>The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by <code>deploy-docs.yml</code>, which triggers on pushes to <code>main</code> and version tags.</p>
 <p>Required repository secrets:</p>
 <table>
 <thead>
@@ -5264,7 +5286,7 @@
 </tr>
 <tr>
 <td><code>release.yml</code></td>
-<td><code>contents: write</code>, <code>pages: write</code>, <code>id-token: write</code></td>
+<td><code>contents: write</code></td>
 </tr>
 </tbody>
 </table>

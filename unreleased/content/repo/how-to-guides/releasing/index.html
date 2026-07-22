@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5158,12 +5186,12 @@
 <p>This guide shows how to publish a new Terracotta release.</p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Ensure <code>CHANGELOG.md</code> has user-facing changes under <code>## [Unreleased]</code>. See <a href="../writing-changelog/">Writing Changelog Entries</a>.</li>
+<li>Ensure the relevant <code>CHANGELOG.md</code> files have user-facing changes. Module-specific changes go in <code>modules/&lt;module&gt;/CHANGELOG.md</code> under <code>## [Unreleased]</code>; documentation changes go in <code>docs/CHANGELOG.md</code> under <code>## [Unreleased]</code>; repo-wide changes go in the root <code>CHANGELOG.md</code> under the current date heading. See <a href="../writing-changelog/">Writing Changelog Entries</a>.</li>
 <li>Confirm the <a href="../../reference/ci-cd/">CI workflow</a> is green on <code>main</code>.</li>
 <li>Verify release secrets are configured in the repository. See <a href="../../reference/ci-cd/">CI/CD Reference</a> for the required secrets.</li>
 </ul>
 <h2 id="1-choose-a-version-bump">1. Choose a version bump<a class="headerlink" href="#1-choose-a-version-bump" title="Permanent link">&para;</a></h2>
-<p>Releases follow <a href="https://semver.org/">Semantic Versioning</a>. The release script can detect the bump from conventional commits, or you can choose it explicitly.</p>
+<p>Releases follow <a href="https://semver.org/">Semantic Versioning</a>. Each module is versioned independently. The release script can detect the bump from conventional commits since the module's last tag, or you can choose it explicitly.</p>
 <table>
 <thead>
 <tr>
@@ -5189,8 +5217,8 @@
 <td>Breaking changes.</td>
 </tr>
 <tr>
-<td><code>custom</code></td>
-<td>A specific version like <code>0.3.0</code>.</td>
+<td><code>0.3.0</code></td>
+<td>A specific version. Pass directly as the <code>--bump</code> value.</td>
 </tr>
 </tbody>
 </table>
@@ -5202,22 +5230,25 @@
 <p>To watch the run:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>monitor
 </code></pre></div>
+<p>To cancel a run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>abort
+</code></pre></div>
 <h2 id="3-verify-the-release">3. Verify the release<a class="headerlink" href="#3-verify-the-release" title="Permanent link">&para;</a></h2>
 <p>After the workflow succeeds:</p>
 <ol>
-<li>Check that Maven Central has the new artifacts.</li>
-<li>Review the GitHub release and JAR assets.</li>
-<li>Confirm the versioned docs are live.</li>
+<li>Check that Maven Central has the new artifacts for each released module.</li>
+<li>Review the per-module GitHub releases and JAR assets.</li>
+<li>Confirm the versioned docs are live (deployed separately by <code>deploy-docs.yml</code>).</li>
 </ol>
 <p>For a structured checklist, see <a href="../smoke-testing-a-release/">Smoke Testing a Release</a>.</p>
 <h2 id="dry-run-locally">Dry run locally<a class="headerlink" href="#dry-run-locally" title="Permanent link">&para;</a></h2>
 <p>To test the release logic without publishing or pushing:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>--yes<span class="w"> </span>--no-publish<span class="w"> </span>--no-push
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>release<span class="w"> </span>--dry-run<span class="w"> </span>--bump<span class="w"> </span>auto<span class="w"> </span>--yes
 </code></pre></div>
-<p>This bumps the version, updates the changelog, and runs <code>./gradlew spotlessCheck build</code>.</p>
+<p>This computes version bumps for changed modules and prints the planned changes without modifying files, building, or publishing.</p>
 <h2 id="roll-back-a-failed-release">Roll back a failed release<a class="headerlink" href="#roll-back-a-failed-release" title="Permanent link">&para;</a></h2>
 <p>If the workflow fails before publishing, <code>release.py</code> rolls back the version bump and tag automatically. For a manual rollback:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>scripts/release.py<span class="w"> </span>rollback<span class="w"> </span>&lt;module&gt;<span class="w"> </span>&lt;version&gt;
 </code></pre></div>
 <p>If Maven Central already published, you cannot unpublish. Release a follow-up version instead.</p>
 <h2 id="where-to-read-more">Where to read more<a class="headerlink" href="#where-to-read-more" title="Permanent link">&para;</a></h2>

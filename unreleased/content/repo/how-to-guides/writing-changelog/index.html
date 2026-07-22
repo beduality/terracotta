@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5211,14 +5239,18 @@
   </p>
 
 <h1 id="writing-changelog-entries">Writing Changelog Entries<a class="headerlink" href="#writing-changelog-entries" title="Permanent link">&para;</a></h1>
-<p>This guide covers the mechanical rules for adding an entry to <code>CHANGELOG.md</code>.</p>
+<p>This guide covers the mechanical rules for adding a changelog entry.</p>
 <h2 id="where-to-add-an-entry">Where to add an entry<a class="headerlink" href="#where-to-add-an-entry" title="Permanent link">&para;</a></h2>
-<p>Add entries under <code>## [Unreleased]</code> in <code>CHANGELOG.md</code>. Place them in the correct category section, grouped by module.</p>
+<ul>
+<li><strong>Module changes</strong> (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under <code>## [Unreleased]</code> in the corresponding <code>modules/&lt;module&gt;/CHANGELOG.md</code>.</li>
+<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>.</li>
+<li><strong>Repo-wide changes</strong> (CI/CD, tooling, conventions): Add entries under the current date heading in the root <code>CHANGELOG.md</code>.</li>
+</ul>
 <h2 id="release-summary">Release summary<a class="headerlink" href="#release-summary" title="Permanent link">&para;</a></h2>
 <p>Every release section, including <code>## [Unreleased]</code>, must start with a summary paragraph before the first <code>###</code> category heading. The summary should capture the release's themes and impact in two to four sentences.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gu">## [Unreleased]</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Adds project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Added project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="gu">### Added</span>
 </code></pre></div>
@@ -5226,56 +5258,46 @@
 <h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">### Category</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gs">**Module**</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">-</span><span class="w"> </span>Short description of what changed so the consumer-visible reason is clear.
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span>Short description of what changed so the consumer-visible reason is clear.
 </code></pre></div>
 <h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Start every release section with a summary.</strong> The summary goes immediately under the <code>## [Version]</code> heading, before the first <code>###</code> category. Keep it to two to four sentences that state the release's themes and impact.</li>
-<li><strong>Write <code>[Unreleased]</code> summaries directly.</strong> Start with the substance (e.g. "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The release script copies the <code>[Unreleased]</code> body into the new version section verbatim, so meta-introductions become redundant or incorrect after release.</li>
+<li><strong>Write <code>[Unreleased]</code> summaries directly.</strong> Start with a past-tense verb (e.g. "Added...", "Fixed...", "Narrowed..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The release script copies the <code>[Unreleased]</code> body into the new version section verbatim, so meta-introductions become redundant or incorrect after release.</li>
 <li><strong>Start each entry with a past-tense verb.</strong> Use <code>Added</code>, <code>Fixed</code>, <code>Updated</code>, <code>Removed</code>, <code>Changed</code>, <code>Configured</code>, etc.</li>
 <li><strong>Be specific.</strong> Say what changed in concrete terms, not "improved" or "refactored".</li>
 <li><strong>Focus on impact, not implementation.</strong> A consumer should understand the change without reading the code.</li>
 <li><strong>No implementation details.</strong> Do not mention imports, internal classes, method names, file renames, or how code was decoupled unless that detail is itself part of the public API or contract.</li>
 <li><strong>Derive entries from the git diff since the last release tag.</strong> Review only what is new relative to that tag and describe the observable change, not the diff lines.</li>
 <li><strong>Inline the reason.</strong> Use <code>so</code>, <code>because</code>, or similar to make the consumer-visible benefit part of the entry instead of a separate <code>**Why**:</code> line.</li>
-<li><strong>Use bold module headings.</strong> Write <code>**Module**</code> on its own line; do not use <code>####</code> headings.</li>
-<li><strong>Group related changes.</strong> Put multiple bullets under the same module when they belong together.</li>
+<li><strong>Group related changes.</strong> Put multiple bullets under the same category when they belong together.</li>
+<li><strong>Describe the final state, not the process.</strong> If a feature was added and then fixed before release, write one entry for the working result. Do not list both the addition and the fix — consumers never saw the intermediate state.</li>
 <li><strong>Keep entries concise.</strong> Put detail, caveats, or migration steps in <code>**Breaking**:</code> or <code>**Migration**:</code> lines when needed.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="good">Good<a class="headerlink" href="#good" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">### Fixed</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="gs">**Core**</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">-</span><span class="w"> </span>Fixed publishing of <span class="sb">`-javadoc.jar`</span> artifacts so they include generated API documentation instead of empty JARs, satisfying Maven Central requirements.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">-</span><span class="w"> </span>Fixed publishing of <span class="sb">`-javadoc.jar`</span> artifacts so they include generated API documentation instead of empty JARs, satisfying Maven Central requirements.
 </code></pre></div>
 <h3 id="bad">Bad<a class="headerlink" href="#bad" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gu">### Fixed</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gs">**Core**</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">-</span><span class="w"> </span>Refactored <span class="sb">`JavadocTask`</span> to use <span class="sb">`DokkaJavadoc`</span>.
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">-</span><span class="w"> </span>Refactored <span class="sb">`JavadocTask`</span> to use <span class="sb">`DokkaJavadoc`</span>.
 </code></pre></div>
 <p>This describes implementation, not impact.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">### Changed</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gs">**Gradle Plugin**</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>The Gradle plugin no longer imports <span class="sb">`FileSystemStateSource`</span> directly. The default state filename is now a local plugin constant, and <span class="sb">`StateSourceResolver`</span> collects discovered factory IDs.
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">-</span><span class="w"> </span>The Gradle plugin no longer imports <span class="sb">`FileSystemStateSource`</span> directly. The default state filename is now a local plugin constant, and <span class="sb">`StateSourceResolver`</span> collects discovered factory IDs.
 </code></pre></div>
 <p>This names internal classes, imports, and implementation mechanics. A consumer-facing version would describe the clearer missing-backend error and the reduced coupling to a specific backend.</p>
 <h2 id="breaking-changes">Breaking changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h2>
 <p>Mark breaking changes explicitly:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">### Changed</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gs">**Core**</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">-</span><span class="w"> </span><span class="sb">`TerracottaVersion`</span> fields are now required.
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Breaking**</span>: Versions without required fields will fail validation.
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Migration**</span>: Add all required fields to your version definitions.
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`TerracottaVersion`</span> fields are now required.
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Breaking**</span>: Versions without required fields will fail validation.
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="gs">**Migration**</span>: Add all required fields to your version definitions.
 </code></pre></div>
 <h2 id="before-submitting">Before submitting<a class="headerlink" href="#before-submitting" title="Permanent link">&para;</a></h2>
 <p>Ask:</p>

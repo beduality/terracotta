@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -5145,12 +5173,12 @@
 <h2 id="what-the-smoke-tests-verify">What the smoke tests verify<a class="headerlink" href="#what-the-smoke-tests-verify" title="Permanent link">&para;</a></h2>
 <p>The pytest suite in <code>scripts/test_release_smoke.py</code> checks the release end-to-end, without you having to read the test file:</p>
 <ul>
-<li><strong>GitHub release</strong>: the release exists for the requested version, has the right tag and title, and includes all nine expected JAR assets (main, sources, and javadoc for each module).</li>
-<li><strong>Changelog sync</strong>: the GitHub release body reflects the non-empty <code>## [VERSION]</code> section in <code>CHANGELOG.md</code>.</li>
-<li><strong>Maven Central presence</strong>: every expected POM, JAR, sources, javadoc, signature, and Gradle module file is live for all three modules plus the Gradle plugin marker.</li>
+<li><strong>GitHub release</strong>: per-module releases exist with the right tags and titles, and include JAR assets (main, sources, and javadoc) for each released module.</li>
+<li><strong>Changelog sync</strong>: each GitHub release body reflects the <code>## [VERSION]</code> section in the corresponding module's <code>CHANGELOG.md</code>.</li>
+<li><strong>Maven Central presence</strong>: every expected POM, JAR, sources, javadoc, signature, and Gradle module file is live for each released module plus the Gradle plugin marker.</li>
 <li><strong>Artifact integrity</strong>: downloaded JARs contain the expected classes and the plugin descriptor.</li>
 <li><strong>Javadoc quality</strong>: the <code>-javadoc.jar</code> files contain real documentation, not just a manifest.</li>
-<li><strong>Version-string consistency</strong>: the release tag has the correct version in <code>gradle.properties</code>, <code>pyproject.toml</code>, <code>CHANGELOG.md</code>, and <code>README.md</code>.</li>
+<li><strong>Version-string consistency</strong>: each module's release tag has the correct version in its <code>gradle.properties</code> and <code>CHANGELOG.md</code>.</li>
 <li><strong>Build from tag</strong>: the project builds cleanly with <code>./gradlew spotlessCheck build</code> at the release tag.</li>
 <li><strong>Gradle plugin E2E</strong>: the plugin resolves from Maven Central and registers the expected tasks in a clean project.</li>
 <li><strong>SDK E2E</strong>: the core and Modrinth provider artifacts resolve and compile in a clean Kotlin/JVM project.</li>

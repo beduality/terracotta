@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -4926,10 +4954,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation-coupling" class="md-nav__link">
+  <a href="#documentation-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentation coupling
+        Documentation deployment
       
     </span>
   </a>
@@ -5059,10 +5087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation-coupling" class="md-nav__link">
+  <a href="#documentation-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentation coupling
+        Documentation deployment
       
     </span>
   </a>
@@ -5117,16 +5145,16 @@
 <h2 id="release-safety">Release safety<a class="headerlink" href="#release-safety" title="Permanent link">&para;</a></h2>
 <p>The <code>release.yml</code> workflow performs every step in one run:</p>
 <ol>
-<li>Bump version and update <code>CHANGELOG.md</code>, <code>gradle.properties</code>, <code>pyproject.toml</code>, <code>deployments.json</code>, and <code>uv.lock</code>.</li>
-<li>Verify the build with <code>./gradlew spotlessCheck build</code>.</li>
-<li>Sign and publish artifacts to Maven Central.</li>
-<li>Push the version tag only if publishing succeeds.</li>
-<li>Create the GitHub release.</li>
-<li>Deploy versioned documentation.</li>
+<li>Detect changed modules by comparing each module's files against its last tag.</li>
+<li>Bump version per module and update <code>modules/&lt;module&gt;/gradle.properties</code>, <code>modules/&lt;module&gt;/CHANGELOG.md</code>, and <code>deployments.json</code>.</li>
+<li>Verify the build with <code>./gradlew spotlessCheck build</code> (includes downstream dependents).</li>
+<li>Sign and publish artifacts to Maven Central per module.</li>
+<li>Create per-module GitHub releases with JAR assets.</li>
+<li>Push the release commit and per-module version tags.</li>
 </ol>
 <p>If Maven Central publishing fails, <code>release.py</code> rolls back the local commit and tag so the repository is not left in a half-released state.</p>
 <h2 id="version-detection">Version detection<a class="headerlink" href="#version-detection" title="Permanent link">&para;</a></h2>
-<p><code>release.py</code> inspects conventional commits since the last tag to suggest a semver bump:</p>
+<p><code>release.py</code> inspects conventional commits since each module's last tag to suggest a semver bump per module:</p>
 <ul>
 <li>A breaking change marker (<code>!</code> or <code>BREAKING CHANGE</code> footer) triggers a major bump.</li>
 <li>A <code>feat</code> commit triggers a minor bump.</li>
@@ -5134,14 +5162,14 @@
 <li>Otherwise it defaults to patch.</li>
 </ul>
 <p>You can override this with the workflow <code>bump</code> input.</p>
-<h2 id="documentation-coupling">Documentation coupling<a class="headerlink" href="#documentation-coupling" title="Permanent link">&para;</a></h2>
-<p>Docs are deployed from the exact release tag, not from <code>main</code>. This ensures that the published API reference and guides match the released code. After a release, <code>deploy-docs.yml</code> deploys a versioned alias and updates <code>latest</code>.</p>
+<h2 id="documentation-deployment">Documentation deployment<a class="headerlink" href="#documentation-deployment" title="Permanent link">&para;</a></h2>
+<p>Docs are deployed by <code>deploy-docs.yml</code>, which triggers independently on pushes to <code>main</code> and version tags. This decouples documentation deployment from the release workflow — a release pushes tags and commits, and <code>deploy-docs.yml</code> picks up the tag push to deploy a versioned alias and update <code>latest</code>.</p>
 <h2 id="rollback">Rollback<a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h2>
 <p>If a release goes wrong after it has been published, recovery depends on what failed:</p>
 <ul>
 <li><strong>Tag or GitHub release is wrong</strong>: Delete the tag and release, fix the issue, and re-run the workflow.</li>
 <li><strong>Maven Central published bad artifacts</strong>: Maven Central publishes are irreversible. In this case, release a follow-up version rather than trying to unpublish.</li>
-<li><strong>Local dry run failed</strong>: Use <code>release.py rollback</code> to revert uncommitted version bumps and tag changes.</li>
+<li><strong>Local dry run failed</strong>: Use <code>release.py rollback &lt;module&gt; &lt;version&gt;</code> to revert uncommitted version bumps and tag changes.</li>
 </ul>
 
 

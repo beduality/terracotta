@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -4657,6 +4685,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#test_releasepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        test_release.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#test_load_pulumi_secretspy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5278,6 +5317,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#test_releasepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        test_release.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#test_load_pulumi_secretspy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5370,8 +5420,8 @@
 </thead>
 <tbody>
 <tr>
-<td><code>uv run scripts/release.py</code></td>
-<td>Interactive wizard. Detects version bump, updates changelog and version files, builds, optionally publishes and pushes.</td>
+<td><code>uv run scripts/release.py release</code></td>
+<td>Interactive wizard. Detects changed modules, bumps versions per module, updates changelogs and version files, builds, optionally publishes and pushes.</td>
 </tr>
 <tr>
 <td><code>uv run scripts/release.py trigger</code></td>
@@ -5382,12 +5432,16 @@
 <td>Watches a release workflow run.</td>
 </tr>
 <tr>
-<td><code>uv run scripts/release.py rollback</code></td>
-<td>Reverts the last release commit and tag.</td>
+<td><code>uv run scripts/release.py abort [RUN_ID]</code></td>
+<td>Cancels an active release workflow run.</td>
 </tr>
 <tr>
-<td><code>uv run scripts/release.py extract-release-notes &lt;version&gt;</code></td>
-<td>Extracts the <code>## [version]</code> section from <code>CHANGELOG.md</code> for the GitHub release body.</td>
+<td><code>uv run scripts/release.py rollback &lt;module&gt; &lt;version&gt;</code></td>
+<td>Reverts the last release commit and tag for a specific module.</td>
+</tr>
+<tr>
+<td><code>uv run scripts/release.py extract-release-notes &lt;module&gt; &lt;version&gt;</code></td>
+<td>Extracts the <code>## [tag]</code> section from the module's <code>CHANGELOG.md</code> for the GitHub release body.</td>
 </tr>
 </tbody>
 </table>
@@ -5405,20 +5459,28 @@
 <td>Version bump strategy.</td>
 </tr>
 <tr>
+<td><code>--modules module1,module2</code></td>
+<td>Comma-separated list of modules to release (skips change detection).</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>Compute versions and print planned changes without modifying files or building.</td>
+</tr>
+<tr>
 <td><code>--yes</code></td>
 <td>Skip confirmation prompts.</td>
 </tr>
 <tr>
-<td><code>--no-publish</code></td>
-<td>Do not publish to Maven Central.</td>
+<td><code>--publish</code></td>
+<td>Publish changed modules to Maven Central.</td>
 </tr>
 <tr>
-<td><code>--no-push</code></td>
-<td>Do not push the tag or commit.</td>
+<td><code>--push</code></td>
+<td>Commit, tag, and push changes to git (default: true).</td>
 </tr>
 <tr>
-<td><code>--no-dry-run</code></td>
-<td>Skip the <code>./gradlew spotlessCheck build</code> verification.</td>
+<td><code>--since &lt;ref&gt;</code></td>
+<td>Git ref to use as the change-detection baseline.</td>
 </tr>
 </tbody>
 </table>
@@ -5431,26 +5493,8 @@
 <p>The script parses <code>modules/terracotta-github/src/.../App.kt</code> to detect which secrets are needed, so the secret list stays in one place.</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <h3 id="deploymentspy"><code>deployments.py</code><a class="headerlink" href="#deploymentspy" title="Permanent link">&para;</a></h3>
-<p>Manages the <code>deployments.json</code> manifest that drives the docs <a href="../../../../last-changes/">Last Changes</a> page. Parses <code>CHANGELOG.md</code> to extract structured metadata (title, summary, modules) for each version.</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>uv run scripts/deployments.py seed</code></td>
-<td>Rebuilds the entire manifest from <code>CHANGELOG.md</code>.</td>
-</tr>
-<tr>
-<td><code>uv run scripts/deployments.py generate &lt;version&gt;</code></td>
-<td>Generates and appends a single deployment entry.</td>
-</tr>
-</tbody>
-</table>
-<p>Called automatically by <code>release.py</code> during each release.</p>
+<p>Manages the <code>deployments.json</code> manifest that drives the docs <a href="../../../../last-changes/">Last Changes</a> page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version. Supports both versioned entries (module releases) and versionless entries (infrastructure applies, documentation site deploys).</p>
+<p>Called automatically by <code>release.py</code> during each release to append deployment entries.</p>
 <h3 id="redeploy_all_docspy"><code>redeploy_all_docs.py</code><a class="headerlink" href="#redeploy_all_docspy" title="Permanent link">&para;</a></h3>
 <p>Rebuilds and redeploys every versioned docs release using <code>mike</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/redeploy_all_docs.py
@@ -5461,6 +5505,8 @@
 <h2 id="test-helpers">Test helpers<a class="headerlink" href="#test-helpers" title="Permanent link">&para;</a></h2>
 <h3 id="test_release_smokepy"><code>test_release_smoke.py</code><a class="headerlink" href="#test_release_smokepy" title="Permanent link">&para;</a></h3>
 <p>Pytest suite for smoke testing a release end-to-end. See <a href="../../how-to-guides/smoke-testing-a-release/">Smoke Testing a Release</a>.</p>
+<h3 id="test_releasepy"><code>test_release.py</code><a class="headerlink" href="#test_releasepy" title="Permanent link">&para;</a></h3>
+<p>Unit tests for <code>release.py</code> covering version bumping, validation, change detection, changelog promotion, dry-run behavior, and rollback.</p>
 <h3 id="test_load_pulumi_secretspy"><code>test_load_pulumi_secrets.py</code><a class="headerlink" href="#test_load_pulumi_secretspy" title="Permanent link">&para;</a></h3>
 <p>Unit tests for <code>load_pulumi_secrets.py</code>.</p>
 <h3 id="test_deploymentspy"><code>test_deployments.py</code><a class="headerlink" href="#test_deploymentspy" title="Permanent link">&para;</a></h3>

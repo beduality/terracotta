@@ -430,6 +430,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../LICENSE/" class="md-nav__link">
         
   
@@ -4757,6 +4785,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#describe-the-final-state-not-the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Describe the final state, not the process
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#release-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4791,10 +4830,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#modules" class="md-nav__link">
+  <a href="#where-to-add-entries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modules
+        Where to add entries
       
     </span>
   </a>
@@ -5098,6 +5137,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#describe-the-final-state-not-the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Describe the final state, not the process
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#release-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5132,10 +5182,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#modules" class="md-nav__link">
+  <a href="#where-to-add-entries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modules
+        Where to add entries
       
     </span>
   </a>
@@ -5189,7 +5239,7 @@
   </p>
 
 <h1 id="changelog-guidelines">Changelog Guidelines<a class="headerlink" href="#changelog-guidelines" title="Permanent link">&para;</a></h1>
-<p>Terracotta keeps a human-readable changelog because commit history is not a release note. The changelog answers one question for consumers: <strong>what changed that affects how the system is used, integrated, run, or depended on — and why it matters.</strong></p>
+<p>Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own <code>CHANGELOG.md</code> under <code>modules/&lt;module&gt;/CHANGELOG.md</code> for module-specific changes, a <code>docs/CHANGELOG.md</code> for documentation site changes, and a root <code>CHANGELOG.md</code> as a repo-wide activity log (CI/CD, tooling, conventions). The changelogs answer one question for consumers: <strong>what changed that affects how the system is used, integrated, run, or depended on — and why it matters.</strong></p>
 <h2 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h2>
 <p>A changelog is a trust signal. It tells users, operators, and integrators whether they should upgrade, what behavior to expect, and whether they need to change their own code or configuration. It is not a commit log, implementation diary, or internal refactoring log.</p>
 <h2 id="what-belongs-in-the-changelog">What belongs in the changelog<a class="headerlink" href="#what-belongs-in-the-changelog" title="Permanent link">&para;</a></h2>
@@ -5223,12 +5273,15 @@
 <li>If the diff shows only internal refactoring with no observable effect, skip it.</li>
 </ol>
 <p>The changelog is a changes log for consumers, not a development log for contributors.</p>
+<h2 id="describe-the-final-state-not-the-process">Describe the final state, not the process<a class="headerlink" href="#describe-the-final-state-not-the-process" title="Permanent link">&para;</a></h2>
+<p>A changelog entry describes the net change a consumer sees, not the sequence of commits that produced it. If a feature was introduced and then fixed or refined before release, write a single entry for the final behavior — do not list the introduction and the fix separately. Consumers never saw the intermediate state, so documenting it creates noise and confusion.</p>
+<p>For example, if a command was added with a bug and the bug was fixed in the same PR, write one <code>Added</code> entry for the working command. Do not add a <code>Fixed</code> entry for a bug that was never released.</p>
 <h2 id="release-summary">Release summary<a class="headerlink" href="#release-summary" title="Permanent link">&para;</a></h2>
 <p>Every release section must start with a short summary paragraph before the first category heading. The summary states the release's themes and why they matter, in two to four sentences. It is not a list of every change; readers should get the story at a glance and then use the categories for details.</p>
 <p>Summaries are required for every release, including <code>[Unreleased]</code>.</p>
-<p>Summarize directly. Start with the substance of the release (for example, "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the <code>[Unreleased]</code> body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.</p>
+<p>Summarize directly. Start with a past-tense verb (for example, "Added...", "Fixed...", "Narrowed..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the <code>[Unreleased]</code> body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.</p>
 <h2 id="how-entries-are-grouped">How entries are grouped<a class="headerlink" href="#how-entries-are-grouped" title="Permanent link">&para;</a></h2>
-<p>Entries are grouped by change category and then by module.</p>
+<p>Module-specific entries go in each module's own <code>CHANGELOG.md</code>, grouped by change category. Documentation changes go in <code>docs/CHANGELOG.md</code>. Repository-wide entries (CI/CD, tooling) go in the root <code>CHANGELOG.md</code> under the current date heading.</p>
 <h3 id="categories">Categories<a class="headerlink" href="#categories" title="Permanent link">&para;</a></h3>
 <p>Use <a href="https://keepachangelog.com/">Keep a Changelog</a> categories:</p>
 <ul>
@@ -5239,26 +5292,20 @@
 <li><strong>Removed</strong> — deleted features</li>
 <li><strong>Security</strong> — security-related fixes</li>
 </ul>
-<h3 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h3>
-<p>Use the module that contains the changed code:</p>
+<h3 id="where-to-add-entries">Where to add entries<a class="headerlink" href="#where-to-add-entries" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Docs</strong> — documentation, guides, release notes, and the public site</li>
-<li><strong>Repo</strong> — repository tooling, CI/CD, release scripts, and conventions</li>
-<li><strong>Core</strong> — <code>terracotta-core</code> module</li>
-<li><strong>Gradle Plugin</strong> — <code>terracotta-gradle-plugin</code> module</li>
-<li><strong>Modrinth</strong> — <code>terracotta-provider-modrinth</code> module</li>
-<li><strong>Hangar</strong> — <code>terracotta-provider-hangar</code> module</li>
+<li><strong>Module changes</strong> (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under <code>## [Unreleased]</code> in the corresponding <code>modules/&lt;module&gt;/CHANGELOG.md</code>.</li>
+<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>.</li>
+<li><strong>Repo-wide changes</strong> (CI/CD, tooling, conventions): Add entries under the current date heading in the root <code>CHANGELOG.md</code>, using <code>### Category</code> headings with plain bullet lists.</li>
 </ul>
-<p>If a change spans modules, either split it into scoped entries or place it under the most affected module.</p>
 <h2 id="style-principles">Style principles<a class="headerlink" href="#style-principles" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Start each release section with a <strong>summary paragraph</strong> that captures the release's themes and impact in two to four sentences.</li>
-<li><strong>Summarize directly</strong> in the summary paragraph; do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.</li>
+<li><strong>Start the summary with a past-tense verb</strong> (e.g. "Added...", "Fixed...", "Narrowed..."). Do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.</li>
 <li>Start each entry with a <strong>past-tense verb</strong> (<code>Added</code>, <code>Fixed</code>, <code>Updated</code>, <code>Removed</code>, <code>Changed</code>).</li>
 <li>Be specific and concrete, not vague.</li>
 <li>Focus on impact, not implementation.</li>
 <li>Inline the reason with <code>so</code>, <code>because</code>, or similar instead of using a separate <code>**Why**:</code> line.</li>
-<li>Use bold <code>**Module**</code> headings under each category; do not use <code>####</code> headings for modules.</li>
 <li>Mark breaking changes explicitly with <code>**Breaking**:</code> and migration steps.</li>
 </ul>
 <p>For the reasoning behind these rules, see <a href="../../explanation/changelog/">Changelog Design</a>.</p>
