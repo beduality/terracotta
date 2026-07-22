@@ -82,6 +82,10 @@
   <template x-for="d in displayed" :key="d.version">
     <div class="mdx-deployment">
       <div class="mdx-deployment-header">
+        <span class="mdx-title" x-text="d.title"></span>
+        <a class="mdx-version"
+           :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
+           x-text="'v'+d.version"></a>
         <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
           <a x-show="d.modules && d.modules.includes('modrinth')"
              class="mdx-link" :title="moduleLabel('modrinth')"
@@ -96,10 +100,6 @@
             </span>
           </template>
         </div>
-        <span class="mdx-title" x-text="d.title"></span>
-        <a class="mdx-version"
-           :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
-           x-text="'v'+d.version"></a>
         <span x-show="d.isRelease" class="mdx-release">Release</span>
         <span class="mdx-date"><svg class="mdx-date-icon" viewBox="0 0 24 24" width=".75rem" height=".75rem" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20A8 8 0 0 1 4 12A8 8 0 0 1 12 4M12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z"/></svg><span x-text="fmtDate(d.createdAt)"></span></span>
       </div>
