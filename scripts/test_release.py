@@ -42,6 +42,60 @@ class TestBumpVersion(unittest.TestCase):
             release.bump_version("1.2.3", "invalid")
 
 
+class TestValidateNextVersion(unittest.TestCase):
+
+    def test_accepts_next_patch(self):
+        release.validate_next_version("0.8.0", "0.8.1")
+
+    def test_accepts_next_minor(self):
+        release.validate_next_version("0.8.0", "0.9.0")
+
+    def test_accepts_next_major_zero_x(self):
+        release.validate_next_version("0.8.0", "0.9.0")
+
+    def test_accepts_next_major_one_x(self):
+        release.validate_next_version("1.2.3", "2.0.0")
+
+    def test_accepts_next_minor_with_suffix(self):
+        release.validate_next_version("0.8.0", "0.9.0-beta.1")
+
+    def test_accepts_stable_from_prerelease(self):
+        release.validate_next_version("0.8.0-beta.1", "0.8.0")
+
+    def test_accepts_next_patch_from_prerelease(self):
+        release.validate_next_version("0.8.0-beta.1", "0.8.1")
+
+    def test_rejects_same_version(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.0", "0.8.0")
+        self.assertIn("already released", str(ctx.exception))
+
+    def test_rejects_downgrade(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.0", "0.7.0")
+        self.assertIn("downgrade", str(ctx.exception))
+
+    def test_rejects_jump_skipping_minor(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.0", "0.10.0")
+        self.assertIn("not a valid next bump", str(ctx.exception))
+
+    def test_rejects_jump_skipping_patch(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.0", "0.8.2")
+        self.assertIn("not a valid next bump", str(ctx.exception))
+
+    def test_rejects_jump_from_prerelease(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.0-beta.1", "0.10.0")
+        self.assertIn("not a valid next bump", str(ctx.exception))
+
+    def test_rejects_older_patch_of_same_minor(self):
+        with self.assertRaises(ValueError) as ctx:
+            release.validate_next_version("0.8.5", "0.8.3")
+        self.assertIn("downgrade", str(ctx.exception))
+
+
 class TestDetermineBumpFromCommits(unittest.TestCase):
 
     def test_empty_defaults_to_patch(self):
@@ -480,9 +534,39 @@ class TestReleaseDryRun(unittest.TestCase):
         with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
             with self.assertRaises(SystemExit) as ctx:
                 release.release(
-                    bump="1.0.0", modules="terracotta-core", dry_run=True, yes=True
+                    bump="0.9.0", modules="terracotta-core", dry_run=True, yes=True
                 )
             self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_custom_version_jump_rejected(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(ValueError) as ctx:
+                release.release(
+                    bump="0.10.0", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertIn("not a valid next bump", str(ctx.exception))
+
+    @patch("scripts.release.console")
+    def test_custom_version_downgrade_rejected(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(ValueError) as ctx:
+                release.release(
+                    bump="0.7.0", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertIn("downgrade", str(ctx.exception))
+
+    @patch("scripts.release.console")
+    def test_custom_version_same_rejected(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(ValueError) as ctx:
+                release.release(
+                    bump="0.8.0", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertIn("already released", str(ctx.exception))
 
     # --- Change detection (no --modules) ---
 

@@ -156,6 +156,55 @@ def bump_version(current: str, bump_type: str) -> str:
     return f"{major}.{minor}.{patch}{suffix}"
 
 
+def _semver_base(version: str) -> tuple[int, int, int]:
+    match = re.match(r"^(\d+)\.(\d+)\.(\d+)", version)
+    if not match:
+        raise ValueError(f"Version '{version}' is not a valid semver")
+    return tuple(int(x) for x in match.groups())
+
+
+def validate_next_version(current: str, new_version: str):
+    """Validate that *new_version* is a legal next release from *current*.
+
+    Allowed transitions:
+    - Next patch, next minor, or next major (per ``bump_version`` rules).
+    - Pre-release variants of those (e.g. ``0.9.0-beta.1`` from ``0.8.0``).
+    - Stable release from a pre-release (e.g. ``0.8.0`` from ``0.8.0-beta.1``).
+
+    Rejects downgrades, same-version releases, and version jumps.
+    """
+    cur_base = _semver_base(current)
+    new_base = _semver_base(new_version)
+
+    if new_base == cur_base and not (
+        re.match(r"^\d+\.\d+\.\d+$", new_version)
+        and re.match(r"^\d+\.\d+\.\d+\D", current)
+    ):
+        raise ValueError(
+            f"Version {new_version} is already released (current: {current})"
+        )
+
+    if new_base < cur_base:
+        raise ValueError(
+            f"Version {new_version} is a downgrade from {current}"
+        )
+
+    valid_next = {
+        _semver_base(bump_version(current, "patch")),
+        _semver_base(bump_version(current, "minor")),
+        _semver_base(bump_version(current, "major")),
+    }
+
+    if re.match(r"^\d+\.\d+\.\d+\D", current):
+        valid_next.add(cur_base)
+
+    if new_base not in valid_next:
+        raise ValueError(
+            f"Version {new_version} is not a valid next bump from {current}. "
+            f"Allowed: {', '.join(sorted(f'{a}.{b}.{c}' for a, b, c in valid_next))}"
+        )
+
+
 def determine_bump_from_commits(commits: list[str]) -> str:
     bump_type = "patch"
     for subject in commits:
@@ -731,6 +780,7 @@ def release(
                 new_version = bump_version(current, strategy)
 
         module_versions[module] = new_version
+        validate_next_version(current, new_version)
         console.print(
             f"{module}: [bold cyan]{current}[/bold cyan] "
             f"→ [bold green]{new_version}[/bold green]"
