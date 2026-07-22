@@ -11,7 +11,7 @@ Releasing from a local machine is error-prone. A maintainer might use the wrong 
 The `release.yml` workflow performs every step in one run:
 
 1. Detect changed modules by comparing each module's files against its last tag.
-2. Bump version per module and update `modules/<module>/gradle.properties`, `modules/<module>/CHANGELOG.md`, `docs/CHANGELOG.md`, and `deployments.json`.
+2. Bump version per module and update `modules/<module>/gradle.properties`, `modules/<module>/CHANGELOG.md`, and `deployments.json`.
 3. Verify the build with `./gradlew spotlessCheck build` (includes downstream dependents).
 4. Sign and publish artifacts to Maven Central per module.
 5. Create per-module GitHub releases with JAR assets.

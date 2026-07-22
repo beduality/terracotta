@@ -25,8 +25,8 @@ Common flags:
 | `--modules module1,module2` | Comma-separated list of modules to release (skips change detection). |
 | `--dry-run` | Compute versions and print planned changes without modifying files or building. |
 | `--yes` | Skip confirmation prompts. |
-| `--no-publish` | Do not publish to Maven Central. |
-| `--no-push` | Do not push the tag or commit. |
+| `--publish` | Publish changed modules to Maven Central. |
+| `--push` | Commit, tag, and push changes to git (default: true). |
 | `--since <ref>` | Git ref to use as the change-detection baseline. |
 
 ## Infrastructure

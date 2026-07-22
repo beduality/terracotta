@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import tempfile
 import unittest
@@ -754,7 +755,7 @@ class TestRollbackDocsRestore(unittest.TestCase):
         with patch("scripts.release.run_command") as mock_run:
             release._rollback_release(
                 module_versions=module_versions,
-                actions_taken={"files_modified"},
+                actions_taken=["files_modified"],
                 branch="main",
             )
             restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
@@ -769,7 +770,7 @@ class TestRollbackDocsRestore(unittest.TestCase):
         with patch("scripts.release.run_command") as mock_run:
             release._rollback_release(
                 module_versions=module_versions,
-                actions_taken={"files_modified"},
+                actions_taken=["files_modified"],
                 branch="main",
             )
             restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
@@ -777,7 +778,31 @@ class TestRollbackDocsRestore(unittest.TestCase):
             paths = restore_call[0].args[0][2:]
             self.assertNotIn("docs/index.md", paths)
             self.assertNotIn("docs/content", paths)
-            self.assertIn("docs/CHANGELOG.md", paths)
+            self.assertIn("deployments.json", paths)
+
+
+class TestTagFormatRegexSync(unittest.TestCase):
+    """Verify that tags produced by release.py match the deploy-docs.yml regex.
+
+    The deploy-docs.yml workflow uses `grep -E 'terracotta-.*-v[0-9]+\\.[0-9]+\\.[0-9]+'`
+    to detect per-module version tags. This test ensures the tag_prefix values in
+    MODULE_INFO always produce tags that match that pattern.
+    """
+
+    DEPLOY_DOCS_TAG_REGEX = re.compile(r"terracotta-.*-v[0-9]+\.[0-9]+\.[0-9]+")
+
+    def test_all_module_tags_match_deploy_docs_regex(self):
+        for module in release.PUBLISHABLE_MODULES:
+            prefix = release.MODULE_INFO[module]["tag_prefix"]
+            tag = f"{prefix}0.9.0"
+            self.assertRegex(
+                tag,
+                self.DEPLOY_DOCS_TAG_REGEX,
+                f"Tag '{tag}' for module '{module}' does not match deploy-docs.yml regex",
+            )
+
+    def test_old_monolithic_tag_does_not_match(self):
+        self.assertNotRegex("v0.9.0", self.DEPLOY_DOCS_TAG_REGEX)
 
 
 if __name__ == "__main__":

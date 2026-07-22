@@ -809,7 +809,7 @@ def release(
                 for m in module_versions
             ]
             run_command(
-                ["git", "add", "deployments.json", "docs/CHANGELOG.md", *version_files, *changelog_files]
+                ["git", "add", "deployments.json", *version_files, *changelog_files]
                 + (
                     ["docs/index.md", "docs/content"]
                     if "terracotta-gradle-plugin" in module_versions
@@ -837,10 +837,11 @@ def release(
             for module, version in module_versions.items():
                 publish_module_to_central(module, version)
 
-        # 7. Create GitHub Releases
-        console.print("\n[bold]7. Creating GitHub Releases...[/bold]")
-        for module, version in module_versions.items():
-            create_github_release(module, version)
+        # 7. Create GitHub Releases (requires tags from step 5)
+        if push:
+            console.print("\n[bold]7. Creating GitHub Releases...[/bold]")
+            for module, version in module_versions.items():
+                create_github_release(module, version)
 
         # 8. Push commit and tags
         if push:
@@ -892,7 +893,7 @@ def _rollback_release(
 
     if "files_modified" in actions_taken and "committed" not in actions_taken:
         try:
-            restore_paths = ["deployments.json", "docs/CHANGELOG.md"]
+            restore_paths = ["deployments.json"]
             for module in module_versions:
                 restore_paths.append(MODULE_INFO[module]["path"] + "/gradle.properties")
                 restore_paths.append(MODULE_INFO[module]["path"] + "/CHANGELOG.md")
