@@ -16,6 +16,8 @@ from datetime import date
 from pathlib import Path
 from typing import Optional
 
+import semver
+
 # Ensure the repository root is on the path so ``scripts`` can be imported as a
 # namespace package regardless of how this file is executed.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -127,40 +129,28 @@ def bump_version(current: str, bump_type: str) -> str:
     if re.match(r"^\d+\.\d+\.\d+$", bump_type_clean):
         return bump_type_clean
 
-    match = re.match(r"^(\d+)\.(\d+)\.(\d+)(.*)$", current)
-    if not match:
-        raise ValueError(f"Current version '{current}' is not a valid semver")
-
-    major, minor, patch, suffix = match.groups()
-    major, minor, patch = int(major), int(minor), int(patch)
+    ver = semver.Version.parse(current)
+    prerelease = ver.prerelease
 
     if bump_type_clean == "major":
-        if major == 0:
-            minor += 1
-            patch = 0
+        if ver.major == 0:
+            ver = ver.bump_minor()
         else:
-            major += 1
-            minor = 0
-            patch = 0
+            ver = ver.bump_major()
     elif bump_type_clean == "minor":
-        minor += 1
-        patch = 0
+        ver = ver.bump_minor()
     elif bump_type_clean == "patch":
-        patch += 1
+        ver = ver.bump_patch()
     else:
         raise ValueError(
             f"Invalid bump type: '{bump_type}'. "
             f"Choose 'major', 'minor', 'patch' or a specific version X.Y.Z"
         )
 
-    return f"{major}.{minor}.{patch}{suffix}"
+    if prerelease:
+        ver = ver.replace(prerelease=prerelease)
 
-
-def _semver_base(version: str) -> tuple[int, int, int]:
-    match = re.match(r"^(\d+)\.(\d+)\.(\d+)", version)
-    if not match:
-        raise ValueError(f"Version '{version}' is not a valid semver")
-    return tuple(int(x) for x in match.groups())
+    return str(ver)
 
 
 def validate_next_version(current: str, new_version: str):
@@ -173,35 +163,36 @@ def validate_next_version(current: str, new_version: str):
 
     Rejects downgrades, same-version releases, and version jumps.
     """
-    cur_base = _semver_base(current)
-    new_base = _semver_base(new_version)
+    cur = semver.Version.parse(current)
+    new = semver.Version.parse(new_version)
 
-    if new_base == cur_base and not (
-        re.match(r"^\d+\.\d+\.\d+$", new_version)
-        and re.match(r"^\d+\.\d+\.\d+\D", current)
-    ):
+    if new == cur:
         raise ValueError(
             f"Version {new_version} is already released (current: {current})"
         )
 
-    if new_base < cur_base:
+    if new < cur:
         raise ValueError(
             f"Version {new_version} is a downgrade from {current}"
         )
 
     valid_next = {
-        _semver_base(bump_version(current, "patch")),
-        _semver_base(bump_version(current, "minor")),
-        _semver_base(bump_version(current, "major")),
+        semver.Version.parse(bump_version(current, "patch")),
+        semver.Version.parse(bump_version(current, "minor")),
+        semver.Version.parse(bump_version(current, "major")),
     }
 
-    if re.match(r"^\d+\.\d+\.\d+\D", current):
-        valid_next.add(cur_base)
+    if cur.prerelease:
+        valid_next.add(cur.replace(prerelease=None))
 
-    if new_base not in valid_next:
+    new_base = new.replace(prerelease=None)
+    if not any(new_base == v.replace(prerelease=None) for v in valid_next):
+        allowed = sorted(
+            str(v.replace(prerelease=None)) for v in valid_next
+        )
         raise ValueError(
             f"Version {new_version} is not a valid next bump from {current}. "
-            f"Allowed: {', '.join(sorted(f'{a}.{b}.{c}' for a, b, c in valid_next))}"
+            f"Allowed: {', '.join(allowed)}"
         )
 
 
