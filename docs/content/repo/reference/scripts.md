@@ -47,12 +47,7 @@ The script parses `modules/terracotta-github/src/.../App.kt` to detect which sec
 
 Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version.
 
-| Command | Purpose |
-|---|---|
-| `uv run scripts/deployments.py seed` | Rebuilds the entire manifest from the root `CHANGELOG.md` (repo-wide entries only; per-module entries are added incrementally by `release.py`). |
-| `uv run scripts/deployments.py generate <version>` | Generates and appends a single deployment entry. |
-
-Called automatically by `release.py` during each release.
+Called automatically by `release.py` during each release to append deployment entries.
 
 ### `redeploy_all_docs.py`
 

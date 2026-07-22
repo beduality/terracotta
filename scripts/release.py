@@ -632,11 +632,10 @@ def update_deployment_manifest(module: str, version: str, is_release: bool = Fal
         return
 
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    entry = generate_deployment_entry(
-        version, now_str, section_body, is_release=is_release
-    )
     canonical = MODULE_INFO[module]["published_name"].removeprefix("terracotta-")
-    entry["modules"] = [canonical]
+    entry = generate_deployment_entry(
+        version, now_str, section_body, [canonical], is_release=is_release
+    )
     added = append_deployment(entry)
     action = "Added" if added else "Updated"
     console.print(

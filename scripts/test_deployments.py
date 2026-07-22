@@ -9,15 +9,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from scripts.deployments import (
     parse_changelog_section,
     extract_summary,
-    extract_modules,
     derive_title,
     generate_deployment_entry,
     load_manifest,
     save_manifest,
     append_deployment,
-    seed_from_changelog,
     _semver_sort_key,
-    _canonical_module,
 )
 
 
@@ -28,8 +25,6 @@ SAMPLE_CHANGELOG = """\
 
 ### Changed
 
-**Docs**
-
 - Reworked the docs homepage.
 
 ## [0.8.0] - 2026-07-13
@@ -38,17 +33,7 @@ Stabilizes gallery item identity using persisted state so images can be renamed 
 
 ### Added
 
-**Core**
-
 - Added optional `key` property to `TerracottaGalleryItem` for stable local identity.
-
-**Gradle Plugin**
-
-- Added `key` property to `TerracottaGalleryExtension`.
-
-**Modrinth**
-
-- `ModrinthRegistryProvider` implements `GalleryIdentityReporter`.
 
 ## [0.7.1] - 2026-07-13
 
@@ -56,15 +41,7 @@ Tightens the changelog standard so `[Unreleased]` summaries are written as direc
 
 ### Fixed
 
-**Repo**
-
 - Corrected the 0.7.0 changelog summary.
-
-### Changed
-
-**Repo**
-
-- Updated changelog guidelines.
 
 ## [0.7.0] - 2026-07-13
 
@@ -72,17 +49,7 @@ Narrows Hangar license handling by mapping common SPDX identifiers to Hangar's l
 
 ### Added
 
-**Core**
-
 - Added `TerracottaCategory` model.
-
-**Hangar**
-
-- Added `HangarLicenseMapper`.
-
-**Core / State Filesystem**
-
-- Moved `FileSystemStateSource` to new module.
 """
 
 
@@ -92,7 +59,6 @@ class TestParseChangelogSection(unittest.TestCase):
         body = parse_changelog_section(SAMPLE_CHANGELOG, "0.8.0")
         self.assertIsNotNone(body)
         self.assertIn("Stabilizes gallery item identity", body)
-        self.assertIn("**Core**", body)
 
     def test_returns_none_for_missing_version(self):
         body = parse_changelog_section(SAMPLE_CHANGELOG, "9.9.9")
@@ -116,42 +82,7 @@ class TestExtractSummary(unittest.TestCase):
         self.assertIsNone(extract_summary(""))
 
     def test_returns_none_for_body_starting_with_heading(self):
-        self.assertIsNone(extract_summary("### Added\n\n**Core**\n\n- Something"))
-
-
-class TestExtractModules(unittest.TestCase):
-
-    def test_extracts_multiple_modules(self):
-        body = parse_changelog_section(SAMPLE_CHANGELOG, "0.8.0")
-        modules = extract_modules(body)
-        self.assertIn("core", modules)
-        self.assertIn("gradle-plugin", modules)
-        self.assertIn("modrinth", modules)
-
-    def test_extracts_compound_module(self):
-        body = parse_changelog_section(SAMPLE_CHANGELOG, "0.7.0")
-        modules = extract_modules(body)
-        self.assertIn("core", modules)
-        self.assertIn("hangar", modules)
-
-    def test_returns_empty_for_no_modules(self):
-        modules = extract_modules("Just some text without module headings.")
-        self.assertEqual(modules, [])
-
-    def test_deduplicates_modules(self):
-        modules = extract_modules("**Core**\n\n- Item 1\n\n**Core**\n\n- Item 2")
-        self.assertEqual(modules, ["core"])
-
-
-class TestCanonicalModule(unittest.TestCase):
-
-    def test_known_mappings(self):
-        self.assertEqual(_canonical_module("Core"), "core")
-        self.assertEqual(_canonical_module("Gradle Plugin"), "gradle-plugin")
-        self.assertEqual(_canonical_module("State Filesystem"), "state-filesystem")
-
-    def test_unknown_returns_none(self):
-        self.assertIsNone(_canonical_module("Unknown Module"))
+        self.assertIsNone(extract_summary("### Added\n\n- Something"))
 
 
 class TestDeriveTitle(unittest.TestCase):
@@ -182,27 +113,27 @@ class TestGenerateDeploymentEntry(unittest.TestCase):
 
     def test_generates_full_entry(self):
         body = parse_changelog_section(SAMPLE_CHANGELOG, "0.8.0")
-        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body)
+        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body, ["core"])
         self.assertEqual(entry["version"], "0.8.0")
         self.assertEqual(entry["createdAt"], "2026-07-13T00:00:00Z")
         self.assertTrue(entry["title"])
         self.assertTrue(entry["summary"].startswith("Stabilizes"))
-        self.assertIn("core", entry["modules"])
+        self.assertEqual(entry["modules"], ["core"])
         self.assertFalse(entry["isRelease"])
 
     def test_explicit_title_overrides_derived(self):
         body = parse_changelog_section(SAMPLE_CHANGELOG, "0.8.0")
-        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body, title="My Custom Title")
+        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body, ["core"], title="My Custom Title")
         self.assertEqual(entry["title"], "My Custom Title")
 
     def test_is_release_flag(self):
         body = parse_changelog_section(SAMPLE_CHANGELOG, "0.8.0")
-        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body, is_release=True)
+        entry = generate_deployment_entry("0.8.0", "2026-07-13T00:00:00Z", body, ["core"], is_release=True)
         self.assertTrue(entry["isRelease"])
 
     def test_raises_on_missing_summary(self):
         with self.assertRaises(ValueError):
-            generate_deployment_entry("0.0.0", "2026-01-01T00:00:00Z", "### Added\n\n**Core**\n\n- Item")
+            generate_deployment_entry("0.0.0", "2026-01-01T00:00:00Z", "### Added\n\n- Item", ["core"])
 
 
 class TestManifestOperations(unittest.TestCase):
@@ -260,65 +191,6 @@ class TestManifestOperations(unittest.TestCase):
         manifest = load_manifest(self.manifest_path)
         versions = [d["version"] for d in manifest["deployments"]]
         self.assertEqual(versions, ["0.3.0", "0.2.0", "0.1.0"])
-
-
-class TestSeedFromChangelog(unittest.TestCase):
-
-    def setUp(self):
-        self.tmp_changelog = tempfile.NamedTemporaryFile(
-            mode="w", suffix=".md", delete=False, encoding="utf-8"
-        )
-        self.tmp_changelog.write(SAMPLE_CHANGELOG)
-        self.tmp_changelog.close()
-        self.changelog_path = Path(self.tmp_changelog.name)
-
-        self.tmp_manifest = tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False, encoding="utf-8"
-        )
-        self.tmp_manifest.write('{"deployments": []}')
-        self.tmp_manifest.close()
-        self.manifest_path = Path(self.tmp_manifest.name)
-
-    def tearDown(self):
-        self.changelog_path.unlink(missing_ok=True)
-        self.manifest_path.unlink(missing_ok=True)
-
-    def test_seeds_all_version_sections(self):
-        count = seed_from_changelog(self.changelog_path, self.manifest_path)
-        self.assertEqual(count, 3)
-        manifest = load_manifest(self.manifest_path)
-        versions = [d["version"] for d in manifest["deployments"]]
-        self.assertEqual(versions, ["0.8.0", "0.7.1", "0.7.0"])
-
-    def test_seed_with_titles(self):
-        count = seed_from_changelog(
-            self.changelog_path,
-            self.manifest_path,
-            titles={"0.8.0": "Custom Title"},
-        )
-        self.assertEqual(count, 3)
-        manifest = load_manifest(self.manifest_path)
-        entry = next(d for d in manifest["deployments"] if d["version"] == "0.8.0")
-        self.assertEqual(entry["title"], "Custom Title")
-
-    def test_seed_with_releases(self):
-        count = seed_from_changelog(
-            self.changelog_path,
-            self.manifest_path,
-            releases={"0.8.0"},
-        )
-        self.assertEqual(count, 3)
-        manifest = load_manifest(self.manifest_path)
-        release_entry = next(d for d in manifest["deployments"] if d["version"] == "0.8.0")
-        patch_entry = next(d for d in manifest["deployments"] if d["version"] == "0.7.1")
-        self.assertTrue(release_entry["isRelease"])
-        self.assertFalse(patch_entry["isRelease"])
-
-    def test_seed_excludes_unreleased(self):
-        count = seed_from_changelog(self.changelog_path, self.manifest_path)
-        manifest = load_manifest(self.manifest_path)
-        versions = [d["version"] for d in manifest["deployments"]]
-        self.assertNotIn("Unreleased", versions)
 
 
 class TestSemverSortKey(unittest.TestCase):
