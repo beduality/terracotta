@@ -6,7 +6,7 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-22
 
-Refactored the release process for per-module selective publishing, cleaned up the deployment manifest, fixed historical changelog and deployment data issues, and fixed rollback and docs accuracy bugs found during review.
+Refactored the release process for per-module selective publishing. Cleaned up the deployment manifest and fixed historical changelog and deployment data issues. Hardened the rollback path so failed releases recover without leaving the repository in a half-released state.
 
 ### Added
 
@@ -16,6 +16,7 @@ Refactored the release process for per-module selective publishing, cleaned up t
 - Added `--since` flag to filter change detection by a git ref.
 - Added support for versionless deployment entries (e.g. infrastructure applies, documentation site deploys) in `deployments.json`.
 - Added multiple module badge filter selection on the Last Changes page.
+- Added `merge` to the commit conventions types table.
 
 ### Changed
 
@@ -31,13 +32,8 @@ Refactored the release process for per-module selective publishing, cleaned up t
 - Corrected `deployments.json` data: `0.4.1` missing `core` module, `0.4.0` title and summary referencing project icons (introduced in 0.5.0), sort order for versionless entries, and exact GitHub release `publishedAt` timestamps replacing rounded midnight values.
 - Fixed docs deployment workflow to recognize per-module version tags so versioned docs deploy correctly after releases.
 - Fixed stale CLI flags in the scripts reference doc to match the actual release script flags.
-- Fixed `NameError` in rollback path when a build failure occurs before the branch variable is assigned, so rollback no longer crashes.
-- Fixed `actions_taken` marking `pushed` before the push command succeeds, so rollback does not attempt to delete remote tags that were never pushed.
 - Fixed rollback command signature in docs to show required `<module> <version>` arguments.
 - Fixed stale `custom` bump trigger in the releasing guide; a specific version is now passed directly as `--bump`.
-- Fixed provider changelog entries to start with past-tense verbs and remove internal class and method names per changelog guidelines.
-- Fixed `docs/CHANGELOG.md` entries to start with past-tense verbs instead of bold section headings.
-- Added `merge` to the commit conventions types table.
 
 ### Removed
 
