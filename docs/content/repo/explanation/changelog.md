@@ -34,10 +34,10 @@ The implementation detail (retry logic) is hidden. The user-visible outcome (pub
 
 ## Why Keep a Changelog categories?
 
-A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; the root changelog only tracks repo-wide changes under `### Docs`, `### Repo`, `### SDK`, etc.
+A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; the root changelog uses the same categories for repo-wide changes (docs, CI/CD, tooling, conventions).
 
 - **Severity.** `Fixed` suggests a safe upgrade; `Changed` suggests checking behavior; `Removed` or breaking markers signal required action.
-- **Scope.** A Gradle plugin user can skip entries under `Core` if they only use the plugin surface, and vice versa.
+- **Scope.** Each module has its own changelog, so consumers only need to read the changelog for the module they depend on.
 
 Categories also catch mistakes. If a change is hard to place in `Added`, `Changed`, `Fixed`, `Deprecated`, `Removed`, or `Security`, it may not be user-facing enough to mention.
 

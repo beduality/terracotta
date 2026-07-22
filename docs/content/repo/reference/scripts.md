@@ -21,10 +21,12 @@ Common flags:
 | Flag | Effect |
 |---|---|
 | `--bump auto\|patch\|minor\|major\|X.Y.Z` | Version bump strategy. |
+| `--modules module1,module2` | Comma-separated list of modules to release (skips change detection). |
+| `--dry-run` | Compute versions and print planned changes without modifying files or building. |
 | `--yes` | Skip confirmation prompts. |
 | `--no-publish` | Do not publish to Maven Central. |
 | `--no-push` | Do not push the tag or commit. |
-| `--no-dry-run` | Skip the `./gradlew spotlessCheck build` verification. |
+| `--since <ref>` | Git ref to use as the change-detection baseline. |
 
 ## Infrastructure
 
@@ -47,7 +49,7 @@ Manages the `deployments.json` manifest that drives the docs [Last Changes](../.
 
 | Command | Purpose |
 |---|---|
-| `uv run scripts/deployments.py seed` | Rebuilds the entire manifest from `CHANGELOG.md`. |
+| `uv run scripts/deployments.py seed` | Rebuilds the entire manifest from the root `CHANGELOG.md` (repo-wide entries only; per-module entries are added incrementally by `release.py`). |
 | `uv run scripts/deployments.py generate <version>` | Generates and appends a single deployment entry. |
 
 Called automatically by `release.py` during each release.

@@ -68,7 +68,7 @@ Use [Keep a Changelog](https://keepachangelog.com/) categories:
 ### Where to add entries
 
 - **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
-- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists (no module subheadings needed since the root changelog is already scoped to repo-wide concerns).
+- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists.
 
 ## Style principles
 

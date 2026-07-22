@@ -51,10 +51,10 @@ For a structured checklist, see [Smoke Testing a Release](../how-to-guides/smoke
 To test the release logic without publishing or pushing:
 
 ```bash
-uv run scripts/release.py --yes --no-publish --no-push
+uv run scripts/release.py release --dry-run --bump auto --yes
 ```
 
-This bumps the version, updates the changelog, and runs `./gradlew spotlessCheck build`.
+This computes version bumps and prints the planned changes without modifying files, building, or publishing.
 
 ## Roll back a failed release
 

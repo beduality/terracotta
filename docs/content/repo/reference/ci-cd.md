@@ -52,7 +52,7 @@ Steps:
 2. Set up JDK 21 and `uv`.
 3. Run `release.py --yes --publish` to bump, build, publish, and tag.
 4. Read the released version from `gradle.properties`.
-5. Extract release notes from `CHANGELOG.md`.
+5. Extract release notes from the module's `CHANGELOG.md`.
 6. Create a GitHub release with JAR artifacts.
 7. Trigger `deploy-docs.yml` to publish versioned docs.
 

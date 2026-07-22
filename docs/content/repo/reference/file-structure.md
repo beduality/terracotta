@@ -30,6 +30,7 @@
 ## Modules
 
 - **terracotta-core**: Pure domain library with canonical models, provider interfaces, and semantic diff engine. Published to Maven Central as `io.github.beduality:terracotta-core`.
+- **terracotta-state-filesystem**: File-backed state provider for persisting Terracotta state to disk.
 - **terracotta-provider-modrinth**: Modrinth state and registry providers using Ktor Client and Kotlinx Serialization.
 - **terracotta-provider-hangar**: Hangar state and registry providers using Ktor Client and Kotlinx Serialization.
 - **terracotta-gradle-plugin**: Gradle plugin providing `terracottaPlan` and `terracottaApply` tasks with multi-provider support via ServiceLoader.
