@@ -237,12 +237,15 @@ class TestUpdateChangelog(unittest.TestCase):
             self.assertIn("## [terracotta-core-v0.9.0] - 2026-07-21", core_content)
             self.assertIn("Adds new core feature.", core_content)
             self.assertIn("- Core change", core_content)
-            # Unreleased section should be empty
+            # No double heading
+            self.assertEqual(core_content.count("## [Unreleased]"), 1)
+            # Unreleased section should be empty — match up to the next ## heading
             unreleased_match = __import__("re").search(
-                r"## \[Unreleased\]\n\n(.*?)\n## \[", core_content, __import__("re").DOTALL
+                r"## \[Unreleased\]\n\n(.*?)(?=## \[)", core_content, __import__("re").DOTALL
             )
             self.assertIsNotNone(unreleased_match)
-            self.assertNotIn("Adds new core feature.", unreleased_match.group(1))
+            unreleased_body = unreleased_match.group(1).strip()
+            self.assertEqual(unreleased_body, "")
 
             modrinth_content = modrinth_cl.read_text()
             self.assertIn("## [terracotta-provider-modrinth-v0.8.1] - 2026-07-21", modrinth_content)

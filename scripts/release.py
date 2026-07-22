@@ -305,7 +305,7 @@ def update_changelog(module_versions: dict[str, str]):
             continue
 
         content = path.read_text()
-        _, section_end, unreleased_body = _unreleased_section(content)
+        section_start, section_end, unreleased_body = _unreleased_section(content)
 
         notes = unreleased_body.strip()
         if not notes:
@@ -317,10 +317,9 @@ def update_changelog(module_versions: dict[str, str]):
 
         tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
         new_section = f"## [{tag}] - {today}\n\n{notes}\n\n"
-        new_unreleased = "## [Unreleased]\n\n"
         new_content = (
-            content[:section_end - len(unreleased_body)]
-            + new_unreleased
+            content[:section_start]
+            + "\n"
             + new_section
             + content[section_end:]
         )
