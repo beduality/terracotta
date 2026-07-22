@@ -693,10 +693,11 @@ def release(
         module's last release tag).
     """
     if modules:
-        changed = {m.strip(): get_module_last_tag(m.strip()) for m in modules.split(",")}
-        invalid = [m for m in changed if m not in PUBLISHABLE_MODULES]
+        module_list = [m.strip() for m in modules.split(",")]
+        invalid = [m for m in module_list if m not in PUBLISHABLE_MODULES]
         if invalid:
             raise ValueError(f"Unknown modules: {', '.join(invalid)}")
+        changed = {m: get_module_last_tag(m) for m in module_list}
     else:
         changed = detect_changed_modules(since_ref=since)
 

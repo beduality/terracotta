@@ -360,5 +360,283 @@ class TestValidateJavadocJars(unittest.TestCase):
             self.assertIn("Javadoc JARs are empty", str(ctx.exception))
 
 
+class TestReleaseDryRun(unittest.TestCase):
+    """Dry-run tests for the release command.
+
+    All tests use dry_run=True so no files are modified, no builds run,
+    and no artifacts are published. We mock git and version-reading
+    functions to control the inputs.
+    """
+
+    def _setup_module_props(self, module: str, version: str):
+        module_dir = Path("modules") / module
+        module_dir.mkdir(parents=True, exist_ok=True)
+        (module_dir / "gradle.properties").write_text(f"version = {version}\n")
+
+    def _setup_module_changelog(self, module: str, unreleased_body: str = ""):
+        module_dir = Path("modules") / module
+        module_dir.mkdir(parents=True, exist_ok=True)
+        (module_dir / "CHANGELOG.md").write_text(
+            f"# Changelog — {module}\n\n"
+            f"## [Unreleased]\n\n{unreleased_body}\n\n"
+        )
+
+    def _setup_all_modules(self, versions: dict[str, str]):
+        for module, version in versions.items():
+            self._setup_module_props(module, version)
+            self._setup_module_changelog(module, "Some changes.\n\n- Entry")
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        os.chdir(self._tmp.name)
+
+    def tearDown(self):
+        os.chdir(Path(__file__).resolve().parent.parent)
+        self._tmp.cleanup()
+
+    # --- Explicit module selection (--modules) ---
+
+    @patch("scripts.release.console")
+    def test_single_module_explicit_bump(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="minor", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_multiple_modules_explicit_bump(self, _mock_console):
+        self._setup_all_modules({
+            "terracotta-core": "0.8.0",
+            "terracotta-provider-modrinth": "0.8.0",
+        })
+        with patch("scripts.release.get_module_last_tag") as mock_tag:
+            mock_tag.side_effect = lambda m: f"{release.MODULE_INFO[m]['tag_prefix']}0.8.0"
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="patch",
+                    modules="terracotta-core,terracotta-provider-modrinth",
+                    dry_run=True,
+                    yes=True,
+                )
+            self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_unknown_module_raises(self, _mock_console):
+        with self.assertRaises(ValueError) as ctx:
+            release.release(modules="nonexistent-module", dry_run=True, yes=True)
+        self.assertIn("Unknown modules", str(ctx.exception))
+
+    # --- Auto bump from commits ---
+
+    @patch("scripts.release.console")
+    def test_auto_bump_minor_from_feat_commits(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "feat(core): add new feature",
+                "fix(core): fix something",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto", modules="terracotta-core", dry_run=True, yes=True
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_auto_bump_major_from_breaking_commits(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "feat(core)!: breaking change",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto", modules="terracotta-core", dry_run=True, yes=True
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_auto_bump_patch_from_fix_commits(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "fix(core): fix something",
+                "docs: update readme",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto", modules="terracotta-core", dry_run=True, yes=True
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+    # --- Custom version bump ---
+
+    @patch("scripts.release.console")
+    def test_custom_version_bump(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="1.0.0", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertEqual(ctx.exception.code, 0)
+
+    # --- Change detection (no --modules) ---
+
+    @patch("scripts.release.console")
+    def test_no_changed_modules_exits_zero(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.detect_changed_modules", return_value={}):
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(dry_run=True, yes=True)
+            self.assertEqual(ctx.exception.code, 0)
+
+    @patch("scripts.release.console")
+    def test_detect_changed_modules_auto_bump(self, _mock_console):
+        self._setup_all_modules({
+            "terracotta-core": "0.8.0",
+            "terracotta-gradle-plugin": "0.8.0",
+        })
+        with patch("scripts.release.detect_changed_modules", return_value={
+            "terracotta-core": "terracotta-core-v0.8.0",
+        }):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "feat(core): new thing",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(bump="auto", dry_run=True, yes=True)
+                self.assertEqual(ctx.exception.code, 0)
+
+    # --- Dry-run does not modify files ---
+
+    @patch("scripts.release.console")
+    def test_dry_run_does_not_modify_gradle_properties(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        props_path = Path("modules/terracotta-core/gradle.properties")
+        original = props_path.read_text()
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(SystemExit):
+                release.release(bump="minor", modules="terracotta-core", dry_run=True, yes=True)
+        self.assertEqual(props_path.read_text(), original)
+
+    @patch("scripts.release.console")
+    def test_dry_run_does_not_modify_changelog(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        cl_path = Path("modules/terracotta-core/CHANGELOG.md")
+        original = cl_path.read_text()
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with self.assertRaises(SystemExit):
+                release.release(bump="minor", modules="terracotta-core", dry_run=True, yes=True)
+        self.assertEqual(cl_path.read_text(), original)
+
+    @patch("scripts.release.console")
+    def test_dry_run_does_not_call_build_or_publish(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"):
+            with patch("scripts.release.build_modules") as mock_build:
+                with patch("scripts.release.build_javadoc_jars") as mock_javadoc:
+                    with patch("scripts.release.publish_module_to_central") as mock_publish:
+                        with patch("scripts.release.create_github_release") as mock_gh:
+                            with patch("scripts.release.run_command") as mock_run:
+                                with self.assertRaises(SystemExit):
+                                    release.release(
+                                        bump="minor", modules="terracotta-core",
+                                        dry_run=True, publish=True, push=True, yes=True,
+                                    )
+                                mock_build.assert_not_called()
+                                mock_javadoc.assert_not_called()
+                                mock_publish.assert_not_called()
+                                mock_gh.assert_not_called()
+                                mock_run.assert_not_called()
+
+    # --- All modules at once ---
+
+    @patch("scripts.release.console")
+    def test_all_modules_explicit(self, _mock_console):
+        versions = {m: "0.8.0" for m in release.PUBLISHABLE_MODULES}
+        self._setup_all_modules(versions)
+        all_modules = ",".join(release.PUBLISHABLE_MODULES)
+        with patch("scripts.release.get_module_last_tag") as mock_tag:
+            mock_tag.side_effect = lambda m: f"{release.MODULE_INFO[m]['tag_prefix']}0.8.0"
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="patch", modules=all_modules, dry_run=True, yes=True
+                )
+            self.assertEqual(ctx.exception.code, 0)
+
+    # --- Module with no prior tag (first release) ---
+
+    @patch("scripts.release.console")
+    def test_first_release_no_prior_tag(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.1.0"})
+        with patch("scripts.release.get_module_last_tag", return_value=None):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "feat(core): initial feature",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto", modules="terracotta-core", dry_run=True, yes=True
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+    # --- Suffix preservation in version bump ---
+
+    @patch("scripts.release.console")
+    def test_suffix_preserved_in_bump(self, _mock_console):
+        self._setup_module_props("terracotta-core", "0.8.0-beta.1")
+        self._setup_module_changelog("terracotta-core", "Beta changes.\n\n- Entry")
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0-beta.1"):
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="patch", modules="terracotta-core", dry_run=True, yes=True
+                )
+            self.assertEqual(ctx.exception.code, 0)
+
+    # --- Since ref filtering ---
+
+    @patch("scripts.release.console")
+    def test_since_ref_filters_modules(self, _mock_console):
+        self._setup_all_modules({
+            "terracotta-core": "0.8.0",
+            "terracotta-provider-modrinth": "0.8.0",
+        })
+        with patch("scripts.release.detect_changed_modules", return_value={
+            "terracotta-core": "terracotta-core-v0.8.0",
+        }):
+            with patch("scripts.release.get_module_commits", return_value=[
+                "fix(core): bug fix",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto", since="origin/main", dry_run=True, yes=True
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+    # --- Core version resolution for downstream modules ---
+
+    @patch("scripts.release.console")
+    def test_core_version_resolved_when_core_not_released(self, _mock_console):
+        self._setup_all_modules({
+            "terracotta-core": "0.8.0",
+            "terracotta-provider-modrinth": "0.8.0",
+        })
+        with patch("scripts.release.get_module_last_tag") as mock_tag:
+            mock_tag.side_effect = lambda m: f"{release.MODULE_INFO[m]['tag_prefix']}0.8.0"
+            with patch("scripts.release.get_module_commits", return_value=[
+                "feat(modrinth): new feature",
+            ]):
+                with self.assertRaises(SystemExit) as ctx:
+                    release.release(
+                        bump="auto",
+                        modules="terracotta-provider-modrinth",
+                        dry_run=True,
+                        yes=True,
+                    )
+                self.assertEqual(ctx.exception.code, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
