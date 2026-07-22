@@ -22,7 +22,7 @@
 ├── mkdocs.yml              # Documentation configuration
 ├── pyproject.toml          # Python dependencies (uv)
 ├── README.md               # Project overview
-├── CHANGELOG.md            # Repo-wide activity log (per-module changelogs in modules/)
+├── CHANGELOG.md            # Repo-wide activity log
 ├── CONTRIBUTING.md         # Contribution guidelines
 ├── SECURITY.md             # Security policy
 └── LICENSE                 # License

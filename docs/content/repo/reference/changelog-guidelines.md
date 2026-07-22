@@ -1,6 +1,6 @@
 # Changelog Guidelines
 
-Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, a `docs/CHANGELOG.md` for documentation site changes, and a root `CHANGELOG.md` as an ephemeral repo-wide activity log (CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
+Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, a `docs/CHANGELOG.md` for documentation site changes, and a root `CHANGELOG.md` as a repo-wide activity log (CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
 
 ## Why this matters
 

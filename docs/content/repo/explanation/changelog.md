@@ -1,6 +1,6 @@
 # Changelog Design
 
-Terracotta keeps human-written changelogs instead of generating release notes from Git commits. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md`, a `docs/CHANGELOG.md` tracks documentation site changes, and a root `CHANGELOG.md` serves as an ephemeral repo-wide activity log (CI/CD, tooling, conventions). This page explains why.
+Terracotta keeps human-written changelogs instead of generating release notes from Git commits. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md`, a `docs/CHANGELOG.md` tracks documentation site changes, and a root `CHANGELOG.md` is a repo-wide activity log (CI/CD, tooling, conventions). This page explains why.
 
 ## Why not auto-generate from commits?
 
@@ -34,7 +34,7 @@ The implementation detail (retry logic) is hidden. The user-visible outcome (pub
 
 ## Why Keep a Changelog categories?
 
-A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; documentation changes go in `docs/CHANGELOG.md`; the root changelog is an ephemeral activity log that uses dated sections instead of version headers.
+A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; documentation changes go in `docs/CHANGELOG.md`; the root changelog is a repo-wide activity log that uses dated sections instead of version headers.
 
 - **Severity.** `Fixed` suggests a safe upgrade; `Changed` suggests checking behavior; `Removed` or breaking markers signal required action.
 - **Scope.** Each module has its own changelog, so consumers only need to read the changelog for the module they depend on. Documentation changes are tracked separately in `docs/CHANGELOG.md`.
