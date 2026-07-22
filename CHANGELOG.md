@@ -45,10 +45,6 @@ Tightens the changelog standard so `[Unreleased]` summaries are written as direc
 - Updated `scripts/release.py` to reject `[Unreleased]` summaries that start with "This release...", "This unreleased...", or "These unreleased...".
 - Updated the plan generation workflow and template to remind users to write direct changelog summaries.
 
-## [0.7.0] - 2026-07-13
-
-See per-module changelogs for module-specific changes in this release.
-
 ## [0.6.0] - 2026-07-12
 
 Introduces pluggable state management and canonical project links. See per-module changelogs for module-specific changes.
@@ -57,19 +53,11 @@ Introduces pluggable state management and canonical project links. See per-modul
 
 - Added a required release summary paragraph to the changelog standard. Every release section, including `[Unreleased]`, must now start with a summary before the first category heading. Updated the changelog guidelines, writing guide, design explanation, and `scripts/release.py` validation.
 
-## [0.5.0] - 2026-07-12
-
-See per-module changelogs for module-specific changes.
-
 ## [0.4.1] - 2026-07-12
 
 ### Fixed
 
 - Republished as `0.4.1` to align Maven Central artifacts with the `v0.4.0` release tag. The initial `0.4.0` upload was published from a slightly earlier commit than the tagged release, so this patch ensures users receive the source reflected by the `v0.4.0` tag.
-
-## [0.4.0] - 2026-07-12
-
-See per-module changelogs for module-specific changes.
 
 ## [0.3.0] - 2026-07-12
 
@@ -123,7 +111,3 @@ No repo-wide changes in this release.
 ### Fixed
 
 - Fixed `version` in `build.gradle.kts` being hardcoded to `0.1.0` instead of reading from `gradle.properties`.
-
-## [0.1.0] - 2026-07-10
-
-Initial release.
