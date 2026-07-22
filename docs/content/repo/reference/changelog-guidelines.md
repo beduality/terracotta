@@ -42,6 +42,12 @@ When writing an entry:
 
 The changelog is a changes log for consumers, not a development log for contributors.
 
+## Describe the final state, not the process
+
+A changelog entry describes the net change a consumer sees, not the sequence of commits that produced it. If a feature was introduced and then fixed or refined before release, write a single entry for the final behavior — do not list the introduction and the fix separately. Consumers never saw the intermediate state, so documenting it creates noise and confusion.
+
+For example, if a command was added with a bug and the bug was fixed in the same PR, write one `Added` entry for the working command. Do not add a `Fixed` entry for a bug that was never released.
+
 ## Release summary
 
 Every release section must start with a short summary paragraph before the first category heading. The summary states the release's themes and why they matter, in two to four sentences. It is not a list of every change; readers should get the story at a glance and then use the categories for details.

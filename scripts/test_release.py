@@ -27,8 +27,9 @@ class TestBumpVersion(unittest.TestCase):
     def test_custom_version(self):
         self.assertEqual(release.bump_version("1.2.3", " 2.3.4 "), "2.3.4")
 
-    def test_suffix_preserved(self):
-        self.assertEqual(release.bump_version("1.2.3-SNAPSHOT", "patch"), "1.2.4-SNAPSHOT")
+    def test_prerelease_dropped_on_bump(self):
+        self.assertEqual(release.bump_version("1.2.3-SNAPSHOT", "patch"), "1.2.4")
+        self.assertEqual(release.bump_version("0.8.0-beta.1", "minor"), "0.9.0")
 
     def test_zero_major_breaking_becomes_minor(self):
         self.assertEqual(release.bump_version("0.1.2", "major"), "0.2.0")
@@ -666,10 +667,10 @@ class TestReleaseDryRun(unittest.TestCase):
                     )
                 self.assertEqual(ctx.exception.code, 0)
 
-    # --- Suffix preservation in version bump ---
+    # --- Prerelease handling in version bump ---
 
     @patch("scripts.release.console")
-    def test_suffix_preserved_in_bump(self, _mock_console):
+    def test_prerelease_dropped_in_bump_dry_run(self, _mock_console):
         self._setup_module_props("terracotta-core", "0.8.0-beta.1")
         self._setup_module_changelog("terracotta-core", "Beta changes.\n\n- Entry")
         with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0-beta.1"):
@@ -720,6 +721,63 @@ class TestReleaseDryRun(unittest.TestCase):
                         yes=True,
                     )
                 self.assertEqual(ctx.exception.code, 0)
+
+
+class TestAbortCommand(unittest.TestCase):
+    """Tests for the abort command — verifies gh CLI is called via subprocess.run, not run_git."""
+
+    @patch("scripts.release.console")
+    @patch("scripts.release.subprocess")
+    def test_abort_uses_subprocess_not_run_git(self, mock_subprocess, _mock_console):
+        mock_subprocess.run.return_value = MagicMock(stdout="12345\n", returncode=0)
+        with patch("scripts.release.run_command") as mock_run_command:
+            with patch("scripts.release.questionary.confirm") as mock_confirm:
+                mock_confirm.return_value.ask.return_value = True
+                release.abort(run_id="12345", yes=True)
+                mock_run_command.assert_called_once_with(["gh", "run", "cancel", "12345"])
+
+    @patch("scripts.release.console")
+    @patch("scripts.release.subprocess")
+    def test_abort_no_active_run_exits(self, mock_subprocess, _mock_console):
+        mock_subprocess.run.return_value = MagicMock(stdout="", returncode=0)
+        with self.assertRaises(SystemExit) as ctx:
+            release.abort(yes=True)
+        self.assertEqual(ctx.exception.code, 0)
+
+
+class TestRollbackDocsRestore(unittest.TestCase):
+    """Tests that rollback only restores docs paths when gradle-plugin was released."""
+
+    @patch("scripts.release.console")
+    def test_rollback_restores_docs_when_gradle_plugin_released(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0", "terracotta-gradle-plugin": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken={"files_modified"},
+                branch="main",
+            )
+            restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
+            self.assertTrue(len(restore_call) > 0)
+            paths = restore_call[0].args[0][2:]
+            self.assertIn("docs/index.md", paths)
+            self.assertIn("docs/content", paths)
+
+    @patch("scripts.release.console")
+    def test_rollback_skips_docs_when_gradle_plugin_not_released(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken={"files_modified"},
+                branch="main",
+            )
+            restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
+            self.assertTrue(len(restore_call) > 0)
+            paths = restore_call[0].args[0][2:]
+            self.assertNotIn("docs/index.md", paths)
+            self.assertNotIn("docs/content", paths)
+            self.assertIn("docs/CHANGELOG.md", paths)
 
 
 if __name__ == "__main__":

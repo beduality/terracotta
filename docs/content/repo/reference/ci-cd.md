@@ -22,7 +22,6 @@ Builds and deploys the documentation site to GitHub Pages.
 |---|---|
 | Push to `main` | Deploys an `unreleased` version alias. |
 | Version tag `v*` | Deploys a versioned release and updates the `latest` alias. |
-| `workflow_call` | Called by `release.yml` after a release. |
 | `workflow_dispatch` | Manual deployment with optional `ref` input. |
 
 Steps:
@@ -39,22 +38,21 @@ Steps:
 
 ### `release.yml`
 
-Performs a full release from a workflow dispatch.
+Performs a per-module release from a workflow dispatch or automatically on push to `main`.
 
 | Input | Type | Default | Purpose |
 |---|---|---|---|
-| `bump` | choice | `auto` | Version bump strategy: `auto`, `patch`, `minor`, `major`, `custom`. |
-| `version` | string | empty | Required only when `bump` is `custom`. |
+| `bump` | string | `auto` | Version bump strategy: `auto`, `patch`, `minor`, `major`, or a specific version like `0.9.0`. |
+| `modules` | string | empty | Comma-separated modules to release (e.g. `terracotta-core,terracotta-provider-modrinth`). Skips change detection when specified. |
 
 Steps:
 
 1. Check out `main` with full history.
 2. Set up JDK 21 and `uv`.
-3. Run `release.py --yes --publish` to bump, build, publish, and tag.
-4. Read the released version from `gradle.properties`.
-5. Extract release notes from the module's `CHANGELOG.md`.
-6. Create a GitHub release with JAR artifacts.
-7. Trigger `deploy-docs.yml` to publish versioned docs.
+3. Run `release.py release --yes --publish --bump '<bump>' [--modules '<modules>']` to detect changed modules, bump versions, update changelogs and deployment manifest, build, publish to Maven Central, create GitHub releases, and push tags.
+4. Push the release commit and tags.
+
+The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by `deploy-docs.yml`, which triggers on pushes to `main` and version tags.
 
 Required repository secrets:
 
@@ -71,4 +69,4 @@ Required repository secrets:
 |---|---|
 | `ci.yml` | `contents: write` (for artifact upload) |
 | `deploy-docs.yml` | `contents: write`, `pages: write`, `id-token: write` |
-| `release.yml` | `contents: write`, `pages: write`, `id-token: write` |
+| `release.yml` | `contents: write` |

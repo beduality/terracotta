@@ -10,9 +10,10 @@ End-to-end release orchestration. Used locally and by the [release.yml](ci-cd.md
 
 | Command | Purpose |
 |---|---|
-| `uv run scripts/release.py` | Interactive wizard. Detects version bump, updates changelog and version files, builds, optionally publishes and pushes. |
+| `uv run scripts/release.py release` | Interactive wizard. Detects changed modules, bumps versions per module, updates changelogs and version files, builds, optionally publishes and pushes. |
 | `uv run scripts/release.py trigger` | Triggers the `release.yml` workflow via `gh workflow run`. |
 | `uv run scripts/release.py monitor [RUN_ID]` | Watches a release workflow run. |
+| `uv run scripts/release.py abort [RUN_ID]` | Cancels an active release workflow run. |
 | `uv run scripts/release.py rollback` | Reverts the last release commit and tag. |
 | `uv run scripts/release.py extract-release-notes <module> <version>` | Extracts the `## [tag]` section from the module's `CHANGELOG.md` for the GitHub release body. |
 
@@ -68,6 +69,10 @@ Build hook that copies generated Dokka output into the docs site. Not usually in
 ### `test_release_smoke.py`
 
 Pytest suite for smoke testing a release end-to-end. See [Smoke Testing a Release](../how-to-guides/smoke-testing-a-release.md).
+
+### `test_release.py`
+
+Unit tests for `release.py` covering version bumping, validation, change detection, changelog promotion, dry-run behavior, and rollback.
 
 ### `test_load_pulumi_secrets.py`
 

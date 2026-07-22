@@ -10,18 +10,18 @@ Releasing from a local machine is error-prone. A maintainer might use the wrong 
 
 The `release.yml` workflow performs every step in one run:
 
-1. Bump version and update per-module `gradle.properties`, `modules/<module>/CHANGELOG.md`, `docs/CHANGELOG.md`, `deployments.json`, and `uv.lock`.
-2. Verify the build with `./gradlew spotlessCheck build`.
-3. Sign and publish artifacts to Maven Central.
-4. Push the version tag only if publishing succeeds.
-5. Create the GitHub release.
-6. Deploy versioned documentation.
+1. Detect changed modules by comparing each module's files against its last tag.
+2. Bump version per module and update `modules/<module>/gradle.properties`, `modules/<module>/CHANGELOG.md`, `docs/CHANGELOG.md`, and `deployments.json`.
+3. Verify the build with `./gradlew spotlessCheck build` (includes downstream dependents).
+4. Sign and publish artifacts to Maven Central per module.
+5. Create per-module GitHub releases with JAR assets.
+6. Push the release commit and per-module version tags.
 
 If Maven Central publishing fails, `release.py` rolls back the local commit and tag so the repository is not left in a half-released state.
 
 ## Version detection
 
-`release.py` inspects conventional commits since the last tag to suggest a semver bump:
+`release.py` inspects conventional commits since each module's last tag to suggest a semver bump per module:
 
 - A breaking change marker (`!` or `BREAKING CHANGE` footer) triggers a major bump.
 - A `feat` commit triggers a minor bump.
@@ -30,9 +30,9 @@ If Maven Central publishing fails, `release.py` rolls back the local commit and 
 
 You can override this with the workflow `bump` input.
 
-## Documentation coupling
+## Documentation deployment
 
-Docs are deployed from the exact release tag, not from `main`. This ensures that the published API reference and guides match the released code. After a release, `deploy-docs.yml` deploys a versioned alias and updates `latest`.
+Docs are deployed by `deploy-docs.yml`, which triggers independently on pushes to `main` and version tags. This decouples documentation deployment from the release workflow — a release pushes tags and commits, and `deploy-docs.yml` picks up the tag push to deploy a versioned alias and update `latest`.
 
 ## Rollback
 

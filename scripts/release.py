@@ -130,7 +130,6 @@ def bump_version(current: str, bump_type: str) -> str:
         return bump_type_clean
 
     ver = semver.Version.parse(current)
-    prerelease = ver.prerelease
 
     if bump_type_clean == "major":
         if ver.major == 0:
@@ -146,9 +145,6 @@ def bump_version(current: str, bump_type: str) -> str:
             f"Invalid bump type: '{bump_type}'. "
             f"Choose 'major', 'minor', 'patch' or a specific version X.Y.Z"
         )
-
-    if prerelease:
-        ver = ver.replace(prerelease=prerelease)
 
     return str(ver)
 
@@ -449,7 +445,7 @@ def _gradle_project_path(module: str) -> str:
     return f":{module}"
 
 
-def build_modules(modules: list[str], core_version: Optional[str] = None, dry_run: bool = False):
+def build_modules(modules: list[str], core_version: Optional[str] = None):
     """Build and test the requested modules plus their downstream dependents."""
     affected = set(modules)
     for module in list(modules):
@@ -463,10 +459,6 @@ def build_modules(modules: list[str], core_version: Optional[str] = None, dry_ru
         f"\n[bold]Building and testing modules: {', '.join(targets)}...[/bold]"
     )
 
-    if dry_run:
-        console.print("[dim](dry-run) skipping Gradle build[/dim]")
-        return
-
     env = _java_env()
     extra_props = []
     if core_version:
@@ -477,11 +469,8 @@ def build_modules(modules: list[str], core_version: Optional[str] = None, dry_ru
     )
 
 
-def build_javadoc_jars(modules: list[str], core_version: Optional[str] = None, dry_run: bool = False):
+def build_javadoc_jars(modules: list[str], core_version: Optional[str] = None):
     project_paths = [_gradle_project_path(m) for m in modules]
-    if dry_run:
-        console.print("[dim](dry-run) skipping javadoc JAR build[/dim]")
-        return
     env = _java_env()
     extra_props = []
     if core_version:
@@ -508,7 +497,7 @@ def validate_javadoc_jars(module_versions: dict[str, str]):
     console.print("[green]✔[/green] Javadoc JARs validated")
 
 
-def publish_module_to_central(module: str, version: str, dry_run: bool = False):
+def publish_module_to_central(module: str, version: str):
     project_path = _gradle_project_path(module)
 
     extra_props = []
@@ -517,12 +506,6 @@ def publish_module_to_central(module: str, version: str, dry_run: bool = False):
         # in their POM rather than the local project dependency.
         core_version = get_module_version("terracotta-core")
         extra_props.append(f"-PterracottaCoreReleaseVersion={core_version}")
-
-    if dry_run:
-        console.print(
-            f"[dim](dry-run) skipping Maven Central publish for {module} {version}[/dim]"
-        )
-        return
 
     env = _java_env()
     run_command(
@@ -546,19 +529,13 @@ def publish_module_to_central(module: str, version: str, dry_run: bool = False):
     console.print(f"[green]✔[/green] Published {module} {version} to Maven Central")
 
 
-def create_github_release(module: str, version: str, dry_run: bool = False):
+def create_github_release(module: str, version: str):
     tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
     title = f"{MODULE_INFO[module]['human_name']} {tag}"
     notes = _extract_release_notes_from_changelog(module, version)
 
     jar_dir = Path(MODULE_INFO[module]["path"]) / "build/libs"
     assets = [str(p) for p in jar_dir.glob("*") if p.is_file()]
-
-    if dry_run:
-        console.print(
-            f"[dim](dry-run) skipping GitHub Release for {tag}[/dim]"
-        )
-        return
 
     if not assets:
         raise FileNotFoundError(f"No release assets found in {jar_dir}")
@@ -812,11 +789,11 @@ def release(
 
         # 3. Build and test changed modules + downstream dependents
         console.print("\n[bold]3. Compatibility build and test...[/bold]")
-        build_modules(list(module_versions.keys()), core_version=core_version, dry_run=dry_run)
+        build_modules(list(module_versions.keys()), core_version=core_version)
 
         # 4. Build and validate javadoc JARs
         console.print("\n[bold]4. Building and validating javadoc JARs...[/bold]")
-        build_javadoc_jars(list(module_versions.keys()), core_version=core_version, dry_run=dry_run)
+        build_javadoc_jars(list(module_versions.keys()), core_version=core_version)
         validate_javadoc_jars(module_versions)
 
         # 5. Commit and tag
@@ -858,12 +835,12 @@ def release(
         if publish:
             console.print("\n[bold]6. Publishing to Maven Central...[/bold]")
             for module, version in module_versions.items():
-                publish_module_to_central(module, version, dry_run=dry_run)
+                publish_module_to_central(module, version)
 
         # 7. Create GitHub Releases
         console.print("\n[bold]7. Creating GitHub Releases...[/bold]")
         for module, version in module_versions.items():
-            create_github_release(module, version, dry_run=dry_run)
+            create_github_release(module, version)
 
         # 8. Push commit and tags
         if push:
@@ -915,11 +892,12 @@ def _rollback_release(
 
     if "files_modified" in actions_taken and "committed" not in actions_taken:
         try:
-            restore_paths = ["deployments.json"]
+            restore_paths = ["deployments.json", "docs/CHANGELOG.md"]
             for module in module_versions:
                 restore_paths.append(MODULE_INFO[module]["path"] + "/gradle.properties")
                 restore_paths.append(MODULE_INFO[module]["path"] + "/CHANGELOG.md")
-            restore_paths.extend(["docs/index.md", "docs/content"])
+            if "terracotta-gradle-plugin" in module_versions:
+                restore_paths.extend(["docs/index.md", "docs/content"])
             run_command(["git", "restore", *restore_paths])
         except subprocess.CalledProcessError as e:
             console.print(f"[red]Failed to restore modified files: {e}[/red]")
@@ -1067,8 +1045,9 @@ def abort(run_id: Optional[str] = None, yes: bool = False):
         sys.exit(1)
 
     if not run_id:
-        result = run_git(
+        result = subprocess.run(
             [
+                "gh",
                 "run",
                 "list",
                 "--workflow=release.yml",
@@ -1076,7 +1055,10 @@ def abort(run_id: Optional[str] = None, yes: bool = False):
                 "databaseId,status",
                 "--jq",
                 '.[0] | select(.status != "completed") | .databaseId',
-            ]
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
         )
         run_id = result.stdout.strip()
 
@@ -1102,8 +1084,11 @@ def monitor(run_id: Optional[str] = None):
         sys.exit(1)
 
     if not run_id:
-        result = run_git(
-            ["run", "list", "--workflow=release.yml", "--json", "databaseId", "--jq", ".[0].databaseId"]
+        result = subprocess.run(
+            ["gh", "run", "list", "--workflow=release.yml", "--json", "databaseId", "--jq", ".[0].databaseId"],
+            capture_output=True,
+            text=True,
+            check=False,
         )
         run_id = result.stdout.strip()
 

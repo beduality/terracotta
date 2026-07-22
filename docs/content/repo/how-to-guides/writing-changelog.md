@@ -41,6 +41,7 @@ Summaries are required. If the release only contains one small fix, a single sen
 - **Derive entries from the git diff since the last release tag.** Review only what is new relative to that tag and describe the observable change, not the diff lines.
 - **Inline the reason.** Use `so`, `because`, or similar to make the consumer-visible benefit part of the entry instead of a separate `**Why**:` line.
 - **Group related changes.** Put multiple bullets under the same category when they belong together.
+- **Describe the final state, not the process.** If a feature was added and then fixed before release, write one entry for the working result. Do not list both the addition and the fix — consumers never saw the intermediate state.
 - **Keep entries concise.** Put detail, caveats, or migration steps in `**Breaking**:` or `**Migration**:` lines when needed.
 
 ## Examples

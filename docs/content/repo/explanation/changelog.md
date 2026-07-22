@@ -58,6 +58,7 @@ Not every change belongs in the changelog. Skip internal-only work such as:
 - Formatting or lint-only changes.
 - Dependency updates that change nothing observable.
 - Test-only changes that do not fix a reported bug.
+- **In-progress fixes.** If a feature was introduced and then fixed or refined before release, document only the final working state. Consumers never saw the intermediate bug, so a `Fixed` entry for it is noise.
 
 If a change cannot be described in terms of user, operator, or integrator impact, it does not need a changelog entry.
 

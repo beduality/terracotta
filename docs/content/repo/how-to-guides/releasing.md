@@ -10,7 +10,7 @@ This guide shows how to publish a new Terracotta release.
 
 ## 1. Choose a version bump
 
-Releases follow [Semantic Versioning](https://semver.org/). The release script can detect the bump from conventional commits, or you can choose it explicitly.
+Releases follow [Semantic Versioning](https://semver.org/). Each module is versioned independently. The release script can detect the bump from conventional commits since the module's last tag, or you can choose it explicitly.
 
 | Trigger | When to use |
 |---|---|
@@ -18,7 +18,7 @@ Releases follow [Semantic Versioning](https://semver.org/). The release script c
 | `patch` | Bug fixes only. |
 | `minor` | New features, backward compatible. |
 | `major` | Breaking changes. |
-| `custom` | A specific version like `0.3.0`. |
+| `custom` | A specific version like `0.3.0`. Pass as the `--bump` value directly. |
 
 ## 2. Trigger the release workflow
 
@@ -36,13 +36,19 @@ To watch the run:
 uv run scripts/release.py monitor
 ```
 
+To cancel a run:
+
+```bash
+uv run scripts/release.py abort
+```
+
 ## 3. Verify the release
 
 After the workflow succeeds:
 
-1. Check that Maven Central has the new artifacts.
-2. Review the GitHub release and JAR assets.
-3. Confirm the versioned docs are live.
+1. Check that Maven Central has the new artifacts for each released module.
+2. Review the per-module GitHub releases and JAR assets.
+3. Confirm the versioned docs are live (deployed separately by `deploy-docs.yml`).
 
 For a structured checklist, see [Smoke Testing a Release](../how-to-guides/smoke-testing-a-release.md).
 
@@ -54,7 +60,7 @@ To test the release logic without publishing or pushing:
 uv run scripts/release.py release --dry-run --bump auto --yes
 ```
 
-This computes version bumps and prints the planned changes without modifying files, building, or publishing.
+This computes version bumps for changed modules and prints the planned changes without modifying files, building, or publishing.
 
 ## Roll back a failed release
 

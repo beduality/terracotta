@@ -18,7 +18,7 @@
 ├── scripts/                # Utility scripts (release, deployment)
 ├── build.gradle.kts        # Root build configuration
 ├── settings.gradle.kts     # Gradle settings
-├── gradle.properties       # Gradle properties (version, etc.)
+├── gradle.properties       # Root Gradle properties (empty; versions are per-module)
 ├── mkdocs.yml              # Documentation configuration
 ├── pyproject.toml          # Python dependencies (uv)
 ├── README.md               # Project overview

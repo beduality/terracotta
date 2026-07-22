@@ -8,24 +8,27 @@ Repo-wide activity log. Module-specific changes live in
 
 Refactored the release process for per-module selective publishing, cleaned up the deployment manifest, and fixed historical changelog and deployment data issues.
 
-### Fixed
+### Added
 
-- Fixed incorrect method name `updateProject` → `patchProject` in Modrinth 0.7.0 changelog.
-- Corrected warning attribution in Hangar 0.5.0 changelog from `HangarRegistryProvider` to `BaseRegistryProvider`.
-- Fixed Hangar 0.7.0 changelog entries to start with past-tense verbs per changelog guidelines.
-- Removed `**Why**:` lines from core 0.1.0, gradle-plugin 0.1.1, and modrinth 0.1.1 changelogs; inlined reasons into each entry.
-- Backfilled missing release summaries for all pre-0.6.0 entries across core, gradle-plugin, hangar, and modrinth changelogs.
-- Fixed `0.4.1` deployment entry missing `core` in its modules list.
-- Corrected `0.4.0` deployment title and summary that incorrectly referenced project icons (introduced in 0.5.0).
-- Fixed `deployments.json` sort order: versioned entries now precede versionless entries, and versionless entries sort descending by `createdAt`.
-- Replaced rounded midnight timestamps in `deployments.json` with exact GitHub release `publishedAt` times for all versioned entries.
+- Added per-module selective release with independent versioning: each module has its own `gradle.properties`, `CHANGELOG.md`, and Maven Central publishing configuration.
+- Added `abort`, `monitor`, and `trigger` subcommands to `release.py` for managing release workflow runs from the CLI.
+- Added `--modules` flag to release specific modules, bypassing change detection.
+- Added `--since` flag to filter change detection by a git ref.
+- Added support for versionless deployment entries (e.g. infrastructure applies, documentation site deploys) in `deployments.json`.
+- Added multiple module badge filter selection on the Last Changes page.
 
 ### Changed
 
+- Replaced monolithic versioning and release workflow with per-module change detection, tagging, and publishing.
+- Standard version bumps from a prerelease now produce a stable version (e.g. `0.8.0-beta.1` + patch → `0.8.1`).
 - Refined `deployments.json` manifest: removed pseudo-modules (`docs`, `repo`, `release-pipeline`), added `github` module to historical entries, added 2 versionless pre-0.1.0 Pulumi deployments, and added 2 docs site deployment entries.
-- Made `version` optional in deployment entries to support non-versioned deployments (e.g. infrastructure applies).
 - Reordered Last Changes page header: title, version badge, module icons, release tag, date.
-- Enabled multiple module badge filters simultaneously on the Last Changes page.
+
+### Fixed
+
+- Corrected historical changelog entries: method name `updateProject` → `patchProject` in Modrinth 0.7.0, warning attribution in Hangar 0.5.0, past-tense verbs in Hangar 0.7.0, inlined `**Why**:` lines across core 0.1.0, gradle-plugin 0.1.1, and modrinth 0.1.1.
+- Backfilled missing release summaries for all pre-0.6.0 entries across core, gradle-plugin, hangar, and modrinth changelogs.
+- Corrected `deployments.json` data: `0.4.1` missing `core` module, `0.4.0` title and summary referencing project icons (introduced in 0.5.0), sort order for versionless entries, and exact GitHub release `publishedAt` timestamps replacing rounded midnight values.
 
 ### Removed
 
