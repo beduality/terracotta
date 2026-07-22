@@ -19,9 +19,9 @@
     </div>
 
     <nav class="md-tags mdx-module-tags">
-      <span class="md-tag" :class="!moduleFilter ? 'md-tag--ins' : ''" @click="moduleFilter = ''" style="cursor:pointer;">All</span>
+      <span class="md-tag" :class="moduleFilters.length === 0 ? 'md-tag--ins' : ''" @click="moduleFilters = []" style="cursor:pointer;">All</span>
       {% for id, label, icon in all_modules %}
-      <span class="md-tag" :class="moduleFilter === '{{ id }}' ? 'md-tag--ins' : ''" @click="moduleFilter = moduleFilter === '{{ id }}' ? '' : '{{ id }}'" style="cursor:pointer;">
+      <span class="md-tag" :class="moduleFilters.includes('{{ id }}') ? 'md-tag--ins' : ''" @click="toggleModule('{{ id }}')" style="cursor:pointer;">
         {% if id in module_icons %}<span class="mdx-tag-icon twemoji"><svg viewBox="{{ module_icons[id].viewBox }}" width=".9rem" height=".9rem" fill="currentColor">{{ module_icons[id].inner|safe }}</svg></span>{% endif %}
         {{ label }}
       </span>
@@ -124,7 +124,7 @@ function deploymentsApp() {
     data: {{ deployments_json|safe }},
     moduleLabels: {{ module_labels|tojson }},
     moduleIcons: {{ module_icons_json|safe }},
-    search: '', moduleFilter: '', dateFrom: '', dateTo: '',
+    search: '', moduleFilters: [], dateFrom: '', dateTo: '',
     versionFrom: '', versionTo: '', releasesOnly: false,
     all: false, limit: 10, showAdvanced: false,
 
@@ -142,6 +142,15 @@ function deploymentsApp() {
       this.versionFrom = '';
       this.versionTo = '';
       this.releasesOnly = false;
+    },
+
+    toggleModule(id) {
+      const idx = this.moduleFilters.indexOf(id);
+      if (idx >= 0) {
+        this.moduleFilters.splice(idx, 1);
+      } else {
+        this.moduleFilters.push(id);
+      }
     },
 
     moduleLabel(id) {
@@ -169,7 +178,7 @@ function deploymentsApp() {
           const h = (d.title + ' ' + d.summary + ' ' + d.version + ' ' + d.createdAt).toLowerCase();
           if (!h.includes(this.search.toLowerCase())) return false;
         }
-        if (this.moduleFilter && !(d.modules || []).includes(this.moduleFilter)) return false;
+        if (this.moduleFilters.length && !this.moduleFilters.some(m => (d.modules || []).includes(m))) return false;
         if (this.dateFrom && d.createdAt < this.dateFrom) return false;
         if (this.dateTo && d.createdAt > this.dateTo) return false;
         if (this.versionFrom && this.cmp(d.version, this.versionFrom) < 0) return false;
