@@ -1,6 +1,6 @@
 # Changelog Design
 
-Terracotta keeps a single, hand-written `CHANGELOG.md` instead of generating release notes from Git commits. This page explains why.
+Terracotta keeps human-written changelogs instead of generating release notes from Git commits. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md`, a `docs/CHANGELOG.md` tracks documentation site changes, and a root `CHANGELOG.md` is a repo-wide activity log (CI/CD, tooling, conventions). This page explains why.
 
 ## Why not auto-generate from commits?
 
@@ -34,10 +34,10 @@ The implementation detail (retry logic) is hidden. The user-visible outcome (pub
 
 ## Why Keep a Changelog categories?
 
-A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.) and then by module. This structure makes two things obvious at a glance:
+A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; documentation changes go in `docs/CHANGELOG.md`; the root changelog is a repo-wide activity log that uses dated sections instead of version headers.
 
 - **Severity.** `Fixed` suggests a safe upgrade; `Changed` suggests checking behavior; `Removed` or breaking markers signal required action.
-- **Scope.** A Gradle plugin user can skip entries under `Core` if they only use the plugin surface, and vice versa.
+- **Scope.** Each module has its own changelog, so consumers only need to read the changelog for the module they depend on. Documentation changes are tracked separately in `docs/CHANGELOG.md`.
 
 Categories also catch mistakes. If a change is hard to place in `Added`, `Changed`, `Fixed`, `Deprecated`, `Removed`, or `Security`, it may not be user-facing enough to mention.
 
@@ -58,6 +58,7 @@ Not every change belongs in the changelog. Skip internal-only work such as:
 - Formatting or lint-only changes.
 - Dependency updates that change nothing observable.
 - Test-only changes that do not fix a reported bug.
+- **In-progress fixes.** If a feature was introduced and then fixed or refined before release, document only the final working state. Consumers never saw the intermediate bug, so a `Fixed` entry for it is noise.
 
 If a change cannot be described in terms of user, operator, or integrator impact, it does not need a changelog entry.
 
@@ -73,7 +74,7 @@ The changelog is the source of truth for what changed, but the docs "Changes" pa
 
 Each deployment entry has:
 
-- **`version`** — Semver string (e.g. `"0.8.0"`).
+- **`version`** — Semver string (e.g. `"0.8.0"`). Optional; omitted for non-versioned deployments such as infrastructure applies.
 - **`createdAt`** — ISO 8601 datetime (e.g. `"2026-07-13T00:00:00Z"`). Rendered in the UI using `Intl.DateTimeFormat` for English international format.
 - **`title`** — Short human-readable title, derived from the changelog summary or entered manually.
 - **`summary`** — One-to-four sentence summary extracted from the changelog's first paragraph.
@@ -84,11 +85,15 @@ Each deployment entry has:
 
 During each release, `scripts/release.py` calls `scripts/deployments.py` to:
 
-1. Parse the changelog section for the new version.
+1. Parse the module's changelog section for the new version.
 2. Extract the summary (first paragraph before `###` headings).
 3. Derive a title from the summary by stripping leading verbs and articles.
-4. Extract module identifiers from bold `**Module**` headings.
-5. Append the entry to `deployments.json`, replacing any existing entry with the same version.
+4. Use the module's canonical identifier as the `modules` field.
+5. Append the entry to `deployments.json`, replacing any existing entry with the same version. Versionless entries are always appended.
+
+### Versionless entries
+
+Not all deployments are tied to a module version. Infrastructure changes (e.g. Pulumi applies to `terracotta-github`) and documentation site deploys are recorded as versionless entries with only a `createdAt` timestamp. These entries sort after all versioned entries and display without a version badge on the Changes page. The `docs` module badge identifies documentation site deployments.
 
 ### Releases vs deployments
 

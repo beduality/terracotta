@@ -1,6 +1,6 @@
 # Changelog Guidelines
 
-Terracotta keeps a human-readable changelog because commit history is not a release note. The changelog answers one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
+Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, a `docs/CHANGELOG.md` for documentation site changes, and a root `CHANGELOG.md` as a repo-wide activity log (CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
 
 ## Why this matters
 
@@ -42,17 +42,23 @@ When writing an entry:
 
 The changelog is a changes log for consumers, not a development log for contributors.
 
+## Describe the final state, not the process
+
+A changelog entry describes the net change a consumer sees, not the sequence of commits that produced it. If a feature was introduced and then fixed or refined before release, write a single entry for the final behavior — do not list the introduction and the fix separately. Consumers never saw the intermediate state, so documenting it creates noise and confusion.
+
+For example, if a command was added with a bug and the bug was fixed in the same PR, write one `Added` entry for the working command. Do not add a `Fixed` entry for a bug that was never released.
+
 ## Release summary
 
 Every release section must start with a short summary paragraph before the first category heading. The summary states the release's themes and why they matter, in two to four sentences. It is not a list of every change; readers should get the story at a glance and then use the categories for details.
 
 Summaries are required for every release, including `[Unreleased]`.
 
-Summarize directly. Start with the substance of the release (for example, "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the `[Unreleased]` body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.
+Summarize directly. Start with a past-tense verb (for example, "Added...", "Fixed...", "Narrowed..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the `[Unreleased]` body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.
 
 ## How entries are grouped
 
-Entries are grouped by change category and then by module.
+Module-specific entries go in each module's own `CHANGELOG.md`, grouped by change category. Documentation changes go in `docs/CHANGELOG.md`. Repository-wide entries (CI/CD, tooling) go in the root `CHANGELOG.md` under the current date heading.
 
 ### Categories
 
@@ -65,28 +71,20 @@ Use [Keep a Changelog](https://keepachangelog.com/) categories:
 - **Removed** — deleted features
 - **Security** — security-related fixes
 
-### Modules
+### Where to add entries
 
-Use the module that contains the changed code:
-
-- **Docs** — documentation, guides, release notes, and the public site
-- **Repo** — repository tooling, CI/CD, release scripts, and conventions
-- **Core** — `terracotta-core` module
-- **Gradle Plugin** — `terracotta-gradle-plugin` module
-- **Modrinth** — `terracotta-provider-modrinth` module
-- **Hangar** — `terracotta-provider-hangar` module
-
-If a change spans modules, either split it into scoped entries or place it under the most affected module.
+- **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
+- **Documentation changes** (page additions, reorganizations, style, navigation): Add entries under `## [Unreleased]` in `docs/CHANGELOG.md`.
+- **Repo-wide changes** (CI/CD, tooling, conventions): Add entries under the current date heading in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists.
 
 ## Style principles
 
 - Start each release section with a **summary paragraph** that captures the release's themes and impact in two to four sentences.
-- **Summarize directly** in the summary paragraph; do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.
+- **Start the summary with a past-tense verb** (e.g. "Added...", "Fixed...", "Narrowed..."). Do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.
 - Start each entry with a **past-tense verb** (`Added`, `Fixed`, `Updated`, `Removed`, `Changed`).
 - Be specific and concrete, not vague.
 - Focus on impact, not implementation.
 - Inline the reason with `so`, `because`, or similar instead of using a separate `**Why**:` line.
-- Use bold `**Module**` headings under each category; do not use `####` headings for modules.
 - Mark breaking changes explicitly with `**Breaking**:` and migration steps.
 
 For the reasoning behind these rules, see [Changelog Design](../explanation/changelog.md).

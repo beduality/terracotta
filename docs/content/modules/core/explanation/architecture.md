@@ -48,4 +48,4 @@ A frontend such as the Terracotta Gradle plugin loads every available factory, t
 
 ## Versioning and releases
 
-All modules share a single version tracked in `gradle/libs.versions.toml`. Core and provider artifacts are published to Maven Central; the Gradle plugin is published to the Gradle Plugin Portal. See [Releasing](../../../repo/how-to-guides/releasing.md) for the release process.
+All modules are versioned independently via per-module `gradle.properties` and `CHANGELOG.md` files. Core and provider artifacts are published to Maven Central; the Gradle plugin is published to the Gradle Plugin Portal. See [Releasing](../../../repo/how-to-guides/releasing.md) for the release process.

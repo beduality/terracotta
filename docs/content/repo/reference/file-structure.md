@@ -10,18 +10,19 @@
 ├── .vscode/                # VSCode workspace settings and extensions
 ├── docs/                   # Documentation (MkDocs)
 │   ├── content/            # Content organized by topic (modules, integration, repo)
+│   ├── CHANGELOG.md        # Documentation site changelog (promoted per major version)
 │   └── hooks/              # Build hooks for copying generated docs
 ├── gradle/                 # Gradle wrapper and version catalogs
-├── modules/                # Gradle modules
+├── modules/                # Gradle modules (each with its own CHANGELOG.md and gradle.properties)
 ├── project/                # Project management
 ├── scripts/                # Utility scripts (release, deployment)
 ├── build.gradle.kts        # Root build configuration
 ├── settings.gradle.kts     # Gradle settings
-├── gradle.properties       # Gradle properties (version, etc.)
+├── gradle.properties       # Root Gradle properties (empty; versions are per-module)
 ├── mkdocs.yml              # Documentation configuration
 ├── pyproject.toml          # Python dependencies (uv)
 ├── README.md               # Project overview
-├── CHANGELOG.md            # Release notes
+├── CHANGELOG.md            # Repo-wide activity log
 ├── CONTRIBUTING.md         # Contribution guidelines
 ├── SECURITY.md             # Security policy
 └── LICENSE                 # License
@@ -30,6 +31,7 @@
 ## Modules
 
 - **terracotta-core**: Pure domain library with canonical models, provider interfaces, and semantic diff engine. Published to Maven Central as `io.github.beduality:terracotta-core`.
+- **terracotta-state-filesystem**: File-backed state provider for persisting Terracotta state to disk.
 - **terracotta-provider-modrinth**: Modrinth state and registry providers using Ktor Client and Kotlinx Serialization.
 - **terracotta-provider-hangar**: Hangar state and registry providers using Ktor Client and Kotlinx Serialization.
 - **terracotta-gradle-plugin**: Gradle plugin providing `terracottaPlan` and `terracottaApply` tasks with multi-provider support via ServiceLoader.

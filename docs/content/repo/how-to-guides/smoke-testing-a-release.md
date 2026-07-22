@@ -17,12 +17,12 @@ uv run pytest scripts/test_release_smoke.py --release-version 0.1.2 \
 
 The pytest suite in `scripts/test_release_smoke.py` checks the release end-to-end, without you having to read the test file:
 
-- **GitHub release**: the release exists for the requested version, has the right tag and title, and includes all nine expected JAR assets (main, sources, and javadoc for each module).
-- **Changelog sync**: the GitHub release body reflects the non-empty `## [VERSION]` section in `CHANGELOG.md`.
-- **Maven Central presence**: every expected POM, JAR, sources, javadoc, signature, and Gradle module file is live for all three modules plus the Gradle plugin marker.
+- **GitHub release**: per-module releases exist with the right tags and titles, and include JAR assets (main, sources, and javadoc) for each released module.
+- **Changelog sync**: each GitHub release body reflects the `## [VERSION]` section in the corresponding module's `CHANGELOG.md`.
+- **Maven Central presence**: every expected POM, JAR, sources, javadoc, signature, and Gradle module file is live for each released module plus the Gradle plugin marker.
 - **Artifact integrity**: downloaded JARs contain the expected classes and the plugin descriptor.
 - **Javadoc quality**: the `-javadoc.jar` files contain real documentation, not just a manifest.
-- **Version-string consistency**: the release tag has the correct version in `gradle.properties`, `pyproject.toml`, `CHANGELOG.md`, and `README.md`.
+- **Version-string consistency**: each module's release tag has the correct version in its `gradle.properties` and `CHANGELOG.md`.
 - **Build from tag**: the project builds cleanly with `./gradlew spotlessCheck build` at the release tag.
 - **Gradle plugin E2E**: the plugin resolves from Maven Central and registers the expected tasks in a clean project.
 - **SDK E2E**: the core and Modrinth provider artifacts resolve and compile in a clean Kotlin/JVM project.

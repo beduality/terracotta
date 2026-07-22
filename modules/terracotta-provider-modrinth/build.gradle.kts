@@ -2,11 +2,21 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.central.portal.publisher)
     `maven-publish`
 }
 
+fun terracottaCoreDep(): Any {
+    val releaseVersion = project.findProperty("terracottaCoreReleaseVersion")?.toString()
+    return if (!releaseVersion.isNullOrBlank()) {
+        "io.github.beduality:terracotta-core:$releaseVersion"
+    } else {
+        project(":terracotta-core")
+    }
+}
+
 dependencies {
-    implementation(project(":terracotta-core"))
+    implementation(terracottaCoreDep())
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.core)
@@ -42,4 +52,38 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+centralPublisher {
+    credentials {
+        username = System.getenv("SONATYPE_USERNAME") ?: findProperty("sonatypeUsername")?.toString() ?: "unset"
+        password = System.getenv("SONATYPE_PASSWORD") ?: findProperty("sonatypePassword")?.toString() ?: "unset"
+    }
+
+    projectInfo {
+        name = "Terracotta Modrinth Provider"
+        description = "Modrinth provider implementation for Terracotta."
+        url = "https://github.com/beduality/terracotta"
+
+        license {
+            name = "MIT License"
+            url = "https://opensource.org/licenses/MIT"
+        }
+
+        developer {
+            id = "beduality"
+            name = "Block-Entity Duality"
+        }
+
+        scm {
+            url = "https://github.com/beduality/terracotta"
+            connection = "scm:git:git://github.com/beduality/terracotta.git"
+            developerConnection = "scm:git:ssh://github.com/beduality/terracotta.git"
+        }
+    }
+
+    publishing {
+        autoPublish = true
+        aggregation = false
+    }
 }

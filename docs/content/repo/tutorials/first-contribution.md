@@ -37,12 +37,14 @@ Keep the change focused. A good first PR changes one thing.
 
 ## 4. Add a changelog entry
 
-If your change affects users, operators, or contributors, add an entry under `## [Unreleased]` in `CHANGELOG.md`:
+If your change affects users, operators, or contributors, add an entry under `## [Unreleased]` in the appropriate `CHANGELOG.md`:
+
+- **Module changes**: Add to `modules/<module>/CHANGELOG.md`.
+- **Documentation changes**: Add to `docs/CHANGELOG.md`.
+- **Repo-wide changes** (CI/CD, tooling): Add to the root `CHANGELOG.md` under the current date heading.
 
 ```md
 ### Fixed
-
-**Docs**
 
 - Fixed unclear navigation in the repo tutorials so new contributors can find the first contribution guide.
 ```

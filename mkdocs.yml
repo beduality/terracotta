@@ -87,6 +87,7 @@ nav:
     - Getting Started: content/modules/gradle-plugin/tutorials/getting-started.md
     - Navigating the Docs: content/navigating-docs.md
     - Last Changes: last-changes.md
+    - Docs Changelog: CHANGELOG.md
     - License: LICENSE.md
   - Integration:
     - Overview: content/integration/README.md

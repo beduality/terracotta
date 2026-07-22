@@ -10,21 +10,24 @@ End-to-end release orchestration. Used locally and by the [release.yml](ci-cd.md
 
 | Command | Purpose |
 |---|---|
-| `uv run scripts/release.py` | Interactive wizard. Detects version bump, updates changelog and version files, builds, optionally publishes and pushes. |
+| `uv run scripts/release.py release` | Interactive wizard. Detects changed modules, bumps versions per module, updates changelogs and version files, builds, optionally publishes and pushes. |
 | `uv run scripts/release.py trigger` | Triggers the `release.yml` workflow via `gh workflow run`. |
 | `uv run scripts/release.py monitor [RUN_ID]` | Watches a release workflow run. |
-| `uv run scripts/release.py rollback` | Reverts the last release commit and tag. |
-| `uv run scripts/release.py extract-release-notes <version>` | Extracts the `## [version]` section from `CHANGELOG.md` for the GitHub release body. |
+| `uv run scripts/release.py abort [RUN_ID]` | Cancels an active release workflow run. |
+| `uv run scripts/release.py rollback <module> <version>` | Reverts the last release commit and tag for a specific module. |
+| `uv run scripts/release.py extract-release-notes <module> <version>` | Extracts the `## [tag]` section from the module's `CHANGELOG.md` for the GitHub release body. |
 
 Common flags:
 
 | Flag | Effect |
 |---|---|
 | `--bump auto\|patch\|minor\|major\|X.Y.Z` | Version bump strategy. |
+| `--modules module1,module2` | Comma-separated list of modules to release (skips change detection). |
+| `--dry-run` | Compute versions and print planned changes without modifying files or building. |
 | `--yes` | Skip confirmation prompts. |
-| `--no-publish` | Do not publish to Maven Central. |
-| `--no-push` | Do not push the tag or commit. |
-| `--no-dry-run` | Skip the `./gradlew spotlessCheck build` verification. |
+| `--publish` | Publish changed modules to Maven Central. |
+| `--push` | Commit, tag, and push changes to git (default: true). |
+| `--since <ref>` | Git ref to use as the change-detection baseline. |
 
 ## Infrastructure
 
@@ -43,14 +46,9 @@ The script parses `modules/terracotta-github/src/.../App.kt` to detect which sec
 
 ### `deployments.py`
 
-Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses `CHANGELOG.md` to extract structured metadata (title, summary, modules) for each version.
+Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version. Supports both versioned entries (module releases) and versionless entries (infrastructure applies, documentation site deploys).
 
-| Command | Purpose |
-|---|---|
-| `uv run scripts/deployments.py seed` | Rebuilds the entire manifest from `CHANGELOG.md`. |
-| `uv run scripts/deployments.py generate <version>` | Generates and appends a single deployment entry. |
-
-Called automatically by `release.py` during each release.
+Called automatically by `release.py` during each release to append deployment entries.
 
 ### `redeploy_all_docs.py`
 
@@ -71,6 +69,10 @@ Build hook that copies generated Dokka output into the docs site. Not usually in
 ### `test_release_smoke.py`
 
 Pytest suite for smoke testing a release end-to-end. See [Smoke Testing a Release](../how-to-guides/smoke-testing-a-release.md).
+
+### `test_release.py`
+
+Unit tests for `release.py` covering version bumping, validation, change detection, changelog promotion, dry-run behavior, and rollback.
 
 ### `test_load_pulumi_secrets.py`
 

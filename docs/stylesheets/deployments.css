@@ -114,7 +114,7 @@
 .mdx-release { text-transform: uppercase; font-size: .6rem; color: var(--md-accent-fg-color); font-weight: 600; }
 .mdx-title { font-weight: 600; font-size: .85rem; }
 .mdx-summary { color: var(--md-default-fg-color--light); font-size: .8rem; line-height: 1.4; margin: .1rem 0 .2rem; }
-.mdx-links { display: flex; flex-wrap: wrap; gap: .2rem; margin-top: .2rem; }
+.mdx-links { display: flex; flex-wrap: wrap; gap: .2rem; }
 .mdx-link-wrap { display: inline-flex; }
 .mdx-link { color: var(--md-primary-fg-color); display: inline-flex; align-items: center; text-decoration: none; }
 .mdx-link .mdx-tag-icon svg { width: .85rem; height: .85rem; opacity: .7; }

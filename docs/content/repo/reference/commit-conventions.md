@@ -22,6 +22,7 @@ Terracotta follows [Conventional Commits](https://www.conventionalcommits.org/) 
 | `refactor` | Code change that neither fixes a bug nor adds a feature | None |
 | `test` | Test additions or changes | None |
 | `chore` | Maintenance tasks | None |
+| `merge` | Merge commit or conflict resolution | None |
 
 ## Scopes
 

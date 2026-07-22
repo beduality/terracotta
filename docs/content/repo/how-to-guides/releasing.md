@@ -4,13 +4,13 @@ This guide shows how to publish a new Terracotta release.
 
 ## Before you start
 
-- Ensure `CHANGELOG.md` has user-facing changes under `## [Unreleased]`. See [Writing Changelog Entries](../how-to-guides/writing-changelog.md).
+- Ensure the relevant `CHANGELOG.md` files have user-facing changes. Module-specific changes go in `modules/<module>/CHANGELOG.md` under `## [Unreleased]`; documentation changes go in `docs/CHANGELOG.md` under `## [Unreleased]`; repo-wide changes go in the root `CHANGELOG.md` under the current date heading. See [Writing Changelog Entries](../how-to-guides/writing-changelog.md).
 - Confirm the [CI workflow](../reference/ci-cd.md) is green on `main`.
 - Verify release secrets are configured in the repository. See [CI/CD Reference](../reference/ci-cd.md) for the required secrets.
 
 ## 1. Choose a version bump
 
-Releases follow [Semantic Versioning](https://semver.org/). The release script can detect the bump from conventional commits, or you can choose it explicitly.
+Releases follow [Semantic Versioning](https://semver.org/). Each module is versioned independently. The release script can detect the bump from conventional commits since the module's last tag, or you can choose it explicitly.
 
 | Trigger | When to use |
 |---|---|
@@ -18,7 +18,7 @@ Releases follow [Semantic Versioning](https://semver.org/). The release script c
 | `patch` | Bug fixes only. |
 | `minor` | New features, backward compatible. |
 | `major` | Breaking changes. |
-| `custom` | A specific version like `0.3.0`. |
+| `0.3.0` | A specific version. Pass directly as the `--bump` value. |
 
 ## 2. Trigger the release workflow
 
@@ -36,13 +36,19 @@ To watch the run:
 uv run scripts/release.py monitor
 ```
 
+To cancel a run:
+
+```bash
+uv run scripts/release.py abort
+```
+
 ## 3. Verify the release
 
 After the workflow succeeds:
 
-1. Check that Maven Central has the new artifacts.
-2. Review the GitHub release and JAR assets.
-3. Confirm the versioned docs are live.
+1. Check that Maven Central has the new artifacts for each released module.
+2. Review the per-module GitHub releases and JAR assets.
+3. Confirm the versioned docs are live (deployed separately by `deploy-docs.yml`).
 
 For a structured checklist, see [Smoke Testing a Release](../how-to-guides/smoke-testing-a-release.md).
 
@@ -51,17 +57,17 @@ For a structured checklist, see [Smoke Testing a Release](../how-to-guides/smoke
 To test the release logic without publishing or pushing:
 
 ```bash
-uv run scripts/release.py --yes --no-publish --no-push
+uv run scripts/release.py release --dry-run --bump auto --yes
 ```
 
-This bumps the version, updates the changelog, and runs `./gradlew spotlessCheck build`.
+This computes version bumps for changed modules and prints the planned changes without modifying files, building, or publishing.
 
 ## Roll back a failed release
 
 If the workflow fails before publishing, `release.py` rolls back the version bump and tag automatically. For a manual rollback:
 
 ```bash
-uv run scripts/release.py rollback
+uv run scripts/release.py rollback <module> <version>
 ```
 
 If Maven Central already published, you cannot unpublish. Release a follow-up version instead.
