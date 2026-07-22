@@ -770,8 +770,8 @@ def release(
             else:
                 new_version = bump_version(current, strategy)
 
-        module_versions[module] = new_version
         validate_next_version(current, new_version)
+        module_versions[module] = new_version
         console.print(
             f"{module}: [bold cyan]{current}[/bold cyan] "
             f"→ [bold green]{new_version}[/bold green]"
