@@ -15,7 +15,7 @@ Every release section, including `## [Unreleased]`, must start with a summary pa
 ```md
 ## [Unreleased]
 
-Adds project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
+Added project link management and full Gradle DSL parity for icons and links, while unifying how Modrinth and Hangar providers map remote URLs.
 
 ### Added
 ```
@@ -33,7 +33,7 @@ Summaries are required. If the release only contains one small fix, a single sen
 ## Rules
 
 - **Start every release section with a summary.** The summary goes immediately under the `## [Version]` heading, before the first `###` category. Keep it to two to four sentences that state the release's themes and impact.
-- **Write `[Unreleased]` summaries directly.** Start with the substance (e.g. "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The release script copies the `[Unreleased]` body into the new version section verbatim, so meta-introductions become redundant or incorrect after release.
+- **Write `[Unreleased]` summaries directly.** Start with a past-tense verb (e.g. "Added...", "Fixed...", "Narrowed..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The release script copies the `[Unreleased]` body into the new version section verbatim, so meta-introductions become redundant or incorrect after release.
 - **Start each entry with a past-tense verb.** Use `Added`, `Fixed`, `Updated`, `Removed`, `Changed`, `Configured`, etc.
 - **Be specific.** Say what changed in concrete terms, not "improved" or "refactored".
 - **Focus on impact, not implementation.** A consumer should understand the change without reading the code.

@@ -48,7 +48,7 @@ Every release section must start with a short summary paragraph before the first
 
 Summaries are required for every release, including `[Unreleased]`.
 
-Summarize directly. Start with the substance of the release (for example, "Adds...", "Fixes...", "Narrows..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the `[Unreleased]` body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.
+Summarize directly. Start with a past-tense verb (for example, "Added...", "Fixed...", "Narrowed..."), not with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release, and the release script promotes the `[Unreleased]` body verbatim into the new version section, so meta-introductions become incorrect or redundant the moment the version is released.
 
 ## How entries are grouped
 
@@ -74,7 +74,7 @@ Use [Keep a Changelog](https://keepachangelog.com/) categories:
 ## Style principles
 
 - Start each release section with a **summary paragraph** that captures the release's themes and impact in two to four sentences.
-- **Summarize directly** in the summary paragraph; do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.
+- **Start the summary with a past-tense verb** (e.g. "Added...", "Fixed...", "Narrowed..."). Do not begin with a meta-introduction such as "This release..." or "This unreleased set of changes...". The section heading already identifies the release.
 - Start each entry with a **past-tense verb** (`Added`, `Fixed`, `Updated`, `Removed`, `Changed`).
 - Be specific and concrete, not vague.
 - Focus on impact, not implementation.

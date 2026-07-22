@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-Initial documentation site built with MkDocs Material and deployed at `https://beduality.github.io/terracotta/`, with versioned docs via mike.
+Built the initial documentation site with MkDocs Material and deployed at `https://beduality.github.io/terracotta/`, with versioned docs via mike.
 
 ### Added
 
