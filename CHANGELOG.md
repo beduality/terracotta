@@ -6,6 +6,8 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-22
 
+Refactors the release process for per-module selective publishing, cleans up the deployment manifest, and fixes historical changelog and deployment data issues.
+
 ### Fixed
 
 - Fixed incorrect method name `updateProject` → `patchProject` in Modrinth 0.7.0 changelog.
@@ -32,6 +34,8 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-21
 
+Splits the monolithic changelog into per-module files and hardens release version validation.
+
 ### Changed
 
 - Split the monolithic `CHANGELOG.md` into per-module changelogs under `modules/<module>/CHANGELOG.md` so each module's release history is self-contained.
@@ -48,14 +52,20 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-13
 
+Tightens the changelog standard to require release summaries and reject stale unreleased wording.
+
 - Tightened changelog standard: required release summaries, direct wording validation in `release.py`, corrected 0.7.0 changelog summary.
 
 ## 2026-07-12
+
+Introduces required release summaries in the changelog standard and fixes docs deployment housekeeping.
 
 - Added required release summary paragraph to the changelog standard.
 - Updated `.gitignore` for generated `docs/LICENSE` file.
 
 ## 2026-07-11
+
+Improves release automation with docs snippet validation, smoke-test archiving, and JAR artifact checks.
 
 - Updated release script for Gradle plugin version snippets in `docs/index.md`.
 - Fixed GitHub release workflow to extract notes from `CHANGELOG.md` instead of external parser.
@@ -64,6 +74,8 @@ Repo-wide activity log. Module-specific changes live in
 - Fixed `-javadoc.jar` publishing to include generated API docs.
 
 ## 2026-07-10
+
+Ships automated GitHub releases on tag push with JAR artifact uploads and Dokka API docs in CI.
 
 - Implemented automated GitHub releases on tag push, JAR artifact uploads, Dokka generation in CI.
 - Fixed release tooling to leave an empty "Unreleased" section after each release.
