@@ -833,7 +833,7 @@ def release(
                 for m in module_versions
             ]
             run_command(
-                ["git", "add", "deployments.json", *version_files, *changelog_files]
+                ["git", "add", "deployments.json", "docs/CHANGELOG.md", *version_files, *changelog_files]
                 + (
                     ["docs/index.md", "docs/content"]
                     if "terracotta-gradle-plugin" in module_versions

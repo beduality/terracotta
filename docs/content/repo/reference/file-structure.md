@@ -10,6 +10,7 @@
 ├── .vscode/                # VSCode workspace settings and extensions
 ├── docs/                   # Documentation (MkDocs)
 │   ├── content/            # Content organized by topic (modules, integration, repo)
+│   ├── CHANGELOG.md        # Documentation site changelog (promoted per major version)
 │   └── hooks/              # Build hooks for copying generated docs
 ├── gradle/                 # Gradle wrapper and version catalogs
 ├── modules/                # Gradle modules (each with its own CHANGELOG.md and gradle.properties)

@@ -5,7 +5,8 @@ This guide covers the mechanical rules for adding a changelog entry.
 ## Where to add an entry
 
 - **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
-- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`.
+- **Documentation changes** (page additions, reorganizations, style, navigation): Add entries under `## [Unreleased]` in `docs/CHANGELOG.md`.
+- **Repo-wide changes** (CI/CD, tooling, conventions): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`.
 
 ## Release summary
 

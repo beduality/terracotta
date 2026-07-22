@@ -1,6 +1,6 @@
 # Changelog Guidelines
 
-Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, and a root `CHANGELOG.md` for repository-wide changes (docs, CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
+Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, a `docs/CHANGELOG.md` for documentation site changes, and a root `CHANGELOG.md` for repository-wide changes (CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
 
 ## Why this matters
 
@@ -52,7 +52,7 @@ Summarize directly. Start with the substance of the release (for example, "Adds.
 
 ## How entries are grouped
 
-Module-specific entries go in each module's own `CHANGELOG.md`, grouped by change category. Repository-wide entries (docs, CI/CD, tooling) go in the root `CHANGELOG.md`.
+Module-specific entries go in each module's own `CHANGELOG.md`, grouped by change category. Documentation changes go in `docs/CHANGELOG.md`. Repository-wide entries (CI/CD, tooling) go in the root `CHANGELOG.md`.
 
 ### Categories
 
@@ -68,7 +68,8 @@ Use [Keep a Changelog](https://keepachangelog.com/) categories:
 ### Where to add entries
 
 - **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
-- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists.
+- **Documentation changes** (page additions, reorganizations, style, navigation): Add entries under `## [Unreleased]` in `docs/CHANGELOG.md`.
+- **Repo-wide changes** (CI/CD, tooling, conventions): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists.
 
 ## Style principles
 

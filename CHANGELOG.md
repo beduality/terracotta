@@ -6,15 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Per-module changelogs live alongside each module under `modules/<module>/CHANGELOG.md`.
-This root changelog tracks repository-wide changes (docs, CI/CD, tooling, conventions).
+Documentation changes are tracked in `docs/CHANGELOG.md`.
+This root changelog tracks repository-wide changes (CI/CD, tooling, conventions).
 
 ## [Unreleased]
 
 ### Changed
 
-- Split the monolithic `CHANGELOG.md` into per-module changelogs under `modules/<module>/CHANGELOG.md` so each module's release history is self-contained. The root changelog now only tracks repo-wide changes (docs, CI/CD, tooling, conventions).
+- Split the monolithic `CHANGELOG.md` into per-module changelogs under `modules/<module>/CHANGELOG.md` so each module's release history is self-contained. The root changelog now only tracks repo-wide changes (CI/CD, tooling, conventions).
 - Replaced custom regex-based semver parsing in `release.py` with the `semver` Python library for version bumping and validation.
-- Reworked the docs homepage (`index.md`) to be more succinct: replaced the dense numbered workflow description with a Mermaid diagram and folded the gallery note and example output into accordions.
 
 ### Added
 
@@ -24,9 +24,6 @@ This root changelog tracks repository-wide changes (docs, CI/CD, tooling, conven
 ### Fixed
 
 - Fixed unknown module names raising `KeyError` instead of `ValueError` when passed via `--modules`.
-- Fixed broken MkDocs Material content tab syntax in authentication sections of the Gradle plugin and integration how-to guides.
-- Removed obsolete per-provider plan/apply task names from the docs homepage quick reference.
-- Updated Gradle plugin and provider tutorials to explicitly install the `terracotta-state-filesystem` backend instead of assuming it is bundled.
 
 ## [0.8.0] - 2026-07-13
 
