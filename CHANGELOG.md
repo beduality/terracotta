@@ -2,10 +2,9 @@
 
 Repo-wide activity log. Module-specific changes live in
 `modules/<module>/CHANGELOG.md`; documentation changes in
-`docs/CHANGELOG.md`. This file is ephemeral — old entries are
-pruned periodically. See git history for the full record.
+`docs/CHANGELOG.md`.
 
-## [Unreleased]
+## 2026-07-21
 
 ### Changed
 
