@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Repository
+### Changed
+
+**Docs**
 
 - Reworked the docs homepage (`index.md`) to be more succinct: replaced the dense numbered workflow description with a Mermaid diagram and folded the gallery note and example output into accordions.
+
+### Fixed
+
+**Docs**
+
 - Fixed broken MkDocs Material content tab syntax in authentication sections of the Gradle plugin and integration how-to guides.
 - Removed obsolete per-provider plan/apply task names from the docs homepage quick reference.
 - Updated Gradle plugin and provider tutorials to explicitly install the `terracotta-state-filesystem` backend instead of assuming it is bundled.
