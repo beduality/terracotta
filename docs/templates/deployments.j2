@@ -79,11 +79,11 @@
     </div>
   </div>
 
-  <template x-for="d in displayed" :key="d.version">
+  <template x-for="d in displayed" :key="d.version || d.createdAt">
     <div class="mdx-deployment">
       <div class="mdx-deployment-header">
         <span class="mdx-title" x-text="d.title"></span>
-        <a class="mdx-version"
+        <a x-show="d.version" class="mdx-version"
            :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
            x-text="'v'+d.version"></a>
         <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
@@ -129,7 +129,7 @@ function deploymentsApp() {
     all: false, limit: 10, showAdvanced: false,
 
     get versions() {
-      return [...new Set(this.data.map(d => d.version))].sort(this.cmp.bind(this));
+      return [...new Set(this.data.filter(d => d.version).map(d => d.version))].sort(this.cmp.bind(this));
     },
 
     get hasAdvancedFilters() {
@@ -181,8 +181,8 @@ function deploymentsApp() {
         if (this.moduleFilters.length && !this.moduleFilters.some(m => (d.modules || []).includes(m))) return false;
         if (this.dateFrom && d.createdAt < this.dateFrom) return false;
         if (this.dateTo && d.createdAt > this.dateTo) return false;
-        if (this.versionFrom && this.cmp(d.version, this.versionFrom) < 0) return false;
-        if (this.versionTo && this.cmp(d.version, this.versionTo) > 0) return false;
+        if (this.versionFrom && (!d.version || this.cmp(d.version, this.versionFrom) < 0)) return false;
+        if (this.versionTo && (!d.version || this.cmp(d.version, this.versionTo) > 0)) return false;
         if (this.releasesOnly && !d.isRelease) return false;
         return true;
       });

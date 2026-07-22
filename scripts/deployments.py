@@ -183,9 +183,11 @@ def append_deployment(entry: dict, manifest_path: Path = MANIFEST_PATH) -> bool:
     return added
 
 
-def _semver_sort_key(entry: dict) -> SemVerVersion:
-    version = entry.get("version", "0.0.0")
-    return SemVerVersion.parse(version)
+def _semver_sort_key(entry: dict) -> tuple:
+    version = entry.get("version")
+    if version:
+        return (1, SemVerVersion.parse(version))
+    return (0, entry.get("createdAt", ""))
 
 
 if __name__ == "__main__":

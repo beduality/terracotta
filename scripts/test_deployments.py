@@ -205,6 +205,17 @@ class TestSemverSortKey(unittest.TestCase):
         versions = [e["version"] for e in entries]
         self.assertEqual(versions, ["0.10.0", "0.2.0", "0.1.0"])
 
+    def test_versionless_entries_sort_after_versioned(self):
+        entries = [
+            {"createdAt": "2026-07-09T18:00:00Z"},
+            {"version": "0.1.0"},
+            {"createdAt": "2026-07-09T19:00:00Z"},
+        ]
+        entries.sort(key=_semver_sort_key, reverse=True)
+        self.assertEqual(entries[0]["version"], "0.1.0")
+        self.assertEqual(entries[1]["createdAt"], "2026-07-09T19:00:00Z")
+        self.assertEqual(entries[2]["createdAt"], "2026-07-09T18:00:00Z")
+
 
 if __name__ == "__main__":
     unittest.main()

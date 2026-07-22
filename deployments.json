@@ -150,6 +150,24 @@
       "isRelease": false
     },
     {
+      "createdAt": "2026-07-09T18:09:57Z",
+      "title": "Pulumi Secret Management",
+      "summary": "Adds a script to load secrets from .env into Pulumi config and updates the terracotta-github module project configuration.",
+      "modules": [
+        "github"
+      ],
+      "isRelease": false
+    },
+    {
+      "createdAt": "2026-07-09T19:16:18Z",
+      "title": "Repository Description & Homepage",
+      "summary": "Updates the GitHub repository description and adds the homepage URL via Pulumi infrastructure stack.",
+      "modules": [
+        "github"
+      ],
+      "isRelease": false
+    },
+    {
       "version": "0.1.0",
       "createdAt": "2026-07-10T00:00:00Z",
       "title": "Initial Release",
