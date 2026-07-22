@@ -23,3 +23,9 @@ Initial documentation site built with MkDocs Material and deployed at `https://b
     - **Modrinth Provider module** — Using Modrinth tutorial, Dokka API docs, and explanation pages (architecture, version mapping).
     - **Hangar Provider module** — Using Hangar tutorial, Dokka API docs, and explanation pages (architecture, loader mapping).
     - **Repo** — Contributor documentation covering building, testing, contributing, releasing, smoke testing, changelog writing, code style, commit conventions, CI/CD, branch strategy, file structure, tech stack, and project management.
+
+### Changed
+
+- **Last Changes page** — Reordered deployment header (title, version badge, module icons, release tag, date), enabled multiple module badge filters simultaneously, and added support for versionless deployment entries (no version badge shown).
+- **Changelog docs** — Updated changelog explanation, guidelines, how-to, and file structure docs to describe the three-tier changelog system (root, docs, per-module) and the repo-wide activity log format with dated sections.
+- **Docs Changelog** — Added `docs/CHANGELOG.md` to the docs nav and navigating-docs page.

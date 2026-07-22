@@ -192,6 +192,23 @@ class TestManifestOperations(unittest.TestCase):
         versions = [d["version"] for d in manifest["deployments"]]
         self.assertEqual(versions, ["0.3.0", "0.2.0", "0.1.0"])
 
+    def test_append_versionless_entry(self):
+        entry = {"createdAt": "2026-07-09T18:00:00Z", "title": "Infra", "summary": "s", "modules": ["github"], "isRelease": False}
+        added = append_deployment(entry, self.manifest_path)
+        self.assertTrue(added)
+        manifest = load_manifest(self.manifest_path)
+        self.assertEqual(len(manifest["deployments"]), 1)
+        self.assertNotIn("version", manifest["deployments"][0])
+
+    def test_append_versionless_always_adds(self):
+        entry1 = {"createdAt": "2026-07-09T18:00:00Z", "title": "A", "summary": "s", "modules": [], "isRelease": False}
+        entry2 = {"createdAt": "2026-07-09T19:00:00Z", "title": "B", "summary": "s", "modules": [], "isRelease": False}
+        append_deployment(entry1, self.manifest_path)
+        added = append_deployment(entry2, self.manifest_path)
+        self.assertTrue(added)
+        manifest = load_manifest(self.manifest_path)
+        self.assertEqual(len(manifest["deployments"]), 2)
+
 
 class TestSemverSortKey(unittest.TestCase):
 

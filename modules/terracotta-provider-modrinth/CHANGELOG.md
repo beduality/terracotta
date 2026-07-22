@@ -29,7 +29,7 @@ Narrows Hangar license handling by mapping common SPDX identifiers to Hangar's l
 
 - `ModrinthStateProvider.fetchProject` maps Modrinth `categories` and `additional_categories` to `TerracottaProjectCategories`.
 - `ModrinthRegistryProvider` applies `UpdateCategories` to Modrinth featured and additional categories.
-- `ModrinthClient.createProject` and `updateProject` serialize Terracotta categories using the Modrinth featured / additional split.
+- `ModrinthClient.createProject` and `patchProject` serialize Terracotta categories using the Modrinth featured / additional split.
 
 ## [0.6.0] - 2026-07-12
 
@@ -42,12 +42,16 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.5.0] - 2026-07-12
 
+Added a provider-specific logic layer and project icon support so Modrinth integrations can filter unsupported operations and manage project icons.
+
 ### Added
 
 - Added `ModrinthProviderLogic` exposing identity loader mapping and stateful platform behavior. `ModrinthRegistryProvider` now consumes the logic layer to filter operations.
 - Added project icon support via `ModrinthClient.uploadIcon`, which calls `PATCH /project/{id}/icon` with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). `ModrinthStateProvider.fetchProject` now reads `icon_url` into the canonical `icon` field.
 
 ## [0.4.0] - 2026-07-12
+
+Added license URL mapping and gallery image support so Modrinth projects can persist custom license URLs and upload gallery images.
 
 ### Added
 
@@ -56,17 +60,18 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.3.0] - 2026-07-12
 
+Added destructive registry support so projects and versions can be deleted from Modrinth.
+
 ### Added
 
 - Added `ModrinthDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Modrinth.
 
 ## [0.1.1] - 2026-07-10
 
+Bootstrapped the first concrete provider so Terracotta can sync project settings, metadata, and artifacts directly with Modrinth.
+
 ### Added
 
-- Modrinth state and registry integration using Ktor Client and Kotlinx Serialization.
-  - **Why**: Bootstraps the first concrete provider to sync project settings, metadata, and artifacts directly with Modrinth.
-- Modrinth provider available via Maven Central.
-  - **Why**: Enables developers to use Modrinth integration as a library in their projects.
-- Added `maven-publish` plugin.
-  - **Why**: Enables the Modrinth provider to be published to Maven Central.
+- Added Modrinth state and registry integration using Ktor Client and Kotlinx Serialization to sync project settings, metadata, and artifacts directly with Modrinth.
+- Published the Modrinth provider to Maven Central so developers can use it as a library in their projects.
+- Added `maven-publish` plugin to enable publishing the Modrinth provider to Maven Central.

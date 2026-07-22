@@ -4,6 +4,20 @@ Repo-wide activity log. Module-specific changes live in
 `modules/<module>/CHANGELOG.md`; documentation changes in
 `docs/CHANGELOG.md`.
 
+## 2026-07-22
+
+### Changed
+
+- Refined `deployments.json` manifest: removed pseudo-modules (`docs`, `repo`, `release-pipeline`), added `github` module to historical entries, and added 2 versionless pre-0.1.0 Pulumi deployments.
+- Made `version` optional in deployment entries to support non-versioned deployments (e.g. infrastructure applies).
+- Reordered Last Changes page header: title, version badge, module icons, release tag, date.
+- Enabled multiple module badge filters simultaneously on the Last Changes page.
+
+### Removed
+
+- Removed dead code from `deployments.py`: `PSEUDO_MODULES`, `extract_modules`, `seed_from_changelog`, and `seed`/`generate` CLI commands.
+- Removed `MODULE_ALIASES` and dead pseudo-module labels/icons from `macros.py`.
+
 ## 2026-07-21
 
 ### Changed

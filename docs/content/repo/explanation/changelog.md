@@ -73,7 +73,7 @@ The changelog is the source of truth for what changed, but the docs "Changes" pa
 
 Each deployment entry has:
 
-- **`version`** — Semver string (e.g. `"0.8.0"`).
+- **`version`** — Semver string (e.g. `"0.8.0"`). Optional; omitted for non-versioned deployments such as infrastructure applies.
 - **`createdAt`** — ISO 8601 datetime (e.g. `"2026-07-13T00:00:00Z"`). Rendered in the UI using `Intl.DateTimeFormat` for English international format.
 - **`title`** — Short human-readable title, derived from the changelog summary or entered manually.
 - **`summary`** — One-to-four sentence summary extracted from the changelog's first paragraph.
@@ -88,7 +88,11 @@ During each release, `scripts/release.py` calls `scripts/deployments.py` to:
 2. Extract the summary (first paragraph before `###` headings).
 3. Derive a title from the summary by stripping leading verbs and articles.
 4. Use the module's canonical identifier as the `modules` field.
-5. Append the entry to `deployments.json`, replacing any existing entry with the same version.
+5. Append the entry to `deployments.json`, replacing any existing entry with the same version. Versionless entries are always appended.
+
+### Versionless entries
+
+Not all deployments are tied to a module version. Infrastructure changes (e.g. Pulumi applies to `terracotta-github`) are recorded as versionless entries with only a `createdAt` timestamp. These entries sort after all versioned entries and display without a version badge on the Changes page.
 
 ### Releases vs deployments
 

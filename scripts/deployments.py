@@ -8,7 +8,7 @@ Schema
 ------
 Each deployment entry has:
 
-- ``version`` (str): Semver string, e.g. ``"0.8.0"``.
+- ``version`` (str, optional): Semver string, e.g. ``"0.8.0"``. Omitted for non-versioned deployments (e.g. infrastructure applies).
 - ``createdAt`` (str): ISO 8601 datetime, e.g. ``"2026-07-13T00:00:00Z"``.
 - ``title`` (str): Short human-readable title.
 - ``summary`` (str): One-to-four sentence summary from the changelog.
@@ -154,21 +154,24 @@ def save_manifest(manifest: dict, path: Path = MANIFEST_PATH) -> None:
 def append_deployment(entry: dict, manifest_path: Path = MANIFEST_PATH) -> bool:
     """Append or replace a deployment entry in the manifest.
 
-    If an entry with the same version already exists, it is replaced.
-    Entries are kept sorted by version (descending).
+    If a versioned entry with the same version already exists, it is replaced.
+    Versionless entries are always appended (never replaced).
+    Entries are kept sorted: versioned entries first (descending), then
+    versionless entries (descending by ``createdAt``).
 
     Returns ``True`` if a new entry was added, ``False`` if an existing
     entry was replaced.
     """
     manifest = load_manifest(manifest_path)
     deployments = manifest["deployments"]
-    version = entry["version"]
+    version = entry.get("version")
 
     existing_idx = None
-    for i, d in enumerate(deployments):
-        if d["version"] == version:
-            existing_idx = i
-            break
+    if version is not None:
+        for i, d in enumerate(deployments):
+            if d.get("version") == version:
+                existing_idx = i
+                break
 
     if existing_idx is not None:
         deployments[existing_idx] = entry
