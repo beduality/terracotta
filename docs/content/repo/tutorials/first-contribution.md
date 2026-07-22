@@ -41,7 +41,7 @@ If your change affects users, operators, or contributors, add an entry under `##
 
 - **Module changes**: Add to `modules/<module>/CHANGELOG.md`.
 - **Documentation changes**: Add to `docs/CHANGELOG.md`.
-- **Repo-wide changes** (CI/CD, tooling): Add to the root `CHANGELOG.md`.
+- **Repo-wide changes** (CI/CD, tooling): Add to the root `CHANGELOG.md` under the current date heading.
 
 ```md
 ### Fixed
