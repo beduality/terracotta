@@ -13,6 +13,9 @@ Repo-wide activity log. Module-specific changes live in
 - Fixed Hangar 0.7.0 changelog entries to start with past-tense verbs per changelog guidelines.
 - Removed `**Why**:` lines from core 0.1.0, gradle-plugin 0.1.1, and modrinth 0.1.1 changelogs; inlined reasons into each entry.
 - Backfilled missing release summaries for all pre-0.6.0 entries across core, gradle-plugin, hangar, and modrinth changelogs.
+- Fixed `0.4.1` deployment entry missing `core` in its modules list.
+- Corrected `0.4.0` deployment title and summary that incorrectly referenced project icons (introduced in 0.5.0).
+- Fixed `deployments.json` sort order: versioned entries now precede versionless entries, and versionless entries sort descending by `createdAt`.
 
 ### Changed
 
