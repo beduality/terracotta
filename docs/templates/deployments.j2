@@ -82,6 +82,20 @@
   <template x-for="d in displayed" :key="d.version">
     <div class="mdx-deployment">
       <div class="mdx-deployment-header">
+        <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
+          <a x-show="d.modules && d.modules.includes('modrinth')"
+             class="mdx-link" :title="moduleLabel('modrinth')"
+             :href="'https://modrinth.com/plugin/terracotta/version/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('modrinth')"></span></a>
+          <a x-show="d.modules && d.modules.includes('hangar')"
+             class="mdx-link" :title="moduleLabel('hangar')"
+             :href="'https://hangar.papermc.io/beduality/Terracotta/versions/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('hangar')"></span></a>
+          <template x-for="m in (d.modules||[]).filter(x=>x!=='modrinth'&&x!=='hangar')" :key="m">
+            <span class="mdx-link-wrap">
+              <a x-show="moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)" :href="moduleLink(m, d.version)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></a>
+              <span x-show="!moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></span>
+            </span>
+          </template>
+        </div>
         <span class="mdx-title" x-text="d.title"></span>
         <a class="mdx-version"
            :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
@@ -90,20 +104,6 @@
         <span class="mdx-date"><svg class="mdx-date-icon" viewBox="0 0 24 24" width=".75rem" height=".75rem" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20A8 8 0 0 1 4 12A8 8 0 0 1 12 4M12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z"/></svg><span x-text="fmtDate(d.createdAt)"></span></span>
       </div>
       <p class="mdx-summary" x-text="d.summary"></p>
-      <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
-        <a x-show="d.modules && d.modules.includes('modrinth')"
-           class="mdx-link" :title="moduleLabel('modrinth')"
-           :href="'https://modrinth.com/plugin/terracotta/version/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('modrinth')"></span></a>
-        <a x-show="d.modules && d.modules.includes('hangar')"
-           class="mdx-link" :title="moduleLabel('hangar')"
-           :href="'https://hangar.papermc.io/beduality/Terracotta/versions/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('hangar')"></span></a>
-        <template x-for="m in (d.modules||[]).filter(x=>x!=='modrinth'&&x!=='hangar')" :key="m">
-          <span class="mdx-link-wrap">
-            <a x-show="moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)" :href="moduleLink(m, d.version)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></a>
-            <span x-show="!moduleLink(m, d.version)" class="mdx-link" :title="moduleLabel(m)"><span class="mdx-tag-icon twemoji" x-html="moduleIcon(m)"></span></span>
-          </span>
-        </template>
-      </div>
     </div>
   </template>
 
