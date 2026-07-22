@@ -15,10 +15,10 @@ Terracotta's documentation is organized around what you want to do, not around t
 - **[Integration](integration/README.md)**: Add Terracotta to a real project, starting with the Gradle plugin and providers.
 - **[Modules](modules/overview.md)**: Deep dives into each component — Core, Gradle Plugin, Modrinth Provider, and Hangar Provider.
 - **[Repo](repo/README.md)**: Build, test, contribute, and release Terracotta itself.
-- **[Docs Changelog](../CHANGELOG.md)**: Track documentation site changes (pages, structure, navigation).
 
 ## Where to go next
 
 - If you are new, follow [Getting Started](modules/gradle-plugin/tutorials/getting-started.md).
 - If you want to understand the `terracotta.yml` format, see [Config Schema](modules/core/reference/config-schema.md).
 - If you want to add a new registry or build integration, read [Implement a Custom Provider](modules/core/tutorials/implementing-a-custom-provider.md).
+- If you want to see how the documentation site has evolved, browse the [Docs Changelog](../CHANGELOG.md).
