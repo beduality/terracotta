@@ -65,14 +65,16 @@
       "createdAt": "2026-07-12T00:00:00Z",
       "title": "Artifact Alignment Republish",
       "summary": "Republishes Maven Central artifacts to match the v0.4.0 release tag after the initial upload used an earlier commit.",
-      "modules": [],
+      "modules": [
+        "core"
+      ],
       "isRelease": false
     },
     {
       "version": "0.4.0",
       "createdAt": "2026-07-12T00:00:00Z",
-      "title": "Gallery, Icons & License URLs",
-      "summary": "Adds gallery image support, project icons, and license URL fields across Core, the Gradle plugin, and both providers.",
+      "title": "Gallery & License URLs",
+      "summary": "Adds gallery image support and license URL fields across Core, the Gradle plugin, and both providers.",
       "modules": [
         "core",
         "gradle-plugin",
@@ -150,19 +152,12 @@
       "isRelease": false
     },
     {
-      "createdAt": "2026-07-09T18:09:57Z",
-      "title": "Pulumi Secret Management",
-      "summary": "Adds a script to load secrets from .env into Pulumi config and updates the terracotta-github module project configuration.",
+      "version": "0.1.0",
+      "createdAt": "2026-07-10T00:00:00Z",
+      "title": "Initial Release",
+      "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.",
       "modules": [
-        "github"
-      ],
-      "isRelease": false
-    },
-    {
-      "createdAt": "2026-07-09T19:16:18Z",
-      "title": "Repository Description & Homepage",
-      "summary": "Updates the GitHub repository description and adds the homepage URL via Pulumi infrastructure stack.",
-      "modules": [
+        "core",
         "github"
       ],
       "isRelease": false
@@ -186,12 +181,19 @@
       "isRelease": false
     },
     {
-      "version": "0.1.0",
-      "createdAt": "2026-07-10T00:00:00Z",
-      "title": "Initial Release",
-      "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.",
+      "createdAt": "2026-07-09T19:16:18Z",
+      "title": "Repository Description & Homepage",
+      "summary": "Updates the GitHub repository description and adds the homepage URL via Pulumi infrastructure stack.",
       "modules": [
-        "core",
+        "github"
+      ],
+      "isRelease": false
+    },
+    {
+      "createdAt": "2026-07-09T18:09:57Z",
+      "title": "Pulumi Secret Management",
+      "summary": "Adds a script to load secrets from .env into Pulumi config and updates the terracotta-github module project configuration.",
+      "modules": [
         "github"
       ],
       "isRelease": false
