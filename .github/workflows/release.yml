@@ -12,19 +12,13 @@ on:
   workflow_dispatch:
     inputs:
       bump:
-        description: 'Version bump strategy (auto, patch, minor, major, or custom)'
-        type: choice
-        options:
-          - auto
-          - patch
-          - minor
-          - major
-          - custom
-        default: 'auto'
-      version:
-        description: 'Custom version to release (only used when bump is custom)'
-        required: false
+        description: 'Version bump strategy for changed modules (auto, patch, minor, major, or a specific version)'
         type: string
+        default: 'auto'
+      modules:
+        description: 'Comma-separated modules to release (optional, e.g. terracotta-core,terracotta-provider-modrinth)'
+        type: string
+        required: false
 
 permissions:
   contents: write
@@ -33,10 +27,8 @@ permissions:
 
 jobs:
   release:
-    if: "github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore: release version')"
+    if: "github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore: release')"
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -65,47 +57,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Determine bump argument
-        id: args
+      - name: Release changed modules
         run: |
-          BUMP="${{ inputs.bump || 'auto' }}"
-          if [ "$BUMP" = "custom" ]; then
-            echo "bump=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+          ARGS="--yes --publish --bump '${{ inputs.bump || 'auto' }}'"
+          if [ -n "${{ inputs.modules }}" ]; then
+            ARGS="$ARGS --modules '${{ inputs.modules }}'"
           fi
-
-      - name: Bump, build, publish, and tag
-        run: uv run scripts/release.py --yes --publish --bump "${{ steps.args.outputs.bump }}"
+          uv run scripts/release.py release $ARGS
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-
-      - name: Read released version
-        id: version
-        run: |
-          VERSION=$(sed -n 's/^version *= *//p' gradle.properties | tr -d '[:space:]')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Extract release notes
-        run: |
-          uv run scripts/release.py extract-release-notes "${{ steps.version.outputs.version }}" --output RELEASE_NOTES.md
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: "v${{ steps.version.outputs.version }}"
-          name: "Release v${{ steps.version.outputs.version }}"
-          body_path: RELEASE_NOTES.md
-          files: |
-            modules/terracotta-core/build/libs/*.jar
-            modules/terracotta-gradle-plugin/build/libs/*.jar
-            modules/terracotta-provider-modrinth/build/libs/*.jar
-
-  deploy-docs:
-    needs: release
-    uses: ./.github/workflows/deploy-docs.yml
-    with:
-      ref: v${{ needs.release.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

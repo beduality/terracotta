@@ -161,6 +161,7 @@ def generate_deployment_entry(
     section_body: str,
     title: str | None = None,
     is_release: bool = False,
+    modules: list[str] | None = None,
 ) -> dict:
     """Generate a deployment entry dict from changelog section data.
 
@@ -176,6 +177,9 @@ def generate_deployment_entry(
         Explicit title. If omitted, one is derived from the summary.
     is_release : bool
         Whether this deployment is a major milestone.
+    modules : list[str], optional
+        Explicit module identifiers. When omitted, they are inferred from
+        ``**Module**`` headings in the changelog section.
 
     Raises
     ------
@@ -187,14 +191,14 @@ def generate_deployment_entry(
         raise ValueError(
             f"Changelog section for version {version} has no summary paragraph."
         )
-    modules = extract_modules(section_body)
+    entry_modules = modules if modules is not None else extract_modules(section_body)
     entry_title = title if title else derive_title(summary)
     return {
         "version": version,
         "createdAt": created_at,
         "title": entry_title,
         "summary": summary,
-        "modules": modules,
+        "modules": entry_modules,
         "isRelease": is_release,
     }
 
