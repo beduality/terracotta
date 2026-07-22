@@ -16,6 +16,7 @@ Repo-wide activity log. Module-specific changes live in
 - Fixed `0.4.1` deployment entry missing `core` in its modules list.
 - Corrected `0.4.0` deployment title and summary that incorrectly referenced project icons (introduced in 0.5.0).
 - Fixed `deployments.json` sort order: versioned entries now precede versionless entries, and versionless entries sort descending by `createdAt`.
+- Replaced rounded midnight timestamps in `deployments.json` with exact GitHub release `publishedAt` times for all versioned entries.
 
 ### Changed
 
