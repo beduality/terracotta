@@ -63,23 +63,13 @@ def _load_deployments():
     if not path.exists():
         return []
     data = json.loads(path.read_text(encoding="utf-8"))
-    deployments = data.get("deployments", [])
-    for entry in deployments:
-        modules = entry.get("modules", [])
-        entry["modules"] = [MODULE_ALIASES.get(m, m) for m in modules]
-    return deployments
+    return data.get("deployments", [])
 
-
-MODULE_ALIASES = {
-    "release-pipeline": "repo",
-}
 
 MODULE_LABELS = {
     "github": "GitHub",
     "modrinth": "Modrinth",
     "hangar": "Hangar",
-    "repo": "Repository",
-    "docs": "Docs",
 }
 
 MODULE_ICONS = {
@@ -89,8 +79,6 @@ MODULE_ICONS = {
     "hangar": "brands/hangar",
     "gradle-plugin": "brands/gradle",
     "state-filesystem": "material/file",
-    "repo": "material/source-repository",
-    "docs": "material/book",
 }
 
 
