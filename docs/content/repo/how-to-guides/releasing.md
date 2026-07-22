@@ -4,7 +4,7 @@ This guide shows how to publish a new Terracotta release.
 
 ## Before you start
 
-- Ensure `CHANGELOG.md` has user-facing changes under `## [Unreleased]`. See [Writing Changelog Entries](../how-to-guides/writing-changelog.md).
+- Ensure the relevant `CHANGELOG.md` files have user-facing changes under `## [Unreleased]`. Module-specific changes go in `modules/<module>/CHANGELOG.md`; repo-wide changes go in the root `CHANGELOG.md`. See [Writing Changelog Entries](../how-to-guides/writing-changelog.md).
 - Confirm the [CI workflow](../reference/ci-cd.md) is green on `main`.
 - Verify release secrets are configured in the repository. See [CI/CD Reference](../reference/ci-cd.md) for the required secrets.
 

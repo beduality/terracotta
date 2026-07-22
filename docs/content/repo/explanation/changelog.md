@@ -1,6 +1,6 @@
 # Changelog Design
 
-Terracotta keeps a single, hand-written `CHANGELOG.md` instead of generating release notes from Git commits. This page explains why.
+Terracotta keeps human-written changelogs instead of generating release notes from Git commits. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md`, and a root `CHANGELOG.md` tracks repository-wide changes (docs, CI/CD, tooling, conventions). This page explains why.
 
 ## Why not auto-generate from commits?
 
@@ -34,7 +34,7 @@ The implementation detail (retry logic) is hidden. The user-visible outcome (pub
 
 ## Why Keep a Changelog categories?
 
-A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.) and then by module. This structure makes two things obvious at a glance:
+A release starts with a summary for the high-level story, then entries are grouped under [Keep a Changelog](https://keepachangelog.com/) categories (`Added`, `Changed`, `Fixed`, etc.). Module-specific entries live in each module's own `CHANGELOG.md`; the root changelog only tracks repo-wide changes under `### Docs`, `### Repo`, `### SDK`, etc.
 
 - **Severity.** `Fixed` suggests a safe upgrade; `Changed` suggests checking behavior; `Removed` or breaking markers signal required action.
 - **Scope.** A Gradle plugin user can skip entries under `Core` if they only use the plugin surface, and vice versa.
@@ -84,10 +84,10 @@ Each deployment entry has:
 
 During each release, `scripts/release.py` calls `scripts/deployments.py` to:
 
-1. Parse the changelog section for the new version.
+1. Parse the module's changelog section for the new version.
 2. Extract the summary (first paragraph before `###` headings).
 3. Derive a title from the summary by stripping leading verbs and articles.
-4. Extract module identifiers from bold `**Module**` headings.
+4. Use the module's canonical identifier as the `modules` field.
 5. Append the entry to `deployments.json`, replacing any existing entry with the same version.
 
 ### Releases vs deployments

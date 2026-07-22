@@ -260,6 +260,10 @@ def get_module_commits(module: str, since_tag: Optional[str]) -> list[str]:
 # Changelog
 # ---------------------------------------------------------------------------
 
+def _module_changelog_path(module: str) -> Path:
+    return Path(MODULE_INFO[module]["path"]) / "CHANGELOG.md"
+
+
 def _unreleased_section(content: str) -> tuple[int, int, str]:
     match = re.search(
         r"(## \[Unreleased\])\n(.*?)(?=\n## \[|\Z)",
@@ -267,99 +271,81 @@ def _unreleased_section(content: str) -> tuple[int, int, str]:
         re.DOTALL,
     )
     if not match:
-        raise ValueError("Could not find '## [Unreleased]' section in CHANGELOG.md")
+        raise ValueError("Could not find '## [Unreleased]' section in changelog")
     return match.start(2), match.end(2), match.group(2).rstrip()
 
 
-def _module_heading_pattern(module: str) -> re.Pattern:
-    escaped = re.escape(module)
-    return re.compile(rf"^###\s+{escaped}\s*$", re.MULTILINE)
-
-
 def extract_module_unreleased_notes(module: str) -> Optional[str]:
-    path = Path("CHANGELOG.md")
+    path = _module_changelog_path(module)
+    if not path.exists():
+        return None
     content = path.read_text()
     _, _, unreleased_body = _unreleased_section(content)
-
-    pattern = _module_heading_pattern(module)
-    match = pattern.search(unreleased_body)
-    if not match:
-        return None
-
-    start = match.end()
-    next_heading = re.search(r"\n###\s+", unreleased_body[start:])
-    if next_heading:
-        end = start + next_heading.start()
-    else:
-        end = len(unreleased_body)
-
-    notes = unreleased_body[start:end].strip()
+    notes = unreleased_body.strip()
     return notes if notes else None
 
 
 def update_changelog(module_versions: dict[str, str]):
-    """Promote each released module's unreleased notes to a versioned section."""
-    path = Path("CHANGELOG.md")
-    content = path.read_text()
+    """Promote each released module's unreleased notes to a versioned section.
+
+    Each module has its own ``CHANGELOG.md`` under ``modules/<module>/``.
+    The root ``CHANGELOG.md`` is not modified for module-specific entries.
+    """
     today = date.today().isoformat()
+    promoted = 0
 
-    _, section_end, unreleased_body = _unreleased_section(content)
-
-    original_unreleased_body = unreleased_body
-    new_sections = []
     for module in sorted(module_versions):
         version = module_versions[module]
-        pattern = _module_heading_pattern(module)
-        match = pattern.search(unreleased_body)
-        if not match:
+        path = _module_changelog_path(module)
+        if not path.exists():
+            console.print(
+                f"[yellow]Warning: {path} not found; "
+                f"skipping changelog promotion for {module}[/yellow]"
+            )
+            continue
+
+        content = path.read_text()
+        _, section_end, unreleased_body = _unreleased_section(content)
+
+        notes = unreleased_body.strip()
+        if not notes:
             console.print(
                 f"[yellow]Warning: no unreleased notes for {module}; "
                 f"skipping changelog promotion[/yellow]"
             )
             continue
 
-        start = match.start()
-        next_heading = re.search(r"\n###\s+", unreleased_body[start:])
-        if next_heading:
-            end = start + next_heading.start()
-        else:
-            end = len(unreleased_body)
-
-        notes = unreleased_body[start:end].strip()
         tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
-        new_sections.append(f"## [{tag}] - {today}\n\n{notes}")
+        new_section = f"## [{tag}] - {today}\n\n{notes}\n\n"
+        new_unreleased = "## [Unreleased]\n\n"
+        new_content = (
+            content[:section_end - len(unreleased_body)]
+            + new_unreleased
+            + new_section
+            + content[section_end:]
+        )
+        path.write_text(new_content)
+        promoted += 1
 
-        unreleased_body = unreleased_body[:start] + unreleased_body[end:].lstrip()
-
-    if not new_sections:
+    if promoted:
+        console.print(f"[green]✔[/green] Updated {promoted} module changelog(s)")
+    else:
         console.print("[dim]No changelog sections to promote[/dim]")
-        return
-
-    new_unreleased = f"## [Unreleased]\n\n{unreleased_body.strip()}\n\n"
-    insertion = "\n\n".join(new_sections) + "\n\n"
-    new_content = (
-        content[:section_end - len(original_unreleased_body)]
-        + new_unreleased
-        + insertion
-        + content[section_end:]
-    )
-    path.write_text(new_content)
-    console.print(f"[green]✔[/green] Updated CHANGELOG.md ({len(new_sections)} release(s))")
 
 
 def _extract_release_notes_from_changelog(module: str, version: str) -> str:
-    path = Path("CHANGELOG.md")
+    path = _module_changelog_path(module)
     if not path.exists():
-        raise FileNotFoundError("CHANGELOG.md not found")
+        raise FileNotFoundError(f"{path} not found")
     content = path.read_text()
     tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
     pattern = re.compile(rf"## \[{re.escape(tag)}\].*?(?=\n## \[|\Z)", re.DOTALL)
     match = pattern.search(content)
     if not match:
-        raise ValueError(f"CHANGELOG.md is missing a section for {tag}")
+        raise ValueError(f"{path} is missing a section for {tag}")
     body = match.group(0).split("\n", 1)[1].strip()
     if not body:
-        raise ValueError(f"CHANGELOG.md section for {tag} is empty")
+        raise ValueError(f"{path} section for {tag} is empty")
     return body
 
 
@@ -589,7 +575,13 @@ def update_deployment_manifest(module: str, version: str, is_release: bool = Fal
     from datetime import datetime, timezone
     from scripts.deployments import parse_changelog_section, extract_summary
 
-    changelog_path = Path("CHANGELOG.md")
+    changelog_path = _module_changelog_path(module)
+    if not changelog_path.exists():
+        console.print(
+            f"[yellow]Warning: {changelog_path} not found; "
+            f"skipping deployment manifest update[/yellow]"
+        )
+        return
     content = changelog_path.read_text(encoding="utf-8")
     tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
     section_body = parse_changelog_section(content, tag)
@@ -795,8 +787,12 @@ def release(
                 MODULE_INFO[m]["path"] + "/gradle.properties"
                 for m in module_versions
             ]
+            changelog_files = [
+                MODULE_INFO[m]["path"] + "/CHANGELOG.md"
+                for m in module_versions
+            ]
             run_command(
-                ["git", "add", "CHANGELOG.md", "deployments.json", *version_files]
+                ["git", "add", "deployments.json", *version_files, *changelog_files]
                 + (
                     ["docs/index.md", "docs/content"]
                     if "terracotta-gradle-plugin" in module_versions
@@ -879,10 +875,12 @@ def _rollback_release(
 
     if "files_modified" in actions_taken and "committed" not in actions_taken:
         try:
-            run_command(["git", "restore", "CHANGELOG.md", "deployments.json"])
+            restore_paths = ["deployments.json"]
             for module in module_versions:
-                run_command(["git", "restore", MODULE_INFO[module]["path"] + "/gradle.properties"])
-            run_command(["git", "restore", "docs/index.md", "docs/content"])
+                restore_paths.append(MODULE_INFO[module]["path"] + "/gradle.properties")
+                restore_paths.append(MODULE_INFO[module]["path"] + "/CHANGELOG.md")
+            restore_paths.extend(["docs/index.md", "docs/content"])
+            run_command(["git", "restore", *restore_paths])
         except subprocess.CalledProcessError as e:
             console.print(f"[red]Failed to restore modified files: {e}[/red]")
             rollback_failed = True

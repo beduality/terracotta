@@ -202,20 +202,29 @@ class TestGetModuleCommits(unittest.TestCase):
 
 class TestUpdateChangelog(unittest.TestCase):
 
+    def _setup_module_changelog(self, module: str, unreleased_body: str, old: str = "") -> Path:
+        module_dir = Path("modules") / module
+        module_dir.mkdir(parents=True, exist_ok=True)
+        changelog = module_dir / "CHANGELOG.md"
+        content = (
+            f"# Changelog — {module}\n\n"
+            f"## [Unreleased]\n\n{unreleased_body}\n\n"
+            f"{old}"
+        )
+        changelog.write_text(content)
+        return changelog
+
     def test_promotes_module_notes_to_versioned_section(self):
         with tempfile.TemporaryDirectory() as tmp:
             os.chdir(tmp)
-            changelog = Path("CHANGELOG.md")
-            changelog.write_text(
-                "# Changelog\n\n"
-                "## [Unreleased]\n\n"
-                "### terracotta-core\n\n"
-                "Adds new core feature.\n\n"
-                "- Core change\n\n"
-                "### terracotta-provider-modrinth\n\n"
-                "Fixes modrinth bug.\n\n"
-                "- Modrinth fix\n\n"
-                "## [0.8.0] - 2026-07-13\n\nOld release.\n"
+            core_cl = self._setup_module_changelog(
+                "terracotta-core",
+                "Adds new core feature.\n\n- Core change",
+                "## [0.8.0] - 2026-07-13\n\nOld release.\n",
+            )
+            modrinth_cl = self._setup_module_changelog(
+                "terracotta-provider-modrinth",
+                "Fixes modrinth bug.\n\n- Modrinth fix",
             )
 
             with patch("scripts.release.date") as mock_date:
@@ -224,35 +233,32 @@ class TestUpdateChangelog(unittest.TestCase):
                     {"terracotta-core": "0.9.0", "terracotta-provider-modrinth": "0.8.1"}
                 )
 
-            content = changelog.read_text()
-            self.assertIn("## [terracotta-core-v0.9.0] - 2026-07-21", content)
-            self.assertIn("## [terracotta-provider-modrinth-v0.8.1] - 2026-07-21", content)
-            self.assertIn("Adds new core feature.", content)
-            self.assertIn("Fixes modrinth bug.", content)
-            # Unreleased section should be empty of promoted notes
+            core_content = core_cl.read_text()
+            self.assertIn("## [terracotta-core-v0.9.0] - 2026-07-21", core_content)
+            self.assertIn("Adds new core feature.", core_content)
+            self.assertIn("- Core change", core_content)
+            # Unreleased section should be empty
             unreleased_match = __import__("re").search(
-                r"## \[Unreleased\]\n\n(.*?)\n## \[", content, __import__("re").DOTALL
+                r"## \[Unreleased\]\n\n(.*?)\n## \[", core_content, __import__("re").DOTALL
             )
             self.assertIsNotNone(unreleased_match)
-            self.assertNotIn("### terracotta-core", unreleased_match.group(1))
-            self.assertNotIn("### terracotta-provider-modrinth", unreleased_match.group(1))
+            self.assertNotIn("Adds new core feature.", unreleased_match.group(1))
+
+            modrinth_content = modrinth_cl.read_text()
+            self.assertIn("## [terracotta-provider-modrinth-v0.8.1] - 2026-07-21", modrinth_content)
+            self.assertIn("Fixes modrinth bug.", modrinth_content)
 
     def test_missing_module_notes_warns_and_skips(self):
         with tempfile.TemporaryDirectory() as tmp:
             os.chdir(tmp)
-            changelog = Path("CHANGELOG.md")
-            changelog.write_text(
-                "# Changelog\n\n"
-                "## [Unreleased]\n\n"
-                "## [0.8.0] - 2026-07-13\n\nOld release.\n"
-            )
+            self._setup_module_changelog("terracotta-core", "")
 
             with patch("scripts.release.date") as mock_date:
                 mock_date.today.return_value.isoformat.return_value = "2026-07-21"
                 with patch("scripts.release.console"):
                     release.update_changelog({"terracotta-core": "0.9.0"})
 
-            content = changelog.read_text()
+            content = (Path("modules") / "terracotta-core" / "CHANGELOG.md").read_text()
             self.assertNotIn("terracotta-core-v0.9.0", content)
 
 
@@ -261,8 +267,10 @@ class TestExtractReleaseNotes(unittest.TestCase):
     def test_extracts_module_notes(self):
         with tempfile.TemporaryDirectory() as tmp:
             os.chdir(tmp)
-            Path("CHANGELOG.md").write_text(
-                "# Changelog\n\n"
+            module_dir = Path("modules") / "terracotta-core"
+            module_dir.mkdir(parents=True)
+            (module_dir / "CHANGELOG.md").write_text(
+                "# Changelog — terracotta-core\n\n"
                 "## [terracotta-core-v0.9.0] - 2026-07-21\n\n"
                 "Adds new core feature.\n\n"
                 "- Core change\n\n"
@@ -275,7 +283,9 @@ class TestExtractReleaseNotes(unittest.TestCase):
     def test_raises_when_section_missing(self):
         with tempfile.TemporaryDirectory() as tmp:
             os.chdir(tmp)
-            Path("CHANGELOG.md").write_text("# Changelog\n\n## [Unreleased]\n\n")
+            module_dir = Path("modules") / "terracotta-core"
+            module_dir.mkdir(parents=True)
+            (module_dir / "CHANGELOG.md").write_text("# Changelog\n\n## [Unreleased]\n\n")
             with self.assertRaises(ValueError):
                 release._extract_release_notes_from_changelog("terracotta-core", "0.9.0")
 

@@ -1,6 +1,6 @@
 # Changelog Guidelines
 
-Terracotta keeps a human-readable changelog because commit history is not a release note. The changelog answers one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
+Terracotta keeps human-readable changelogs because commit history is not a release note. Each publishable module has its own `CHANGELOG.md` under `modules/<module>/CHANGELOG.md` for module-specific changes, and a root `CHANGELOG.md` for repository-wide changes (docs, CI/CD, tooling, conventions). The changelogs answer one question for consumers: **what changed that affects how the system is used, integrated, run, or depended on — and why it matters.**
 
 ## Why this matters
 
@@ -52,7 +52,7 @@ Summarize directly. Start with the substance of the release (for example, "Adds.
 
 ## How entries are grouped
 
-Entries are grouped by change category and then by module.
+Module-specific entries go in each module's own `CHANGELOG.md`, grouped by change category. Repository-wide entries (docs, CI/CD, tooling) go in the root `CHANGELOG.md`.
 
 ### Categories
 
@@ -65,18 +65,10 @@ Use [Keep a Changelog](https://keepachangelog.com/) categories:
 - **Removed** — deleted features
 - **Security** — security-related fixes
 
-### Modules
+### Where to add entries
 
-Use the module that contains the changed code:
-
-- **Docs** — documentation, guides, release notes, and the public site
-- **Repo** — repository tooling, CI/CD, release scripts, and conventions
-- **Core** — `terracotta-core` module
-- **Gradle Plugin** — `terracotta-gradle-plugin` module
-- **Modrinth** — `terracotta-provider-modrinth` module
-- **Hangar** — `terracotta-provider-hangar` module
-
-If a change spans modules, either split it into scoped entries or place it under the most affected module.
+- **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
+- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`, using `### Category` headings with plain bullet lists (no module subheadings needed since the root changelog is already scoped to repo-wide concerns).
 
 ## Style principles
 
@@ -86,7 +78,6 @@ If a change spans modules, either split it into scoped entries or place it under
 - Be specific and concrete, not vague.
 - Focus on impact, not implementation.
 - Inline the reason with `so`, `because`, or similar instead of using a separate `**Why**:` line.
-- Use bold `**Module**` headings under each category; do not use `####` headings for modules.
 - Mark breaking changes explicitly with `**Breaking**:` and migration steps.
 
 For the reasoning behind these rules, see [Changelog Design](../explanation/changelog.md).

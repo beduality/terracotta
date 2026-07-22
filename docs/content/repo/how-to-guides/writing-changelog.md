@@ -1,10 +1,11 @@
 # Writing Changelog Entries
 
-This guide covers the mechanical rules for adding an entry to `CHANGELOG.md`.
+This guide covers the mechanical rules for adding a changelog entry.
 
 ## Where to add an entry
 
-Add entries under `## [Unreleased]` in `CHANGELOG.md`. Place them in the correct category section, grouped by module.
+- **Module changes** (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under `## [Unreleased]` in the corresponding `modules/<module>/CHANGELOG.md`.
+- **Repo-wide changes** (Docs, Repo, SDK): Add entries under `## [Unreleased]` in the root `CHANGELOG.md`.
 
 ## Release summary
 
@@ -25,8 +26,6 @@ Summaries are required. If the release only contains one small fix, a single sen
 ```md
 ### Category
 
-**Module**
-
 - Short description of what changed so the consumer-visible reason is clear.
 ```
 
@@ -40,8 +39,7 @@ Summaries are required. If the release only contains one small fix, a single sen
 - **No implementation details.** Do not mention imports, internal classes, method names, file renames, or how code was decoupled unless that detail is itself part of the public API or contract.
 - **Derive entries from the git diff since the last release tag.** Review only what is new relative to that tag and describe the observable change, not the diff lines.
 - **Inline the reason.** Use `so`, `because`, or similar to make the consumer-visible benefit part of the entry instead of a separate `**Why**:` line.
-- **Use bold module headings.** Write `**Module**` on its own line; do not use `####` headings.
-- **Group related changes.** Put multiple bullets under the same module when they belong together.
+- **Group related changes.** Put multiple bullets under the same category when they belong together.
 - **Keep entries concise.** Put detail, caveats, or migration steps in `**Breaking**:` or `**Migration**:` lines when needed.
 
 ## Examples
@@ -51,8 +49,6 @@ Summaries are required. If the release only contains one small fix, a single sen
 ```md
 ### Fixed
 
-**Core**
-
 - Fixed publishing of `-javadoc.jar` artifacts so they include generated API documentation instead of empty JARs, satisfying Maven Central requirements.
 ```
 
@@ -61,8 +57,6 @@ Summaries are required. If the release only contains one small fix, a single sen
 ```md
 ### Fixed
 
-**Core**
-
 - Refactored `JavadocTask` to use `DokkaJavadoc`.
 ```
 
@@ -70,8 +64,6 @@ This describes implementation, not impact.
 
 ```md
 ### Changed
-
-**Gradle Plugin**
 
 - The Gradle plugin no longer imports `FileSystemStateSource` directly. The default state filename is now a local plugin constant, and `StateSourceResolver` collects discovered factory IDs.
 ```
@@ -84,8 +76,6 @@ Mark breaking changes explicitly:
 
 ```md
 ### Changed
-
-**Core**
 
 - `TerracottaVersion` fields are now required.
   - **Breaking**: Versions without required fields will fail validation.

@@ -14,7 +14,7 @@ End-to-end release orchestration. Used locally and by the [release.yml](ci-cd.md
 | `uv run scripts/release.py trigger` | Triggers the `release.yml` workflow via `gh workflow run`. |
 | `uv run scripts/release.py monitor [RUN_ID]` | Watches a release workflow run. |
 | `uv run scripts/release.py rollback` | Reverts the last release commit and tag. |
-| `uv run scripts/release.py extract-release-notes <version>` | Extracts the `## [version]` section from `CHANGELOG.md` for the GitHub release body. |
+| `uv run scripts/release.py extract-release-notes <module> <version>` | Extracts the `## [tag]` section from the module's `CHANGELOG.md` for the GitHub release body. |
 
 Common flags:
 
@@ -43,7 +43,7 @@ The script parses `modules/terracotta-github/src/.../App.kt` to detect which sec
 
 ### `deployments.py`
 
-Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses `CHANGELOG.md` to extract structured metadata (title, summary, modules) for each version.
+Manages the `deployments.json` manifest that drives the docs [Last Changes](../../../last-changes.md) page. Parses module changelogs to extract structured metadata (title, summary, modules) for each version.
 
 | Command | Purpose |
 |---|---|

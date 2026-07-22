@@ -12,7 +12,7 @@
 │   ├── content/            # Content organized by topic (modules, integration, repo)
 │   └── hooks/              # Build hooks for copying generated docs
 ├── gradle/                 # Gradle wrapper and version catalogs
-├── modules/                # Gradle modules
+├── modules/                # Gradle modules (each with its own CHANGELOG.md and gradle.properties)
 ├── project/                # Project management
 ├── scripts/                # Utility scripts (release, deployment)
 ├── build.gradle.kts        # Root build configuration
@@ -21,7 +21,7 @@
 ├── mkdocs.yml              # Documentation configuration
 ├── pyproject.toml          # Python dependencies (uv)
 ├── README.md               # Project overview
-├── CHANGELOG.md            # Release notes
+├── CHANGELOG.md            # Repository-wide release notes (per-module changelogs in modules/)
 ├── CONTRIBUTING.md         # Contribution guidelines
 ├── SECURITY.md             # Security policy
 └── LICENSE                 # License
