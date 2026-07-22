@@ -122,7 +122,9 @@
       "createdAt": "2026-07-11T00:00:00Z",
       "title": "Smoke Testing & Docs Polish",
       "summary": "Adds a smoke-testing release guide, archives test results as structured JSON metrics, and fixes docs deployment reliability.",
-      "modules": [],
+      "modules": [
+        "github"
+      ],
       "isRelease": false
     },
     {
@@ -130,7 +132,9 @@
       "createdAt": "2026-07-10T00:00:00Z",
       "title": "Changelog & Docs Fixes",
       "summary": "Fixes release tooling to leave an empty Unreleased section after each release and prevents routine pushes from resetting the default docs site version.",
-      "modules": [],
+      "modules": [
+        "github"
+      ],
       "isRelease": false
     },
     {
@@ -139,6 +143,7 @@
       "title": "Gradle Plugin & Modrinth Provider",
       "summary": "Adds the Gradle plugin with plan and apply tasks, Modrinth provider integration, and automated GitHub releases on tag push.",
       "modules": [
+        "github",
         "gradle-plugin",
         "modrinth"
       ],
@@ -150,7 +155,8 @@
       "title": "Initial Release",
       "summary": "Ships canonical project and version domain models, provider abstractions, DiffEngine for semantic operations, and the Core SDK on Maven Central.",
       "modules": [
-        "core"
+        "core",
+        "github"
       ],
       "isRelease": false
     }
