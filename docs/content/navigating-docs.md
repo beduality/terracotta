@@ -15,6 +15,7 @@ Terracotta's documentation is organized around what you want to do, not around t
 - **[Integration](integration/README.md)**: Add Terracotta to a real project, starting with the Gradle plugin and providers.
 - **[Modules](modules/overview.md)**: Deep dives into each component — Core, Gradle Plugin, Modrinth Provider, and Hangar Provider.
 - **[Repo](repo/README.md)**: Build, test, contribute, and release Terracotta itself.
+- **[Docs Changelog](../CHANGELOG.md)**: Track documentation site changes (pages, structure, navigation).
 
 ## Where to go next
 
