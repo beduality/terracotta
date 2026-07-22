@@ -6,9 +6,17 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-22
 
+### Fixed
+
+- Fixed incorrect method name `updateProject` → `patchProject` in Modrinth 0.7.0 changelog.
+- Corrected warning attribution in Hangar 0.5.0 changelog from `HangarRegistryProvider` to `BaseRegistryProvider`.
+- Fixed Hangar 0.7.0 changelog entries to start with past-tense verbs per changelog guidelines.
+- Removed `**Why**:` lines from core 0.1.0, gradle-plugin 0.1.1, and modrinth 0.1.1 changelogs; inlined reasons into each entry.
+- Backfilled missing release summaries for all pre-0.6.0 entries across core, gradle-plugin, hangar, and modrinth changelogs.
+
 ### Changed
 
-- Refined `deployments.json` manifest: removed pseudo-modules (`docs`, `repo`, `release-pipeline`), added `github` module to historical entries, and added 2 versionless pre-0.1.0 Pulumi deployments.
+- Refined `deployments.json` manifest: removed pseudo-modules (`docs`, `repo`, `release-pipeline`), added `github` module to historical entries, added 2 versionless pre-0.1.0 Pulumi deployments, and added 2 docs site deployment entries.
 - Made `version` optional in deployment entries to support non-versioned deployments (e.g. infrastructure applies).
 - Reordered Last Changes page header: title, version badge, module icons, release tag, date.
 - Enabled multiple module badge filters simultaneously on the Last Changes page.

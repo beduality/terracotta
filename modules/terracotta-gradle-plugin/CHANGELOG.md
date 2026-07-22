@@ -48,6 +48,8 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.5.0] - 2026-07-12
 
+Added an `icon` DSL property and renamed the metadata detector package to align with core conventions.
+
 ### Added
 
 - Added `terracotta.icon` DSL property as a `RegularFileProperty`, populated from `terracotta.yml` and wired into `terracottaPlan` and `terracottaApply` tasks.
@@ -58,12 +60,16 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.4.0] - 2026-07-12
 
+Added `licenseUrl` and gallery DSL properties so users can configure license URLs and gallery images from `build.gradle.kts`.
+
 ### Added
 
 - Added `terracotta.licenseUrl` DSL property, populated from `terracotta.yml` and wired into `terracottaPlan` and `terracottaApply` tasks.
 - Added `terracotta { gallery { ... } }` DSL with `TerracottaGalleryExtension`, populated from `terracotta.yml` and wired into `terracottaPlan` and `terracottaApply` tasks.
 
 ## [0.3.0] - 2026-07-12
+
+Added destructive tasks with confirmation and preview options so users can delete projects and versions from remote registries.
 
 ### Added
 
@@ -72,12 +78,16 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.2.0] - 2026-07-11
 
+Added Gradle-specific release type and game version detectors and fallback version resolution from `gradle.properties` so the plugin can infer metadata from standard Gradle build files.
+
 ### Added
 
 - Added `releaseType` and `gameVersion` detectors for Gradle-specific files (`gradle.properties`, `gradle/libs.versions.toml`, `build.gradle.kts` / `build.gradle`) via the `ProjectMetadataDetector` ServiceLoader SPI.
 - Added fallback version resolution from `gradle.properties` when `project.version` is `unspecified`, so the resolved version is passed into core metadata resolution instead of core reading Gradle files directly.
 
 ## [0.1.4] - 2026-07-11
+
+Added `terracotta.yml` support, YAML-to-DSL precedence, and project metadata auto-detection so users can define shared metadata in a dedicated file and let the plugin infer the rest from project files.
 
 ### Added
 
@@ -88,16 +98,14 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.1.1] - 2026-07-10
 
+Initial release of the Terracotta Gradle plugin, providing `terracottaPlan` and `terracottaApply` tasks with multi-provider support and configuration via the `terracotta` extension.
+
 ### Added
 
-- Gradle plugin frontend supporting `terracottaPlan` and `terracottaApply` tasks, with configuration via the `terracotta` extension.
-  - **Why**: Provides developers with an ergonomic build-tool integration that aligns with typical Minecraft mod/plugin workflows, with direct access to project artifacts and metadata.
-- Supports multiple providers via `providers` container, with per-provider plan/apply tasks.
-  - **Why**: Allows publishing to multiple registries at once.
-- Uses provider-specific tokens (e.g., `MODRINTH_TOKEN`) environment variables.
-  - **Why**: Improves security and flexibility by using separate tokens per provider.
-- Added `maven-publish` and `signing` plugins.
-  - **Why**: Enables the Gradle plugin to be published to Maven Central.
+- Added Gradle plugin frontend supporting `terracottaPlan` and `terracottaApply` tasks with configuration via the `terracotta` extension, providing developers with an ergonomic build-tool integration that aligns with typical Minecraft mod/plugin workflows.
+- Added support for multiple providers via `providers` container, with per-provider plan/apply tasks, so users can publish to multiple registries at once.
+- Added provider-specific tokens (e.g., `MODRINTH_TOKEN`) via environment variables to improve security and flexibility by using separate tokens per provider.
+- Added `maven-publish` and `signing` plugins to enable publishing the Gradle plugin to Maven Central.
 
 ### Fixed
 

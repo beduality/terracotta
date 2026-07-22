@@ -50,6 +50,8 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.5.0] - 2026-07-12
 
+Added a provider-specific logic layer with operation filtering and project icon support so providers can share registry-specific rules and manage icons.
+
 ### Added
 
 - Added provider-specific logic layer with `ProviderLogic`, `LoaderMapper`, and `PlatformBehavior` interfaces in `terracotta-core`. `ProviderFactory` now exposes `createProviderLogic()` so providers can share registry-specific loader mappings and operation filtering rules.
@@ -63,11 +65,15 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.4.1] - 2026-07-12
 
+Republished to align Maven Central artifacts with the `v0.4.0` release tag.
+
 ### Fixed
 
 - Republished as `0.4.1` to align Maven Central artifacts with the `v0.4.0` release tag. The initial `0.4.0` upload was published from a slightly earlier commit than the tagged release, so this patch ensures users receive the source reflected by the `v0.4.0` tag.
 
 ## [0.4.0] - 2026-07-12
+
+Added license URL support, gallery image management, and an asset processing SPI so providers can persist custom license URLs and upload gallery images.
 
 ### Added
 
@@ -85,11 +91,15 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.3.0] - 2026-07-12
 
+Added destructive registry support so providers can opt into project and version deletion.
+
 ### Added
 
 - Added `DestructiveRegistryProvider` interface and an optional `createDestructiveRegistryProvider` factory method on `ProviderFactory` so providers can opt into project and version deletion.
 
 ## [0.2.0] - 2026-07-11
+
+Added automatic `releaseType` and `gameVersion` detection from source files so callers can supply a version and have its release channel and supported game versions inferred.
 
 ### Added
 
@@ -104,6 +114,8 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.1.4] - 2026-07-11
 
+Added `terracotta.yml` parsing, an extensible loader system with built-in adapters, and metadata detection from project files so the core can auto-detect project metadata without explicit configuration.
+
 ### Added
 
 - Added `terracotta.yml` parsing so library consumers can read Terracotta configuration from a standard YAML file.
@@ -117,15 +129,12 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.1.0] - 2026-07-10
 
+Initial release of the Terracotta Core SDK, providing canonical project and version models, provider abstractions, a diff engine for semantic operation calculation, and support for full project creation on remote registries.
+
 ### Added
 
-- Canonical project and version domain models.
-  - **Why**: Provides structured data models for representing projects and versions.
-- Provider abstractions (`StateProvider`, `RegistryProvider`, `ProviderFactory`).
-  - **Why**: Separates platform-agnostic business logic from registry integrations.
-- `DiffEngine` calculating semantic operations.
-  - **Why**: Facilitates robust diff calculations.
-- Support for full project creation when a project does not exist on the remote registry.
-  - **Why**: Enables clean automation for new projects.
-- Core SDK available via Maven Central.
-  - **Why**: Enables developers to use Terracotta core logic as a library in their projects.
+- Added canonical project and version domain models to provide structured data for representing projects and versions.
+- Added provider abstractions (`StateProvider`, `RegistryProvider`, `ProviderFactory`) to separate platform-agnostic business logic from registry integrations.
+- Added `DiffEngine` for calculating semantic operations between local and remote project states.
+- Added support for full project creation when a project does not exist on the remote registry, enabling clean automation for new projects.
+- Published the Core SDK to Maven Central so developers can use Terracotta core logic as a library in their projects.

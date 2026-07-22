@@ -13,9 +13,9 @@ Narrows Hangar license handling by mapping common SPDX identifiers to Hangar's l
 
 ### Added
 
-- `HangarPlatformBehavior` filters out `UpdateVisibility` operations so Hangar applies continue without failing; a warning is logged for skipped operations.
+- Filtered out `UpdateVisibility` operations via `HangarPlatformBehavior` so Hangar applies continue without failing; a warning is logged for skipped operations.
 - Added `HangarLicenseMapper` to map common SPDX license identifiers (e.g., `Apache-2.0`, `GPL-3.0-only`) to the license values accepted by Hangar's project settings API.
-- `HangarProviderLogic` reports `supportsLicenseUrl = false` because Hangar's project API does not expose a license URL field.
+- Reported `supportsLicenseUrl = false` via `HangarProviderLogic` because Hangar's project API does not expose a license URL field.
 - `HangarStateProvider` reverse-maps Hangar license values back to Terracotta license identifiers when reading project state.
 - `HangarRegistryProvider` no longer warns about configured `licenseUrl`; the diff engine now ignores the field for Hangar.
 
@@ -36,12 +36,16 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.5.0] - 2026-07-12
 
+Added a provider-specific logic layer so Hangar integrations can filter unsupported operations before they reach the registry provider.
+
 ### Added
 
 - Added `HangarProviderLogic` and `HangarPlatformBehavior`, which filters out unsupported operations (`CreateProject`, gallery, and icon) before `HangarRegistryProvider` processes them. `HangarLoaderMapper` now implements the core `LoaderMapper` interface and is shared by the state and registry providers.
-- `HangarRegistryProvider` now warns when unsupported operations are skipped, including `CreateProject`, gallery, and icon operations.
+- Inherited warning behavior from `BaseRegistryProvider`, which logs warnings when unsupported operations are skipped, including `CreateProject`, gallery, and icon operations.
 
 ## [0.4.0] - 2026-07-12
+
+Added warnings for unsupported `licenseUrl` and gallery operations so users are informed when Hangar cannot persist configured values.
 
 ### Added
 
@@ -50,11 +54,15 @@ Introduces pluggable state management and canonical project links. State persist
 
 ## [0.3.0] - 2026-07-12
 
+Added destructive registry support so projects and versions can be deleted from Hangar.
+
 ### Added
 
 - Added `HangarDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Hangar.
 
 ## [0.2.0] - 2026-07-11
+
+Bootstrapped the Hangar provider so Terracotta can sync projects and versions with the PaperMC Hangar registry.
 
 ### Added
 

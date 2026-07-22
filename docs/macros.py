@@ -70,6 +70,7 @@ MODULE_LABELS = {
     "github": "GitHub",
     "modrinth": "Modrinth",
     "hangar": "Hangar",
+    "docs": "Docs",
 }
 
 MODULE_ICONS = {
@@ -79,6 +80,7 @@ MODULE_ICONS = {
     "hangar": "brands/hangar",
     "gradle-plugin": "brands/gradle",
     "state-filesystem": "material/file",
+    "docs": "material/book",
 }
 
 

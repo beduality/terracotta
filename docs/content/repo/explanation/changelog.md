@@ -92,7 +92,7 @@ During each release, `scripts/release.py` calls `scripts/deployments.py` to:
 
 ### Versionless entries
 
-Not all deployments are tied to a module version. Infrastructure changes (e.g. Pulumi applies to `terracotta-github`) are recorded as versionless entries with only a `createdAt` timestamp. These entries sort after all versioned entries and display without a version badge on the Changes page.
+Not all deployments are tied to a module version. Infrastructure changes (e.g. Pulumi applies to `terracotta-github`) and documentation site deploys are recorded as versionless entries with only a `createdAt` timestamp. These entries sort after all versioned entries and display without a version badge on the Changes page. The `docs` module badge identifies documentation site deployments.
 
 ### Releases vs deployments
 

@@ -168,6 +168,24 @@
       "isRelease": false
     },
     {
+      "createdAt": "2026-07-22T00:00:00Z",
+      "title": "Docs Site Overhaul",
+      "summary": "Reworked the Last Changes page with multi-module filtering, versionless deployment support, and reordered header. Added docs/CHANGELOG.md and updated all changelog references for the three-tier system.",
+      "modules": [
+        "docs"
+      ],
+      "isRelease": false
+    },
+    {
+      "createdAt": "2026-07-10T00:00:00Z",
+      "title": "Initial Docs Site",
+      "summary": "Deployed the initial MkDocs Material documentation site to GitHub Pages with Diátaxis-structured content, estimated reading times, and a homepage with feature cards and a plan/apply flowchart.",
+      "modules": [
+        "docs"
+      ],
+      "isRelease": false
+    },
+    {
       "version": "0.1.0",
       "createdAt": "2026-07-10T00:00:00Z",
       "title": "Initial Release",
