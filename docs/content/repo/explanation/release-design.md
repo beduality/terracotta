@@ -40,4 +40,4 @@ If a release goes wrong after it has been published, recovery depends on what fa
 
 - **Tag or GitHub release is wrong**: Delete the tag and release, fix the issue, and re-run the workflow.
 - **Maven Central published bad artifacts**: Maven Central publishes are irreversible. In this case, release a follow-up version rather than trying to unpublish.
-- **Local dry run failed**: Use `release.py rollback` to revert uncommitted version bumps and tag changes.
+- **Local dry run failed**: Use `release.py rollback <module> <version>` to revert uncommitted version bumps and tag changes.

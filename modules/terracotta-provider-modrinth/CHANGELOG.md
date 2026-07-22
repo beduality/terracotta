@@ -13,8 +13,7 @@ Stabilized gallery item identity using persisted state so images can be renamed 
 
 ### Added
 
-- `ModrinthRegistryProvider` implements `GalleryIdentityReporter`: uploads return the new remote URL, updates keep the existing URL, and deletes omit the identity.
-- `ModrinthClient.uploadGalleryItem` returns the created gallery image URL.
+- Added gallery identity reporting so image uploads return the new remote URL, updates keep the existing URL, and deletes omit the identity from persisted state.
 
 ## [0.7.0] - 2026-07-13
 
@@ -22,14 +21,11 @@ Narrowed Hangar license handling by mapping common SPDX identifiers to Hangar's 
 
 ### Added
 
-- `ModrinthStateProvider.fetchProject` maps Modrinth project `status` to `TerracottaVisibility`.
-- `ModrinthRegistryProvider` applies `UpdateVisibility` by patching the project `status`.
+- Added visibility mapping so Modrinth project status is read and written as `TerracottaVisibility`.
 
 ### Changed
 
-- `ModrinthStateProvider.fetchProject` maps Modrinth `categories` and `additional_categories` to `TerracottaProjectCategories`.
-- `ModrinthRegistryProvider` applies `UpdateCategories` to Modrinth featured and additional categories.
-- `ModrinthClient.createProject` and `patchProject` serialize Terracotta categories using the Modrinth featured / additional split.
+- Changed category mapping so Modrinth featured and additional categories are read and written as `TerracottaProjectCategories`, including the featured/additional split when creating or patching projects.
 
 ## [0.6.0] - 2026-07-12
 
@@ -37,8 +33,7 @@ Introduced pluggable state management and canonical project links. State persist
 
 ### Changed
 
-- `ModrinthStateProvider.fetchProject` now maps remote `issues_url`, `source_url`, `wiki_url`, `discord_url`, and `donation_urls` to canonical links.
-- `ModrinthRegistryProvider` patches Modrinth project link fields during `UpdateMetadata` and includes link fields when creating draft projects.
+- Changed project link mapping so remote Modrinth link fields (issues, source, wiki, discord, donations) are read into canonical links and written back during metadata updates and draft project creation.
 
 ## [0.5.0] - 2026-07-12
 
@@ -46,8 +41,8 @@ Added a provider-specific logic layer and project icon support so Modrinth integ
 
 ### Added
 
-- Added `ModrinthProviderLogic` exposing identity loader mapping and stateful platform behavior. `ModrinthRegistryProvider` now consumes the logic layer to filter operations.
-- Added project icon support via `ModrinthClient.uploadIcon`, which calls `PATCH /project/{id}/icon` with a multipart file (256 KiB limit, PNG/JPEG/WebP/GIF/BMP). `ModrinthStateProvider.fetchProject` now reads `icon_url` into the canonical `icon` field.
+- Added provider-specific operation filtering so unsupported Modrinth operations are skipped with a warning before reaching the registry.
+- Added project icon support so icons can be uploaded to Modrinth (256 KiB limit, PNG/JPEG/WebP/GIF/BMP) and read back from the remote `icon_url` into the canonical `icon` field.
 
 ## [0.4.0] - 2026-07-12
 
@@ -55,8 +50,8 @@ Added license URL mapping and gallery image support so Modrinth projects can per
 
 ### Added
 
-- Added `license_url` mapping: `ModrinthStateProvider.fetchProject` reads `license.url` into the canonical `licenseUrl`, and `ModrinthClient.createProject` / `ModrinthRegistryProvider` emit `license_url` when it is set.
-- Added gallery image support via `ModrinthClient.uploadGalleryItem`, `updateGalleryItem`, and `deleteGalleryItem`, using the core `GalleryValidator` (5 MiB limit, PNG/JPEG/WebP/GIF/BMP) and the configured `AssetProcessor`.
+- Added license URL mapping so Modrinth's `license.url` is read into the canonical `licenseUrl` field and written back when set.
+- Added gallery image support so users can upload, update, and delete gallery images on Modrinth (5 MiB limit, PNG/JPEG/WebP/GIF/BMP).
 
 ## [0.3.0] - 2026-07-12
 
@@ -64,7 +59,7 @@ Added destructive registry support so projects and versions can be deleted from 
 
 ### Added
 
-- Added `ModrinthDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Modrinth.
+- Added destructive registry support so projects and versions can be deleted from Modrinth.
 
 ## [0.1.1] - 2026-07-10
 
@@ -72,6 +67,5 @@ Bootstrapped the first concrete provider so Terracotta can sync project settings
 
 ### Added
 
-- Added Modrinth state and registry integration using Ktor Client and Kotlinx Serialization to sync project settings, metadata, and artifacts directly with Modrinth.
+- Added Modrinth state and registry integration to sync project settings, metadata, and artifacts directly with Modrinth.
 - Published the Modrinth provider to Maven Central so developers can use it as a library in their projects.
-- Added `maven-publish` plugin to enable publishing the Modrinth provider to Maven Central.

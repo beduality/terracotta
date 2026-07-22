@@ -768,6 +768,7 @@ def release(
         sys.exit(0)
 
     actions_taken: list[str] = []
+    branch = current_branch()
 
     try:
         # 1. Update versions and changelog
@@ -797,7 +798,6 @@ def release(
         validate_javadoc_jars(module_versions)
 
         # 5. Commit and tag
-        branch = current_branch()
         if push:
             console.print("\n[bold]5. Committing and tagging...[/bold]")
             version_files = [
@@ -846,8 +846,8 @@ def release(
         # 8. Push commit and tags
         if push:
             console.print("\n[bold]8. Pushing branch and tags...[/bold]")
-            actions_taken.append("pushed")
             run_command(["git", "push", "origin", branch, "--tags"])
+            actions_taken.append("pushed")
             console.print(
                 f"\n[bold green]Successfully released {', '.join(module_versions)}![/bold green]"
             )

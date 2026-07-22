@@ -14,7 +14,7 @@ End-to-end release orchestration. Used locally and by the [release.yml](ci-cd.md
 | `uv run scripts/release.py trigger` | Triggers the `release.yml` workflow via `gh workflow run`. |
 | `uv run scripts/release.py monitor [RUN_ID]` | Watches a release workflow run. |
 | `uv run scripts/release.py abort [RUN_ID]` | Cancels an active release workflow run. |
-| `uv run scripts/release.py rollback` | Reverts the last release commit and tag. |
+| `uv run scripts/release.py rollback <module> <version>` | Reverts the last release commit and tag for a specific module. |
 | `uv run scripts/release.py extract-release-notes <module> <version>` | Extracts the `## [tag]` section from the module's `CHANGELOG.md` for the GitHub release body. |
 
 Common flags:

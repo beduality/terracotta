@@ -638,6 +638,95 @@ class TestReleaseDryRun(unittest.TestCase):
                                 mock_gh.assert_not_called()
                                 mock_run.assert_not_called()
 
+    # --- GitHub Releases gated by push ---
+
+    @patch("scripts.release.console")
+    def test_github_release_skipped_when_push_false(self, _mock_console):
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
+             patch("scripts.release.build_modules"), \
+             patch("scripts.release.build_javadoc_jars"), \
+             patch("scripts.release.validate_javadoc_jars"), \
+             patch("scripts.release.publish_module_to_central"), \
+             patch("scripts.release.create_github_release") as mock_gh, \
+             patch("scripts.release.run_command"), \
+             patch("scripts.release.update_deployment_manifest"), \
+             patch("scripts.release.update_changelog"), \
+             patch("scripts.release.set_module_version"), \
+             patch("scripts.release.current_branch", return_value="main"):
+            release.release(
+                bump="minor", modules="terracotta-core",
+                dry_run=False, publish=True, push=False, yes=True,
+            )
+            mock_gh.assert_not_called()
+
+    # --- Rollback uses branch when build fails before commit (bug #1) ---
+
+    @patch("scripts.release.console")
+    def test_rollback_uses_branch_when_build_fails(self, _mock_console):
+        """Branch must be initialized before the try block so rollback works.
+
+        If build_modules raises and push=True, the except handler references
+        `branch`. This test verifies rollback is called with the correct branch
+        rather than crashing with NameError.
+        """
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
+             patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_changelog"), \
+             patch("scripts.release.update_deployment_manifest"), \
+             patch("scripts.release.build_modules", side_effect=subprocess.CalledProcessError(1, [])), \
+             patch("scripts.release.current_branch", return_value="feature-branch"), \
+             patch("scripts.release._rollback_release") as mock_rollback:
+            with self.assertRaises(SystemExit) as ctx:
+                release.release(
+                    bump="minor", modules="terracotta-core",
+                    dry_run=False, publish=True, push=True, yes=True,
+                )
+            self.assertEqual(ctx.exception.code, 1)
+            mock_rollback.assert_called_once()
+            called_branch = mock_rollback.call_args.args[2]
+            self.assertEqual(called_branch, "feature-branch")
+
+    # --- Pushed not appended before push command (bug #2) ---
+
+    @patch("scripts.release.console")
+    def test_pushed_not_appended_before_push_succeeds(self, _mock_console):
+        """actions_taken should not include 'pushed' if the push command fails.
+
+        If git push raises, rollback should not attempt to delete remote tags
+        that were never pushed.
+        """
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+        push_calls = []
+
+        def fake_run_command(cmd, env=None, check=True):
+            if cmd and cmd[0] == "git" and len(cmd) > 1 and cmd[1] == "push":
+                push_calls.append(list(cmd))
+                raise subprocess.CalledProcessError(1, cmd)
+            # Allow other git commands to proceed
+
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
+             patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_changelog"), \
+             patch("scripts.release.update_deployment_manifest"), \
+             patch("scripts.release.build_modules"), \
+             patch("scripts.release.build_javadoc_jars"), \
+             patch("scripts.release.validate_javadoc_jars"), \
+             patch("scripts.release.publish_module_to_central"), \
+             patch("scripts.release.create_github_release"), \
+             patch("scripts.release.current_branch", return_value="main"), \
+             patch("scripts.release.run_command", side_effect=fake_run_command), \
+             patch("scripts.release._rollback_release") as mock_rollback:
+            with self.assertRaises(SystemExit):
+                release.release(
+                    bump="minor", modules="terracotta-core",
+                    dry_run=False, publish=True, push=True, yes=True,
+                )
+            mock_rollback.assert_called_once()
+            actions = mock_rollback.call_args.args[1]
+            self.assertNotIn("pushed", actions)
+
     # --- All modules at once ---
 
     @patch("scripts.release.console")

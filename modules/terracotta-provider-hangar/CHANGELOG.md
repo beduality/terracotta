@@ -13,17 +13,13 @@ Narrowed Hangar license handling by mapping common SPDX identifiers to Hangar's 
 
 ### Added
 
-- Filtered out `UpdateVisibility` operations via `HangarPlatformBehavior` so Hangar applies continue without failing; a warning is logged for skipped operations.
-- Added `HangarLicenseMapper` to map common SPDX license identifiers (e.g., `Apache-2.0`, `GPL-3.0-only`) to the license values accepted by Hangar's project settings API.
-- Reported `supportsLicenseUrl = false` via `HangarProviderLogic` because Hangar's project API does not expose a license URL field.
-- `HangarStateProvider` reverse-maps Hangar license values back to Terracotta license identifiers when reading project state.
-- `HangarRegistryProvider` no longer warns about configured `licenseUrl`; the diff engine now ignores the field for Hangar.
+- Added SPDX license identifier mapping so common licenses (e.g., `Apache-2.0`, `GPL-3.0-only`) are mapped to Hangar's accepted license values on upload and reverse-mapped when reading project state.
+- Added `supportsLicenseUrl = false` reporting so the diff engine ignores `licenseUrl` differences for Hangar, eliminating perpetual metadata updates and spurious warnings.
+- Filtered out visibility update operations so Hangar applies continue without failing; a warning is logged for skipped operations.
 
 ### Changed
 
-- `HangarStateProvider.fetchProject` maps Hangar `category` and `tags` to `TerracottaProjectCategories`.
-- `HangarRegistryProvider` applies `UpdateCategories` by mapping the primary category and recognized tags back to Hangar's model.
-- `HangarPlatformBehavior` filters on `UpdateCategories` instead of `UpdateTags`.
+- Changed category mapping so Hangar's primary category and tags are read and written as `TerracottaProjectCategories`, with unsupported category operations filtered out.
 
 ## [0.6.0] - 2026-07-12
 
@@ -31,8 +27,7 @@ Introduced pluggable state management and canonical project links. State persist
 
 ### Changed
 
-- `HangarStateProvider.fetchProject` now maps remote `homepage`, `source`, `issues`, `wiki`, `discord`, and `donations` to canonical links.
-- `HangarRegistryProvider` updates Hangar project link fields during `UpdateMetadata`.
+- Changed project link mapping so remote Hangar link fields (homepage, source, issues, wiki, discord, donations) are read into canonical links and written back during metadata updates.
 
 ## [0.5.0] - 2026-07-12
 
@@ -40,8 +35,7 @@ Added a provider-specific logic layer so Hangar integrations can filter unsuppor
 
 ### Added
 
-- Added `HangarProviderLogic` and `HangarPlatformBehavior`, which filters out unsupported operations (`CreateProject`, gallery, and icon) before `HangarRegistryProvider` processes them. `HangarLoaderMapper` now implements the core `LoaderMapper` interface and is shared by the state and registry providers.
-- Inherited warning behavior from `BaseRegistryProvider`, which logs warnings when unsupported operations are skipped, including `CreateProject`, gallery, and icon operations.
+- Added provider-specific operation filtering so unsupported Hangar operations (project creation, gallery, and icon) are skipped with a warning before reaching the registry.
 
 ## [0.4.0] - 2026-07-12
 
@@ -49,8 +43,7 @@ Added warnings for unsupported `licenseUrl` and gallery operations so users are 
 
 ### Added
 
-- Hangar registry provider now warns when `licenseUrl` is configured, since Hangar does not support publishing a license URL.
-- Hangar registry provider now skips gallery operations with a warning, since Hangar does not expose a gallery API.
+- Added warnings when `licenseUrl` is configured or gallery operations are attempted, since Hangar does not support publishing a license URL or exposing a gallery API.
 
 ## [0.3.0] - 2026-07-12
 
@@ -58,7 +51,7 @@ Added destructive registry support so projects and versions can be deleted from 
 
 ### Added
 
-- Added `HangarDestructiveRegistryProvider` with DELETE endpoints for removing projects and versions from Hangar.
+- Added destructive registry support so projects and versions can be deleted from Hangar.
 
 ## [0.2.0] - 2026-07-11
 

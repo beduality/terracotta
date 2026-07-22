@@ -18,7 +18,7 @@ Releases follow [Semantic Versioning](https://semver.org/). Each module is versi
 | `patch` | Bug fixes only. |
 | `minor` | New features, backward compatible. |
 | `major` | Breaking changes. |
-| `custom` | A specific version like `0.3.0`. Pass as the `--bump` value directly. |
+| `0.3.0` | A specific version. Pass directly as the `--bump` value. |
 
 ## 2. Trigger the release workflow
 
@@ -67,7 +67,7 @@ This computes version bumps for changed modules and prints the planned changes w
 If the workflow fails before publishing, `release.py` rolls back the version bump and tag automatically. For a manual rollback:
 
 ```bash
-uv run scripts/release.py rollback
+uv run scripts/release.py rollback <module> <version>
 ```
 
 If Maven Central already published, you cannot unpublish. Release a follow-up version instead.
