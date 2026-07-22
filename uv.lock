@@ -682,6 +682,7 @@ dependencies = [
 dev = [
     { name = "pytest" },
     { name = "pytest-json-report" },
+    { name = "semver" },
 ]
 
 [package.metadata]
@@ -698,6 +699,7 @@ requires-dist = [
 dev = [
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-json-report", specifier = ">=1.5.0" },
+    { name = "semver", specifier = ">=3.0.4" },
 ]
 
 [[package]]
