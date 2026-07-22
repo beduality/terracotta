@@ -15,11 +15,13 @@
 - Add AI Skills
 
 - Move `release` script to its own repo
+- Move `deployment` script to its own repo
 - Move docs setup to its own repo
 - Look for a better way to load Pulumi secrets
 
 - Migrate `mkdocs` to SvelteKit
     - Or, add formatter, linter and typechecker for Python
+
 
 ## Performance
 
