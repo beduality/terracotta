@@ -5181,16 +5181,12 @@
 </thead>
 <tbody>
 <tr>
-<td>Push to <code>main</code></td>
-<td>Deploys an <code>unreleased</code> version alias.</td>
-</tr>
-<tr>
-<td>Version tag <code>v*</code></td>
-<td>Deploys a versioned release and updates the <code>latest</code> alias.</td>
+<td>Push to <code>main</code> (filtered paths)</td>
+<td>Deploys an <code>unreleased</code> version alias. If a per-module version tag points at the pushed commit, deploys a versioned release and updates the <code>latest</code> alias.</td>
 </tr>
 <tr>
 <td><code>workflow_dispatch</code></td>
-<td>Manual deployment with optional <code>ref</code> input.</td>
+<td>Manual deployment.</td>
 </tr>
 </tbody>
 </table>
@@ -5202,12 +5198,12 @@
 <li>Generate Dokka multi-module documentation.</li>
 <li>Set up <code>uv</code> and sync Python dependencies.</li>
 <li>Deploy with <code>mike</code>:</li>
-<li>Tagged release: <code>mike deploy &lt;version&gt; latest</code> + <code>mike set-default latest</code></li>
-<li><code>main</code> push: <code>mike deploy -t "Unreleased" unreleased</code></li>
+<li>Per-module version tag at HEAD: <code>mike deploy &lt;version&gt; latest</code> + <code>mike set-default latest</code></li>
+<li>No version tag: <code>mike deploy -t "Unreleased" unreleased</code></li>
 <li>Upload the <code>gh-pages</code> branch artifact and deploy to Pages.</li>
 </ol>
 <h3 id="releaseyml"><code>release.yml</code><a class="headerlink" href="#releaseyml" title="Permanent link">&para;</a></h3>
-<p>Performs a per-module release from a workflow dispatch or automatically on push to <code>main</code>.</p>
+<p>Performs a per-module release from a workflow dispatch or automatically on push to <code>main</code> (filtered to <code>modules/**</code>, build files, and release scripts).</p>
 <table>
 <thead>
 <tr>
@@ -5239,7 +5235,8 @@
 <li>Run <code>release.py release --yes --publish --bump '&lt;bump&gt;' [--modules '&lt;modules&gt;']</code> to detect changed modules, bump versions, update changelogs and deployment manifest, build, publish to Maven Central, create GitHub releases, and push tags.</li>
 <li>Push the release commit and tags.</li>
 </ol>
-<p>The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by <code>deploy-docs.yml</code>, which triggers on pushes to <code>main</code> and version tags.</p>
+<p>The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by <code>deploy-docs.yml</code>, which triggers on pushes to <code>main</code> (filtered paths) and detects per-module version tags by checking <code>git tag --points-at HEAD</code>.</p>
+<p>The release job is skipped when the head commit message starts with <code>chore: release</code> (release commits from the workflow itself) or contains <code>[skip release]</code> (manual opt-out for chore/fix commits that touch watched paths but don't warrant a release).</p>
 <p>Required repository secrets:</p>
 <table>
 <thead>
@@ -5278,7 +5275,7 @@
 <tbody>
 <tr>
 <td><code>ci.yml</code></td>
-<td><code>contents: write</code> (for artifact upload)</td>
+<td><code>contents: read</code> (default; artifact upload needs no extra permissions)</td>
 </tr>
 <tr>
 <td><code>deploy-docs.yml</code></td>

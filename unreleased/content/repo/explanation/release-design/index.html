@@ -5146,10 +5146,10 @@
 <p>The <code>release.yml</code> workflow performs every step in one run:</p>
 <ol>
 <li>Detect changed modules by comparing each module's files against its last tag.</li>
-<li>Bump version per module and update <code>modules/&lt;module&gt;/gradle.properties</code>, <code>modules/&lt;module&gt;/CHANGELOG.md</code>, and <code>deployments.json</code>.</li>
+<li>Bump version per module and update <code>modules/&lt;module&gt;/gradle.properties</code>, <code>modules/&lt;module&gt;/CHANGELOG.md</code>, <code>deployments.json</code>, and <code>pyproject.toml</code> (synced with <code>terracotta-core</code>).</li>
 <li>Verify the build with <code>./gradlew spotlessCheck build</code> (includes downstream dependents).</li>
 <li>Sign and publish artifacts to Maven Central per module.</li>
-<li>Create per-module GitHub releases with JAR assets.</li>
+<li>Create per-module GitHub releases with JAR assets (this implicitly pushes tags to the remote).</li>
 <li>Push the release commit and per-module version tags.</li>
 </ol>
 <p>If Maven Central publishing fails, <code>release.py</code> rolls back the local commit and tag so the repository is not left in a half-released state.</p>
