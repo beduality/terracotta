@@ -6,6 +6,32 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-22
 
+Fixed release workflow concurrency, rollback orphaned-tag bug, centralized artifact signing, and hardened CI/CD configuration across workflows.
+
+### Fixed
+
+- Added concurrency control to `release.yml` to prevent simultaneous release workflows from racing on git tags and Maven Central publishes.
+- Fixed rollback leaving orphaned remote tags when `gh release create` succeeds but the subsequent `git push` fails. The `github_released` action is now tracked and rollback deletes GitHub releases and implicitly-pushed remote tags.
+- Centralized GPG signing configuration in the root `build.gradle.kts` so all 5 publishable modules sign artifacts for Maven Central. Previously only `terracotta-gradle-plugin` had explicit signing.
+- Removed unnecessary `pages: write` and `id-token: write` permissions from `release.yml`.
+- Reduced `ci.yml` permissions from `contents: write` to `contents: read` (artifact upload needs no extra permissions).
+- Added `terracotta-provider-hangar` and `terracotta-state-filesystem` to CI artifact upload (were missing).
+- Upgraded `actions/checkout` and `actions/setup-java` from v4 to v5 in `ci.yml` to match other workflows.
+- Corrected `ci-cd.md` docs: `deploy-docs.yml` trigger description, `ci.yml` permissions, and `release.yml` trigger description now match actual workflow behavior.
+- Added `abort` to the CLI usage string in `release.py` (was missing from the help text).
+- Synced `pyproject.toml` version with `terracotta-core` releases via `update_pyproject_version` in `release.py`.
+- Changed `release.yml` trigger from `paths-ignore` to `paths` filter so it only runs when `modules/**`, build files, or release scripts change.
+- Added `deployments.json` to `deploy-docs.yml` path filter so docs deploy when the manifest changes without module changes.
+
+### Changed
+
+- Deduplicated signing configuration: removed the per-module `signing` block and `PublishToMavenRepository` workaround from `terracotta-gradle-plugin` in favor of the centralized root config.
+
+### Added
+
+- Added 4 regression tests for rollback `github_released` tracking in `test_release.py`.
+- Added 4 tests for `pyproject.toml` version syncing in `test_release.py`.
+
 Refactored the release process for per-module selective publishing. Cleaned up the deployment manifest and fixed historical changelog and deployment data issues. Hardened the rollback path so failed releases recover without leaving the repository in a half-released state.
 
 ### Added

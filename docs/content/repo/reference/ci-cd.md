@@ -20,9 +20,8 @@ Builds and deploys the documentation site to GitHub Pages.
 
 | Trigger | Behavior |
 |---|---|
-| Push to `main` | Deploys an `unreleased` version alias. |
-| Version tag `v*` | Deploys a versioned release and updates the `latest` alias. |
-| `workflow_dispatch` | Manual deployment with optional `ref` input. |
+| Push to `main` (filtered paths) | Deploys an `unreleased` version alias. If a per-module version tag points at the pushed commit, deploys a versioned release and updates the `latest` alias. |
+| `workflow_dispatch` | Manual deployment. |
 
 Steps:
 
@@ -32,13 +31,13 @@ Steps:
 4. Generate Dokka multi-module documentation.
 5. Set up `uv` and sync Python dependencies.
 6. Deploy with `mike`:
-   - Tagged release: `mike deploy <version> latest` + `mike set-default latest`
-   - `main` push: `mike deploy -t "Unreleased" unreleased`
+   - Per-module version tag at HEAD: `mike deploy <version> latest` + `mike set-default latest`
+   - No version tag: `mike deploy -t "Unreleased" unreleased`
 7. Upload the `gh-pages` branch artifact and deploy to Pages.
 
 ### `release.yml`
 
-Performs a per-module release from a workflow dispatch or automatically on push to `main`.
+Performs a per-module release from a workflow dispatch or automatically on push to `main` (filtered to `modules/**`, build files, and release scripts).
 
 | Input | Type | Default | Purpose |
 |---|---|---|---|
@@ -52,7 +51,7 @@ Steps:
 3. Run `release.py release --yes --publish --bump '<bump>' [--modules '<modules>']` to detect changed modules, bump versions, update changelogs and deployment manifest, build, publish to Maven Central, create GitHub releases, and push tags.
 4. Push the release commit and tags.
 
-The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by `deploy-docs.yml`, which triggers on pushes to `main` and version tags.
+The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by `deploy-docs.yml`, which triggers on pushes to `main` (filtered paths) and detects per-module version tags by checking `git tag --points-at HEAD`.
 
 Required repository secrets:
 
@@ -67,6 +66,6 @@ Required repository secrets:
 
 | Workflow | Required permissions |
 |---|---|
-| `ci.yml` | `contents: write` (for artifact upload) |
+| `ci.yml` | `contents: read` (default; artifact upload needs no extra permissions) |
 | `deploy-docs.yml` | `contents: write`, `pages: write`, `id-token: write` |
 | `release.yml` | `contents: write` |

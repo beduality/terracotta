@@ -35,6 +35,7 @@ app = App(
         "       release.py trigger [OPTIONS]\n"
         "       release.py extract-release-notes <module> <version> [OPTIONS]\n"
         "       release.py rollback <module> <version>\n"
+        "       release.py abort [RUN_ID]\n"
         "       release.py monitor [RUN_ID]"
     )
 )
@@ -116,6 +117,23 @@ def set_module_version(module: str, version: str):
     new_content = re.sub(
         r"^version\s*=\s*.*$",
         f"version = {version}",
+        content,
+        flags=re.MULTILINE,
+    )
+    path.write_text(new_content)
+    console.print(f"[green]✔[/green] Updated {path} to {version}")
+
+
+def update_pyproject_version(module_versions: dict[str, str]):
+    """Sync ``pyproject.toml`` version with ``terracotta-core`` releases."""
+    if "terracotta-core" not in module_versions:
+        return
+    version = module_versions["terracotta-core"]
+    path = Path("pyproject.toml")
+    content = path.read_text()
+    new_content = re.sub(
+        r'^version\s*=\s*".*?"',
+        f'version = "{version}"',
         content,
         flags=re.MULTILINE,
     )
@@ -776,6 +794,7 @@ def release(
         actions_taken.append("files_modified")
         for module, version in module_versions.items():
             set_module_version(module, version)
+        update_pyproject_version(module_versions)
         update_changelog(module_versions)
 
         # Only update docs plugin snippets when the Gradle plugin itself changes
@@ -808,13 +827,13 @@ def release(
                 MODULE_INFO[m]["path"] + "/CHANGELOG.md"
                 for m in module_versions
             ]
+            git_add_paths = ["deployments.json", *version_files, *changelog_files]
+            if "terracotta-core" in module_versions:
+                git_add_paths.append("pyproject.toml")
+            if "terracotta-gradle-plugin" in module_versions:
+                git_add_paths.extend(["docs/index.md", "docs/content"])
             run_command(
-                ["git", "add", "deployments.json", *version_files, *changelog_files]
-                + (
-                    ["docs/index.md", "docs/content"]
-                    if "terracotta-gradle-plugin" in module_versions
-                    else []
-                )
+                ["git", "add", *git_add_paths]
             )
             tags = ", ".join(
                 f"{MODULE_INFO[m]['tag_prefix']}{v}" for m, v in module_versions.items()
@@ -838,10 +857,13 @@ def release(
                 publish_module_to_central(module, version)
 
         # 7. Create GitHub Releases (requires tags from step 5)
+        #    ``gh release create`` implicitly pushes tags to the remote, so we
+        #    track this separately for rollback.
         if push:
             console.print("\n[bold]7. Creating GitHub Releases...[/bold]")
             for module, version in module_versions.items():
                 create_github_release(module, version)
+            actions_taken.append("github_released")
 
         # 8. Push commit and tags
         if push:
@@ -866,7 +888,16 @@ def _rollback_release(
 ):
     rollback_failed = False
 
-    if "pushed" in actions_taken:
+    if "github_released" in actions_taken:
+        for module, version in module_versions.items():
+            tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
+            try:
+                run_command(["gh", "release", "delete", tag, "--yes"])
+            except subprocess.CalledProcessError as e:
+                console.print(f"[red]Failed to delete GitHub release {tag}: {e}[/red]")
+                rollback_failed = True
+
+    if "pushed" in actions_taken or "github_released" in actions_taken:
         for module, version in module_versions.items():
             tag = f"{MODULE_INFO[module]['tag_prefix']}{version}"
             try:
@@ -897,6 +928,8 @@ def _rollback_release(
             for module in module_versions:
                 restore_paths.append(MODULE_INFO[module]["path"] + "/gradle.properties")
                 restore_paths.append(MODULE_INFO[module]["path"] + "/CHANGELOG.md")
+            if "terracotta-core" in module_versions:
+                restore_paths.append("pyproject.toml")
             if "terracotta-gradle-plugin" in module_versions:
                 restore_paths.extend(["docs/index.md", "docs/content"])
             run_command(["git", "restore", *restore_paths])

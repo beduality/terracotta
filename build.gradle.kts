@@ -1,4 +1,9 @@
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.api.tasks.testing.Test
+import org.gradle.plugins.signing.Sign
+import org.gradle.plugins.signing.SigningExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
 plugins {
@@ -47,6 +52,23 @@ subprojects {
         reports {
             xml.required.set(true)
             html.required.set(true)
+        }
+    }
+
+    plugins.withType<MavenPublishPlugin> {
+        apply(plugin = "signing")
+
+        configure<SigningExtension> {
+            val signingKey = System.getenv("SIGNING_KEY")
+            val signingPassword = System.getenv("SIGNING_PASSWORD")
+            if (!signingKey.isNullOrBlank()) {
+                useInMemoryPgpKeys(signingKey, signingPassword)
+                sign(the<PublishingExtension>().publications)
+            }
+        }
+
+        tasks.withType<PublishToMavenRepository>().configureEach {
+            dependsOn(tasks.withType<Sign>())
         }
     }
 }
