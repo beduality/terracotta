@@ -1036,6 +1036,7 @@ class TestRollbackGithubReleased(unittest.TestCase):
             )
 
 
+
 class TestTagFormatRegexSync(unittest.TestCase):
     """Verify that tags produced by release.py match the deploy-docs.yml regex.
 
