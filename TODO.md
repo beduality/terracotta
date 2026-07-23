@@ -2,6 +2,10 @@
 
 - Improve/check Docs in last changes, deployments and reconsider Docs Changelog in sidebar
 
+- Integrate `test_release_smoke.py` into the CI/CD release pipeline so it runs automatically after `release.yml` completes successfully, validating the release end-to-end instead of relying on a manual post-release step.
+
+- Add automated release notifications (e.g. Discord, Slack, or email) for both successful and failed releases, so release status is communicated proactively rather than requiring developers to monitor the GitHub Actions page.
+
 - Add support to load any Terracotta config value from file just using `<field>Path` convention, e.g. `descriptionPath`
 - Add [Hangar provider-specific link settings](./plans/2026-07-add-hangar-provider-link-settings-plan.md)
 
