@@ -29,3 +29,8 @@ Built the initial documentation site with MkDocs Material and deployed at `https
 - Changed Last Changes page: reordered deployment header (title, version badge, module icons, release tag, date), enabled multiple module badge filters simultaneously, and added support for versionless deployment entries (no version badge shown).
 - Updated changelog explanation, guidelines, how-to, and file structure docs to describe the three-tier changelog system (root, docs, per-module) and the repo-wide activity log format with dated sections.
 - Added `docs/CHANGELOG.md` to the docs nav and navigating-docs page.
+
+### Fixed
+
+- Fixed mobile responsiveness of the Last Changes page: deployment headers stack vertically on narrow screens, module tags scroll horizontally instead of wrapping excessively, and the advanced filters modal adapts padding and width for small viewports.
+- Added tablet (30rem–48rem) and laptop (≥48rem) responsive breakpoints to the Last Changes page for improved readability across screen sizes, including constrained content widths and scaled modal sizing.
