@@ -53,6 +53,8 @@ Steps:
 
 The release script handles version extraction, changelog promotion, GitHub release creation, and JAR asset uploads internally. Docs are deployed separately by `deploy-docs.yml`, which triggers on pushes to `main` (filtered paths) and detects per-module version tags by checking `git tag --points-at HEAD`.
 
+The release job is skipped when the head commit message starts with `chore: release` (release commits from the workflow itself) or contains `[skip release]` (manual opt-out for chore/fix commits that touch watched paths but don't warrant a release).
+
 Required repository secrets:
 
 | Secret | Purpose |

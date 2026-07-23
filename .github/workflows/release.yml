@@ -33,7 +33,7 @@ concurrency:
 
 jobs:
   release:
-    if: "github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore: release')"
+    if: "github.event_name == 'workflow_dispatch' || (!startsWith(github.event.head_commit.message, 'chore: release') && !contains(github.event.head_commit.message, '[skip release]'))"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -73,8 +73,8 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ARGS="--yes --publish --bump \"$BUMP\""
+          ARGS="--yes --publish --bump $BUMP"
           if [ -n "$MODULES" ]; then
-            ARGS="$ARGS --modules \"$MODULES\""
+            ARGS="$ARGS --modules $MODULES"
           fi
           uv run scripts/release.py release $ARGS

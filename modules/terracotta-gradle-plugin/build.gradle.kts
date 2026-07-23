@@ -15,15 +15,6 @@ fun terracottaCoreDep(): Any {
     }
 }
 
-fun terracottaCoreDep(): Any {
-    val releaseVersion = project.findProperty("terracottaCoreReleaseVersion")?.toString()
-    return if (!releaseVersion.isNullOrBlank()) {
-        "io.github.beduality:terracotta-core:$releaseVersion"
-    } else {
-        project(":terracotta-core")
-    }
-}
-
 dependencies {
     implementation(terracottaCoreDep())
     implementation(libs.kotlin.stdlib)
