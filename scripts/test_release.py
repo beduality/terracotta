@@ -653,6 +653,7 @@ class TestReleaseDryRun(unittest.TestCase):
              patch("scripts.release.update_deployment_manifest"), \
              patch("scripts.release.update_changelog"), \
              patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_pyproject_version"), \
              patch("scripts.release.current_branch", return_value="main"):
             release.release(
                 bump="minor", modules="terracotta-core",
@@ -673,6 +674,7 @@ class TestReleaseDryRun(unittest.TestCase):
         self._setup_all_modules({"terracotta-core": "0.8.0"})
         with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
              patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_pyproject_version"), \
              patch("scripts.release.update_changelog"), \
              patch("scripts.release.update_deployment_manifest"), \
              patch("scripts.release.build_modules", side_effect=subprocess.CalledProcessError(1, [])), \
@@ -708,6 +710,7 @@ class TestReleaseDryRun(unittest.TestCase):
 
         with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
              patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_pyproject_version"), \
              patch("scripts.release.update_changelog"), \
              patch("scripts.release.update_deployment_manifest"), \
              patch("scripts.release.build_modules"), \
@@ -835,6 +838,61 @@ class TestAbortCommand(unittest.TestCase):
         self.assertEqual(ctx.exception.code, 0)
 
 
+class TestPyprojectVersionSync(unittest.TestCase):
+    """Tests that pyproject.toml version is synced with terracotta-core releases."""
+
+    @patch("scripts.release.console")
+    def test_pyproject_updated_when_core_released(self, _mock_console):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.chdir(tmp)
+            (Path("pyproject.toml")).write_text(
+                '[project]\nname = "terracotta"\nversion = "0.8.0"\n'
+            )
+            release.update_pyproject_version({"terracotta-core": "0.9.0"})
+            content = Path("pyproject.toml").read_text()
+            self.assertIn('version = "0.9.0"', content)
+
+    @patch("scripts.release.console")
+    def test_pyproject_not_updated_when_core_not_released(self, _mock_console):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.chdir(tmp)
+            original = '[project]\nname = "terracotta"\nversion = "0.8.0"\n'
+            Path("pyproject.toml").write_text(original)
+            release.update_pyproject_version({"terracotta-provider-modrinth": "0.8.1"})
+            self.assertEqual(Path("pyproject.toml").read_text(), original)
+
+    @patch("scripts.release.console")
+    def test_rollback_restores_pyproject_when_core_released(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken=["files_modified"],
+                branch="main",
+            )
+            restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
+            self.assertTrue(len(restore_call) > 0)
+            paths = restore_call[0].args[0][2:]
+            self.assertIn("pyproject.toml", paths)
+
+    @patch("scripts.release.console")
+    def test_rollback_no_pyproject_when_core_not_released(self, _mock_console):
+        module_versions = {"terracotta-provider-modrinth": "0.8.1"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken=["files_modified"],
+                branch="main",
+            )
+            restore_call = [c for c in mock_run.call_args_list if c.args[0][0] == "git" and c.args[0][1] == "restore"]
+            self.assertTrue(len(restore_call) > 0)
+            paths = restore_call[0].args[0][2:]
+            self.assertNotIn("pyproject.toml", paths)
+
+    def tearDown(self):
+        os.chdir(Path(__file__).resolve().parent.parent)
+
+
 class TestRollbackDocsRestore(unittest.TestCase):
     """Tests that rollback only restores docs paths when gradle-plugin was released."""
 
@@ -868,6 +926,115 @@ class TestRollbackDocsRestore(unittest.TestCase):
             self.assertNotIn("docs/index.md", paths)
             self.assertNotIn("docs/content", paths)
             self.assertIn("deployments.json", paths)
+
+
+class TestRollbackGithubReleased(unittest.TestCase):
+    """Tests for rollback when GitHub releases are created but push fails.
+
+    ``gh release create`` implicitly pushes tags to the remote. If step 7
+    (GitHub release creation) succeeds but step 8 (explicit ``git push``) fails,
+    rollback must still delete the remote tags and GitHub releases.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        os.chdir(self._tmp.name)
+
+    def tearDown(self):
+        os.chdir(Path(__file__).resolve().parent.parent)
+        self._tmp.cleanup()
+
+    @patch("scripts.release.console")
+    def test_rollback_deletes_github_releases(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken=["files_modified", "committed", "tagged", "github_released"],
+                branch="main",
+            )
+            delete_release_calls = [
+                c for c in mock_run.call_args_list
+                if c.args[0] and c.args[0][0] == "gh" and len(c.args[0]) > 1 and c.args[0][1] == "release"
+            ]
+            self.assertTrue(len(delete_release_calls) > 0)
+            self.assertEqual(delete_release_calls[0].args[0][:4], ["gh", "release", "delete", "terracotta-core-v0.9.0"])
+
+    @patch("scripts.release.console")
+    def test_rollback_deletes_remote_tags_when_github_released_not_pushed(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken=["files_modified", "committed", "tagged", "github_released"],
+                branch="main",
+            )
+            push_delete_calls = [
+                c for c in mock_run.call_args_list
+                if c.args[0] and c.args[0][0] == "git" and len(c.args[0]) > 1 and c.args[0][1] == "push"
+            ]
+            self.assertTrue(len(push_delete_calls) > 0)
+            self.assertIn("--delete", push_delete_calls[0].args[0])
+            self.assertIn("terracotta-core-v0.9.0", push_delete_calls[0].args[0])
+
+    @patch("scripts.release.console")
+    def test_rollback_no_remote_tag_delete_when_neither_pushed_nor_github_released(self, _mock_console):
+        module_versions = {"terracotta-core": "0.9.0"}
+        with patch("scripts.release.run_command") as mock_run:
+            release._rollback_release(
+                module_versions=module_versions,
+                actions_taken=["files_modified", "committed", "tagged"],
+                branch="main",
+            )
+            push_delete_calls = [
+                c for c in mock_run.call_args_list
+                if c.args[0] and c.args[0][0] == "git" and len(c.args[0]) > 1 and c.args[0][1] == "push"
+            ]
+            self.assertEqual(len(push_delete_calls), 0)
+
+    @patch("scripts.release.console")
+    def test_github_released_in_actions_when_push_fails(self, _mock_console):
+        """actions_taken must include 'github_released' after step 7 so rollback
+        can clean up GitHub releases and implicitly-pushed remote tags.
+        """
+        self._setup_all_modules({"terracotta-core": "0.8.0"})
+
+        def fake_run_command(cmd, env=None, check=True):
+            if cmd and cmd[0] == "git" and len(cmd) > 1 and cmd[1] == "push":
+                raise subprocess.CalledProcessError(1, cmd)
+
+        with patch("scripts.release.get_module_last_tag", return_value="terracotta-core-v0.8.0"), \
+             patch("scripts.release.set_module_version"), \
+             patch("scripts.release.update_pyproject_version"), \
+             patch("scripts.release.update_changelog"), \
+             patch("scripts.release.update_deployment_manifest"), \
+             patch("scripts.release.build_modules"), \
+             patch("scripts.release.build_javadoc_jars"), \
+             patch("scripts.release.validate_javadoc_jars"), \
+             patch("scripts.release.publish_module_to_central"), \
+             patch("scripts.release.create_github_release"), \
+             patch("scripts.release.current_branch", return_value="main"), \
+             patch("scripts.release.run_command", side_effect=fake_run_command), \
+             patch("scripts.release._rollback_release") as mock_rollback:
+            with self.assertRaises(SystemExit):
+                release.release(
+                    bump="minor", modules="terracotta-core",
+                    dry_run=False, publish=True, push=True, yes=True,
+                )
+            mock_rollback.assert_called_once()
+            actions = mock_rollback.call_args.args[1]
+            self.assertIn("github_released", actions)
+            self.assertNotIn("pushed", actions)
+
+    def _setup_all_modules(self, versions):
+        for module, version in versions.items():
+            module_dir = Path("modules") / module
+            module_dir.mkdir(parents=True, exist_ok=True)
+            (module_dir / "gradle.properties").write_text(f"version = {version}\n")
+            (module_dir / "CHANGELOG.md").write_text(
+                f"# Changelog — {module}\n\n## [Unreleased]\n\nSome changes.\n\n- Entry\n\n"
+            )
+
 
 
 class TestTagFormatRegexSync(unittest.TestCase):

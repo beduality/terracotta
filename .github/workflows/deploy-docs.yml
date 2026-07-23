@@ -6,6 +6,7 @@ on:
     paths:
       - docs/**
       - modules/**
+      - deployments.json
       - build.gradle.kts
       - gradle/libs.versions.toml
       - mkdocs.yml

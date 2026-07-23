@@ -11,10 +11,10 @@ Releasing from a local machine is error-prone. A maintainer might use the wrong 
 The `release.yml` workflow performs every step in one run:
 
 1. Detect changed modules by comparing each module's files against its last tag.
-2. Bump version per module and update `modules/<module>/gradle.properties`, `modules/<module>/CHANGELOG.md`, and `deployments.json`.
+2. Bump version per module and update `modules/<module>/gradle.properties`, `modules/<module>/CHANGELOG.md`, `deployments.json`, and `pyproject.toml` (synced with `terracotta-core`).
 3. Verify the build with `./gradlew spotlessCheck build` (includes downstream dependents).
 4. Sign and publish artifacts to Maven Central per module.
-5. Create per-module GitHub releases with JAR assets.
+5. Create per-module GitHub releases with JAR assets (this implicitly pushes tags to the remote).
 6. Push the release commit and per-module version tags.
 
 If Maven Central publishing fails, `release.py` rolls back the local commit and tag so the repository is not left in a half-released state.

@@ -6,7 +6,7 @@ Repo-wide activity log. Module-specific changes live in
 
 ## 2026-07-22
 
-Refactored the release process for per-module selective publishing. Cleaned up the deployment manifest and fixed historical changelog and deployment data issues. Hardened the rollback path so failed releases recover without leaving the repository in a half-released state.
+Refactored the release process for per-module selective publishing with independent versioning. Hardened the release workflow with concurrency control, rollback orphaned-tag fixes, and centralized artifact signing. Cleaned up the deployment manifest and fixed historical changelog and deployment data issues.
 
 ### Added
 
@@ -17,6 +17,11 @@ Refactored the release process for per-module selective publishing. Cleaned up t
 - Added support for versionless deployment entries (e.g. infrastructure applies, documentation site deploys) in `deployments.json`.
 - Added multiple module badge filter selection on the Last Changes page.
 - Added `merge` to the commit conventions types table.
+- Added concurrency control to `release.yml` to prevent simultaneous release workflows from racing on git tags and Maven Central publishes.
+- Added `abort` to the CLI usage string in `release.py` (was missing from the help text).
+- Added `deployments.json` to `deploy-docs.yml` path filter so docs deploy when the manifest changes without module changes.
+- Added 4 regression tests for rollback `github_released` tracking in `test_release.py`.
+- Added 4 tests for `pyproject.toml` version syncing in `test_release.py`.
 
 ### Changed
 
@@ -24,9 +29,19 @@ Refactored the release process for per-module selective publishing. Cleaned up t
 - Changed version bumps from a prerelease to produce a stable version instead of a prerelease increment (e.g. `0.8.0-beta.1` + patch → `0.8.1`).
 - Refined `deployments.json` manifest: removed pseudo-modules (`docs`, `repo`, `release-pipeline`), added `github` module to historical entries, added 2 versionless pre-0.1.0 Pulumi deployments, and added 2 docs site deployment entries.
 - Reordered Last Changes page header: title, version badge, module icons, release tag, date.
+- Deduplicated signing configuration: removed the per-module `signing` block and `PublishToMavenRepository` workaround from `terracotta-gradle-plugin` in favor of the centralized root config.
 
 ### Fixed
 
+- Fixed rollback leaving orphaned remote tags when `gh release create` succeeds but the subsequent `git push` fails. The `github_released` action is now tracked and rollback deletes GitHub releases and implicitly-pushed remote tags.
+- Centralized GPG signing configuration in the root `build.gradle.kts` so all 5 publishable modules sign artifacts for Maven Central. Previously only `terracotta-gradle-plugin` had explicit signing.
+- Removed unnecessary `pages: write` and `id-token: write` permissions from `release.yml`.
+- Reduced `ci.yml` permissions from `contents: write` to `contents: read` (artifact upload needs no extra permissions).
+- Added `terracotta-provider-hangar` and `terracotta-state-filesystem` to CI artifact upload (were missing).
+- Upgraded `actions/checkout` and `actions/setup-java` from v4 to v5 in `ci.yml` to match other workflows.
+- Corrected `ci-cd.md` docs: `deploy-docs.yml` trigger description, `ci.yml` permissions, and `release.yml` trigger description now match actual workflow behavior.
+- Synced `pyproject.toml` version with `terracotta-core` releases via `update_pyproject_version` in `release.py`.
+- Changed `release.yml` trigger from `paths-ignore` to `paths` filter so it only runs when `modules/**`, build files, or release scripts change.
 - Corrected historical changelog entries across Modrinth 0.7.0, Hangar 0.5.0 and 0.7.0, and early core, gradle-plugin, and modrinth releases to fix inaccurate descriptions and verb tense.
 - Backfilled missing release summaries for all pre-0.6.0 entries across core, gradle-plugin, hangar, and modrinth changelogs.
 - Corrected `deployments.json` data: `0.4.1` missing `core` module, `0.4.0` title and summary referencing project icons (introduced in 0.5.0), sort order for versionless entries, and exact GitHub release `publishedAt` timestamps replacing rounded midnight values.

@@ -9,7 +9,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
@@ -45,5 +45,7 @@ jobs:
             modules/terracotta-core/build/libs/*.jar
             modules/terracotta-gradle-plugin/build/libs/*.jar
             modules/terracotta-provider-modrinth/build/libs/*.jar
+            modules/terracotta-provider-hangar/build/libs/*.jar
+            modules/terracotta-state-filesystem/build/libs/*.jar
           if-no-files-found: error
           retention-days: 30

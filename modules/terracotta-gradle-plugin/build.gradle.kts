@@ -4,7 +4,15 @@ plugins {
     alias(libs.plugins.central.portal.publisher)
     `java-gradle-plugin`
     `maven-publish`
-    signing
+}
+
+fun terracottaCoreDep(): Any {
+    val releaseVersion = project.findProperty("terracottaCoreReleaseVersion")?.toString()
+    return if (!releaseVersion.isNullOrBlank()) {
+        "io.github.beduality:terracotta-core:$releaseVersion"
+    } else {
+        project(":terracotta-core")
+    }
 }
 
 fun terracottaCoreDep(): Any {
@@ -85,23 +93,6 @@ publishing {
             }
         }
     }
-}
-
-// Sign all publications (including the gradle plugin marker)
-signing {
-    val signingKey = System.getenv("SIGNING_KEY")
-    val signingPassword = System.getenv("SIGNING_PASSWORD")
-    if (!signingKey.isNullOrBlank()) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications)
-    }
-}
-
-// Workaround for Gradle signing/publishing implicit-dependency issue:
-// ensure publish tasks run after the matching signature tasks so .asc files exist.
-// https://github.com/gradle/gradle/issues/26091
-tasks.withType<PublishToMavenRepository>().configureEach {
-    dependsOn(tasks.withType<Sign>())
 }
 
 centralPublisher {
