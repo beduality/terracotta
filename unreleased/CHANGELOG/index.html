@@ -514,28 +514,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -5069,28 +5047,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -5123,7 +5079,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    3 min read
+    1 min read
   </p>
 
 <h1 id="docs-changelog">Docs Changelog<a class="headerlink" href="#docs-changelog" title="Permanent link">&para;</a></h1>
@@ -5134,33 +5090,11 @@ Promoted manually per major version, matching the mike versioning scheme.</p>
 <p>Built the initial documentation site with MkDocs Material and deployed at <code>https://beduality.github.io/terracotta/</code>, with versioned docs via mike.</p>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Added documentation site built with MkDocs Material, with Diátaxis-structured content, estimated reading times on every page, a homepage with feature cards and a plan/apply flowchart, a "Navigating the Docs" guide, and a "Last Changes" page driven by a structured deployment manifest.<ul>
-<li>Added pre-build hooks for copying generated Dokka API docs and the root <code>LICENSE</code> into the docs tree.</li>
-<li>Added <code>@see</code> links and member-level KDoc on all public APIs across <code>terracotta-core</code>, <code>terracotta-gradle-plugin</code>, <code>terracotta-provider-modrinth</code>, and <code>terracotta-provider-hangar</code>, pointing to the GitHub Pages docs.</li>
-</ul>
-</li>
-<li>Added Getting Started tutorial for publishing a first release to Modrinth with the Gradle plugin, plus a License page.</li>
-<li>Added integration guides for wiring Terracotta into real projects: a Modrinth publishing tutorial, how-to guides for adding Modrinth and Hangar to the Gradle plugin, a troubleshooting guide, provider configuration reference, and integration design explanation.</li>
-<li>Added per-module documentation with Diátaxis sections (tutorials, how-to guides, reference, explanation) for each component:<ul>
-<li>Added Core module docs: tutorials (installation, custom loaders, custom metadata detectors, custom providers), how-to guides (loading config, resolving metadata, computing diffs, adding loaders and conventions, normalizing game versions), reference pages (models, loaders, operations, config schema, metadata resolution, conventions, version conventions, provider interfaces, Dokka API docs), and explanation pages (architecture, provider logic, metadata resolution, diff engine, state management, loader hierarchy, conventions).</li>
-<li>Added Gradle Plugin module docs: installation and Getting Started tutorials, Kotlin DSL configuration guide, tasks reference, Dokka API docs, and explanation pages (architecture, DSL design, task lifecycle).</li>
-<li>Added State Filesystem module docs: README, filesystem backend configuration guide, state filesystem reference, Dokka API docs, and design explanation covering why YAML and file-backed persistence are the defaults.</li>
-<li>Added Modrinth Provider module docs: Using Modrinth tutorial, Dokka API docs, and explanation pages (architecture, version mapping).</li>
-<li>Added Hangar Provider module docs: Using Hangar tutorial, Dokka API docs, and explanation pages (architecture, loader mapping).</li>
-<li>Added Repo contributor documentation covering building, testing, contributing, releasing, smoke testing, changelog writing, code style, commit conventions, CI/CD, branch strategy, file structure, tech stack, and project management.</li>
-</ul>
-</li>
-</ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Changed Last Changes page: reordered deployment header (title, version badge, module icons, release tag, date), enabled multiple module badge filters simultaneously, and added support for versionless deployment entries (no version badge shown).</li>
-<li>Updated changelog explanation, guidelines, how-to, and file structure docs to describe the three-tier changelog system (root, docs, per-module) and the repo-wide activity log format with dated sections.</li>
-<li>Added <code>docs/CHANGELOG.md</code> to the docs nav and navigating-docs page.</li>
-</ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Fixed mobile responsiveness of the Last Changes page: deployment headers stack vertically on narrow screens, module tags scroll horizontally instead of wrapping excessively, and the advanced filters modal adapts padding and width for small viewports.</li>
-<li>Added tablet (30rem–48rem) and laptop (≥48rem) responsive breakpoints to the Last Changes page for improved readability across screen sizes, including constrained content widths and scaled modal sizing.</li>
+<li>Added documentation site built with MkDocs Material, with Diátaxis-structured content, estimated reading times on every page, a homepage with feature cards and a plan/apply flowchart, and versioned docs via mike.</li>
+<li>Added Quick Start section: introduction, Getting Started tutorial, Navigating the Docs guide, Last Changes page (deployment manifest-driven, with module badge filters, versionless entry support, and responsive layout for mobile/tablet/laptop), docs changelog, and License page.</li>
+<li>Added Integration section: Modrinth publishing tutorial, how-to guides for adding Modrinth and Hangar to the Gradle plugin, troubleshooting, provider configuration reference, and integration design explanation.</li>
+<li>Added Modules section with Diátaxis-structured docs (tutorials, how-to guides, reference, explanation) for Core, Gradle Plugin, State Filesystem, Modrinth Provider, and Hangar Provider, plus Dokka API docs for each.</li>
+<li>Added Repo contributor documentation: building, testing, contributing, releasing, smoke testing, changelog writing (three-tier system and activity log format), code style, commit conventions, CI/CD, branch strategy, file structure, and tech stack.</li>
 </ul>
 
 
