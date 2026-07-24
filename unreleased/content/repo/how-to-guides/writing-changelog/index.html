@@ -5243,7 +5243,7 @@
 <h2 id="where-to-add-an-entry">Where to add an entry<a class="headerlink" href="#where-to-add-an-entry" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Module changes</strong> (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under <code>## [Unreleased]</code> in the corresponding <code>modules/&lt;module&gt;/CHANGELOG.md</code>.</li>
-<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>.</li>
+<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>. Unlike module changelogs, <code>docs/CHANGELOG.md</code> is a living changelog for the entire mike major — <code>[Unreleased]</code> is only promoted when the major is bumped. When a meaningful docs deploy ships, also add a manual versionless entry to <code>deployments.json</code> with <code>"modules": ["docs"]</code> so it appears on the Last Changes page.</li>
 <li><strong>Repo-wide changes</strong> (CI/CD, tooling, conventions): Add entries under the current date heading in the root <code>CHANGELOG.md</code>.</li>
 </ul>
 <h2 id="release-summary">Release summary<a class="headerlink" href="#release-summary" title="Permanent link">&para;</a></h2>

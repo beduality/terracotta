@@ -5235,7 +5235,7 @@
 
 
   <p class="md-content__reading-time" style="margin-top: -0.5rem; color: var(--md-default-fg-color--light); font-size: 0.75rem;">
-    4 min read
+    5 min read
   </p>
 
 <h1 id="changelog-guidelines">Changelog Guidelines<a class="headerlink" href="#changelog-guidelines" title="Permanent link">&para;</a></h1>
@@ -5295,7 +5295,7 @@
 <h3 id="where-to-add-entries">Where to add entries<a class="headerlink" href="#where-to-add-entries" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Module changes</strong> (Core, Gradle Plugin, Modrinth, Hangar, State Filesystem): Add entries under <code>## [Unreleased]</code> in the corresponding <code>modules/&lt;module&gt;/CHANGELOG.md</code>.</li>
-<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>.</li>
+<li><strong>Documentation changes</strong> (page additions, reorganizations, style, navigation): Add entries under <code>## [Unreleased]</code> in <code>docs/CHANGELOG.md</code>. Unlike module changelogs, <code>docs/CHANGELOG.md</code> is a living changelog for the entire mike major version — <code>[Unreleased]</code> is only promoted to a versioned section when the major is bumped. When a meaningful docs deploy ships, also add a manual versionless entry to <code>deployments.json</code> with <code>"modules": ["docs"]</code> so it appears on the Last Changes page.</li>
 <li><strong>Repo-wide changes</strong> (CI/CD, tooling, conventions): Add entries under the current date heading in the root <code>CHANGELOG.md</code>, using <code>### Category</code> headings with plain bullet lists.</li>
 </ul>
 <h2 id="style-principles">Style principles<a class="headerlink" href="#style-principles" title="Permanent link">&para;</a></h2>
