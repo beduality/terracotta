@@ -4,6 +4,15 @@ Repo-wide activity log. Module-specific changes live in
 `modules/<module>/CHANGELOG.md`; documentation changes in
 `docs/CHANGELOG.md`.
 
+## 2026-07-23
+
+Clarified `docs/CHANGELOG.md` lifecycle and manual deployment entry process.
+
+### Added
+
+- Explained that `docs/CHANGELOG.md` is a living changelog per mike major version, not promote-on-release like module changelogs.
+- Added guidance to log meaningful docs deploys as versionless entries in `deployments.json` with `"modules": ["docs"]`.
+
 ## 2026-07-22
 
 Refactored the release process for per-module selective publishing with independent versioning. Hardened the release workflow with concurrency control, rollback orphaned-tag fixes, and centralized artifact signing. Cleaned up the deployment manifest and fixed historical changelog and deployment data issues.
