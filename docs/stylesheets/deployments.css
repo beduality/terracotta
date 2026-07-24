@@ -109,9 +109,16 @@
   padding: .8rem 1.2rem; border-top: 1px solid var(--md-default-fg-color--lightest);
 }
 .mdx-deployment {
+  position: relative;
   padding: .4rem 0;
   margin-bottom: .5rem;
 }
+.mdx-deployment:has(.mdx-card-link) { cursor: pointer; }
+.mdx-card-link {
+  position: absolute; inset: 0; z-index: 0;
+  text-decoration: none;
+}
+.mdx-link-above { position: relative; z-index: 1; }
 .mdx-deployment-header {
   display: flex; align-items: center; gap: .4rem; flex-wrap: wrap;
 }
@@ -140,10 +147,9 @@
 .mdx-date-icon { fill: currentColor; }
 .mdx-version {
   font-weight: 600; font-family: var(--md-code-font-family); font-size: .65rem;
-  text-decoration: none; padding: .1rem .3rem; border-radius: .15rem;
+  padding: .1rem .3rem; border-radius: .15rem;
   background: var(--md-default-fg-color--lightest); color: var(--md-default-fg-color--light);
 }
-.mdx-version:hover { text-decoration: none; background: var(--md-default-fg-color--lighter); color: var(--md-default-fg-color); }
 .mdx-release { text-transform: uppercase; font-size: .6rem; color: var(--md-accent-fg-color); font-weight: 600; }
 .mdx-title { font-weight: 600; font-size: .85rem; }
 .mdx-summary { color: var(--md-default-fg-color--light); font-size: .8rem; line-height: 1.4; margin: .1rem 0 .2rem; }
