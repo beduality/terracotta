@@ -5095,12 +5095,14 @@
 
   <template x-for="d in displayed" :key="d.version || d.createdAt">
     <div class="mdx-deployment">
+      <a x-show="d.version" class="mdx-card-link"
+         :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
+         :aria-label="'View changes for v'+d.version"
+         target="_blank" rel="noopener"></a>
       <div class="mdx-deployment-header">
         <span class="mdx-title" x-text="d.title"></span>
-        <a x-show="d.version" class="mdx-version"
-           :href="'https://github.com/beduality/terracotta/releases/tag/v'+d.version"
-           x-text="'v'+d.version"></a>
-        <div class="mdx-links" x-show="d.modules && d.modules.length > 0">
+        <span x-show="d.version" class="mdx-version" x-text="'v'+d.version"></span>
+        <div class="mdx-links mdx-link-above" x-show="d.modules && d.modules.length > 0">
           <a x-show="d.modules && d.modules.includes('modrinth')"
              class="mdx-link" :title="moduleLabel('modrinth')"
              :href="'https://modrinth.com/plugin/terracotta/version/'+d.version"><span class="mdx-tag-icon twemoji" x-html="moduleIcon('modrinth')"></span></a>
