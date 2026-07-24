@@ -12,6 +12,11 @@ Clarified `docs/CHANGELOG.md` lifecycle and manual deployment entry process.
 
 - Explained that `docs/CHANGELOG.md` is a living changelog per mike major version, not promote-on-release like module changelogs.
 - Added guidance to log meaningful docs deploys as versionless entries in `deployments.json` with `"modules": ["docs"]`.
+- Added 6 template tests for the Last Changes card link structure.
+
+### Changed
+
+- Made the entire Last Changes card clickable (stretched-link overlay); module icon links remain separate.
 
 ## 2026-07-22
 
