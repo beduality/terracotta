@@ -128,9 +128,10 @@
 }
 @media (max-width: 30rem) {
   .mdx-deployment-header {
-    flex-direction: column; align-items: flex-start; gap: .25rem;
+    align-items: flex-start; gap: .25rem;
   }
-  .mdx-date { margin-left: 0; }
+  .mdx-title { width: 100%; }
+  .mdx-date { margin-left: auto; }
   .mdx-links { gap: .3rem; }
 }
 @media (min-width: 30rem) and (max-width: 48rem) {

@@ -9,10 +9,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 Built the initial documentation site with MkDocs Material and deployed at `https://beduality.github.io/terracotta/`, with versioned docs via mike.
 
-### Changed
-
-- Made the entire Last Changes card clickable (stretched-link overlay); module icon links remain separate.
-
 ### Added
 
 - Added documentation site built with MkDocs Material, with Diátaxis-structured content, estimated reading times on every page, a homepage with feature cards and a plan/apply flowchart, and versioned docs via mike.

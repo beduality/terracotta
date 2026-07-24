@@ -4,6 +4,12 @@ Repo-wide activity log. Module-specific changes live in
 `modules/<module>/CHANGELOG.md`; documentation changes in
 `docs/CHANGELOG.md`.
 
+## 2026-07-24
+
+### Changed
+
+- Last Changes mobile layout: module icons now share the same row as the version badge.
+
 ## 2026-07-23
 
 Clarified `docs/CHANGELOG.md` lifecycle and manual deployment entry process.
